@@ -1,6 +1,6 @@
 # Welcome to Homelab
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Create a Homelab from Scratch using latest best practices, patterns and tools.
 
 ## Commands
 
