@@ -71,6 +71,12 @@ Serve the website content on a local server
 mkdocs serve
 ```
 
+### Renovate
+
+Go to [Renovate](https://github.com/apps/renovate) install the app into the account.
+
+
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=jsa4000/homelab-ops&type=Date)](https://star-history.com/#jsa4000/homelab-ops&Date)
