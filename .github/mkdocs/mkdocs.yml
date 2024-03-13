@@ -5,6 +5,8 @@ site_description: >-
 site_author: Javier Santos
 repo_name: jsa4000/homelab-ops
 site_url: https://jsa4000.github.io/homelab-ops/
+edit_uri: "edit/main/docs/"
+docs_dir: ../../docs/
 theme:
   name: material
   features:
