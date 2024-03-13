@@ -12,9 +12,9 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: .github/mkdocs
+    #defaults:
+    #  run:
+    #    working-directory: .github/mkdocs
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
