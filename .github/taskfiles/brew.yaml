@@ -1,0 +1,32 @@
+---
+version: "3"
+
+tasks:
+  init:
+    desc: Initialize Homebrew dependencies.
+    cmds:
+      - brew install {{.PACKAGES}} {{.CLI_ARGS}}
+    preconditions:
+      - sh: command -v brew
+        msg: |
+          Homebrew has not been installed on the device.
+    vars:
+      PACKAGES: >-
+        ansible
+        direnv
+        gitleaks
+        helm
+        ipcalc
+        kubernetes-cli
+        markdownlint-cli
+        kustomize
+        pre-commit
+        prettier
+        opentofu
+        yamllint
+        gettext
+        mkdocs
+        go-task
+        age
+        jq
+        yq

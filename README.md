@@ -1,4 +1,4 @@
-<div align="center">
+<h1 align="center">
 
 # Homelab
 
@@ -11,7 +11,8 @@
 [![Release](https://img.shields.io/github/v/release/jsa4000/homelab-ops&logo=semanticrelease)](https://github.com/jsa4000/homelab-ops/releases "Repo releases")
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&logo-pre-commit)](https://github.com/pre-commit/pre-commit "Precommit status")
 [![Schedule - Renovate](https://img.shields.io/github/actions/workflow/status/jsa4000/homelab-ops/schedule-renovate.yaml?label=Renovate&logo=renovatebot&branch=main)](https://github.com/Truxnell/home-cluster/actions/workflows/schedule-renovate.yaml)
-</div>
+
+</h1>
 
 ---
 
@@ -21,15 +22,20 @@ A repository to create a cluster to be used as homelab.
 
 ## :wrench:&nbsp; Tools
 
-_Below are some of the tools I find useful_
+Below are some of the tools I find useful.
 
 | Tool                                                            | Purpose                                                                              |
-|-----------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [ansible](https://github.com/ansible/ansible)                   | Configuration management tool and simple IT automation system                        |
-| [pre-commit](https://github.com/pre-commit/pre-commit)          | Ensure the YAML and shell script in my repo are consistent                           |
+| [Renovate](https://github.com/renovatebot/renovate)             | Automatically finds new releases for the applications and issues corresponding PR's  |
+| [TaskFile](https://github.com/go-task/task)                     | Task runner/build tool that aims to be simpler and easier to use than GNU Make.      |
+| [pre-commit](https://github.com/pre-commit/pre-commit)          | A framework for managing and maintaining multi-language pre-commit hooks.            |
 | [kubesearch](https://kubesearch.dev/)                           | Look for how other people manage their Self-hosted software on k8s-at-home community |
 | [mkdocs material](https://squidfunk.github.io/mkdocs-material/) | Static website generator for all my docs in this repo                                |
-| [Renovate](https://docs.renovatebot.com/)                       | Automatically finds new releases for the applications and issues corresponding PR's  |
+| [Age](https://github.com/FiloSottile/age)                       | Simple, modern and secure file encryption tool, format, and Go library.              |
+| [yamlfmt](https://github.com/google/yamlfmt)                    | Extensible command line tool or library to format yaml files.                        |
+| [prettier](https://github.com/prettier/prettier)                | Opinionated code formatter, that enforces a consistent style                         |
+| [markdownlint](https://github.com/DavidAnson/markdownlint)      | Static analysis tool to enforce standards and consistency for Markdown files.        |
 
 ### Pre-Commit
 
@@ -75,7 +81,31 @@ mkdocs serve
 
 Go to [Renovate](https://github.com/apps/renovate) install the app into the account.
 
+### TaskFile
 
+Task offers many installation methods, so package manager such as `homebrew` can be used.
+
+```bash
+# Install via homebrew
+brew install go-task
+```
+
+Get all current tasks
+
+```bash
+# List all available task to run
+task -l
+
+# 'task -l' can be set as default task tu run
+task
+```
+
+Run following task to install dependencies using `homebrew`
+
+```bash
+# Run 'init' task within brew include file
+task brew:init
+```
 
 ## Star History
 

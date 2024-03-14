@@ -1,0 +1,17 @@
+---
+version: "3"
+
+vars:
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/infrastructure/ansible/kubernetes"
+
+dotenv: [.env]
+
+includes:
+  ansible: .github/taskfiles/ansible.yaml
+  precommit: .github/taskfiles/pre-commit.yaml
+  lint: .github/taskfiles/lint.yaml
+  format: .github/taskfiles/format.yaml
+  brew: .github/taskfiles/brew.yaml
+
+tasks:
+  default: task -l

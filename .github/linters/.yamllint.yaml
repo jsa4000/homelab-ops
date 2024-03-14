@@ -3,8 +3,9 @@ ignore: |
   .vscode/
   ansible/
 extends: default
-
 rules:
+  truthy:
+    allowed-values: ["true", "false", "on"]
 
   comments:
     min-spaces-from-content: 1
