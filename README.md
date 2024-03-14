@@ -71,10 +71,20 @@ Initialize a project using `mkdocs`
 mkdocs new .
 ```
 
+Install `MkDocs` plugin dependencies
+
+```bash
+# Install dependencies (use --break-system-packages or create python environment)
+pip3 install -r .github/mkdocs/requirements.txt --break-system-packages
+```
+
 Serve the website content on a local server
 
 ```bash
 mkdocs serve
+
+# Serve using specific config file location
+mkdocs serve -f .github/mkdocs/mkdocs.yml
 ```
 
 ### Renovate

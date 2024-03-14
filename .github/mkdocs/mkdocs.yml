@@ -5,15 +5,15 @@ site_description: >-
 site_author: Javier Santos
 repo_name: jsa4000/homelab-ops
 site_url: https://jsa4000.github.io/homelab-ops/
-edit_uri: "edit/main/docs/"
 docs_dir: ../../docs/
+
 theme:
   name: material
   features:
     - navigation.tabs
-    - navigation.sections
-    - toc.integrate
     - navigation.top
+    # - navigation.sections
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.tabs.link
@@ -23,23 +23,29 @@ theme:
   palette:
     - scheme: default
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/brightness-7
         name: Switch to dark mode
       primary: teal
       accent: purple
     - scheme: slate
       toggle:
-        icon: material/toggle-switch
+        icon: material/brightness-6
         name: Switch to light mode
       primary: teal
       accent: lime
+  font:
+    text: Roboto
+    code: Roboto Mono
 
 plugins:
   - search
-#  - git-revision-date-localized
-#  - autolinks
-#  - diagrams
-#  - glightbox
+  - minify:
+      minify_html: true
+  - blog
+  - git-revision-date-localized
+  - autolinks
+  - diagrams
+  - glightbox
 
 extra:
   social:
@@ -60,12 +66,22 @@ markdown_extensions:
       generic: true
   - footnotes
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.mark
   - attr_list
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
 
 copyright: |
-  &copy; 2023 <a href="https://github.com/jsa4000"  target="_blank" rel="noopener">Javier Santos</a>
+  &copy; 2024 <a href="https://github.com/jsa4000"  target="_blank" rel="noopener">Javier Santos</a>
