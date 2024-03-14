@@ -9,15 +9,24 @@ docs_dir: ../../docs/
 
 theme:
   name: material
+
+  static_templates:
+    - 404.html
+
   features:
+    - header.autohide
     - navigation.tabs
     - navigation.top
     # - navigation.sections
+    - navigation.instant
+    - navigation.tracking
     - toc.integrate
     - search.suggest
+    - search.share
     - search.highlight
     - content.tabs.link
     - content.code.annotation
+    - content.code.annotate
     - content.code.copy
   language: en
   palette:
@@ -48,6 +57,8 @@ plugins:
   - glightbox
 
 extra:
+  version:
+    provider: mike
   social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/jsa4000
@@ -55,16 +66,21 @@ extra:
       link: https://github.com/jsa4000
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/javier-santos-andres/
+  generator: false
 
 markdown_extensions:
+  - abbr
+  - meta
+  - md_in_html
+  - attr_list
+  - admonition
+  - footnotes
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - admonition
   - pymdownx.arithmatex:
       generic: true
-  - footnotes
   - pymdownx.details
   - pymdownx.superfences:
       custom_fences:
@@ -72,7 +88,6 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.mark
-  - attr_list
   - pymdownx.tabbed:
       alternate_style: true
       combine_header_slug: true

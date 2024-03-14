@@ -14,4 +14,6 @@ includes:
   brew: .github/taskfiles/brew.yaml
 
 tasks:
-  default: task -l
+  default:
+    silent: true
+    cmds: ["task -l"]

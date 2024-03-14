@@ -1,14 +1,19 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: "Docs"
+name: Push - build mkdocs
+
 on:
   workflow_dispatch:
   push:
     branches: ["main"]
     paths:
+      - ".github/workflows/publish-docs.yaml"
+      - ".github/mkdocs/**"
       - docs/**
+
 permissions:
   contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

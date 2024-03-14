@@ -1,5 +1,0 @@
----
-# Please refer to the Kubelinter docs for more information:
-# https://docs.kubelinter.io/#/generated/templates
-checks:
-  addAllBuiltIn: true

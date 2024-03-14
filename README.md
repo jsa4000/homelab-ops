@@ -110,6 +110,25 @@ task -l
 task
 ```
 
+Setup `pre-commit` using TaskFile.
+
+```bash
+
+# Init pre-commit hooks
+task precommit:init
+
+# Update pre-commit dependencies
+task precommit:update
+```
+
+Check linting and formatting before commit.
+
+```bash
+# Format and Lint
+task format:all
+task lint:all
+```
+
 Run following task to install dependencies using `homebrew`
 
 ```bash
