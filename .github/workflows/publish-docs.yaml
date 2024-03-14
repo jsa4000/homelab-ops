@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: Push - build mkdocs
+name: Build And Push Docs
 
 on:
   workflow_dispatch:
