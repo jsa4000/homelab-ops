@@ -5,14 +5,6 @@ name: "Renovate"
 on:
   workflow_dispatch:
     inputs:
-      dryRun:
-        description: Dry Run
-        default: "false"
-        required: false
-      logLevel:
-        description: Log Level
-        default: debug
-        required: false
       version:
         description: Renovate version
         default: latest
@@ -29,12 +21,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
-  RENOVATE_AUTODISCOVER: true
-  RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
-  RENOVATE_DRY_RUN: "${{ inputs.dryRun == true }}"
-  RENOVATE_PLATFORM: github
-  RENOVATE_PLATFORM_COMMIT: true
   WORKFLOW_RENOVATE_VERSION: "${{ inputs.version || 'latest' }}"
 
 jobs:
@@ -42,21 +28,10 @@ jobs:
     name: Renovate
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: "${{ secrets.BOT_APP_ID }}"
-          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: "${{ steps.app-token.outputs.token }}"
-
+      - uses: actions/checkout@v4
       - name: Renovate
         uses: renovatebot/github-action@v40.1.0
         with:
           configurationFile: .github/renovate.json
-          token: "${{ steps.app-token.outputs.token }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           renovate-version: "${{ env.WORKFLOW_RENOVATE_VERSION }}"
