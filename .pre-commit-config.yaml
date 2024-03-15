@@ -21,7 +21,8 @@ repos:
           - .github/linters/.markdownlintignore
           - -c
           - .github/linters/.markdownlint.yaml
-          - "*.md **/*.md"
+          - "*.md"
+          - "**/*.md"
         id: markdownlint
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.5.5
