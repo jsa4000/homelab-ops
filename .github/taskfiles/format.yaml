@@ -17,6 +17,7 @@ tasks:
         --parser=markdown
         --write '*.md' '**/*.md'
     ignore_error: true
+    silent: true
   yaml:
     desc: Format YAML
     cmds:
@@ -31,3 +32,4 @@ tasks:
         --write '*.y*ml'
         '**/*.y*ml'
     ignore_error: true
+    silent: true
