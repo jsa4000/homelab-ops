@@ -6,21 +6,21 @@ tasks:
     - task: markdown
     - task: yaml
     - task: format
-
   markdown:
     desc: Lint Markdown
     cmds:
       - markdownlint --ignore-path '.github/linters/.markdownlintignore' -c '.github/linters/.markdownlint.yaml' *.md **/*.md
     ignore_error: true
-
+    silent: true
   yaml:
     desc: Lint YAML
     cmds:
       - yamllint -c '.github/linters/.yamllint.yaml' .
     ignore_error: true
-
+    silent: true
   format:
     desc: Lint general formatting
     cmds:
       - prettier --ignore-path '.github/linters/.prettierignore' --config '.github/linters/.prettierrc.yaml' --check .
     ignore_error: true
+    silent: true

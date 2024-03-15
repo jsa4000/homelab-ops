@@ -56,6 +56,9 @@ plugins:
   - diagrams
   - glightbox
 
+extra_css:
+  - _static/custom.css
+
 extra:
   version:
     provider: mike
