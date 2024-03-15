@@ -1,0 +1,43 @@
+---
+- name: check if device exists
+  stat:
+    path: "{{ disk_device }}"
+  register: ceph_data_disk
+
+- name: check if loop device
+  ansible.builtin.set_fact:
+    create_loop_device: "{{ true if disk_device is regex('^loop.*') else false }}"
+
+- name: List disk on microceph cluster
+  ansible.builtin.command:
+    cmd: "microceph disk list"
+  register: microceph_disk_list
+  changed_when: false
+
+- name: Set a fact that can be used to search hostname and device
+  ansible.builtin.set_fact:
+    disk_host_ceph: "{{ ansible_hostname }} | {{ disk_device }}"
+
+- name: Set a fact that can be used to search hostname and loop device
+  ansible.builtin.set_fact:
+    disk_host_regex_ceph: "{{ ansible_hostname }} | [^|]osd-backing.img"
+
+- name: check if loop device must be created
+  ansible.builtin.set_fact:
+    loop_device_registered: "{{ true if microceph_disk_list is regex(disk_host_regex_ceph) else false }}"
+
+- name: Active node add encrypted data disk to cluster
+  ansible.builtin.command:
+    cmd: "microceph disk add {{ disk_device }} --wipe --encrypt"
+  when:
+    - ceph_data_disk.stat.exists == True or create_loop_device == True
+    - disk_host_ceph not in microceph_disk_list.stdout and loop_device_registered == False
+    - microceph_encrypt_data == True
+
+- name: Active node add unencrypted data disk to cluster
+  ansible.builtin.command:
+    cmd: "microceph disk add {{ disk_device }} --wipe"
+  when:
+    - ceph_data_disk.stat.exists == True or create_loop_device == True
+    - disk_host_ceph not in microceph_disk_list.stdout and loop_device_registered == False
+    - microceph_encrypt_data != True

@@ -1,0 +1,106 @@
+---
+- name: Set default seed node from cluster node group if not set
+  set_fact:
+    microceph_seed_node: "{{ (groups[microceph_cluster_nodes]|sort)[0] }}"
+  when:
+    - microceph_seed_node == ""
+
+- name: Test microceph status on cluster
+  ansible.builtin.command: "microceph.ceph status"
+  register: ceph_cluster_status
+  changed_when: false
+  failed_when: false
+  when:
+    - inventory_hostname == microceph_seed_node
+
+# Bootstrap command does not allow to specify the ip address of the public interface to be used for the cluster
+- name: Bootstrap the master microceph node
+  ansible.builtin.shell: printf "$SERVER_IP\n$SERVER_MASTER\n$SERVER_NAME\n$ADD_SERVER\n$ADD_DISK\n" | microceph init
+  environment:
+    SERVER_IP: "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}"
+    SERVER_MASTER: "yes"
+    SERVER_NAME: "{{ inventory_hostname }}" # WARN: Server name must not be longer than 10 characters
+    ADD_SERVER: "no"
+    ADD_DISK: "no"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - ceph_cluster_status.rc > 0
+  register: expect_bootstrap_result
+  failed_when: "expect_bootstrap_result.rc != 0"
+
+- block:
+    - name: Test if microceph not already joined to cluster
+      ansible.builtin.command: "microceph.ceph status"
+      delegate_to: "{{ microceph_seed_node }}"
+      register: pre_join_ceph_cluster_status
+      changed_when: false
+
+    - name: Create microceph directory if non existent
+      ansible.builtin.file:
+        path: "{{ microceph_folder }}"
+        state: directory
+        mode: "0755"
+
+    - name: check if join token file exists
+      stat:
+        path: "{{ microceph_folder }}/join.token"
+      register: join_token_file
+
+    - name: Get microceph cluster join token from master
+      ansible.builtin.command: "microceph cluster add {{ inventory_hostname }}"
+      delegate_to: "{{ microceph_seed_node }}"
+      changed_when: false
+      when:
+        - join_token_file.stat.exists == False
+      register: microceph_join_token_output
+
+    - name: Store the join token in a file for later use
+      ansible.builtin.copy:
+        content: "{{ microceph_join_token_output.stdout }}"
+        dest: "{{ microceph_folder }}/join.token"
+      when:
+        - join_token_file.stat.exists == False
+
+    - name: Load join token data into memory data
+      ansible.builtin.command:
+        cmd: "cat {{ microceph_folder }}/join.token"
+      register: microceph_join_token
+      changed_when: false
+
+    - name: Setting join token fact
+      ansible.builtin.set_fact:
+        microceph_join_token: "{{ microceph_join_token.stdout }}"
+
+    - name: check if join token file exists
+      stat:
+        path: "{{ microceph_folder }}/join.success"
+      register: join_success_file
+
+    # Join command does not allow to specify the ip address of the public interface to be used for the cluster
+    - name: Join microceph node to master cluster nodes
+      ansible.builtin.shell: printf "$SERVER_IP\n$SERVER_MASTER\n$SERVER_TOKEN\n$ADD_DISK\n" | microceph init
+      environment:
+        SERVER_IP: "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}"
+        SERVER_MASTER: "no"
+        SERVER_TOKEN: "{{ microceph_join_token }}" # WARN: Server name must not be longer than 10 characters
+        ADD_DISK: "no"
+      when: join_success_file.stat.exists == False
+      register: microceph_join_success_output
+      failed_when: "microceph_join_success_output.rc != 0"
+
+    - name: Confirm node joined microceph cluster
+      ansible.builtin.command:
+        cmd: "microceph.ceph status"
+      delegate_to: "{{ microceph_seed_node }}"
+      changed_when: false
+
+    - name: Store join success details in a file for reference
+      ansible.builtin.copy:
+        content: "{{ microceph_join_success_output.stdout }}"
+        dest: "{{ microceph_folder }}/join.success"
+      when:
+        - join_success_file.stat.exists == False
+
+  when:
+    - inventory_hostname != microceph_seed_node
+    - inventory_hostname in groups[microceph_cluster_nodes]

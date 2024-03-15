@@ -1,0 +1,106 @@
+---
+- name: Install ceph python packages
+  pip:
+    name:
+      - kubernetes
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Wait for install packages
+  ansible.builtin.shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
+  changed_when: false
+
+- name: Install ceph apt python packages
+  ansible.builtin.apt:
+    pkg:
+      - python3-rbd
+      - python3-rados
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Get rook ceph secrets
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Secret
+    name: rook-ceph-mon
+    namespace: "{{ microceph_rook_namespace }}"
+    kubeconfig: "{{ microceph_rook_kubeconfig }}"
+  register: rook_ceph_mon_secret
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Test rook ceph secrets already exists (idempotence)
+  ansible.builtin.set_fact:
+    rook_ceph_installed: "{{ true if rook_ceph_mon_secret.resources is defined and rook_ceph_mon_secret.resources | length > 0 else false }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Create microceph directory if non existent
+  ansible.builtin.file:
+    path: "{{ microceph_folder }}"
+    state: directory
+    mode: "0755"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - rook_ceph_installed == false
+
+- name: Copy create external cluster resources script
+  ansible.builtin.copy:
+    src: create-external-cluster-resources.py
+    dest: "{{ microceph_folder }}/create-external-cluster-resources.py"
+    force: no
+  when:
+    - inventory_hostname == microceph_seed_node
+    - rook_ceph_installed == false
+
+- name: Copy import external cluster script
+  ansible.builtin.copy:
+    src: import-external-cluster.sh
+    dest: "{{ microceph_folder }}/import-external-cluster.sh"
+    mode: "0700"
+    force: no
+  when:
+    - inventory_hostname == microceph_seed_node
+    - rook_ceph_installed == false
+
+- name: Execute external cluster resources script
+  ansible.builtin.command:
+    argv:
+      - python3
+      - create-external-cluster-resources.py
+      - --namespace={{ microceph_rook_namespace }}
+      - --ceph-conf={{ microceph_config_folder }}/ceph.conf
+      - --keyring={{ microceph_config_folder }}/ceph.keyring
+      - --rbd-data-pool-name={{ microceph_rbd_default_pool_name }}
+      - --cephfs-filesystem-name={{ microceph_cephfs_default_name }}
+      - --cephfs-metadata-pool-name={{ microceph_cephfs_default_metadata_pool_name }}
+      - --cephfs-data-pool-name={{ microceph_cephfs_default_data_pool_name }}
+      - --rgw-endpoint={{ hostvars[microceph_rgw_node].ansible_default_ipv4.address }}:{{ microceph_rgw_port }}
+      - --rgw-pool-prefix={{ microceph_rgw_default_pool_prefix }}
+      - --format=bash
+  register: create_external_cluster_resources_status
+  args:
+    chdir: "{{ microceph_folder }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - rook_ceph_installed == false
+
+- name: Store the external cluster resources result in a file for later use
+  ansible.builtin.copy:
+    content: "{{ create_external_cluster_resources_status.stdout }}"
+    dest: "{{ microceph_folder }}/external_cluster_envs.sh"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - rook_ceph_installed == false
+
+- name: Execute import external cluster script
+  ansible.builtin.shell: |
+    source external_cluster_envs.sh
+    ./import-external-cluster.sh
+  register: output
+  args:
+    chdir: "{{ microceph_folder }}"
+    executable: /bin/bash
+  when:
+    - inventory_hostname == microceph_seed_node
+    - rook_ceph_installed == false

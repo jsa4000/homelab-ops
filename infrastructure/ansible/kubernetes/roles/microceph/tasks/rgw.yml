@@ -1,0 +1,30 @@
+---
+- name: Get microceph rgw status
+  ansible.builtin.shell: "microceph.ceph status"
+  register: ceph_rgw_status
+  changed_when: false
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Test rgw status (idempotence)
+  ansible.builtin.set_fact:
+    rgw_enabled: "{{ true if ceph_rgw_status.rc == 0 and 'rgw' in ceph_rgw_status.stdout else false }}"
+  changed_when: false
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Enable microceph rgw
+  ansible.builtin.shell: "microceph enable rgw --port {{ microceph_rgw_port }}"
+  register: ceph_rgw_status
+  when:
+    - inventory_hostname == microceph_seed_node
+    - microceph_rgw_enabled == true
+    - rgw_enabled == false
+
+- name: Disable microceph rgw
+  ansible.builtin.shell: "microceph disable rgw"
+  register: ceph_rgw_status
+  when:
+    - inventory_hostname == microceph_seed_node
+    - microceph_rgw_enabled == false
+    - rgw_enabled == true

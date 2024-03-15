@@ -1,0 +1,44 @@
+---
+- name: Get microceph prometheus status
+  ansible.builtin.shell: "microceph.ceph mgr module ls | grep prometheus | awk '{ print $2 }'"
+  register: ceph_prometheus_status
+  changed_when: false
+  failed_when: false
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Test prometheus status (idempotence)
+  ansible.builtin.set_fact:
+    prometheus_enabled: "{{ true if ceph_prometheus_status.rc == 0 and ceph_prometheus_status.stdout == 'on' else false }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Enable Prometheus metrics for scrapping
+  ansible.builtin.command: "ceph mgr module enable prometheus"
+  register: ceph_prometheus_enabled
+  when:
+    - inventory_hostname == microceph_seed_node
+    - prometheus_enabled == false
+    - microceph_prometheus_enabled == true
+
+- name: Disable Prometheus metrics for scrapping
+  ansible.builtin.command: "ceph mgr module disable prometheus"
+  register: ceph_prometheus_disabled
+  when:
+    - inventory_hostname == microceph_seed_node
+    - prometheus_enabled == true
+    - microceph_prometheus_enabled == false
+
+- name: Set IP address for prometheus monitoring endpoint
+  ansible.builtin.command: "ceph config set mgr mgr/prometheus/server_addr {{ microceph_prometheus_ip }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - prometheus_enabled == true
+    - microceph_prometheus_ip is defined and microceph_prometheus_ip | length > 0
+
+- name: Set Port for prometheus monitoring endpoint
+  ansible.builtin.command: "ceph config set mgr mgr/prometheus/server_port {{ microceph_prometheus_port }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - prometheus_enabled == true
+    - microceph_prometheus_port is defined and microceph_prometheus_port | length > 0

@@ -1,0 +1,43 @@
+---
+- name: Test for orange pi /proc/cpuinfo
+  ansible.builtin.command: grep -E "Orange Pi" /proc/cpuinfo
+  register: grep_cpuinfo_orangepi
+  failed_when: false
+  changed_when: false
+
+- name: Test for orange pi /proc/device-tree/model
+  ansible.builtin.command: grep -E "Orange Pi" /proc/device-tree/model
+  register: grep_device_tree_model_orangepi
+  failed_when: false
+  changed_when: false
+
+- name: Set orange_pi fact to true
+  ansible.builtin.set_fact:
+    orange_pi: true
+  when: grep_cpuinfo_orangepi.rc == 0 or grep_device_tree_model_orangepi.rc == 0
+
+- name: Set detected_distribution to Debian
+  ansible.builtin.set_fact:
+    detected_distribution: Debian
+  when: >
+    orange_pi|default(false) and
+    ( ansible_facts.distribution|default("") == "Debian" or
+      ansible_facts.os_family|default("") is match("Debian") )
+
+- name: Set detected_distribution to ArchLinux (ARM64)
+  ansible.builtin.set_fact:
+    detected_distribution: Archlinux
+  when:
+    - ansible_facts.architecture is search("aarch64")
+    - orange_pi|default(false)
+    - ansible_facts.os_family is match("Archlinux")
+
+- name: Execute OS related tasks on the Orange Pi
+  ansible.builtin.include_tasks: "{{ item }}"
+  with_first_found:
+    - "prereq/{{ detected_distribution }}.yml"
+    - "prereq/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "prereq/{{ ansible_distribution }}.yml"
+    - "prereq/default.yml"
+  when:
+    - orange_pi|default(false)

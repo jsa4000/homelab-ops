@@ -23,6 +23,7 @@ tasks:
         prettier
         opentofu
         yamllint
+        ansible-lint
         gettext
         mkdocs
         go-task

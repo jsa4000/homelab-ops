@@ -1,0 +1,56 @@
+---
+- name: Get microceph dashboard status
+  ansible.builtin.shell: "microceph.ceph mgr module ls | grep dashboard | awk '{ print $2 }'"
+  register: ceph_dashboard_status
+  changed_when: false
+  failed_when: false
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Test dashboard status (idempotence)
+  ansible.builtin.set_fact:
+    dashboard_enabled: "{{ true if ceph_dashboard_status.rc == 0 and ceph_dashboard_status.stdout == 'on' else false }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Enable dashboard
+  ansible.builtin.command: "ceph mgr module enable dashboard"
+  register: ceph_dashboard_enabled
+  when:
+    - inventory_hostname == microceph_seed_node
+    - dashboard_enabled == false
+    - microceph_dashboard_enabled == true
+
+- name: Disable dashboard
+  ansible.builtin.command: "ceph mgr module disable dashboard"
+  register: ceph_dashboard_disabled
+  when:
+    - inventory_hostname == microceph_seed_node
+    - dashboard_enabled == true
+    - microceph_dashboard_enabled == false
+
+- name: Create dashboard self-signed certificate (development)
+  ansible.builtin.command: "ceph dashboard create-self-signed-cert"
+  changed_when: false
+  when:
+    - inventory_hostname == microceph_seed_node
+    - dashboard_enabled == false
+    - microceph_dashboard_enabled == true
+
+- name: Creating dashboard password file
+  copy:
+    dest: "{{ microceph_ceph_pass }}"
+    content: |
+      {{ microceph_dashboard_password }}
+  changed_when: false
+  when:
+    - inventory_hostname == microceph_seed_node
+    - dashboard_enabled == false
+    - microceph_dashboard_enabled == true
+
+- name: Creating dashboard password file
+  ansible.builtin.command: "sudo ceph dashboard ac-user-create {{ microceph_dashboard_username }} -i {{ microceph_ceph_pass }} administrator"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - dashboard_enabled == false
+    - microceph_dashboard_enabled == true

@@ -1,0 +1,54 @@
+---
+- name: Install micro ceph
+  ansible.builtin.include_tasks: install.yml
+  when:
+    - microceph_enabled == true
+
+- name: Build cluster ceph nodes
+  ansible.builtin.include_tasks: setup_cluster.yml
+  when:
+    - microceph_enabled == true
+
+- name: Install ceph storage disks on node
+  ansible.builtin.include_tasks: setup_disks.yml
+  loop: "{{ microceph_disk_devices }}"
+  loop_control:
+    loop_var: disk_device
+  when:
+    - microceph_enabled == true
+
+- name: Enable monitoring
+  ansible.builtin.include_tasks: monitoring.yml
+  when:
+    - microceph_enabled == true
+
+- name: Enable dashboard
+  ansible.builtin.include_tasks: dashboard.yml
+  when:
+    - microceph_enabled == true
+
+- name: Enable Rados Gateway (rgw)
+  ansible.builtin.include_tasks: rgw.yml
+  when:
+    - microceph_enabled == true
+
+- name: Set appropriate crush rules
+  ansible.builtin.include_tasks: crush_rules.yml
+  when:
+    - microceph_enabled == true
+
+- name: Create default pools
+  ansible.builtin.include_tasks: pools.yml
+  when:
+    - microceph_enabled == true
+
+- name: Enable microceph with Rook Operator
+  ansible.builtin.include_tasks: rook.yml
+  when:
+    - microceph_enabled == true
+    - microceph_rook_enabled == true
+
+- name: Uninstall Microceph
+  ansible.builtin.include_tasks: uninstall.yml
+  when:
+    - microceph_enabled == false

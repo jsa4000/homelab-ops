@@ -1,0 +1,16 @@
+---
+namespace: k3s
+name: orchestration
+version: 1.0.0
+readme: README.md
+authors:
+  - Javier Santos <jsa4000@gmail.com>
+description: Build a Kubernetes cluster using K3s via Ansible
+license:
+  - Apache-2.0
+tags: ["infrastructure", "linux", "tools"]
+dependencies:
+  community.general: ">=7.0.0"
+  ansible.posix: ">=1.5.0"
+repository: https://github.com/jsa4000
+build_ignore: []

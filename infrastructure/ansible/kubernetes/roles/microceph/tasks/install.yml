@@ -1,0 +1,40 @@
+- name: Make sure snapd is installed
+  ansible.builtin.package:
+    name:
+      - snapd
+    state: latest
+
+- name: Make sure snapd the latest and bleeding
+  ansible.builtin.snap:
+    name: snapd
+    channel: "{{ microceph_snapd_version }}"
+    state: present
+  notify:
+    - Restart microceph daemon
+
+- name: Install microceph
+  ansible.builtin.snap:
+    name: microceph
+    channel: "{{ microceph_version }}"
+    state: present
+
+- name: Enable rbd kernel module
+  community.general.modprobe:
+    name: rbd
+    persistent: present
+    state: present
+
+- name: Allow snap to observe hardware interface
+  ansible.builtin.command:
+    cmd: snap connect microceph:hardware-observe
+  changed_when: false
+
+- name: Connect microceph to dm crypt
+  ansible.builtin.command:
+    cmd: snap connect microceph:dm-crypt
+  changed_when: false
+
+- name: Disable automatic updates for snap package
+  ansible.builtin.command:
+    cmd: snap refresh --hold microceph
+  changed_when: false

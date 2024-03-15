@@ -1,0 +1,55 @@
+---
+- name: Get microceph pools status
+  ansible.builtin.shell: "ceph osd pool ls"
+  register: ceph_pools_status
+  changed_when: false
+  failed_when: false
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Test rbd default pool status (idempotence)
+  ansible.builtin.set_fact:
+    default_rbd_pool_created: "{{ true if ceph_pools_status.rc == 0 and microceph_rbd_default_pool_name in ceph_pools_status.stdout else false }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Create rbd default pool
+  ansible.builtin.command: "ceph osd pool create {{ microceph_rbd_default_pool_name }} {{ microceph_rbd_default_pool_type }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - default_rbd_pool_created == false
+
+- name: Init rbd default pool
+  ansible.builtin.command: "rbd pool init {{ microceph_rbd_default_pool_name }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - default_rbd_pool_created == false
+
+- name: Test cephfs default pool status (idempotence)
+  ansible.builtin.set_fact:
+    default_cephfs_pool_created: "{{ true if ceph_pools_status.rc == 0 and microceph_cephfs_default_data_pool_name in ceph_pools_status.stdout else false }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+
+- name: Create cephfs default data pool
+  ansible.builtin.command: "ceph osd pool create {{ microceph_cephfs_default_data_pool_name }} {{ microceph_cephfs_default_data_pool_type }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - default_cephfs_pool_created == false
+
+- name: Create cephfs default metadata pool
+  ansible.builtin.command: "ceph osd pool create {{ microceph_cephfs_default_metadata_pool_name }} {{ microceph_cephfs_default_metadata_pool_type }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - default_cephfs_pool_created == false
+
+- name: Create default cephfs service
+  ansible.builtin.command: "ceph fs new {{ microceph_cephfs_default_name }} {{ microceph_cephfs_default_metadata_pool_name }} {{ microceph_cephfs_default_data_pool_name }}"
+  when:
+    - inventory_hostname == microceph_seed_node
+    - default_cephfs_pool_created == false
+
+- name: Set default cephfs allow standby replay property
+  ansible.builtin.command: "ceph fs set {{ microceph_cephfs_default_name }} allow_standby_replay {{ microceph_cephfs_default_allow_standby_replay }}"
+  when:
+    - inventory_hostname == microceph_seed_node

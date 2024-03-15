@@ -1,0 +1,37 @@
+---
+microceph_enabled: false
+microceph_version: latest/edge
+microceph_snapd_version: latest/beta
+microceph_cluster_nodes: storage_nodes
+microceph_seed_node: ceph-node-1
+microceph_folder: /etc/microceph
+microceph_config_folder: /var/snap/microceph/current/conf
+microceph_ceph_pass: /root/ceph-pass.txt
+microceph_osd_pool_default_size: 3
+microceph_mgr_standby_modules: true # Use false for single node
+microceph_osd_crush_chooseleaf_type: 1 # Use 0 for single node
+microceph_rbd_default_pool_name: default.pool
+microceph_rbd_default_pool_type: replicated # replicated|erasure
+microceph_cephfs_default_name: default.cephfs
+microceph_cephfs_default_allow_standby_replay: 1
+microceph_cephfs_default_data_pool_name: default.cephfs.data
+microceph_cephfs_default_data_pool_type: replicated # replicated|erasure
+microceph_cephfs_default_metadata_pool_name: default.cephfs.meta
+microceph_cephfs_default_metadata_pool_type: replicated # replicated|erasure
+microceph_rgw_enabled: false
+microceph_rgw_node: "{{ microceph_seed_node }}"
+microceph_rgw_port: 8080
+microceph_rgw_default_pool_prefix: default
+microceph_dashboard_enabled: false
+microceph_dashboard_username: admin
+microceph_dashboard_password: admin1234
+microceph_prometheus_enabled: true
+#microceph_prometheus_ip: "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}"
+#microceph_prometheus_port: "30436"
+microceph_encrypt_data: true
+microceph_rook_enabled: false
+microceph_rook_namespace: rook-ceph
+microceph_rook_kubeconfig: "/home/ubuntu/.kube/config"
+microceph_disk_devices: []
+# - /dev/sdb
+# - loop,4G,1

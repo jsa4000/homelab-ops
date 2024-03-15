@@ -1,5 +1,6 @@
 ignore: |
   .vscode/
+  ansible/
 
 extends: default
 
