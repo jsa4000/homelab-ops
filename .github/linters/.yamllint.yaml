@@ -1,15 +1,15 @@
 ignore: |
   .vscode/
-  ansible/
 
 extends: default
 
 rules:
   truthy:
-    allowed-values: ["true", "false", "on"]
+    allowed-values: ["true", "false", "on", "no"]
 
   document-start:
-    present: false
+    level: warning
+    present: true
 
   comments:
     min-spaces-from-content: 1
