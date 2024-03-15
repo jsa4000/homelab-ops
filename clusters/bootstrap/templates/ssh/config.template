@@ -1,0 +1,8 @@
+Host $SSH_HOST
+    HostName $SSH_HOSTNAME
+    User     $SSH_USERNAME
+    IdentityFile $SSH_KEY
+    AddKeysToAgent yes
+    UseKeychain yes
+    IgnoreUnknown UseKeychain
+    StrictHostKeyChecking no

@@ -1,0 +1,25 @@
+servers:
+  sbc-server-1:
+    hostname: sbc-server-1
+    ip: 192.168.3.100
+    mask: 255.255.255.0
+    gateway: 192.168.3.1
+    dns: 192.168.3.1
+    user: dietpi
+    ssh-key: $HOME/.ssh/server_key.pub
+  sbc-server-2:
+    hostname: sbc-server-2
+    ip: 192.168.3.101
+    mask: 255.255.255.0
+    gateway: 192.168.3.1
+    dns: 192.168.3.1
+    user: dietpi
+    ssh-key: $HOME/.ssh/server_key.pub
+  sbc-server-3:
+    hostname: sbc-server-3
+    ip: 192.168.3.102
+    mask: 255.255.255.0
+    gateway: 192.168.3.1
+    dns: 192.168.3.1
+    user: dietpi
+    ssh-key: $HOME/.ssh/server_key.pub

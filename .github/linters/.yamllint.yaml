@@ -1,4 +1,3 @@
----
 ignore: |
   .vscode/
 
@@ -7,6 +6,9 @@ extends: default
 rules:
   truthy:
     allowed-values: ["true", "false", "on"]
+
+  document-start:
+    present: false
 
   comments:
     min-spaces-from-content: 1
