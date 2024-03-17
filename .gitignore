@@ -295,4 +295,7 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+client-key-file.json
+*.lock.hcl
+
 # End of https://www.toptal.com/developers/gitignore/api/terraform

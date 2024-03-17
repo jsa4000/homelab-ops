@@ -1,0 +1,16 @@
+Include /Users/jsantosa/.colima/ssh_config
+
+Host sbc-server-1
+    HostName 192.168.3.100
+    User     dietpi
+    IdentityFile ~/.ssh/server_key
+
+Host sbc-server-2
+    HostName 192.168.3.101
+    User     dietpi
+    IdentityFile ~/.ssh/server_key
+
+Host sbc-server-3
+    HostName 192.168.3.102
+    User     dietpi
+    IdentityFile ~/.ssh/server_key

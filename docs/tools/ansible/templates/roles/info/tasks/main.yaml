@@ -1,0 +1,15 @@
+---
+- name: Get CPU Info
+  register: cpuinfo
+  command: "cat /proc/cpuinfo"
+
+- name: Execute the uname command
+  register: unameout
+  command: "uname -a"
+
+- name: Execute custom command
+  register: commandout
+  command: "{{ custom_command }}"
+
+- debug:
+    var: unameout.stdout_lines, cpuinfo.stdout_lines, commandout.stdout_lines
