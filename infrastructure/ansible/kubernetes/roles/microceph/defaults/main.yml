@@ -26,8 +26,8 @@ microceph_dashboard_enabled: false
 microceph_dashboard_username: admin
 microceph_dashboard_password: admin1234
 microceph_prometheus_enabled: true
-#microceph_prometheus_ip: "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}"
-#microceph_prometheus_port: "30436"
+# microceph_prometheus_ip: "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}"
+# microceph_prometheus_port: "30436"
 microceph_encrypt_data: true
 microceph_rook_enabled: false
 microceph_rook_namespace: rook-ceph

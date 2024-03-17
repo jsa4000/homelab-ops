@@ -3,15 +3,15 @@
 
 # How To use it:
 # > source ./scripts/get-ssh-config.sh
-# > source ./scripts/get-ssh-config.sh ./clusters/bootstrap/servers.yaml  ~/.ssh/server_key $HOME/.ssh/ssh_config
+# > source ./scripts/get-ssh-config.sh ./config/servers.yaml  ~/.ssh/server_key $HOME/.ssh/ssh_config
 # > source ./scripts/get-ssh-config.sh $CONFIG_FILE $SSH_KEY_FILE $OUTPUT_FILE
 #
 
-CONFIG_FILE=${1:-./clusters/bootstrap/servers.yaml}
+CONFIG_FILE=${1:-./config/servers.yaml}
 SSH_KEY_FILE=${2:-~/.ssh/server_key}
 OUTPUT_FILE=${4:-$HOME/.ssh/ssh_config}
 
-TEMPLATE_FILE=./clusters/bootstrap/templates/ssh/config.template
+TEMPLATE_FILE=./config/templates/ssh/config.template
 
 echo "------------------------------------------------------------"
 echo "Initialization Script for SSH Config"

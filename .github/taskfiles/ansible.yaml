@@ -6,3 +6,64 @@ env:
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
   ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
+  ANSIBLE_INVENTORY_ENV: '{{.ANSIBLE_INVENTORY_ENV | default ""}}'
+  ANSIBLE_INVENTORY_FILE: "inventory{{.ANSIBLE_INVENTORY_ENV}}.yml"
+
+tasks:
+  init:
+    desc: Install / Upgrade Ansible galaxy deps
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
+      - ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
+
+  list:
+    desc: List all the hosts
+    dir: "{{.ANSIBLE_DIR}}/playbooks"
+    cmds:
+      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} --list-hosts
+
+  install:
+    desc: Install Kubernetes on the nodes
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/site.yml
+
+  uninstall:
+    desc: Uninstall Kubernetes on the nodes
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/reset.yml
+      - defer: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/reboot.yml
+
+  config:
+    env:
+      KUBECONFIG:
+        sh: echo $(realpath ~/)/.kube/config:$(realpath ~/)/.kube/config.new
+    preconditions:
+      - test -f ~/.kube/config.new
+    cmds:
+      - cp ~/.kube/config ~/.kube/config.bak
+      - kubectl config view --flatten > ~/.kube/config.merged
+      - mv ~/.kube/config.merged ~/.kube/config
+      - kubectl config use-context k3s-ansible
+    status:
+      - test -f ~/.kube/config.bak
+
+  ping:
+    desc: Ping all the hosts
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} --one-line -m 'ping'
+
+  uptime:
+    desc: Uptime of all the hosts
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} --one-line -a 'uptime'
+
+  reboot:
+    desc: Reboot all the k8s nodes
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/reboot.yml

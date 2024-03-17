@@ -138,6 +138,23 @@ Run following task to install dependencies using `homebrew`
 task brew:init
 ```
 
+```bash
+# Install ansible dependencies
+task ansible:init
+
+# Check the inventory server statuses
+task ansible:ping ANSIBLE_INVENTORY_ENV=-local
+
+# Install kubernetes
+task ansible:install ANSIBLE_INVENTORY_ENV=-local
+
+# Merge Kube config
+task ansible:config
+
+# Uninstall Kubernetes
+task ansible:uninstall ANSIBLE_INVENTORY_ENV=-local
+```
+
 ### Super-Lint
 
 You can run `super-linter` outside GitHub Actions.

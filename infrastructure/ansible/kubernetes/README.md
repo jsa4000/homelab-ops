@@ -48,14 +48,19 @@ It is also recommended that all managed nodes disable firewalls and swap. See [K
 
 ## Usage
 
-Install Ansible and its dependencies.
+Install Ansible
 
 ```bash
 # Install Ansible using brew
 brew install ansible
+```
 
-# Install dependencies required
-ansible-galaxy install -r ./collections/requirements.yml
+Install dependencies
+
+```bash
+# Install ansible dependencies for collections and roles
+ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
+ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
 ```
 
 Second edit the inventory file to match your cluster setup. For example:
@@ -88,26 +93,26 @@ Setting up a loadbalancer or VIP beforehand to use as the API endpoint is possib
 
 # Check all servers in the inventory ('-i' flag is not necessary because it will use the default in ansible.cfg)
 ansible all -m ping
-ansible all -m ping -i inventory-local.yml
+ansible all -m ping -i inventory/inventory-local.yml
 
 # Create cluster with default inventory and token
-ansible-playbook playbook/site.yml
+ansible-playbook playbooks/site.yml
 
 # If you need to deploy a specific inventory (local)
-ansible-playbook playbook/site.yml -i inventory/inventory-local.yml
+ansible-playbook playbooks/site.yml -i inventory/inventory-local.yml
 
 # Create Cluster using external token
-ansible-playbook playbook/site.yml --extra-vars token=$MY_SECURE_TOKEN
+ansible-playbook playbooks/site.yml --extra-vars token=$MY_SECURE_TOKEN
 
 # Reset Installation
-ansible-playbook playbook/reset.yml
+ansible-playbook playbooks/reset.yml
 
-ansible-playbook playbook/reset.yml -i  inventory/inventory-local.yml
+ansible-playbook playbooks/reset.yml -i  inventory/inventory-local.yml
 
 # Reboot
-ansible-playbook playbook/reboot.yml
+ansible-playbook playbooks/reboot.yml
 
-ansible-playbook playbook/reboot.yml -i inventory-local.yml
+ansible-playbook playbooks/reboot.yml -i inventory-local.yml
 
 # Add logs (register: myvar)
 - debug: var=myvar.stdout
@@ -144,7 +149,7 @@ Airgap installation is supported via the `airgap_dir` variable. This variable sh
 An example folder for an x86_64 cluster:
 
 ```bash
-$ ls ./playbook/my-airgap/
+$ ls ./playbooks/my-airgap/
 total 248M
 -rwxr-xr-x 1 $USER $USER  58M Nov 14 11:28 k3s
 -rw-r--r-- 1 $USER $USER 190M Nov 14 11:30 k3s-airgap-images-amd64.tar.gz

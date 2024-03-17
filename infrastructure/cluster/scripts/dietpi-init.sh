@@ -12,15 +12,15 @@
 
 # How To use it:
 # > source ./scripts/dietpi-init.sh sbc-server-1
-# > source ./scripts/dietpi-init.sh sbc-server-1 ./clusters/bootstrap/servers.yaml ./dietpi.txt
+# > source ./scripts/dietpi-init.sh sbc-server-1 ./config/servers.yaml ./dietpi.txt
 # > source ./scripts/dietpi-init.sh $SERVER_NAME $CONFIG_FILE $OUTPUT_FILE
 #
 
 SERVER_NAME=${1:-sbc-server-1}
-CONFIG_FILE=${2:-./clusters/bootstrap/servers.yaml}
+CONFIG_FILE=${2:-./config/servers.yaml}
 OUTPUT_FILE=${3:-./dietpi.txt}
 
-TEMPLATE_FILE=./clusters/bootstrap/templates/dietpi/dietpi.template.txt
+TEMPLATE_FILE=./config/templates/dietpi/dietpi.template.txt
 DIETPI_IMAGE=DietPi_OrangePi5-ARMv8-Bookworm.img
 DIETPI_URL=https://dietpi.com/downloads/images/$DIETPI_IMAGE.xz
 DIETPI_FILE=dietpi.txt
