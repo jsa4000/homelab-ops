@@ -37,6 +37,7 @@ Below are some of the tools I find useful.
 | [yamlfmt](https://github.com/google/yamlfmt)                    | Extensible command line tool or library to format yaml files.                        |
 | [prettier](https://github.com/prettier/prettier)                | Opinionated code formatter, that enforces a consistent style                         |
 | [markdownlint](https://github.com/DavidAnson/markdownlint)      | Static analysis tool to enforce standards and consistency for Markdown files.        |
+| [super-linter](https://github.com/super-linter/super-linter)    | A collection of linters and code analyzers, to help validate your source code.       |
 
 ### Pre-Commit
 
@@ -135,6 +136,30 @@ Run following task to install dependencies using `homebrew`
 ```bash
 # Run 'init' task within brew include file
 task brew:init
+```
+
+### Super-Lint
+
+You can run `super-linter` outside GitHub Actions.
+
+```bash
+# Run docker image using linux/amd64, since there is no arm64 support.
+docker run \
+  -e DEFAULT_WORKSPACE=/tmp/lint \
+  -e LOG_LEVEL=DEBUG \
+  -e RUN_LOCAL=true \
+  -e SHELL=/bin/bash \
+  -e DEFAULT_BRANCH=main \
+  -e ANSIBLE_DIRECTORY=infrastructure/ansible \
+  -e VALIDATE_ALL_CODEBASE=true \
+  -e VALIDATE_YAML=true \
+  -e VALIDATE_MARKDOWN=true \
+  -e VALIDATE_JSON=true \
+  -e VALIDATE_TERRAFORM_TFLINT=true \
+  -e VALIDATE_RENOVATE=true \
+  -v $PWD:/tmp/lint \
+  --platform linux/amd64 \
+  ghcr.io/super-linter/super-linter:slim-v6.3.0
 ```
 
 ## Star History

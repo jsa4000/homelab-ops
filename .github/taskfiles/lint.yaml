@@ -8,7 +8,7 @@ tasks:
   markdown:
     desc: Lint Markdown
     cmds:
-      - markdownlint --ignore-path '.github/linters/.markdownlintignore' -c '.github/linters/.markdownlint.yaml' "*.md" "**/*.md"
+      - markdownlint -c '.github/linters/.markdown-lint.yaml' "*.md" "**/*.md"
     ignore_error: true
     silent: true
   yaml:

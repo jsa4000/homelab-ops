@@ -1,9 +1,8 @@
 name: Lint
 
 on:
-  push:
-    branches-ignore: [main]
   pull_request:
+  push:
     branches: [main]
 
 jobs:
@@ -27,9 +26,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANSIBLE_DIRECTORY: infrastructure/ansible
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_YAML: true
           VALIDATE_MARKDOWN: true
-          VALIDATE_JSON: TRUE
+          VALIDATE_JSON: true
           VALIDATE_TERRAFORM_TFLINT: true
           VALIDATE_RENOVATE: true
           # VALIDATE_ANSIBLE: true
