@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+patches:
+  - path: cluster-role.yaml
+
+helmCharts:
+  - name: godaddy-webhook
+    repo: https://snowdrop.github.io/godaddy-webhook
+    version: 0.3.0
+    releaseName: godaddy-webhook
+    namespace: cert-manager
+    includeCRDs: false
+    valuesInline:
+      groupName: acme.javstudio.org
+      replicaCount: 1
+      certManager:
+        namespace: cert-manager
+        serviceAccountName: cert-manager

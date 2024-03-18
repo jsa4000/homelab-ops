@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns-godaddy
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns
+  template:
+    metadata:
+      labels:
+        app: external-dns
+    spec:
+      containers:
+        - name: external-dns-godaddy
+          image: registry.k8s.io/external-dns/external-dns:v0.14.0
+          args:
+            - --domain-filter=javstudio.org
+            - --provider=godaddy
+            # - --source=service
+            # - --source=ingress
+            - --source=traefik-proxy
+            - --registry=txt
+            - --txt-prefix=external-dns.
+            - --txt-owner-id=homelab
+            - --interval=1m
+            - --godaddy-api-key=$(GODADDY_API_KEY)
+            - --godaddy-api-secret=$(GODADDY_SECRET_KEY)
+            - --log-format=text
+            - --log-level=trace
+            - --ignore-ingress-tls-spec
+            - --policy=upsert-only
+          envFrom:
+            - secretRef:
+                name: external-dns-godaddy
+      serviceAccountName: external-dns

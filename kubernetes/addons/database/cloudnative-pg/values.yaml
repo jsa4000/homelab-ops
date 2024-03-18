@@ -1,0 +1,14 @@
+replicaCount: 1
+
+crds:
+  create: true
+
+config:
+  create: true
+
+monitoring:
+  podMonitorEnabled: false
+  grafanaDashboard:
+    create: true
+    sidecarLabel: "grafana_dashboard"
+    sidecarLabelValue: "true"

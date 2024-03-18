@@ -1,0 +1,113 @@
+#fullnameOverride: "prometheus"
+crds:
+  enabled: true
+cleanPrometheusOperatorObjectNames: true
+
+alertmanager:
+  enabled: true
+  ingress:
+    enabled: false
+
+grafana:
+  enabled: true
+  defaultDashboardsEnabled: true
+  defaultDashboardsTimezone: utc
+  adminPassword: prom-operator
+  # admin:
+  #   existingSecret: ""
+  #   userKey: admin-user
+  #   passwordKey: admin-password
+  ingress:
+    enabled: false
+  sidecar:
+    dashboards:
+      enabled: true
+      searchNamespace: ALL
+      label: grafana_dashboard
+      labelValue: "true"
+      provider:
+        disableDelete: true
+        foldersFromFilesStructure: true
+    datasources:
+      enabled: true
+      searchNamespace: ALL
+      label: grafana_datasource
+      labelValue: "true"
+  plugins:
+    - grafana-clock-panel
+    - grafana-piechart-panel
+    - grafana-worldmap-panel
+    - natel-discrete-panel
+    - pr0ps-trackmap-panel
+    - vonage-status-panel
+  serviceMonitor:
+    enabled: true
+  persistence:
+    enabled: true
+    # storageClassName: ceph-rbd
+    storageClassName: longhorn
+    accessModes: ["ReadWriteOnce"]
+    size: 2Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
+  testFramework:
+    enabled: false
+
+kubeControllerManager:
+  enabled: true
+  endpoints: &ce
+    - 192.168.205.101
+    - 192.168.205.101
+    - 192.168.205.101
+
+kubeEtcd:
+  enabled: true
+  endpoints: *ce
+
+kubeScheduler:
+  enabled: true
+  endpoints: *ce
+
+prometheusOperator:
+  enabled: true
+  resources:
+    requests:
+      cpu: 35m
+      memory: 128M
+    limits:
+      memory: 512M
+  prometheusConfigReloader:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 50Mi
+
+prometheus:
+  enabled: true
+  prometheusSpec:
+    replicas: 1
+    replicaExternalLabelName: "replica"
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    retention: 6h
+    retentionSize: 4GB
+    enableAdminAPI: true
+    walCompression: true
+    resources:
+      requests:
+        cpu: 300m
+        memory: 2560M
+      limits:
+        memory: 5120M
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          # storageClassName: ceph-rbd
+          storageClassName: longhorn
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi

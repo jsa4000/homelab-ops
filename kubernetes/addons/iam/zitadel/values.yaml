@@ -1,0 +1,60 @@
+zitadel:
+  configmapConfig:
+    ExternalDomain: zitadel.javstudio.org
+    ExternalPort: 443
+    ExternalSecure: true
+    Machine:
+      Identification:
+        Hostname:
+          Enabled: true
+        Webhook:
+          Enabled: false
+    TLS:
+      Enabled: false
+    Database:
+      Postgres:
+        Database: zitadel
+        Host: postgres-cluster-rw.database.svc.cluster.local
+        Port: 5432
+        MaxOpenConns: 20
+        MaxIdleConns: 10
+        MaxConnLifetime: 30m
+        MaxConnIdleTime: 5m
+    Log:
+      Level: "info"
+    DefaultInstance:
+      LoginPolicy:
+        AllowRegister: false
+    FirstInstance:
+      InstanceName: HOMELAB
+      DefaultLanguage: en
+      Org:
+        Name: HOMELAB
+        Machine:
+          Machine:
+            Username: zitadel-admin-sa
+            Name: Admin
+          MachineKey:
+            Type: 1
+  configSecretName: zitadel-secrets
+  configSecretKey: config.yaml
+  masterkeySecretName: zitadel-masterkey
+
+  # Postgres over TLS
+  dbSslCaCrtSecret: postgres-cluster-superuser-cert
+  dbSslAdminCrtSecret: postgres-cluster-superuser-cert
+  dbSslUserCrtSecret: postgres-cluster-zitadel-cert
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/zitadel/zitadel
+  tag: v2.47.2
+  pullPolicy: IfNotPresent
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      release: prometheus-stack

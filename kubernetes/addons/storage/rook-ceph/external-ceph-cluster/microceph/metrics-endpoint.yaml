@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: microceph-metrics
+  namespace: rook-ceph
+subsets:
+  - addresses:
+      - ip: 192.168.205.101
+      - ip: 192.168.205.102
+      - ip: 192.168.205.103
+    ports:
+      - name: metrics
+        port: 9283
+        protocol: TCP

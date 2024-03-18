@@ -1,0 +1,5 @@
+namespace: metallb-system
+
+resources:
+  - IPAddressPool.yaml
+  - L2Advertisement.yaml

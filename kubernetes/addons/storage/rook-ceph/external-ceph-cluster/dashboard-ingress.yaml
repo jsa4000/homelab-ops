@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rook-ceph-ingress
+  namespace: rook-ceph
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ceph.javstudio.org`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: microceph-dashboard
+          port: 8443
+  tls:
+    secretName: wildcard-javstudio-org-tls

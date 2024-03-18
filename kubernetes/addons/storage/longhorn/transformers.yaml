@@ -1,0 +1,10 @@
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: serviceMonitorTransformer
+labels:
+  release: prometheus-stack
+fieldSpecs:
+  - kind: ServiceMonitor
+    path: metadata/labels
+    create: true

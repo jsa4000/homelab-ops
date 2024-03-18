@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-proxy
+spec:
+  forwardAuth:
+    address: http://oauth2-proxy.iam.svc.cluster.local/
+    trustForwardHeader: true
+    # Do not propagate auth headers to downstream services.
+    #authResponseHeaders:
+    #  - X-Auth-Request-Access-Token
+    #  - Authorization
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth-errors
+spec:
+  errors:
+    status:
+      - "401-403"
+    service:
+      name: oauth2-proxy
+      port: 80
+    query: "/oauth2/sign_in"

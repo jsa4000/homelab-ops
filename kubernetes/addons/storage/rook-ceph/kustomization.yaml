@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rook-ceph
+
+resources:
+  - namespace.yaml
+
+helmCharts:
+  - name: rook-ceph
+    repo: https://charts.rook.io/release
+    version: 1.13.4
+    includeCRDs: true
+    releaseName: rook-ceph
+    namespace: rook-ceph
+    valuesFile: values.yaml

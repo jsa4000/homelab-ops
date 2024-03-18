@@ -1,0 +1,22 @@
+networkPolicies:
+  enabled: false
+  type: "k3s"
+
+persistence:
+  defaultClass: true
+  defaultFsType: ext4
+  defaultClassReplicaCount: 3
+  defaultDataLocality: disabled
+  reclaimPolicy: Delete
+  migratable: false
+  backingImage:
+    enable: false
+  defaultNodeSelector:
+    enable: false
+
+longhornUI:
+  replicas: 1
+
+metrics:
+  serviceMonitor:
+    enabled: true

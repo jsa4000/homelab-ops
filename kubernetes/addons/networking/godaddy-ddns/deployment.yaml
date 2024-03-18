@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: godaddy-ddns
+  labels:
+    app: godaddy-ddns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: godaddy-ddns
+  template:
+    metadata:
+      labels:
+        app: godaddy-ddns
+    spec:
+      containers:
+        - name: godaddy-ddns
+          image: linuxshots/godaddy-ddns:1.1.1
+          envFrom:
+            - configMapRef:
+                name: godaddy-ddns
+            - secretRef:
+                name: godaddy-ddns

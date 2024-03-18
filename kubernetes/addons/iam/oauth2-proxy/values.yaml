@@ -1,0 +1,34 @@
+config:
+  existingSecret: oauth2-proxy
+  # existingConfig: oauth2-proxy
+  configFile: |-
+    email_domains = [ "*" ]
+    upstreams = [ "static://202" ]
+    silence_ping_logging = true
+
+extraArgs:
+  provider: oidc
+  user-id-claim: sub
+  cookie-secure: true
+  provider-display-name: ZITADEL
+  oidc-jwks-url: https://zitadel.javstudio.org/oauth/v2/keys
+  oidc-issuer-url: https://zitadel.javstudio.org
+  redirect-url: https://oauth.javstudio.org/oauth2/callback
+  cookie-name: "_oauth2_proxy"
+  cookie-domain: .javstudio.org
+  whitelist-domain: .javstudio.org
+  skip-provider-button: true
+  scope: openid email profile
+  pass-access-token: true
+  pass-user-headers: true
+  pass-host-header: true
+  pass-authorization-header: true
+  ssl-insecure-skip-verify: true
+  ssl-upstream-insecure-skip-verify: true
+  set-authorization-header: true
+  set-xauthrequest: true
+  code-challenge-method: S256
+  reverse-proxy: true
+
+  # oidc-groups-claim: "{your_actions_group_key}"
+  # allowed-groups: ["admin"]

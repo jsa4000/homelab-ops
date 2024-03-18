@@ -1,0 +1,38 @@
+monitoring:
+  enabled: false
+  createPrometheusRules: false
+cephClusterSpec:
+  skipUpgradeChecks: true
+  external:
+    enable: true
+  cephVersion:
+    # The version must match with the local installed
+    image: quay.io/ceph/ceph:v18.2.0
+    allowUnsupported: false
+  dataDirHostPath: /var/lib/rook
+  crashCollector:
+    disable: true
+  dashboard:
+    enabled: false
+  healthCheck:
+    daemonHealth:
+      mon:
+        disabled: false
+        interval: 45s
+cephBlockPools: {}
+cephFileSystems: {}
+cephObjectStores:
+  - name: external-store
+    spec:
+      gateway:
+        port: 8080
+        externalRgwEndpoints:
+          - ip: 192.168.205.101
+          - ip: 192.168.205.102
+          - ip: 192.168.205.103
+    storageClass:
+      enabled: true
+      name: ceph-bucket
+      reclaimPolicy: Delete
+      parameters:
+        region: us-east-1

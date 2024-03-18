@@ -1,0 +1,42 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: oauth2-proxy
+  namespace: iam
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+    external-dns.alpha.kubernetes.io/target: javstudio.org
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`oauth.javstudio.org`)
+      kind: Rule
+      services:
+        - name: oauth2-proxy
+          port: 80
+      middlewares:
+        - name: auth-headers
+  tls:
+    secretName: wildcard-javstudio-org-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wildcard-auth
+  namespace: iam
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`*.javstudio.org`) && PathPrefix(`/oauth2/`) || (PathPrefix(`/oauth2/`)
+      kind: Rule
+      services:
+        - name: oauth2-proxy
+          port: 80
+      middlewares:
+        - name: auth-headers
+  tls:
+    secretName: wildcard-javstudio-org-tls

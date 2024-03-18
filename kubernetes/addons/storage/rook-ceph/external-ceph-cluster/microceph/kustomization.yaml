@@ -1,0 +1,7 @@
+namespace: rook-ceph
+
+resources:
+  - metrics-endpoint.yaml
+  - metrics-service.yaml
+  - service-monitor.yaml
+  - ./dashboards

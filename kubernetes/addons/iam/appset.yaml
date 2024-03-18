@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: addons-security
+  name: addons-iam
   namespace: argocd
 spec:
   goTemplate: true
@@ -13,7 +13,7 @@ spec:
               repoURL: https://github.com/jsa4000/homelab-ops
               revision: HEAD
               directories:
-                - path: kubernetes/addons/security/*
+                - path: kubernetes/addons/iam/*
           - clusters:
               selector:
                 matchExpressions:
@@ -27,12 +27,12 @@ spec:
       project: default
       source:
         repoURL: "https://github.com/jsa4000/homelab-ops"
-        path: "clusters/{{.name}}/addons/security/{{.path.basename}}"
+        path: "clusters/{{.name}}/addons/iam/{{.path.basename}}"
         targetRevision: HEAD
         directory:
           recurse: false
       destination:
-        namespace: "security"
+        namespace: "iam"
         name: "{{.name}}"
       syncPolicy:
         automated:
