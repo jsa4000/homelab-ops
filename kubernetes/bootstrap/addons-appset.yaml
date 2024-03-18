@@ -20,6 +20,8 @@ spec:
                   - key: enable_addons
                     operator: In
                     values: ["true"]
+  syncPolicy:
+    applicationsSync: create-update
   template:
     metadata:
       name: "addon-{{.name}}-{{.path.basename}}"
@@ -42,7 +44,7 @@ spec:
         syncOptions:
           - Validate=true
           - CreateNamespace=true
-          - ServerSideApply=true
+          # - ServerSideApply=true
           - ApplyOutOfSyncOnly=true
           - PrunePropagationPolicy=foreground
           - PruneLast=true

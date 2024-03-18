@@ -189,10 +189,10 @@ kubectl logs -n networking -l app=godaddy-ddns -f
 #########################
 
 # Deploy traeifk
-kubectl kustomize manifests/traefik-external --enable-helm | kubectl apply -f -
+kubectl kustomize kubernetes/addons/networking/traefik-external --enable-helm | kubectl apply -f -
 
 # Remove traeifk
-kubectl kustomize manifests/traefik-external --enable-helm | kubectl delete -f -
+kubectl kustomize kubernetes/addons/networking/traefik-external --enable-helm | kubectl delete -f -
 
 # Get services deployed
 kubectl get pods,services -n networking
