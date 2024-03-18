@@ -32,6 +32,7 @@ jobs:
           VALIDATE_JSON: true
           VALIDATE_TERRAFORM_TFLINT: true
           VALIDATE_RENOVATE: true
+          YAML_CONFIG_FILE: .yamllint.yaml
           # VALIDATE_ANSIBLE: true
           # VALIDATE_PYTHON: true
           # VALIDATE_OPENAPI: true
