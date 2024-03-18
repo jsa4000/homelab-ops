@@ -46,6 +46,7 @@ spec:
           - CreateNamespace=true
           - ServerSideApply=true
           - ApplyOutOfSyncOnly=true
+          - SkipDryRunOnMissingResource=tue
           - PrunePropagationPolicy=foreground
           - PruneLast=true
         retry:
