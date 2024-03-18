@@ -37,6 +37,10 @@ kubectl create secret -n security generic cluster-secrets \
 # Deploy external-secrets
 kubectl kustomize kubernetes/addons/security/external-secrets --enable-helm | kubectl apply -f -
 
+# Local
+kubectl kustomize clusters/local/addons/security/external-secrets --enable-helm | kubectl apply -f -
+
+
 # Remove external-secrets
 kubectl kustomize kubernetes/addons/security/external-secrets --enable-helm | kubectl delete -f -
 
@@ -86,7 +90,6 @@ kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.pas
 kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 # Specific layer
 kubectl apply -n argocd -f kubernetes/addons/security/appset.yaml
-
 
 #########################
 # Deploy Metallb
