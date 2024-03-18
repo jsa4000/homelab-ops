@@ -40,7 +40,7 @@ spec:
           selfHeal: true
           allowEmpty: false
         syncOptions:
-          - Validate=true
+          - Validate=false
           - CreateNamespace=true
           - ServerSideApply=true
           - ApplyOutOfSyncOnly=true
