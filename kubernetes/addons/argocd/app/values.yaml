@@ -1,0 +1,62 @@
+crds:
+  install: true
+
+configs:
+  cm:
+    create: true
+    kustomize.buildOptions: --enable-helm
+    timeout.reconciliation: 180s
+    timeout.hard.reconciliation: 0s
+  params:
+    create: true
+    controller.status.processors: 10
+    controller.operation.processors: 20
+    controller.self.heal.timeout.seconds: 5
+    controller.repo.server.timeout.seconds: 60
+    controller.sharding.algorithm: round-robin
+    server.insecure: true
+    reposerver.parallelism.limit: 0
+    # timeout.reconciliation.jitter: 3m
+  cmp:
+    create: false
+    plugins: {}
+
+controller:
+  replicas: 1
+  # env:
+  #   - name: ARGOCD_CONTROLLER_REPLICAS
+  #     value: "1"
+  affinity: {}
+
+dex:
+  enabled: false
+
+redis:
+  enabled: true
+
+redis-ha:
+  enabled: false
+
+server:
+  replicas: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 3
+  extraArgs:
+    - --insecure
+  extensions:
+    enabled: false
+
+repoServer:
+  replicas: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 5
+
+applicationSet:
+  replicas: 1
+
+notifications:
+  enabled: false

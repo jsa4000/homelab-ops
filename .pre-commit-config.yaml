@@ -17,6 +17,8 @@ repos:
     rev: v0.39.0
     hooks:
       - args:
+          - --ignore-path
+          - '.github/linters/.markdownlintignore'
           - -c
           - .github/linters/.markdown-lint.yaml
           - "*.md"

@@ -1,0 +1,26 @@
+replicaCount: 1
+revisionHistoryLimit: 10
+installCRDs: true
+leaderElect: false
+
+processClusterExternalSecret: true
+processClusterStore: true
+processPushSecret: true
+createOperator: true
+
+concurrent: 1
+
+serviceMonitor:
+  enabled: true
+  additionalLabels:
+    release: prometheus-stack
+  interval: 30s
+  scrapeTimeout: 25s
+
+webhook:
+  create: true
+
+certController:
+  create: true
+  requeueInterval: "5m"
+  replicaCount: 1

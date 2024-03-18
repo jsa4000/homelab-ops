@@ -47,6 +47,8 @@ tasks:
       - kubectl config view --flatten > ~/.kube/config.merged
       - mv ~/.kube/config.merged ~/.kube/config
       - kubectl config use-context k3s-ansible
+      - chmod o-r ~/.kube/config
+      - chmod g-r ~/.kube/config
     status:
       - test -f ~/.kube/config.bak
 
