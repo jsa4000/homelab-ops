@@ -1,4 +1,4 @@
-altgraph==0.17.2
+altgraph==0.17.4
 Authlib==1.2.0
 certifi==2023.7.22
 cffi==1.15.1
