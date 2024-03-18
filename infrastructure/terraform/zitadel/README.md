@@ -4,9 +4,9 @@
 
 The elements of OpenFou/terraform are:
 
-* **Providers** are essentially **plugins** enabling OpenTofu to interact with various infrastructure **resources**.
-* **Resources** in OpenTofu refer to the infrastructure elements that OpenTofu can manage.
-* **Data source** in OpenTofu is a configuration element designed to `fetch` data from an external source.
+- **Providers** are essentially **plugins** enabling OpenTofu to interact with various infrastructure **resources**.
+- **Resources** in OpenTofu refer to the infrastructure elements that OpenTofu can manage.
+- **Data source** in OpenTofu is a configuration element designed to `fetch` data from an external source.
 
 ## Install
 

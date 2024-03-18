@@ -142,16 +142,16 @@ task brew:init
 # Install ansible dependencies
 task ansible:init
 
-# Check the inventory server statuses
+# Check the inventory server statuses (local)
 task ansible:ping ANSIBLE_INVENTORY_ENV=-local
 
-# Install kubernetes
+# Install kubernetes (local)
 task ansible:install ANSIBLE_INVENTORY_ENV=-local
 
 # Merge Kube config
 task ansible:config
 
-# Uninstall Kubernetes
+# Uninstall Kubernetes (local)
 task ansible:uninstall ANSIBLE_INVENTORY_ENV=-local
 ```
 

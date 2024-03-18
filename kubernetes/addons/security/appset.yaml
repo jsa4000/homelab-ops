@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: addons-security
+  namespace: argocd
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -18,21 +19,21 @@ spec:
                 matchExpressions:
                   - key: enable_addons
                     operator: In
-                    values: ['true']
+                    values: ["true"]
   template:
     metadata:
-      name: 'addon-{{.name}}-{{.path.basename}}'
+      name: "addon-{{.name}}-{{.path.basename}}"
     spec:
       project: default
       source:
-        repoURL: 'https://github.com/jsa4000/homelab-ops'
-        path: 'clusters/{{.name}}/addons/security/{{.path.basename}}'
+        repoURL: "https://github.com/jsa4000/homelab-ops"
+        path: "clusters/{{.name}}/addons/security/{{.path.basename}}"
         targetRevision: HEAD
         directory:
           recurse: false
       destination:
-        namespace: 'security'
-        name: '{{.name}}'
+        namespace: "security"
+        name: "{{.name}}"
       syncPolicy:
         automated:
           prune: true
