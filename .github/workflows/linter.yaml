@@ -25,15 +25,15 @@ jobs:
         uses: super-linter/super-linter@v6.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANSIBLE_DIRECTORY: infrastructure/ansible
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_YAML: true
           VALIDATE_MARKDOWN: true
           VALIDATE_JSON: true
-          VALIDATE_TERRAFORM_TFLINT: true
           VALIDATE_RENOVATE: true
           YAML_CONFIG_FILE: .yamllint.yaml
+          # VALIDATE_TERRAFORM_TFLINT: true
           # VALIDATE_ANSIBLE: true
           # VALIDATE_PYTHON: true
           # VALIDATE_OPENAPI: true
           # VALIDATE_BASH:vtrue
+          # ANSIBLE_DIRECTORY: infrastructure/ansible

@@ -174,6 +174,7 @@ docker run \
   -e VALIDATE_JSON=true \
   -e VALIDATE_TERRAFORM_TFLINT=true \
   -e VALIDATE_RENOVATE=true \
+  -e YAML_CONFIG_FILE=.yamllint.yaml \
   -v $PWD:/tmp/lint \
   --platform linux/amd64 \
   ghcr.io/super-linter/super-linter:slim-v6.3.0
