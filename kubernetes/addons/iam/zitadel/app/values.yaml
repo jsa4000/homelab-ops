@@ -61,11 +61,11 @@ configMap:
 serviceAccount:
   annotations: {}
 
-#initJob:
-#  annotations: {}
-#
-#setupJob:
-#  annotations: {}
+initJob:
+  annotations: {}
+
+setupJob:
+  annotations: {}
 
 metrics:
   enabled: true
