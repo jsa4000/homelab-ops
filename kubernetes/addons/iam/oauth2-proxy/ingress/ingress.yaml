@@ -2,7 +2,6 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: oauth2-proxy
-  namespace: iam
   annotations:
     kubernetes.io/ingress.class: traefik-external
     external-dns.alpha.kubernetes.io/target: javstudio.org
@@ -24,7 +23,6 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: wildcard-auth
-  namespace: iam
   annotations:
     kubernetes.io/ingress.class: traefik-external
 spec:
