@@ -3,16 +3,5 @@ kind: Kustomization
 namespace: iam
 
 resources:
-  - masterkey.yaml
-  #  - secret-password.yaml
-  - db-cert.yaml
-  - secret-tls.yaml
+  - app
   - ingress
-
-helmCharts:
-  - name: zitadel
-    repo: https://charts.zitadel.com
-    version: 7.9.1
-    releaseName: zitadel
-    namespace: iam
-    valuesFile: values.yaml
