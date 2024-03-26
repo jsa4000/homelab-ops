@@ -1,0 +1,12 @@
+controller:
+  enabled: true
+  logLevel: info
+
+speaker:
+  enabled: true
+
+crds:
+  enabled: true
+
+frrk8s:
+  enabled: false

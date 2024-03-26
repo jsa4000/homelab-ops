@@ -2,7 +2,8 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: lb-pool
-  namespace: metallb-system
 spec:
   addresses:
-    - 192.168.205.200-192.168.205.210
+    - 192.168.3.200-192.168.3.210
+  autoAssign: true
+  avoidBuggyIPs: true

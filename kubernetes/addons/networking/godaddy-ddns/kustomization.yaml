@@ -4,12 +4,4 @@ namespace: networking
 
 resources:
   - namespace.yaml
-  - deployment.yaml
-  - external-secret.yaml
-
-configMapGenerator:
-  - name: godaddy-ddns
-    literals:
-      - GD_NAME=@
-      - GD_DOMAIN=javstudio.org
-      - GD_TTL=600
+  - app

@@ -1,7 +1,0 @@
-namespace: metallb-system
-
-resources:
-  - ../../base
-
-patches:
-  - path: IPAddressPool.yaml
