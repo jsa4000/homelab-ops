@@ -21,5 +21,7 @@ metrics:
   serviceMonitor:
     enabled: true
 
+# Remove or Change Helm pre-upgrade hook to support ArgoCD
+# https://github.com/longhorn/longhorn/issues/6415
 preUpgradeChecker:
   jobEnabled: false
