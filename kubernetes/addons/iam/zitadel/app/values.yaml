@@ -62,8 +62,8 @@ serviceAccount:
   annotations: {}
 
 initJob:
-  enabled: false
-  annotations: {}
+  annotations:
+    test: something
 
 setupJob:
   annotations: {}
