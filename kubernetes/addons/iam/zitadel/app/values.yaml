@@ -45,28 +45,12 @@ zitadel:
   dbSslAdminCrtSecret: postgres-cluster-superuser-cert
   dbSslUserCrtSecret: postgres-cluster-zitadel-cert
 
-  secretConfigAnnotations: {}
-  masterkeyAnnotations: {}
-
 replicaCount: 1
 
 image:
   repository: ghcr.io/zitadel/zitadel
   tag: v2.47.2
   pullPolicy: IfNotPresent
-
-configMap:
-  annotations: {}
-
-serviceAccount:
-  annotations: {}
-
-initJob:
-  annotations:
-    test: something
-
-setupJob:
-  annotations: {}
 
 metrics:
   enabled: true

@@ -2,6 +2,10 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: zitadel-masterkey
+  annotations:
+    helm.sh/hook: 'pre-install,pre-upgrade'
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm.sh/hook-weight: '0'
 type: Opaque
 stringData:
   # LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32
