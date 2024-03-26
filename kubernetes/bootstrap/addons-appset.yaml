@@ -33,9 +33,6 @@ spec:
         targetRevision: HEAD
         directory:
           recurse: false
-        kustomize:
-          commonAnnotations:
-            argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
       destination:
         namespace: "{{.path.basename}}"
         name: "{{.name}}"
