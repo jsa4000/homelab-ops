@@ -20,3 +20,6 @@ longhornUI:
 metrics:
   serviceMonitor:
     enabled: true
+
+preUpgradeChecker:
+  jobEnabled: false
