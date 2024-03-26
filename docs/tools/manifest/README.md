@@ -56,7 +56,7 @@ kubectl kustomize kubernetes/addons/gitops/argocd --enable-helm | kubectl apply 
 
 # Create Github Credentials
 # https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories
-cat <<EOF | kubectl apply -n argocd -f -
+cat <<EOF | kubectl apply -n gitops -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -75,21 +75,22 @@ EOF
 kubectl kustomize kubernetes/addons/gitops/argocd --enable-helm | kubectl delete -f -
 
 # Get services deployed
-kubectl get pods,services -n argocd
+kubectl get pods,services -n gitops
 
 # Connect to Argocd
-kubectl port-forward svc/argocd-server -n argocd 8080:80
+kubectl port-forward svc/argocd-server -n gitops 8080:80
 
 # https://argocd.javstudio.org
 
 # Get the "admin" password
-kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+kubectl get secret argocd-initial-admin-secret -n gitops -o jsonpath="{.data.password}" | base64 -d
 
 # Apply addons
 kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 # Specific layer
-kubectl apply -n argocd -f kubernetes/addons/security/appset.yaml
-kubectl apply -n argocd -f kubernetes/addons/networking/appset.yaml
+kubectl apply -n gitops -f kubernetes/addons/gitops/appset.yaml
+kubectl apply -n gitops -f kubernetes/addons/security/appset.yaml
+kubectl apply -n gitops -f kubernetes/addons/networking/appset.yaml
 
 #########################
 # Deploy Metallb
