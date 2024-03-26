@@ -40,7 +40,6 @@ kubectl kustomize kubernetes/addons/security/external-secrets --enable-helm | ku
 # Local
 kubectl kustomize clusters/local/addons/security/external-secrets --enable-helm | kubectl apply -f -
 
-
 # Remove external-secrets
 kubectl kustomize kubernetes/addons/security/external-secrets --enable-helm | kubectl delete -f -
 
