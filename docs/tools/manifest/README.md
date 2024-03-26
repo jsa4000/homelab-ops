@@ -52,6 +52,7 @@ kubectl get ClusterSecretStore,SecretStore -n security
 #########################
 
 # Deploy Argo-cd
+kubectl create namespace gitops
 kubectl kustomize kubernetes/addons/gitops/argocd --enable-helm | kubectl apply -f -
 
 # Create Github Credentials
