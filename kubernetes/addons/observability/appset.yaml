@@ -33,6 +33,9 @@ spec:
         targetRevision: HEAD
         directory:
           recurse: false
+        kustomize:
+          commonAnnotations:
+            argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
       destination:
         namespace: "observability"
         name: "{{.name}}"
@@ -44,7 +47,7 @@ spec:
         syncOptions:
           - Validate=true
           - CreateNamespace=true
-          - ServerSideApply=true
+          #- ServerSideApply=true
           - ApplyOutOfSyncOnly=true
           - PrunePropagationPolicy=foreground
           - PruneLast=true
