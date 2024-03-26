@@ -89,8 +89,10 @@ kubectl get secret argocd-initial-admin-secret -n gitops -o jsonpath="{.data.pas
 kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 # Specific layer
 kubectl apply -n gitops -f kubernetes/addons/gitops/appset.yaml
+kubectl apply -n gitops -f kubernetes/addons/kube-system/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/security/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/networking/appset.yaml
+kubectl apply -n gitops -f kubernetes/addons/storage/appset.yaml
 
 #########################
 # Deploy Metallb

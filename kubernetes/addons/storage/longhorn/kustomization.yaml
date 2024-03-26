@@ -4,18 +4,5 @@ namespace: storage
 
 resources:
   - namespace.yaml
-  - ./dashboards
-
-transformers:
-  - transformers.yaml
-
-helmCharts:
-  - name: longhorn
-    repo: https://charts.longhorn.io
-    version: 1.6.0
-    releaseName: longhorn
-    namespace: longhorn
-    includeCRDs: true
-    valuesFile: values.yaml
-    valuesInline:
-      namespaceOverride: storage
+  - app
+  - dashboards
