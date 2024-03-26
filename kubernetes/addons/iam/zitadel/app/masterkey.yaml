@@ -3,6 +3,7 @@ kind: Secret
 metadata:
   name: zitadel-masterkey
   annotations:
+    # Hooks needed to be executed prior to init job
     helm.sh/hook: 'pre-install,pre-upgrade'
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: '0'
