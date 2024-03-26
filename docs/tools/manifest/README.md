@@ -93,6 +93,7 @@ kubectl apply -n gitops -f kubernetes/addons/kube-system/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/security/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/networking/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/storage/appset.yaml
+kubectl apply -n gitops -f kubernetes/addons/database/appset.yaml
 
 #########################
 # Deploy Metallb

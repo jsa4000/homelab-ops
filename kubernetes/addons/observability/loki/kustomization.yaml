@@ -3,8 +3,7 @@ kind: Kustomization
 namespace: logging
 
 resources:
-  - namespace.yaml
-  - ./datasources
+  - datasources
 
 helmCharts:
   - name: loki

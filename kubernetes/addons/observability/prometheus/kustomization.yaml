@@ -3,8 +3,7 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
-  - namespace.yaml
-  - ./ingress
+  - ingress
 
 helmCharts:
   - name: kube-prometheus-stack

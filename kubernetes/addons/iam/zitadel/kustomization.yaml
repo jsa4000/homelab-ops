@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: iam
 
 resources:
-  - namespace.yaml
   - masterkey.yaml
   #  - secret-password.yaml
   - db-cert.yaml

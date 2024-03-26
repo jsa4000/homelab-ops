@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: database
 
 resources:
-  - namespace.yaml
   #  - password-cluster
   - tls-cluster
   - backup
