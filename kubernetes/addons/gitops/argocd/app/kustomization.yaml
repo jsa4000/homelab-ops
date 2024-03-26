@@ -9,6 +9,6 @@ helmCharts:
     repo: https://argoproj.github.io/argo-helm
     version: 6.7.2
     releaseName: argocd
-    namespace: argocd
+    namespace: gitops
     includeCRDs: true
     valuesFile: values.yaml

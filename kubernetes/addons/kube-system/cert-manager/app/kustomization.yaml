@@ -9,10 +9,10 @@ helmCharts:
     repo: https://charts.jetstack.io
     version: v1.14.4
     releaseName: cert-manager
-    namespace: cert-manager
+    namespace: kube-system
     includeCRDs: true
     valuesFile: values.yaml
     valuesInline:
       global:
         leaderElection:
-          namespace: cert-manager
+          namespace: kube-system

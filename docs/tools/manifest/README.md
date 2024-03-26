@@ -52,7 +52,7 @@ kubectl get ClusterSecretStore,SecretStore -n security
 #########################
 
 # Deploy Argo-cd
-kubectl kustomize kubernetes/addons/argocd --enable-helm | kubectl apply -f -
+kubectl kustomize kubernetes/addons/gitops/argocd --enable-helm | kubectl apply -f -
 
 # Create Github Credentials
 # https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories
@@ -72,7 +72,7 @@ stringData:
 EOF
 
 # Remove Argo-cd
-kubectl kustomize kubernetes/addons/argocd --enable-helm | kubectl delete -f -
+kubectl kustomize kubernetes/addons/gitops/argocd --enable-helm | kubectl delete -f -
 
 # Get services deployed
 kubectl get pods,services -n argocd
@@ -274,18 +274,18 @@ kubectl get pods,services -n kube-system
 # https://github.com/topics/cert-manager-webhook
 
 # Deploy cert-manager
-kubectl kustomize manifests/cert-manager --enable-helm | kubectl apply -f -
-kubectl kustomize manifests/cert-manager/webhooks --enable-helm | kubectl apply -f -
-kubectl kustomize manifests/cert-manager/certs/staging --enable-helm | kubectl apply -f -
+kubectl kustomize kubernetes/addons/kube-system/cert-manager --enable-helm | kubectl apply -f -
+kubectl kustomize kubernetes/addons/kube-system/cert-manager/webhooks --enable-helm | kubectl apply -f -
+kubectl kustomize kubernetes/addons/kube-system/cert-manager/certs/staging --enable-helm | kubectl apply -f -
 
 # NOTE: Already created using external-secrets
 kubectl create secret -n cert-manager generic godaddy-api-key \
     --from-literal=token=$GODADDY_API_KEY:$GODADDY_SECRET_KEY
 
 # Remove cert-manager
-kubectl kustomize manifests/cert-manager --enable-helm | kubectl delete -f -
-kubectl kustomize manifests/cert-manager/webhooks --enable-helm | kubectl delete -f -
-kubectl kustomize manifests/cert-manager/certs/staging --enable-helm | kubectl delete -f -
+kubectl kustomize kubernetes/addons/kube-system/cert-manager --enable-helm | kubectl delete -f -
+kubectl kustomize kubernetes/addons/kube-system/cert-manager/webhooks --enable-helm | kubectl delete -f -
+kubectl kustomize kubernetes/addons/kube-system/cert-manager/certs/staging --enable-helm | kubectl delete -f -
 kubectl delete secret -n cert-manager godaddy-api-key
 
 # Get services deployed

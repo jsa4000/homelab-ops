@@ -9,11 +9,11 @@ helmCharts:
     repo: https://snowdrop.github.io/godaddy-webhook
     version: 0.3.0
     releaseName: godaddy-webhook
-    namespace: cert-manager
+    namespace: kube-system
     includeCRDs: false
     valuesInline:
       groupName: acme.javstudio.org
       replicaCount: 1
       certManager:
-        namespace: cert-manager
+        namespace: kube-system
         serviceAccountName: cert-manager
