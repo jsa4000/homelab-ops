@@ -130,14 +130,38 @@ terraform {
 }
 ```
 
-## Docker
+## Job
+
+Create a Job to bootstrap Zitadel configuration.
+
+```bash
+# Apply manifests
+kubectl apply -k docs/tools/iam/manifests
+
+# Get all manifests
+kubectl get secrets,job,pods -n iam
+
+# Get and execute the pod
+# command: [ "sleep" ]
+# args: [ "infinity" ]
+kubectl exec -it $(kubectl get pods -n iam -l job-name=oauth2-proxy-default-user  | tail -n 1 | awk {'print $1'}) -n iam  -- sh
+
+# Run commands
+
+# Delete manifest
+kubectl delete -k docs/tools/iam/manifests
+```
+
+Execute following scritp
 
 ```bash
 # Run alpine image
-docker run -it --rm alpine:3.19.1
+# docker run -it --rm alpine:3.19.1
+
+# TODO: Build docker container for immutable versions
 
 # Install utils
-apk add curl git openssl
+apk add curl git openssl kubectl
 
 # Install opentofu
 OPEN_TOFU_VERSION=1.6.2
@@ -149,18 +173,26 @@ apk add --allow-untrusted tofu.apk
 tofu -v
 
 # Clone the repository
-git clone https://github.com/jsa4000/homelab-ops.git
+# git clone https://github.com/jsa4000/homelab-ops.git
+git clone https://${GITHUB_PAT}@github.com/jsa4000/homelab-ops.git
 cd homelab-ops/infrastructure/terraform/zitadel/
+
+# Get HTTP Status Code
+echo "Wating to connect to Zitadel"
+status_code=$(curl -sk -o /dev/null -w "%{http_code}" https://zitadel.javstudio.org/debug/ready)
+if [[ "$status_code" -ne 200 ]] ; then
+  sleep 5m
+fi
 
 # Download the certificate
 # ls /usr/local/share/ca-certificates/
-openssl s_client -showcerts -connect zitadel.javstudio.org:443 -servername zitadel.javstudio.org  </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javstudio.org.pem
+openssl s_client -connect zitadel.javstudio.org:443 -servername zitadel.javstudio.org </dev/null | openssl x509 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javstudio.org.pem
 cp javstudio.org.pem /usr/local/share/ca-certificates/javstudio.org.pem
 update-ca-certificates
 
 # Init tofu providers
 tofu init -upgrade
-tofu apply -auto-approve
+tofu apply -auto-approve -var jwt_profile_file=/etc/config/zitadel-admin-sa.json
 
 # Create the secret after run OpenTofu
 kubectl create secret -n iam generic oauth2-proxy \

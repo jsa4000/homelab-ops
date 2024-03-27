@@ -88,6 +88,9 @@ kubectl get secret argocd-initial-admin-secret -n gitops -o jsonpath="{.data.pas
 
 # Apply addons
 kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
+
+# NOTE: Sometimes it's needed to go to ArgoCD UI and "Terminate" te Sync and force to Sync again to trigger the creation.
+
 # Specific layer
 kubectl apply -n gitops -f kubernetes/addons/gitops/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/kube-system/appset.yaml
