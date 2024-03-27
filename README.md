@@ -149,7 +149,7 @@ task ansible:ping ANSIBLE_INVENTORY_ENV=-local
 task ansible:install ANSIBLE_INVENTORY_ENV=-local
 
 # Merge Kube config
-mv ~/.kube/config.bak ~/.kube/config
+task ansible:config-restore
 task ansible:config
 
 # Uninstall Kubernetes (local)

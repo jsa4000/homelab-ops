@@ -36,7 +36,15 @@ tasks:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/reset.yml
       - defer: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/reboot.yml
 
+  config-restore:
+    desc: Restore Kubernetes configuration
+    preconditions:
+      - test -f ~/.kube/config.bak
+    cmds:
+      - mv ~/.kube/config.bak ~/.kube/config
+
   config:
+    desc: Merge Kubernetes configuration
     env:
       KUBECONFIG:
         sh: echo $(realpath ~/)/.kube/config:$(realpath ~/)/.kube/config.new
