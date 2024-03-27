@@ -129,3 +129,42 @@ terraform {
   }
 }
 ```
+
+## Docker
+
+```bash
+# Run alpine image
+docker run -it --rm alpine:3.19.1
+
+# Install utils
+apk add curl git openssl
+
+# Install opentofu
+OPEN_TOFU_VERSION=1.6.2
+OPEN_TOFU_ARCH=arm64
+wget https://github.com/opentofu/opentofu/releases/download/v${OPEN_TOFU_VERSION}/tofu_${OPEN_TOFU_VERSION}_${OPEN_TOFU_ARCH}.apk -O tofu.apk
+apk add --allow-untrusted tofu.apk
+
+# Check installed correctly
+tofu -v
+
+# Clone the repository
+git clone https://github.com/jsa4000/homelab-ops.git
+cd homelab-ops/infrastructure/terraform/zitadel/
+
+# Download the certificate
+# ls /usr/local/share/ca-certificates/
+openssl s_client -showcerts -connect zitadel.javstudio.org:443 -servername zitadel.javstudio.org  </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javstudio.org.pem
+cp javstudio.org.pem /usr/local/share/ca-certificates/javstudio.org.pem
+update-ca-certificates
+
+# Init tofu providers
+tofu init -upgrade
+tofu apply -auto-approve
+
+# Create the secret after run OpenTofu
+kubectl create secret -n iam generic oauth2-proxy \
+    --from-literal=client-id=$(tofu output -raw zitadel_application_client_id) \
+    --from-literal=client-secret=$(tofu output -raw zitadel_application_client_secret) \
+    --from-literal=cookie-secret=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
+```

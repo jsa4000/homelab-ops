@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: oauth2-proxy-default-user
+spec:
+  backoffLimit: 5
+  activeDeadlineSeconds: 100
+  # Clean up finished jobs automatically
+  # ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+        - name: opentofu
+          image: cgr.dev/chainguard/opentofu:1.6.2
+          # command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: OnFailure
