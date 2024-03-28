@@ -1,0 +1,9 @@
+
+Host localhost
+    HostName 127.0.0.1
+    User     ubuntu
+    IdentityFile /Users/jsantosa/.ssh/server_key
+    AddKeysToAgent yes
+    UseKeychain yes
+    IgnoreUnknown UseKeychain
+    StrictHostKeyChecking no
