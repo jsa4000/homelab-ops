@@ -1,0 +1,108 @@
+debug:
+  enabled: false
+
+k8sClientRateLimit:
+  qps: 50
+  burst: 100
+
+# Configure the kube-proxy replacement in Cilium BPF datapath
+kubeProxyReplacement: false
+
+# Enable installation of PodCIDR routes between worker nodes if worker nodes share a common L2 network segment.
+# This means there is no router or API Gateways in between worker nodes.
+autoDirectNodeRoutes: false
+
+l2announcements:
+  enabled: false
+
+bgp:
+  enabled: false
+
+bgpControlPlane:
+  enabled: false
+
+envoyConfig:
+  enabled: false
+
+ingressController:
+  enabled: false
+
+gatewayAPI:
+  enabled: false
+
+# Enable use of per endpoint routes instead of routing via the cilium_host interface.
+endpointRoutes:
+  enabled: false
+
+encryption:
+  enabled: false
+  type: ipsec
+  nodeEncryption: false
+
+k8sNetworkPolicy:
+  enabled: true
+
+externalIPs:
+  enabled: false
+
+# -- Enables masquerading of IPv4/IPv6 traffic leaving the node from endpoints.
+enableIPv4Masquerade: true
+enableIPv6Masquerade: false
+
+hubble:
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
+    serviceMonitor:
+      enabled: true
+      labels:
+        release: prometheus-stack
+    dashboards:
+      enabled: false
+      label: grafana_dashboard
+      labelValue: "true"
+  ui:
+    enabled: true
+    replicas: 1
+  relay:
+    enabled: true
+
+operator:
+  replicas: 1
+
+ipam:
+  mode: "cluster-pool"
+  operator:
+    clusterPoolIPv4PodCIDRList: ["10.52.0.0/16"]
+    clusterPoolIPv4MaskSize: 24
+
+ipv4:
+  enabled: true
+ipv6:
+  enabled: false
+
+bpf:
+  # Valid options are none, low, medium, maximum.
+  monitorAggregation: medium
+  monitorInterval: "5s"
+  monitorFlags: "all"
+  # Allow cluster external access to ClusterIP services.
+  lbExternalClusterIP: false
+
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    interval: "10s"
+    labels:
+      release: prometheus-stack
+
+dashboards:
+  enabled: true
+  label: grafana_dashboard
+  labelValue: "true"
