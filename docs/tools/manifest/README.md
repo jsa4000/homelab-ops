@@ -31,6 +31,17 @@ kubectl create secret -n security generic cluster-secrets \
 # 192.168.205.200 traefik.javstudio.org grafana.javstudio.org prometheus.javstudio.org longhorn.javstudio.org argocd.javstudio.org zitadel.javstudio.org oauth.javstudio.org
 
 #########################
+# Cilium
+#########################
+
+# Deploy cilium
+kubectl create namespace networking
+kubectl kustomize kubernetes/addons/networking/cilium --enable-helm | kubectl apply -f -
+
+# Remove cilium
+kubectl kustomize kubernetes/addons/networking/cilium --enable-helm | kubectl delete -f -
+
+#########################
 # External Secrets
 #########################
 

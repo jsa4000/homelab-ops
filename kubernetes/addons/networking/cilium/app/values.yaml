@@ -99,6 +99,7 @@ prometheus:
   serviceMonitor:
     enabled: true
     interval: "10s"
+    trustCRDsExist: true
     labels:
       release: prometheus-stack
 
