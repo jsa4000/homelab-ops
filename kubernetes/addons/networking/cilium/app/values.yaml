@@ -75,11 +75,15 @@ hubble:
   ui:
     enabled: true
     replicas: 1
+    rollOutPods: true
   relay:
     enabled: true
+    rollOutPods: true
 
 operator:
+  # Can't have more replicas than nodes
   replicas: 1
+  rollOutPods: true
 
 ipam:
   mode: "cluster-pool"
@@ -113,3 +117,14 @@ dashboards:
   enabled: true
   label: grafana_dashboard
   labelValue: "true"
+
+# mTLS
+#authentication:
+#  enabled: false
+#  mutual:
+#    spire:
+#      enabled: false
+#      install:
+#        server:
+#          dataStorage:
+#            storageClass: longhorn
