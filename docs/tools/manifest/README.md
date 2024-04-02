@@ -38,8 +38,8 @@ kubectl create secret -n security generic cluster-secrets \
 kubectl create namespace networking
 kubectl kustomize clusters/local/addons/networking/cilium --enable-helm | kubectl apply -f -
 
+# Default configuration
 kubectl kustomize kubernetes/addons/networking/cilium --enable-helm | kubectl apply -f -
-
 
 # Remove cilium
 kubectl kustomize kubernetes/addons/networking/cilium --enable-helm | kubectl delete -f -
@@ -135,7 +135,7 @@ kubectl apply -f kubernetes/apps/nginx
 # Check the LoadBalancer has been assigned to the service
 kubectl get pods,services
 
-# http://192.168.205.200
+# http://192.168.205.210
 
 #########################
 # External DNS
