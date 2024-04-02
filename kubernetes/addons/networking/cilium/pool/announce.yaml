@@ -1,0 +1,10 @@
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: l2-policy
+spec:
+  # Leaving .spec.interfaces empty announces over all interfaces. use 'ip link' to select a particular interface.
+  #interfaces:
+  #  - enp0s25
+  externalIPs: true
+  loadBalancerIPs: true

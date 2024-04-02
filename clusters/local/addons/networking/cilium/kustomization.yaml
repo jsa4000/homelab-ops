@@ -3,3 +3,6 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/networking/cilium?ref=main
+
+patches:
+  - path: ip-pool.yaml

@@ -36,7 +36,10 @@ kubectl create secret -n security generic cluster-secrets \
 
 # Deploy cilium
 kubectl create namespace networking
+kubectl kustomize clusters/local/addons/networking/cilium --enable-helm | kubectl apply -f -
+
 kubectl kustomize kubernetes/addons/networking/cilium --enable-helm | kubectl apply -f -
+
 
 # Remove cilium
 kubectl kustomize kubernetes/addons/networking/cilium --enable-helm | kubectl delete -f -
@@ -127,7 +130,7 @@ kubectl apply -k manifests/metallb-pool/overlays/local
 # kubectl apply -k manifests/metallb-pool/overlays/local -o yaml
 
 # Deploy nginx (it will create a load balancer)
-kubectl apply -f manifests/nginx
+kubectl apply -f kubernetes/apps/nginx
 
 # Check the LoadBalancer has been assigned to the service
 kubectl get pods,services

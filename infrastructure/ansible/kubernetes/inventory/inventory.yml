@@ -22,7 +22,10 @@ k3s_cluster:
     api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
     # By default k3s allow to deploy pods on master node, to fix this add this arg:
     #   --node-taint node-role.kubernetes.io/control-plane:NoSchedule
-    extra_server_args: "--disable servicelb --disable traefik"
+    # To install different CNI such as cilium or calico
+    #   --flannel-backend=none --disable-network-policy
+    #extra_server_args: "--disable servicelb --disable traefik"
+    extra_server_args: "--disable servicelb --disable traefik --flannel-backend=none --disable-network-policy"
     extra_agent_args: ""
 
     # MicroCeph
