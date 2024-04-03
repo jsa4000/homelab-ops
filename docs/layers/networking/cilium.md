@@ -1,12 +1,12 @@
 # Cilium
 
-![Cilium Logo](https://cdn.jsdelivr.net/gh/cilium/cilium@main/Documentation/images/logo-dark.png))
+![Cilium Logo](https://cdn.jsdelivr.net/gh/cilium/cilium@main/Documentation/images/logo-dark.png)
 
-Cilium is a networking, observability, and security solution with an eBPF-based dataplane. It provides a simple flat Layer 3 network with the ability to span multiple clusters in either a native routing or overlay mode. It is L7-protocol aware and can enforce network policies on L3-L7 using an identity based security model that is decoupled from network addressing.
+Cilium is a networking, observability, and security solution with an eBPF-based dataplane. It provides a simple flat Layer 3 network (OSI Model) with the ability to span multiple clusters in either a native routing or overlay mode. It is L7-protocol aware and can enforce network policies on L3-L7 using an identity based security model that is decoupled from network addressing.
 
-Cilium implements distributed load balancing for traffic between pods and to external services, and is able to fully replace kube-proxy, using efficient hash tables in eBPF allowing for almost unlimited scale. It also supports advanced functionality like integrated ingress and egress gateway, bandwidth management and service mesh, and provides deep network and security visibility and monitoring.
+Cilium implements distributed load balancing for traffic between pods and to external services, and is able to fully replace `kube-proxy`, using efficient hash tables in eBPF allowing for almost unlimited scale. It also supports advanced functionality like integrated ingress and egress gateway, bandwidth management and service mesh, and provides deep network and security visibility and monitoring.
 
-A new Linux kernel technology called eBPF is at the foundation of Cilium. It supports dynamic insertion of eBPF bytecode into the Linux kernel at various integration points such as: network IO, application sockets, and tracepoints to implement security, networking and visibility logic. eBPF is highly efficient and flexible. To learn more about eBPF, visit `eBPF.io`.
+A new Linux kernel technology called `eBPF` is at the foundation of Cilium. It supports dynamic insertion of eBPF bytecode into the Linux kernel at various integration points such as: network IO, application sockets, and tracepoints to implement security, networking and visibility logic. eBPF is highly efficient and flexible. To learn more about eBPF, visit `eBPF.io`.
 
 ![Overview of Cilium features for networking, observability, service mesh, and runtime security](../../images/cilium-overview.png)
 
@@ -53,9 +53,6 @@ brew install cilium-cli
 
 # Test the version
 cilium version
-
-# Cilium can be installed using the cli
-cilium install --version 1.15.3
 ```
 
 ### Operator
@@ -66,12 +63,11 @@ There are several ways to install Cilium operator.
 # Using the cilium cli, this will use helm behind the scenes.
 cilium install --version 1.15.3
 
-
 ```
 
 !!! note
 
-    Depending on the kubernetes distribution GKE,AKS,EKS,Openshift cilium must need to be installed using specific configuration
+Depending on the kubernetes distribution GKE,AKS,EKS,Openshift cilium must need to be installed using specific configuration
 
 ```bash
 #
@@ -83,6 +79,9 @@ To validate that Cilium has been properly installed run following command.
 ```bash
 # Check cilium status by using the following command
 cilium status -n networking --wait
+
+# Check cilium status by using the following command
+cilium config -n networking view
 ```
 
 Run the following command to validate that your cluster has proper network connectivity.
