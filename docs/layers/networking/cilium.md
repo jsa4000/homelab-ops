@@ -33,7 +33,7 @@ Cilium 1.13 introduced LB-IPAM support and 1.14 added L2 announcement capabiliti
 
 !!! note
 
-    Cilium doesn't use `metallb` anymore, it uses its own bgp speaker made with gobgp. They used it initially until they reached feature parity with gobgp.
+Cilium doesn't use `metallb` anymore, it uses its own bgp speaker made with gobgp. They used it initially until they reached feature parity with gobgp.
 
 ### BGP (Border Gateway Protocol)
 
