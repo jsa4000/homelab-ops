@@ -31,3 +31,7 @@ MD041: false
 
 # MD046/code-block-style
 MD046: false
+
+# MD024/no-duplicate-heading
+MD024:
+  siblings_only: true
