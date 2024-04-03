@@ -79,7 +79,7 @@ helm install cilium cilium/cilium --version 1.15.3 \
    --set operator.replicas=1
 ```
 
-!!! note Restart unmanaged Pods
+!!! Restart unmanaged Pods
 
     If you did not create a cluster with the nodes tainted with the taint `node.cilium.io/agent-not-ready`, then unmanaged pods **need** to be restarted manually. Restart all already running pods which are not running in host-networking mode to ensure that Cilium starts managing them. This is required to ensure that all pods which have been running before Cilium was deployed have network connectivity provided by Cilium and NetworkPolicy applies to them.
 
@@ -117,18 +117,40 @@ Upon deploying **Hubble Relay**, network visibility is provided for the entire c
 
 First you will need to install `hubble relay` and `hubble ui` into Kubernetes.
 
+!!! note
+
+    Cilium installed allows to configure hubble service with TLS, metrics, port and other features.
+
 ```bash
 # Cilium must be isntalled previously
 
 # Using cilium cli
 cilium hubble enable
 
-# Using helm
+# Using helm enabling global features.
 helm upgrade cilium cilium/cilium --version 1.15.3 \
    --namespace kube-system \
    --reuse-values \
    --set hubble.relay.enabled=true \
    --set hubble.ui.enabled=true
+```
+
+Install `hubble` cli to interact with Hubble API for observability and troubleshooting.
+
+```bash
+# Install hubble using homebrew
+brew install hubble
+
+# Validate installation
+
+# Expose the Hubble API by using Port forward on port :4245
+cilium hubble port-forward -n networking
+
+# In other terminal use following command to test the hubble status
+hubble status
+
+# You can also query the flow API and look for flows
+hubble observe
 ```
 
 ## References
