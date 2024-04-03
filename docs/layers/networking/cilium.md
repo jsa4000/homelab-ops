@@ -33,7 +33,7 @@ Cilium 1.13 introduced LB-IPAM support and 1.14 added L2 announcement capabiliti
 
 !!! note
 
-Cilium doesn't use `metallb` anymore, it uses its own bgp speaker made with gobgp. They used it initially until they reached feature parity with gobgp.
+    Cilium doesn't use `metallb` anymore, it uses its own bgp speaker made with gobgp. They used it initially until they reached feature parity with gobgp.
 
 ### BGP (Border Gateway Protocol)
 
@@ -67,12 +67,12 @@ cilium install --version 1.15.3
 
 !!! note
 
-Depending on the kubernetes distribution GKE,AKS,EKS,Openshift cilium must need to be installed using specific configuration
+    Depending on the kubernetes distribution GKE,AKS,EKS,Openshift cilium must need to be installed using specific configuration
 
-```bash
-#
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy' sh -
-```
+    ```bash
+    # For K3s cluster it's necessary to disable current CNI (flannel) and Network Policies.
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy' sh -
+    ```
 
 To validate that Cilium has been properly installed run following command.
 
