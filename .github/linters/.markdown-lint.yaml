@@ -28,3 +28,6 @@ MD033:
 
 # MD041 - First line in file should be a top level header
 MD041: false
+
+# MD046/code-block-style
+MD046: false
