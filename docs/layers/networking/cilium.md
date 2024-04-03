@@ -55,7 +55,7 @@ brew install cilium-cli
 cilium version
 ```
 
-### Operator
+### CNI
 
 There are several ways to install Cilium operator. The recommended way to install cilium is using a distribution with no CNI pre-installed. There are ways to prevent CNI to be installed in some distributions.
 
