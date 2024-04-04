@@ -230,6 +230,11 @@ helm template traefik-external /Users/jsantosa/Projects/Github/Mini-Cluster-Setu
 
 # https://traefik.javstudio.org/
 
+# Traefik Base
+kubectl kustomize kubernetes/addons/networking/traefik-external --enable-helm | grep loadBalancerIP
+# Traefik Overlay
+kubectl kustomize clusters/local/addons/networking/traefik-external --enable-helm | grep loadBalancerIP
+
 ###########################################################################
 # Deploy Prometheus Stack ( Prometheus Operator + Prometheus + Grafana )
 ###########################################################################
