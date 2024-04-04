@@ -10,6 +10,16 @@ A new Linux kernel technology called `eBPF` is at the foundation of Cilium. It s
 
 ![Overview of Cilium features for networking, observability, service mesh, and runtime security](../../images/cilium-overview.png)
 
+This is an overview of the main functionalities of Cilium:
+
+* Protect and secure APIs transparently
+* Secure service to service communication based on identities
+* Secure access to and from external services
+* Simple Networking
+* Load Balancing
+* Bandwidth Management
+* Monitoring and Troubleshooting
+
 ## Components
 
 A deployment of Cilium and Hubble consists of the following components running in a cluster:
@@ -159,7 +169,7 @@ Hubble can answer questions such as:
 
 ## Installation
 
-These are the generic instructions on how to install Cilium into any Kubernetes cluster. The installer will attempt to automatically pick the best configuration options for you. Please see the other tabs for distribution/platform specific instructions which also list the ideal default configuration for particular platforms.
+These are the generic instructions on how to install Cilium into any Kubernetes cluster. The installer will attempt to automatically pick the best configuration options for you. Please see the other installation options for distribution/platform specific instructions which also list the ideal default configuration for particular platforms.
 
 ### CLI
 
@@ -288,6 +298,111 @@ cilium hubble ui -n networking
 while true; do cilium connectivity test -n networking; done
 
 # http://localhost:12000/
+```
+
+## Demo
+
+In our Star Wars-inspired example, there are three microservices applications: `deathstar`, `tiefighter`, and `xwing`.
+
+* The `deathstar` runs an HTTP webservice on port 80, which is exposed as a Kubernetes Service to load-balance requests to deathstar across two pod replicas. The deathstar service provides landing services to the empire's spaceships so that they can request a landing port.
+* The `tiefighter` pod represents a landing-request client service on a typical empire ship.
+* The `xwing` represents a similar service on an alliance ship.
+
+![Star Wars-inspired demo](../../images/cilium_http_gsg.webp)
+
+They exist so that we can test different security policies for access control to deathstar landing services.
+
+### Deployment
+
+The file `http-sw-app.yaml` contains a Kubernetes Deployment for each of the three services. Each deployment is identified using the Kubernetes labels (`org=empire, class=deathstar`), (`org=empire, class=tiefighter`), and (`org=alliance, class=xwing`). It also includes a `deathstar-service`, which load-balances traffic to all pods with label (`org=empire, class=deathstar`).
+
+```bash
+# Deploy the base demo resources into default namespace
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/minikube/http-sw-app.yaml
+
+# Check the statuses
+kubectl get pods,svc
+```
+
+Each `pod` will be represented in Cilium as an `Endpoint` in the local cilium agent. We can invoke the cilium tool inside the Cilium pod to list them (in a single-node installation `kubectl -n networking exec ds/cilium -- cilium-dbg endpoint list` lists them all, but in a multi-node installation, only the ones running on the same node will be listed)
+
+Get the ingress and egress enforcements and policies currently applied to these pods/endpoints.
+
+```bash
+# List all endpoints (pods) available in the current node (each agent manage it's own pods)
+kubectl -n networking exec ds/cilium -- cilium-dbg endpoint list
+
+# Get endpoints from the CRD
+kubectl get cep
+kubectl get cep -o wide
+```
+
+### Check Current Access
+
+From the perspective of the `deathstar` service, only the ships with label `org=empire` are allowed to connect and request landing. Since we have no rules enforced, both `xwing` and `tiefighter` will be able to request landing. To test this, use the commands below.
+
+```bash
+# Check connectivity between xwing and deathstar
+kubectl exec xwing -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
+
+# Check connectivity between tiefighter and deathstar
+kubectl exec tiefighter -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
+```
+
+### Apply an L3/L4 Policy
+
+When using Cilium, endpoint IP addresses are irrelevant when defining security policies. Instead, you can use the labels assigned to the pods to define security policies. The policies will be applied to the right pods based on the labels irrespective of where or when it is running within the cluster.
+
+We'll start with the basic policy restricting deathstar landing requests to only the ships that have label (`org=empire`). This will not allow any ships that don't have the `org=empire` label to even connect with the deathstar service. This is a simple policy that filters only on IP protocol (network layer 3) and TCP protocol (network layer 4), so it is often referred to as an L3/L4 network security policy.
+
+![Star Wars-inspired demo](../../images/cilium_http_l3_l4_gsg.webp)
+
+```yaml title="sw_l3_l4_policy.yaml""
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "rule1"
+spec:
+  description: "L3-L4 policy to restrict deathstar access to empire ships only"
+  endpointSelector:
+    matchLabels:
+      org: empire
+      class: deathstar
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        org: empire
+    toPorts:
+    - ports:
+      - port: "80"
+        protocol: TCP
+```
+
+```bash
+# Create CiliumNetworkPolicy resource
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/minikube/sw_l3_l4_policy.yaml
+```
+
+Now if we run the landing requests again, only the tiefighter pods with the label `org=empire` will succeed. The xwing pods will be blocked!
+
+```bash
+# tiefighter pods with the label org=empire will succeed
+kubectl exec tiefighter -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
+
+# xwing pods with the label org!=empire will not succeed
+kubectl exec xwing -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
+```
+
+### Inspecting the Policy
+
+If we run cilium-dbg endpoint list again we will see that the pods with the label `org=empire` and `class=deathstar` now have ingress policy enforcement `enabled` as per the policy above.
+
+```bash
+# Check policy enabled on deathstar endpoint
+kubectl -n networking exec ds/cilium -- cilium-dbg endpoint list
+
+kubectl get cnp
+kubectl describe cnp rule1
 ```
 
 ## Labs
