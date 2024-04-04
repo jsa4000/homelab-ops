@@ -67,7 +67,7 @@ eBPF is a Linux kernel bytecode interpreter originally introduced to filter netw
 
 Cilium is capable of probing the Linux kernel for available features and will automatically make use of more recent features as they are detected.
 
-### Data Store
+### Data Store
 
 Cilium requires a data store to propagate state between agents. It supports the following data stores:
 

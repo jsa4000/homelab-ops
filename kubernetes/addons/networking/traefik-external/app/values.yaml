@@ -32,8 +32,9 @@ providers:
   kubernetesIngress:
     enabled: true
     allowExternalNameServices: true
+    # Needed to work with External DNS
     publishedService:
-      enabled: false # External DNS
+      enabled: false
 
 metrics:
   prometheus:

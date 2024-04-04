@@ -3,3 +3,10 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/networking/traefik-external?ref=main
+
+patches:
+  - target:
+      version: v1
+      kind: Service
+      name: traefik-external
+    path: service-patch.yaml
