@@ -355,7 +355,7 @@ When using Cilium, endpoint IP addresses are irrelevant when defining security p
 
 We'll start with the basic policy restricting deathstar landing requests to only the ships that have label (`org=empire`). This will not allow any ships that don't have the `org=empire` label to even connect with the deathstar service. This is a simple policy that filters only on IP protocol (network layer 3) and TCP protocol (network layer 4), so it is often referred to as an L3/L4 network security policy.
 
-![Star Wars-inspired demo](../../images/cilium_http_l3_l4_gsg.webp)
+![Star Wars-inspired demo](../../images/cilium_http_l3_l4_gsg.png)
 
 ```yaml title="sw_l3_l4_policy.yaml""
 apiVersion: "cilium.io/v2"
