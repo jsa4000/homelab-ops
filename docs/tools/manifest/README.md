@@ -15,6 +15,9 @@ export GITHUB_REPO=<GITHUB_REPO>
 export GITHUB_USERNAME=<GITHUB_USERNAME>
 export GITHUB_PASSWORD=<GITHUB_PASSWORD>
 
+# Open Router NAT ports at http://192.168.3.1
+sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443
+
 # Set environment (copy to root path if desired)
 source "/Users/jsantosa/Library/CloudStorage/GoogleDrive-jsa4000@gmail.com/My Drive/Ocio/Cluster/keys/.env"
 
