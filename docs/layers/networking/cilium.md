@@ -316,6 +316,10 @@ They exist so that we can test different security policies for access control to
 
 The file `http-sw-app.yaml` contains a Kubernetes Deployment for each of the three services. Each deployment is identified using the Kubernetes labels (`org=empire, class=deathstar`), (`org=empire, class=tiefighter`), and (`org=alliance, class=xwing`). It also includes a `deathstar-service`, which load-balances traffic to all pods with label (`org=empire, class=deathstar`).
 
+```yaml title="ttp-sw-app.yaml" hl_lines="16 17"
+--8<-- "docs/_source/layers/networking/cilium/http-sw-app.yaml:deathstar"
+```
+
 ```bash
 # Deploy the base demo resources into default namespace
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/minikube/http-sw-app.yaml
@@ -332,7 +336,19 @@ Get the ingress and egress enforcements and policies currently applied to these 
 # List all endpoints (pods) available in the current node (each agent manage it's own pods)
 kubectl -n networking exec ds/cilium -- cilium-dbg endpoint list
 
-# Get endpoints from the CRD
+Defaulted container "cilium-agent" out of: cilium-agent, config (init), mount-cgroup (init), apply-sysctl-overwrites (init), mount-bpf-fs (init), clean-cilium-state (init), install-cni-binaries (init)
+ENDPOINT   POLICY (ingress)   POLICY (egress)   IDENTITY   LABELS (source:key[=value])                                              IPv6   IPv4          STATUS
+           ENFORCEMENT        ENFORCEMENT
+
+1453       Disabled           Disabled          45221      k8s:app.kubernetes.io/name=deathstar                                            10.52.1.208   ready
+                                                           k8s:class=deathstar
+                                                           k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name=default
+                                                           k8s:io.cilium.k8s.policy.cluster=default
+                                                           k8s:io.cilium.k8s.policy.serviceaccount=default
+                                                           k8s:io.kubernetes.pod.namespace=default
+                                                           k8s:org=empire
+
+# This information can be also gotten from CRD (ciliumnetworkpolicy or cnp)
 kubectl get cep
 kubectl get cep -o wide
 ```
@@ -355,9 +371,15 @@ When using Cilium, endpoint IP addresses are irrelevant when defining security p
 
 We'll start with the basic policy restricting deathstar landing requests to only the ships that have label (`org=empire`). This will not allow any ships that don't have the `org=empire` label to even connect with the deathstar service. This is a simple policy that filters only on IP protocol (network layer 3) and TCP protocol (network layer 4), so it is often referred to as an L3/L4 network security policy.
 
+!!! note
+
+    Once a `CiliumNetworkPolicy` has been applied it **denies** automatically the connections that do not satisfied this policy. It's recommended to set a **Zero Trust Security** policy at a cluster level to deny every connection and start adding Network Policies to enable the **trusted** connections.
+
 ![Star Wars-inspired demo](../../images/cilium_http_l3_l4_gsg.png)
 
-```yaml title="sw_l3_l4_policy.yaml""
+This `CiliumNetworkPolicy` will restrict any `ingress` network connections to `endpoints` with labels `class: deathstar` and `org: empire` (`deathstar` endpoint), so it does not allow incoming traffic that have not labels `org=empire` on port `80`.
+
+```yaml title="sw_l3_l4_policy.yaml" hl_lines="9 10"
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
@@ -401,8 +423,44 @@ If we run cilium-dbg endpoint list again we will see that the pods with the labe
 # Check policy enabled on deathstar endpoint
 kubectl -n networking exec ds/cilium -- cilium-dbg endpoint list
 
-kubectl get cnp
+Defaulted container "cilium-agent" out of: cilium-agent, config (init), mount-cgroup (init), apply-sysctl-overwrites (init), mount-bpf-fs (init), clean-cilium-state (init), install-cni-binaries (init)
+ENDPOINT   POLICY (ingress)   POLICY (egress)   IDENTITY   LABELS (source:key[=value])                                              IPv6   IPv4          STATUS
+           ENFORCEMENT        ENFORCEMENT
+
+1453       Enabled            Disabled          45221      k8s:app.kubernetes.io/name=deathstar                                            10.52.1.208   ready
+                                                           k8s:class=deathstar
+                                                           k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name=default
+                                                           k8s:io.cilium.k8s.policy.cluster=default
+                                                           k8s:io.cilium.k8s.policy.serviceaccount=default
+                                                           k8s:io.kubernetes.pod.namespace=default
+                                                           k8s:org=empire
+
+# This information can be also gotten from CRD (ciliumnetworkpolicy or cnp)
+kubectl get ciliumnetworkpolicy
 kubectl describe cnp rule1
+```
+
+### Apply and Test HTTP-aware L7 Policy
+
+In the simple scenario above, it was sufficient to either give `tiefighter` / `xwing` full access to deathstar's API or no access at all. But to provide the strongest security (i.e., enforce least-privilege isolation) between microservices, each service that calls deathstar's API should be limited to making only the set of HTTP requests it requires for legitimate operation.
+
+For example, consider that the deathstar service exposes some maintenance APIs which should not be called by random empire ships.
+
+![L7 Policy with Cilium and Kubernetes](../../images/cilium_http_l3_l4_l7_gsg.png)
+
+```bash
+# force an error calling to /v1/exhaust-port
+kubectl exec tiefighter -- curl -s -XPUT deathstar.default.svc.cluster.local/v1/exhaust-port
+
+Panic: deathstar exploded
+
+goroutine 1 [running]:
+main.HandleGarbage(0x2080c3f50, 0x2, 0x4, 0x425c0, 0x5, 0xa)
+        /code/src/github.com/empire/deathstar/
+        temp/main.go:9 +0x64
+main.main()
+        /code/src/github.com/empire/deathstar/
+        temp/main.go:5 +0x85
 ```
 
 ## Labs
@@ -413,3 +471,4 @@ kubectl describe cnp rule1
 
 * [Kubernetes LoadBalance service using Cilium BGP control plane](https://medium.com/@valentin.hristev/kubernetes-loadbalance-service-using-cilium-bgp-control-plane-8a5ad416546a)
 * [Migrating from MetaLB to Cilium](https://blog.stonegarden.dev/articles/2023/12/migrating-from-metallb-to-cilium/)
+* [Getting Started with the Star Wars Demo](https://docs.cilium.io/en/stable/gettingstarted/demo/)
