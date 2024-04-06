@@ -83,8 +83,8 @@ markdown_extensions:
   - pymdownx.snippets:
       check_paths: true
       base_path:
-        - "."
-        - "docs/_source/"
+        - .
+        - docs/_source
       url_download: true
   - pymdownx.arithmatex:
       generic: true

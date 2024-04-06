@@ -377,7 +377,7 @@ The file `http-sw-app.yaml` contains a Kubernetes Deployment for each of the thr
 This is an example of the `deathstar` deployment with the labels `org=empire, class=deathstar`.
 
 ```yaml title="http-sw-app.yaml" hl_lines="16-17"
---8<-- "https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/http-sw-app.yaml:deathstar"
+--8<-- "layers/networking/cilium/http-sw-app.yaml:deathstar"
 ```
 
 ```bash
