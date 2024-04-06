@@ -81,7 +81,9 @@ markdown_extensions:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets:
-      base_path: ["."]
+      base_path:
+        - "."
+        - "docs/_source/"
       url_download: true
   - pymdownx.arithmatex:
       generic: true

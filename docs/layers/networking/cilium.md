@@ -468,7 +468,7 @@ This **Endpoint Based** Policy will restrict any `ingress` network connections t
     The layer 3 policy establishes the base connectivity rules regarding which endpoints can talk to each other. Layer 3 policies can be specified using the following methods: **Endpoints Based**, **Services based**, **Entities Based**, **IP/CIDR based** and **DNS based**. Check this [link](https://docs.cilium.io/en/latest/security/policy/language/) for more documentation.
 
 ```yaml title="sw_l3_l4_policy_endpoint.yaml" hl_lines="9-10 12-14"
---8<-- "docs/_source/layers/networking/cilium/sw_l3_l4_policy_endpoint.yaml"
+--8<-- "layers/networking/cilium/sw_l3_l4_policy_endpoint.yaml"
 ```
 
 ```bash
