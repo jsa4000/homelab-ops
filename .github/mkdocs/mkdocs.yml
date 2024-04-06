@@ -3,6 +3,7 @@ site_description: >-
   Create a Homelab from Scratch using latest best practices, patterns and tools.
 site_author: Javier Santos
 repo_name: jsa4000/homelab-ops
+repo_url: https://github.com/jsa4000/homelab-ops
 site_url: https://jsa4000.github.io/homelab-ops/
 docs_dir: ../../docs/
 
@@ -41,6 +42,8 @@ theme:
         name: Switch to light mode
       primary: teal
       accent: lime
+  icon:
+    logo: material/book-open-page-variant
   font:
     text: Roboto
     code: Roboto Mono
