@@ -468,12 +468,12 @@ This **Endpoint Based** Policy will restrict any `ingress` network connections t
     The layer 3 policy establishes the base connectivity rules regarding which endpoints can talk to each other. Layer 3 policies can be specified using the following methods: **Endpoints Based**, **Services based**, **Entities Based**, **IP/CIDR based** and **DNS based**. Check this [link](https://docs.cilium.io/en/latest/security/policy/language/) for more documentation.
 
 ```yaml title="sw_l3_l4_policy_endpoint.yaml" hl_lines="9-10 12-14"
---8<-- "layers/networking/cilium/sw_l3_l4_policy_endpoint.yaml"
+--8<-- "https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/sw_l3_l4_policy_endpoint.yaml"
 ```
 
 ```bash
 # Create CiliumNetworkPolicy resource
-kubectl create -f docs/_source/layers/networking/cilium/sw_l3_l4_policy.yaml
+kubectl create -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/sw_l3_l4_policy.yaml
 
 # This information can be also gotten from CRD (ciliumnetworkpolicy or cnp)
 kubectl get cnp
@@ -485,12 +485,12 @@ kubectl delete cnp rule1
 Instead a Service Based policiy can also be applied to enforce network traffic that goes from an endpoint to a specific services or endpoints (`egress`).
 
 ```yaml title="sw_l3_l4_policy_service.yaml" hl_lines="9-10 15-17 31-32 37-39"
---8<-- "docs/_source/layers/networking/cilium/sw_l3_l4_policy_service.yaml"
+--8<-- "https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/sw_l3_l4_policy_service.yaml"
 ```
 
 ```bash
 # Create CiliumNetworkPolicy resource
-kubectl create -f docs/_source/layers/networking/cilium/sw_l3_l4_policy_service.yaml
+kubectl create -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/sw_l3_l4_policy_service.yaml
 
 # This information can be also gotten from CRD (ciliumnetworkpolicy or cnp)
 kubectl get cnp
@@ -564,14 +564,14 @@ main.main()
 Cilium is capable of enforcing HTTP-layer (i.e., L7) policies to limit what URLs the tiefighter is allowed to reach. Here is an example policy file that extends our original policy by limiting tiefighter to making only a POST /v1/request-landing API call, but disallowing all other calls (including PUT /v1/exhaust-port).
 
 ```yaml title="sw_l3_l4_policy_endpoint.yaml" hl_lines="9-10 14"
---8<-- "docs/_source/layers/networking/cilium/sw_l3_l4_l7_policy.yaml"
+--8<-- "https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/sw_l3_l4_l7_policy.yaml"
 ```
 
 Update the existing rule to apply L7-aware policy to protect deathstar using.
 
 ```bash
 # Create CiliumNetworkPolicy resource
-kubectl apply -f docs/_source/layers/networking/cilium/sw_l3_l4_l7_policy.yaml
+kubectl apply -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/sw_l3_l4_l7_policy.yaml
 ```
 
 We can now re-run the same test as above, but we will see a different outcome.
@@ -610,7 +610,7 @@ Deploy `mediabot` pod that will attempt to connect to github.
 
 ```bash
 # Create CiliumNetworkPolicy resource
-kubectl create -f docs/_source/layers/networking/cilium/dns-sw-app.yaml
+kubectl create -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/dns-sw-app.yaml
 ```
 
 #### Apply DNS Egress Policy
@@ -622,7 +622,7 @@ kubectl create -f docs/_source/layers/networking/cilium/dns-sw-app.yaml
     **OpenShift** users will need to modify the policies to match the namespace` openshift-dns` (instead of `kube-system`), remove the match on the `k8s:k8s-app=kube-dns` label, and change the port to `5353`.
 
 ```yaml title="dns-matchname.yaml" hl_lines="11-12 14-16 21-23"
---8<-- "docs/_source/layers/networking/cilium/dns-matchname.yaml"
+--8<-- "https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/dns-matchname.yaml"
 ```
 
 1. The first egress section uses `toFQDNs:` matchName specification to allow egress to `api.github.com`. The destination DNS should match exactly the name specified in the rule. The endpointSelector allows only pods with labels `class: mediabot`, `org:empire` to have the egress access.
@@ -632,7 +632,7 @@ Apply DNS policy using DNS strict match
 
 ```bash
 # Apply the DNS Polidy
-kubectl apply -f docs/_source/layers/networking/cilium/dns-matchname.yaml
+kubectl apply -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/dns-matchname.yaml
 ```
 
 Testing the policy, we see that `mediabot` has access to `api.github.com` but doesn't have access to any other external service, e.g., `support.github.com`.
@@ -654,14 +654,14 @@ kubectl exec mediabot -- curl -I -s --max-time 5 https://support.github.com | he
 The above policy controlled DNS access based on exact match of the DNS domain name. Often, it is required to allow access to a subset of domains. Let's say, in the above example, mediabot pods need access to any GitHub sub-domain, e.g., the pattern `*.github.com`. We can achieve this easily by changing the `toFQDN` rule to use `matchPattern` instead of `matchName`.
 
 ```yaml title="dns-pattern.yaml" hl_lines="12"
---8<-- "docs/_source/layers/networking/cilium/dns-pattern.yaml"
+--8<-- "https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/dns-pattern.yaml"
 ```
 
 Apply DNS policy using a pattern instead
 
 ```bash
 # Apply the DNS Policy with wildcards
-kubectl apply -f docs/_source/layers/networking/cilium/dns-pattern.yaml
+kubectl apply -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/dns-pattern.yaml
 ```
 
 Test that `mediabot` has access to multiple **GitHub** services for which the DNS matches the pattern `*.github.com`.
@@ -690,14 +690,14 @@ kubectl exec mediabot -- curl -I -s --max-time 5 https://github.com | head -1
 The DNS-based policies can be combined with port (L4) and API (L7) rules to further restrict the access. In our example, we will restrict `mediabot` pods to access GitHub services only on ports `443`. The `toPorts` section in the policy below achieves the port-based restrictions along with the DNS-based policies.
 
 ```yaml title="dns-port.yaml" hl_lines="14-17"
---8<-- "docs/_source/layers/networking/cilium/dns-port.yaml"
+--8<-- "https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/dns-port.yaml"
 ```
 
 Apply DNS policy using a pattern instead
 
 ```bash
 # Apply the DNS Policy with ports
-kubectl apply -f docs/_source/layers/networking/cilium/dns-port.yaml
+kubectl apply -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/docs/_source/layers/networking/cilium/dns-port.yaml
 ```
 
 Test that `mediabot` has access to multiple **GitHub** services for which the DNS matches both `github.com` and pattern `*.github.com`. The access on port `443` will succeed but the access on port `80` will be denied.
