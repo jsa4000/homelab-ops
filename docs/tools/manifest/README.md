@@ -41,8 +41,9 @@ kubectl create secret -n security generic cluster-secrets \
 kubectl create namespace networking
 kubectl kustomize clusters/local/addons/networking/cilium --enable-helm | kubectl apply -f -
 
-# Wait until completed
-kubectl wait --for=condition=ready pod -n networking -l app.kubernetes.io/name=cilium-operator
+# Wait until cilium operator and agents are ready
+kubectl wait --for=condition=ready pod -n networking -l name=cilium-operator
+kubectl wait --for=condition=ready pod -n networking -l k8s-app=cilium
 
 # Default configuration
 kubectl kustomize kubernetes/addons/networking/cilium --enable-helm | kubectl apply -f -
