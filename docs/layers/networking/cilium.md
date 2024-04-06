@@ -382,7 +382,7 @@ This is an example of the `deathstar` deployment with the labels `org=empire, cl
 
 ```bash
 # Deploy the base demo resources into default namespace
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/minikube/http-sw-app.yaml
+kubectl create -f docs/_source/layers/networking/cilium/http-sw-app.yaml
 
 service/deathstar created
 deployment.apps/deathstar created
@@ -473,7 +473,7 @@ This **Endpoint Based** Policy will restrict any `ingress` network connections t
 
 ```bash
 # Create CiliumNetworkPolicy resource
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/minikube/sw_l3_l4_policy.yaml
+kubectl create -f docs/_source/layers/networking/cilium/sw_l3_l4_policy.yaml
 
 # This information can be also gotten from CRD (ciliumnetworkpolicy or cnp)
 kubectl get cnp
@@ -571,7 +571,7 @@ Update the existing rule to apply L7-aware policy to protect deathstar using.
 
 ```bash
 # Create CiliumNetworkPolicy resource
-kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/minikube/sw_l3_l4_l7_policy.yaml
+kubectl apply -f docs/_source/layers/networking/cilium/sw_l3_l4_l7_policy.yaml
 ```
 
 We can now re-run the same test as above, but we will see a different outcome.
@@ -610,7 +610,7 @@ Deploy `mediabot` pod that will attempt to connect to github.
 
 ```bash
 # Create CiliumNetworkPolicy resource
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/kubernetes-dns/dns-sw-app.yaml
+kubectl create -f docs/_source/layers/networking/cilium/dns-sw-app.yaml
 ```
 
 #### Apply DNS Egress Policy
@@ -632,7 +632,7 @@ Apply DNS policy using DNS strict match
 
 ```bash
 # Apply the DNS Polidy
-kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/kubernetes-dns/dns-matchname.yaml
+kubectl apply -f docs/_source/layers/networking/cilium/dns-matchname.yaml
 ```
 
 Testing the policy, we see that `mediabot` has access to `api.github.com` but doesn't have access to any other external service, e.g., `support.github.com`.
@@ -661,7 +661,7 @@ Apply DNS policy using a pattern instead
 
 ```bash
 # Apply the DNS Policy with wildcards
-kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/1.15.3/examples/kubernetes-dns/dns-pattern.yaml
+kubectl apply -f docs/_source/layers/networking/cilium/dns-pattern.yaml
 ```
 
 Test that `mediabot` has access to multiple **GitHub** services for which the DNS matches the pattern `*.github.com`.
