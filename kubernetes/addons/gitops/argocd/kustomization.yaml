@@ -4,5 +4,4 @@ namespace: gitops
 
 resources:
   - app
-  - cluster
   - ingress

@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/gitops/argocd?ref=main
+  - cluster-secret.yaml
