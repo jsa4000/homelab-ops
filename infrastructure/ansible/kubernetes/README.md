@@ -101,6 +101,9 @@ ansible-playbook playbooks/site.yml
 # If you need to deploy a specific inventory (local)
 ansible-playbook playbooks/site.yml -i inventory/inventory-local.yml
 
+# Test playbook to play with
+ansible-playbook playbooks/test.yml -i inventory/inventory-local.yml
+
 # Create Cluster using external token
 ansible-playbook playbooks/site.yml --extra-vars token=$MY_SECURE_TOKEN
 

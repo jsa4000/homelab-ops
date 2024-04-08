@@ -1,0 +1,8 @@
+---
+- name: Install Requisites
+  include_tasks: requisites.yml
+  tags: requisites
+
+- name: Deploy cilium
+  include_tasks: cilium.yml
+  tags: cilium

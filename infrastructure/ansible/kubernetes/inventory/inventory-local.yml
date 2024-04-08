@@ -29,6 +29,10 @@ k3s_cluster:
     extra_server_args: "--disable servicelb --disable traefik --flannel-backend=none --disable-network-policy"
     extra_agent_args: ""
 
+    # Addons
+    cluster_env: local
+    helm_version: v3.14.3
+
     # MicroCeph
     microceph_enabled: false
     microceph_version: latest/stable

@@ -1,0 +1,60 @@
+---
+- name: Check Cilium already installed
+  command: >-
+        kubectl get daemonset
+        --namespace=networking
+        cilium
+  register: cilium_status_result
+  when: inventory_hostname == groups['server'][0]
+  ignore_errors: true
+  failed_when: false
+  changed_when: false
+
+- name: Prepare Cilium CLI on first master and deploy CNI
+  when:
+    - inventory_hostname == groups['server'][0]
+    - cilium_status_result.rc != 0
+  run_once: true
+  block:
+
+    - name: Install Cilium
+      shell: |
+        kubectl create namespace networking
+        kubectl kustomize github.com/jsa4000/homelab-ops//clusters/{{ cluster_env }}/addons/networking/cilium?ref=main --enable-helm | kubectl apply -f -
+      register: cilium_install_result
+      ignore_errors: true
+      failed_when: false
+      changed_when: false
+
+    - name: Wait for Cilium resources
+      command: >-
+        {% if item.type == 'daemonset' %}
+        kubectl wait pods
+        --namespace=networking
+        --selector='k8s-app=cilium'
+        --for=condition=Ready
+        {% else %}
+        kubectl wait {{ item.type }}/{{ item.name }}
+        --namespace=networking
+        --for=condition=Available
+        {% endif %}
+        --timeout=30s
+      register: cr_result
+      changed_when: false
+      until: cr_result is succeeded
+      retries: 30
+      delay: 7
+      with_items:
+        - {name: cilium-operator, type: deployment}
+        - {name: cilium, type: daemonset, selector: 'k8s-app=cilium'}
+        - {name: hubble-relay, type: deployment, check_hubble: true}
+        - {name: hubble-ui, type: deployment, check_hubble: true}
+      loop_control:
+        label: "{{ item.type }}/{{ item.name }}"
+
+    - name: Update Cilium Resources
+      shell: |
+        kubectl kustomize github.com/jsa4000/homelab-ops//clusters/{{ cluster_env }}/addons/networking/cilium?ref=main --enable-helm | kubectl apply -f -
+      ignore_errors: true
+      failed_when: false
+      changed_when: false

@@ -1,0 +1,26 @@
+---
+- name: Install git
+  when: inventory_hostname == groups['server'][0]
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+
+- name: Install Helm
+  when: inventory_hostname == groups['server'][0]
+  run_once: true
+  block:
+
+    - name: Download Helm command line tool
+      ansible.builtin.uri:
+        url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+        return_content: true
+      register: helm_installer
+
+    - name: Install Helm
+      ansible.builtin.command:
+        cmd: bash
+        stdin: "{{ helm_installer.content }}"
+        creates: /usr/local/bin/helm
+      environment:
+        DESIRED_VERSION: "{{ helm_version | default('') }}"
