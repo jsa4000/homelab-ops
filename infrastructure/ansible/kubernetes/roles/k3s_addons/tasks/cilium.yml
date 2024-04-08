@@ -1,16 +1,16 @@
 ---
-- name: Check Cilium already installed
+- name: Check Cilium is already installed
   command: >-
-        kubectl get daemonset
-        --namespace=networking
-        cilium
+    kubectl get daemonset
+    --namespace=networking
+    cilium
   register: cilium_status_result
   when: inventory_hostname == groups['server'][0]
   ignore_errors: true
   failed_when: false
   changed_when: false
 
-- name: Prepare Cilium CLI on first master and deploy CNI
+- name: Install Cilium and deploy CNI
   when:
     - inventory_hostname == groups['server'][0]
     - cilium_status_result.rc != 0
@@ -30,12 +30,12 @@
       command: >-
         {% if item.type == 'daemonset' %}
         kubectl wait pods
-        --namespace=networking
-        --selector='k8s-app=cilium'
+        --namespace={{ item.namespace }}
+        --selector='{{ item.selector }}'
         --for=condition=Ready
         {% else %}
         kubectl wait {{ item.type }}/{{ item.name }}
-        --namespace=networking
+        --namespace={{ item.namespace }}
         --for=condition=Available
         {% endif %}
         --timeout=30s
@@ -45,10 +45,10 @@
       retries: 30
       delay: 7
       with_items:
-        - {name: cilium-operator, type: deployment}
-        - {name: cilium, type: daemonset, selector: 'k8s-app=cilium'}
-        - {name: hubble-relay, type: deployment, check_hubble: true}
-        - {name: hubble-ui, type: deployment, check_hubble: true}
+        - {name: cilium-operator, type: deployment, namespace: networking}
+        - {name: cilium, type: daemonset, namespace: networking, selector: 'k8s-app=cilium'}
+        - {name: hubble-relay, type: deployment, namespace: networking, check_hubble: true}
+        - {name: hubble-ui, type: deployment, namespace: networking, check_hubble: true}
       loop_control:
         label: "{{ item.type }}/{{ item.name }}"
 

@@ -115,7 +115,6 @@ task
 Setup `pre-commit` using TaskFile.
 
 ```bash
-
 # Init pre-commit hooks
 task precommit:init
 

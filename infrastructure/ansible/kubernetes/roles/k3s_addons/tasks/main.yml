@@ -1,8 +1,12 @@
 ---
-- name: Install Requisites
-  include_tasks: requisites.yml
-  tags: requisites
+- name: Install Requirements
+  include_tasks: requirements.yml
+  tags: requirements
 
 - name: Deploy cilium
   include_tasks: cilium.yml
   tags: cilium
+
+- name: Deploy External Secrets
+  include_tasks: external-secrets.yml
+  tags: external-secrets
