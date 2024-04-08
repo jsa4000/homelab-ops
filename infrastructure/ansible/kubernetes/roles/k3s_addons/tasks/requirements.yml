@@ -1,13 +1,11 @@
 ---
 - name: Install git
-  when: inventory_hostname == groups['server'][0]
   apt:
     name: git
     state: present
     update_cache: yes
 
 - name: Install Helm
-  when: inventory_hostname == groups['server'][0]
   run_once: true
   block:
 
