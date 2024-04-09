@@ -1,21 +1,21 @@
 ---
-- name: Install Cilium
+- name: Install Argocd
   run_once: true
   when: inventory_hostname == groups['server'][0]
   block:
 
-    - name: Create networking Namespace
+    - name: Create gitops Namespace
       shell: |
-        kubectl create namespace networking
+        kubectl create namespace gitops
       ignore_errors: true
       failed_when: false
       changed_when: false
 
-    - name: Install Cilium Addon (Eventual)
+    - name: Install Argocd Addon (Eventual)
       vars:
         timeout: 35s
         repository: 'github.com/jsa4000/homelab-ops'
-        path: 'clusters/{{ cluster_env }}/addons/networking/cilium'
+        path: 'clusters/{{ cluster_env }}/addons/gitops/argocd'
         branch: main
       shell: |
         kubectl kustomize {{ repository }}//{{ path }}?ref={{ branch }} --enable-helm | kubectl apply -f - || true
@@ -26,15 +26,13 @@
         {% else %}
         kubectl get {{ item.type }}/{{ item.name }} --namespace={{ item.namespace }}
         {% endif %}
-      register: cilium_result
+      register: argocd_result
       changed_when: false
       with_items:
-        - {name: cilium-operator, type: deployment, namespace: networking}
-        - {name: cilium, type: daemonset, namespace: networking, selector: 'k8s-app=cilium'}
-        - {name: hubble-relay, type: deployment, namespace: networking}
-        - {name: hubble-ui, type: deployment, namespace: networking}
-        - {name: lb-pool, type: CiliumLoadBalancerIPPool, namespace: networking}
-      until: cilium_result is succeeded
+        - {name: argocd-server, type: deployment, namespace: gitops}
+        - {name: argocd-repo-server, type: deployment, namespace: gitops}
+        - {name: argocd-applicationset-controller, type: deployment, namespace: gitops}
+      until: argocd_result is succeeded
       retries: 30
       delay: 7
       loop_control:

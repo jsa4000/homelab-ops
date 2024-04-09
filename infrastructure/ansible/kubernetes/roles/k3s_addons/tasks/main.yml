@@ -10,3 +10,11 @@
 - name: Deploy External Secrets
   include_tasks: external-secrets.yml
   tags: external-secrets
+
+- name: Deploy Argocd
+  include_tasks: argocd.yml
+  tags: argocd
+
+- name: Bootstrap Cluster
+  include_tasks: bootstrap.yml
+  tags: bootstrap

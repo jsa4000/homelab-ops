@@ -1,0 +1,10 @@
+---
+- name: Bootstrap Cluster
+  run_once: true
+  when: inventory_hostname == groups['server'][0]
+  block:
+
+    - name: Create Application Set
+      shell: |
+        kubectl apply -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/kubernetes/bootstrap/addons-appset.yaml
+      changed_when: false
