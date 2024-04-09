@@ -1,0 +1,42 @@
+---
+- name: Check if secret already exists
+  shell: |
+    kubectl get secret -n security cluster-secrets
+  register: cluster_secrets_result
+  when: inventory_hostname == groups['server'][0]
+  ignore_errors: true
+  failed_when: false
+  changed_when: false
+
+- name: Deploy Secrets
+  run_once: true
+  when:
+    - inventory_hostname == groups['server'][0]
+    - cluster_secrets_result.rc != 0
+  block:
+
+    - name: Create Security Namespace
+      shell: |
+        kubectl create namespace security
+      ignore_errors: true
+      failed_when: false
+      changed_when: false
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: '{{ cluster_dotenv }}'
+        dest: /tmp/.env
+
+    - name: Create dotenv Secrets
+      shell: |
+        . /tmp/.env && kubectl create secret -n security generic cluster-secrets \
+          --from-literal=GODADDY_API_KEY=$GODADDY_API_KEY \
+          --from-literal=GODADDY_SECRET_KEY=$GODADDY_SECRET_KEY \
+          --from-literal=GITHUB_REPO=$GITHUB_REPO \
+          --from-literal=GITHUB_USERNAME=$GITHUB_USERNAME \
+          --from-literal=GITHUB_PAT=$GITHUB_PAT
+
+    - name: Remove dotenv file
+      ansible.builtin.file:
+        path: /tmp/.env
+        state: absent

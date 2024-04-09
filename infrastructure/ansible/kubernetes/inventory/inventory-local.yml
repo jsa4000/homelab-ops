@@ -31,6 +31,7 @@ k3s_cluster:
 
     # Addons
     cluster_env: local
+    cluster_dotenv: "/Users/jsantosa/Projects/Github/homelab-ops/.env"
     helm_version: v3.14.3
 
     # MicroCeph

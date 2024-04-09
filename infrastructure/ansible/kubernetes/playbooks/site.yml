@@ -27,3 +27,9 @@
   become: true
   roles:
     - role: microceph
+
+- name: Setup K3S addons
+  hosts: k3s_cluster
+  become: true
+  roles:
+    - role: k3s_addons

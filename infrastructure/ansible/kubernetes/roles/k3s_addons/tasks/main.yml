@@ -1,20 +1,24 @@
 ---
-- name: Install Requirements
-  include_tasks: requirements.yml
-  tags: requirements
+#- name: Install Requirements
+#  include_tasks: requirements.yml
+#  tags: requirements
 
-- name: Deploy cilium
-  include_tasks: cilium.yml
-  tags: cilium
+- name: Deploy Secrets
+  include_tasks: dotenv.yml
+  tags: dotenv
 
-- name: Deploy External Secrets
-  include_tasks: external-secrets.yml
-  tags: external-secrets
-
-- name: Deploy Argocd
-  include_tasks: argocd.yml
-  tags: argocd
-
-- name: Bootstrap Cluster
-  include_tasks: bootstrap.yml
-  tags: bootstrap
+#- name: Deploy cilium
+#  include_tasks: cilium.yml
+#  tags: cilium
+#
+#- name: Deploy External Secrets
+#  include_tasks: external-secrets.yml
+#  tags: external-secrets
+#
+#- name: Deploy Argocd
+#  include_tasks: argocd.yml
+#  tags: argocd
+#
+#- name: Bootstrap Cluster
+#  include_tasks: bootstrap.yml
+#  tags: bootstrap
