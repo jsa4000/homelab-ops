@@ -16,6 +16,8 @@ spec:
                 - path: kubernetes/addons/storage/*
                 - path: kubernetes/addons/storage/rook-ceph
                   exclude: true
+              values:
+                namespace: storage
           - clusters:
               selector:
                 matchExpressions:
@@ -36,10 +38,11 @@ spec:
         directory:
           recurse: false
         kustomize:
+          namespace: "{{.values.namespace}}"
           commonAnnotations:
             argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
       destination:
-        namespace: "storage"
+        namespace: "{{.values.namespace}}"
         name: "{{.name}}"
       syncPolicy:
         automated:

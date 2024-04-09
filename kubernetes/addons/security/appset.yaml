@@ -14,6 +14,8 @@ spec:
               revision: HEAD
               directories:
                 - path: kubernetes/addons/security/*
+              values:
+                namespace: security
           - clusters:
               selector:
                 matchExpressions:
@@ -34,10 +36,11 @@ spec:
         directory:
           recurse: false
         kustomize:
+          namespace: "{{.values.namespace}}"
           commonAnnotations:
             argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
       destination:
-        namespace: "security"
+        namespace: "{{.values.namespace}}"
         name: "{{.name}}"
       syncPolicy:
         automated:

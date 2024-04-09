@@ -17,6 +17,8 @@ spec:
                 # Cilium is used for L2 Announced / LB IPAM
                 - path: kubernetes/addons/networking/metallb
                   exclude: true
+              values:
+                namespace: networking
           - clusters:
               selector:
                 matchExpressions:
@@ -37,10 +39,11 @@ spec:
         directory:
           recurse: false
         kustomize:
+          namespace: "{{.values.namespace}}"
           commonAnnotations:
             argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
       destination:
-        namespace: "networking"
+        namespace: "{{.values.namespace}}"
         name: "{{.name}}"
       syncPolicy:
         automated:
