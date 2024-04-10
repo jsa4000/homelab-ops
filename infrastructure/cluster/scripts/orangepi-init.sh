@@ -31,7 +31,7 @@ echo "Updating dependencies"
 sudo apt update && sudo apt upgrade -y
 
 echo "Installing common tools"
-sudo apt install p7zip-full gettext-base xz-utils net-tools -y
+sudo apt install p7zip-full gettext-base xz-utils net-tools git -y
 wget $YQ_URL -O - | tar xz && sudo mv $YQ_BINARY /usr/bin/yq
 
 printf "Do you want to install the SPI loader? (y/n)"
