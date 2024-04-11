@@ -110,7 +110,11 @@ kubectl get secret argocd-initial-admin-secret -n gitops -o jsonpath="{.data.pas
 # Apply addons
 kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 
-# NOTE: Sometimes it's needed to go to ArgoCD UI and "Terminate" te Sync and force to Sync again to trigger the creation.
+# NOTES: 
+# 1. It is needed to open port 443 on router and `sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443` if local environment.
+# 2. Sometimes it's needed to go to ArgoCD UI and "Terminate" then force to Sync again to trigger the creation. (Zitadel)
+# 3. Delete de Job from oauth-proxy, since it depends from previous task. `kubectl delete -n iam job oauth2-proxy-zitadel-init`
+# 4. Go to https://zitadel.javstudio.org and set the new password (admin/RootPasswors1!)
 
 # Specific layer
 kubectl apply -n gitops -f kubernetes/addons/gitops/appset.yaml
