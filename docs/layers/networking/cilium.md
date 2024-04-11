@@ -130,7 +130,7 @@ In Cilium 1.13, it was added support for **LoadBalancer IP Address Management** 
 
 ![IP Address Management (LB-IPAM)](../../images/ipam-diagram.webp)
 
-For users who do not want to use **BGP** or that just want to make these IP addresses accessible over the **local network**, in Cilium 1.14 a new feature called **L2 Announcements** was added. When you deploy a *L2 Announcement Policy*, Cilium will start responding to Address Resolution Protocol (`ARP`) requests from local clients for ExternalIPs and/or LoadBalancer IPs.
+For users who do not want to use **BGP** or that just want to make these IP addresses accessible over the **local network**, in Cilium 1.14 a new feature called **L2 Announcements** was added. When you deploy a *L2 Announcement Policy*, Cilium will start responding to Address Resolution Protocol (`ARP`) requests from local clients for ExternalIPs and/or LoadBalancer IPs. Only one node at a time are attached to the IP Address and when a nodes dies cilium will perform another leader election to stablish the new node with the IP.
 
 note !!!
 
