@@ -110,6 +110,9 @@ task -l
 
 # 'task -l' can be set as default task tu run
 task
+
+ # Combination of task for initialization
+task init
 ```
 
 Setup `pre-commit` using TaskFile.
