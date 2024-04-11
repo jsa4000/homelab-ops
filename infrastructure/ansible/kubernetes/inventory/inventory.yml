@@ -34,7 +34,7 @@ k3s_cluster:
     helm_version: v3.14.3
 
     # MicroCeph
-    microceph_enabled: true
+    microceph_enabled: false
     microceph_version: latest/stable
     microceph_snapd_version: latest/stable
     microceph_cluster_nodes: k3s_cluster
