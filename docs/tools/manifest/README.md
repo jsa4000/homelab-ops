@@ -40,6 +40,7 @@ kubectl create secret -n security generic cluster-secrets \
 # Deploy cilium
 kubectl create namespace networking
 kubectl kustomize clusters/local/addons/networking/cilium --enable-helm | kubectl apply -f -
+kubectl kustomize clusters/remote/addons/networking/cilium --enable-helm | kubectl apply -f -
 
 # Wait until cilium operator and agents are ready
 kubectl wait --for=condition=ready pod -n networking -l name=cilium-operator
@@ -56,6 +57,7 @@ kubectl kustomize kubernetes/addons/networking/cilium --enable-helm | kubectl de
 #########################
 
 # Deploy external-secrets
+kubectl create namespace security
 kubectl kustomize kubernetes/addons/security/external-secrets --enable-helm | kubectl apply -f -
 
 # Local
@@ -110,7 +112,7 @@ kubectl get secret argocd-initial-admin-secret -n gitops -o jsonpath="{.data.pas
 # Apply addons
 kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 
-# NOTES: 
+# NOTES:
 # 1. It is needed to open port 443 on router and `sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443` if local environment.
 # 2. Sometimes it's needed to go to ArgoCD UI and "Terminate" then force to Sync again to trigger the creation. (Zitadel)
 # 3. Delete de Job from oauth-proxy, since it depends from previous task. `kubectl delete -n iam job oauth2-proxy-zitadel-init`

@@ -5,8 +5,10 @@
   gather_facts: true
   serial: 1
   tasks:
+    # https://github.com/MichaIng/DietPi/issues/6500
     - name: Reboot
       ansible.builtin.reboot:
+        reboot_command: reboot
 
 - name: Reboot cluster agents staggered
   hosts: agent
@@ -14,5 +16,7 @@
   gather_facts: true
   serial: 1
   tasks:
+    # https://github.com/MichaIng/DietPi/issues/6500
     - name: Reboot
       ansible.builtin.reboot:
+        reboot_command: reboot
