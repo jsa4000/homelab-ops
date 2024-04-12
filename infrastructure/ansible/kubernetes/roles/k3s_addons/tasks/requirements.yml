@@ -1,5 +1,11 @@
 ---
-- name: Install Requeriments
+- name: Install open-iscsi (longhorn)
+  apt:
+    name: open-iscsi
+    state: present
+    update_cache: yes
+
+- name: Install Tools (main)
   run_once: true
   when: inventory_hostname == groups['server'][0]
   block:
