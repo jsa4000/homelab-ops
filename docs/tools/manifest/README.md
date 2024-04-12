@@ -344,7 +344,8 @@ kubectl logs -n cert-manager -l app=cert-manager -f
 #########################
 
 # Deploy longhorn
-kubectl kustomize manifests/longhorn --enable-helm | kubectl apply -f -
+kubectl create namespace storage
+kubectl kustomize clusters/remote/addons/storage/longhorn --enable-helm | kubectl apply -f -
 
 # Remove longhorn
 kubectl kustomize manifests/longhorn --enable-helm | kubectl delete -f -
@@ -353,6 +354,9 @@ kubectl kustomize manifests/longhorn --enable-helm | kubectl delete -f -
 kubectl get pods,services,storageclass -n storage
 
 # Go to https://longhorn.javstudio.org
+
+# Use Port-forwarding http://localhost:8080
+kubectl port-forward svc/longhorn-frontend -n storage 8080:80
 
 #########################
 # Deploy Cloud Native PG

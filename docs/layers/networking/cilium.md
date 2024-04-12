@@ -289,6 +289,32 @@ Run the following command to validate that your cluster has proper network conne
 cilium connectivity test -n networking
 
 # Check for any errors occurs during the tests.
+
+✅ All 47 tests (500 actions) successful, 28 tests skipped, 0 scenarios skipped.
+
+# Check the connectivity performance test
+cilium connectivity perf -n networking
+
+
+🔥 Network Performance Test Summary:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+📋 Scenario        | Node       | Test            | Duration        | Min             | Mean            | Max             | P50             | P90             | P99             | Transaction rate OP/s
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+📋 pod-to-pod      | same-node  | TCP_RR          | 10s             | 21µs            | 57.46µs         | 5.027ms         | 36µs            | 131µs           | 300µs           | 17309.24
+📋 pod-to-pod      | same-node  | UDP_RR          | 10s             | 23µs            | 36.45µs         | 6.791ms         | 31µs            | 48µs            | 114µs           | 27297.16
+📋 pod-to-pod      | same-node  | TCP_CRR         | 10s             | 109µs           | 152.48µs        | 7.509ms         | 129µs           | 189µs           | 480µs           | 6543.34
+📋 pod-to-pod      | other-node | TCP_RR          | 10s             | 534µs           | 1.53132ms       | 14.486ms        | 1.5ms           | 1.72ms          | 3.375ms         | 651.44
+📋 pod-to-pod      | other-node | UDP_RR          | 10s             | 620µs           | 1.73095ms       | 16.413ms        | 1.654ms         | 1.934ms         | 5.8ms           | 576.52
+📋 pod-to-pod      | other-node | TCP_CRR         | 10s             | 1.748ms         | 4.96712ms       | 19.845ms        | 4.85ms          | 6.576ms         | 10.2ms          | 201.16
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+📋 Scenario        | Node       | Test            | Duration        | Throughput Mb/s
+-------------------------------------------------------------------------------------
+📋 pod-to-pod      | same-node  | TCP_STREAM      | 10s             | 1093.77
+📋 pod-to-pod      | same-node  | UDP_STREAM      | 10s             | 1245.94
+📋 pod-to-pod      | other-node | TCP_STREAM      | 10s             | 837.18
+📋 pod-to-pod      | other-node | UDP_STREAM      | 10s             | 323.12
+-------------------------------------------------------------------------------------
 ```
 
 ### Hubble

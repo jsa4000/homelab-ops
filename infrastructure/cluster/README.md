@@ -55,6 +55,13 @@ These steps are done by the `dietpi-init.sh` script automatically.
 7. Shutdown the device (`sudo poweroff`) and remove the SD card.
 
 ```bash
+# ssh into the device (orangepi/orangepi)
+ssh orangepi@192.168.3.61
+
+# ssh public key must be copied to the path defined in servers.yaml. i.e "$HOME/.ssh/server_key.pub"
+# Go to folder copied with scripts
+cd cluster
+
 # Command line and parameters to be used to install dietpi
 # source ./scripts/dietpi-init.sh $SERVER_NAME $CONFIG_FILE $OUTPUT_FILE
 
