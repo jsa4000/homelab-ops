@@ -1,11 +1,28 @@
 ---
-- name: Install open-iscsi (longhorn)
-  apt:
-    name: open-iscsi
-    state: present
-    update_cache: yes
 
-- name: Install Tools (main)
+- name: Install Longhorn requirements
+  run_once: true
+  block:
+
+    - name: Install nfs-common
+      apt:
+        name: nfs-common
+        state: present
+        update_cache: yes
+
+    - name: Install open-iscsi
+      apt:
+        name: open-iscsi
+        state: present
+        update_cache: yes
+
+    - name: Install util-linux
+      apt:
+        name: util-linux
+        state: present
+        update_cache: yes
+
+- name: Install Tools (master)
   run_once: true
   when: inventory_hostname == groups['server'][0]
   block:
