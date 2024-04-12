@@ -1,7 +1,6 @@
 ---
 
 - name: Install Longhorn requirements
-  run_once: true
   block:
 
     - name: Install nfs-common
