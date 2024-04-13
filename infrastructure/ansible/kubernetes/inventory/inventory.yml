@@ -24,8 +24,8 @@ k3s_cluster:
     #   --node-taint node-role.kubernetes.io/control-plane:NoSchedule
     # To install different CNI such as cilium or calico
     #   --flannel-backend=none --disable-network-policy
-    #extra_server_args: "--disable servicelb --disable traefik"
-    extra_server_args: "--disable servicelb --disable traefik --flannel-backend=none --disable-network-policy"
+    extra_server_args: "--disable servicelb --disable traefik"
+    #extra_server_args: "--disable servicelb --disable traefik --flannel-backend=none --disable-network-policy"
     extra_agent_args: ""
 
     # Addons
