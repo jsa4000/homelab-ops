@@ -77,3 +77,9 @@ tasks:
     dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/reboot.yml
+
+  shutdown:
+    desc: Shutdown all the k8s nodes
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/{{.ANSIBLE_INVENTORY_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/shutdown.yml

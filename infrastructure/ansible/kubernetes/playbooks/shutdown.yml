@@ -1,0 +1,20 @@
+---
+- name: Shutdown cluster servers staggered
+  hosts: server
+  become: true
+  gather_facts: true
+  serial: 1
+  tasks:
+    # https://github.com/MichaIng/DietPi/issues/6500
+    - name: Shutdown
+      command: poweroff
+
+- name: Shutdown cluster agents staggered
+  hosts: agent
+  become: true
+  gather_facts: true
+  serial: 1
+  tasks:
+    # https://github.com/MichaIng/DietPi/issues/6500
+    - name: Shutdown
+      command: poweroff
