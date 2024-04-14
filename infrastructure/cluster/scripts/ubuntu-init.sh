@@ -39,7 +39,18 @@ sudo cp "default.nmconnection" /mnt/etc/NetworkManager/system-connections
 sudo chmod -R 600 /mnt/etc/NetworkManager/system-connections/default.nmconnection
 sudo chown -R root:root /mnt/etc/NetworkManager/system-connections/default.nmconnection
 
-echo $SERVER_HOSTNAME | sudo tee /etc/hostname > /dev/null 2>&1
+# sudo hostnamectl set-hostname sbc-server-1
+echo $SERVER_HOSTNAME | sudo tee /mnt/etc/hostname > /dev/null 2>&1
+CURRENT_HOSTNAME=$(cat /mnt/etc/hostname)
+
+if [ $SERVER_HOSTNAME = $CURRENT_HOSTNAME ]; then
+    echo "Name already set"
+else
+    echo "Setting Name" $SERVER_HOSTNAME
+    echo $SERVER_HOSTNAME > /mnt/etc/hostname
+    sed -i "/127.0.1.1/s/$CURRENT_HOSTNAME/$SERVER_HOSTNAME/" /mnt/etc/hosts
+fi
+
 # WARNING: Disable password login https://www.cyberciti.biz/faq/how-to-disable-ssh-password-login-on-linux/
 
 sudo umount /mnt/ && sudo sync

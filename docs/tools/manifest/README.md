@@ -76,7 +76,9 @@ kubectl get ClusterSecretStore,SecretStore -n security
 
 # Deploy Argo-cd
 kubectl create namespace gitops
-kubectl kustomize kubernetes/addons/gitops/argocd --enable-helm | kubectl apply -f -
+kubectl kustomize clusters/local/addons/gitops/argocd --enable-helm | kubectl apply -f -
+
+kubectl kustomize clusters/remote/addons/gitops/argocd--enable-helm | kubectl apply -f -
 
 # Create Github Credentials
 # https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories
@@ -116,6 +118,7 @@ kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 # 1. It is needed to open port 443 on router and `sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443` if local environment.
 # 2. Sometimes it's needed to go to ArgoCD UI and "Terminate" then force to Sync again to trigger the creation. (Zitadel)
 # 3. Delete de Job from oauth-proxy, since it depends from previous task. `kubectl delete -n iam job oauth2-proxy-zitadel-init`
+# 4. When connection errors from argocd server use 'kubectl -n gitops delete pods --all'
 # 4. Go to https://zitadel.javstudio.org and set the new password (admin/RootPasswors1!)
 
 # Specific layer
