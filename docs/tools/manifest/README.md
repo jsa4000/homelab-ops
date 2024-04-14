@@ -152,11 +152,18 @@ sudo crictl images
 sudo crictl images --verbose
 
 # Remove image that had has a problem with "exec format error..."
-k get pods -A -o wide | grep CrashLoopBackOff
+kubectl get pods -A -o wide | grep CrashLoopBackOff | awk '{print $1" "$2}'
+kubectl get pod -n storage engine-image-ei-acb7590c-4hqrh -o jsonpath='{$.spec.nodeName}'
+kubectl get pod -n storage engine-image-ei-acb7590c-4hqrh -o jsonpath='{$.spec.containers[].image}'
 
 sudo crictl images | grep csi-resizer
-sudo crictl rmi 344545
+sudo crictl rmi d91e1600de134
 sudo crictl rmi --prune
+
+kubectl delete pod -n storage engine-image-ei-acb7590c-4hqrh
+
+# Check if still don0t working
+kubectl get pod -A -o wide| grep engine-image
 
 # Force to pull the image or delete the pod.
 sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
