@@ -131,6 +131,14 @@ kubectl apply -n gitops -f kubernetes/addons/database/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/observability/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/iam/appset.yaml
 
+# Get the runtime container name and version
+sudo crictl version
+
+Version:  0.1.0
+RuntimeName:  containerd
+RuntimeVersion:  v1.7.11-k3s2
+RuntimeApiVersion:  v1
+
 # Get containers from K3s
 sudo k3s crictl ps
 sudo crictl ps
