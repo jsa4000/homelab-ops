@@ -1,16 +1,16 @@
 [connection]
 id=default
-uuid=8874e4e5-b2cb-355d-b09e-54d7580cb212
+uuid=$NETWORK_UUID
 type=ethernet
 autoconnect-priority=-999
-interface-name=eth0
+interface-name=$NETWORK_IFACE
 timestamp=1713102192
 
 [ethernet]
 
 [ipv4]
-address1=192.168.3.100/24,192.168.3.1
-dns=8.8.8.8;
+address1=$SERVER_IP/24,$SERVER_GATEWAY
+dns=$SERVER_DNS;
 method=manual
 
 [ipv6]
