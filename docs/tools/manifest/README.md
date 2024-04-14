@@ -131,6 +131,25 @@ kubectl apply -n gitops -f kubernetes/addons/database/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/observability/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/iam/appset.yaml
 
+# Get containers from K3s
+sudo k3s crictl ps
+sudo crictl ps
+
+# Get images from K3s
+sudo crictl images
+sudo crictl images --verbose
+
+# Remove image that had has a problem with "exec format error..."
+k get pods -A -o wide | grep CrashLoopBackOff
+
+sudo crictl images | grep csi-resizer
+sudo crictl rmi 344545
+sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
+
+sudo crictl images | grep instance-manager
+sudo crictl rmi c693e34af8c96
+sudo ctr images pull docker.io/longhornio/longhorn-instance-manager:v1.6.0
+
 #########################
 # Deploy Metallb
 #########################
