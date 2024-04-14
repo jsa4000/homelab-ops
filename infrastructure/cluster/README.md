@@ -77,6 +77,12 @@ ssh dietpi@192.168.3.100
 
 ### SSH Configurations
 
+The `ssh-agent` is a helper program that keeps track of users' identity **keys** and their **passphrases**. The agent can then use the keys to log into other servers **without** having the user type in a password or passphrase again. This implements a form of **single sign-on** (SSO).
+
+The SSH agent is used for SSH public key authentication. It uses SSH keys for authentication. Users can create SSH keys using the `ssh-keygen` command and install them on servers using the `ssh-copy-id` command.
+
+Following a script to automatize the generation of this file:
+
 ```bash
 # Add cluster ssh configuration
 # source ./scripts/get-ssh-config.sh $CONFIG_FILE $SSH_KEY_FILE $OUTPUT_FILE
@@ -86,4 +92,7 @@ source ./scripts/get-ssh-config.sh
 
 source ./scripts/get-ssh-config.sh ./config/servers.yaml  ~/.ssh/server_key $HOME/.ssh/ssh_config
 
+# Use one of the following ways to connect to server.
+ssh dietpi@192.168.3.100
+ssh dietpi@sbc-server-1
 ```
