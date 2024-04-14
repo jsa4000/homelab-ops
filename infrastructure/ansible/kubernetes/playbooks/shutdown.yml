@@ -8,6 +8,8 @@
     # https://github.com/MichaIng/DietPi/issues/6500
     - name: Shutdown
       command: poweroff
+      async: 45
+      poll: 0
 
 - name: Shutdown cluster agents staggered
   hosts: agent
@@ -18,3 +20,5 @@
     # https://github.com/MichaIng/DietPi/issues/6500
     - name: Shutdown
       command: poweroff
+      async: 45
+      poll: 0
