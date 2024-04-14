@@ -152,11 +152,10 @@ k get pods -A -o wide | grep CrashLoopBackOff
 
 sudo crictl images | grep csi-resizer
 sudo crictl rmi 344545
-sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
+sudo crictl rmi --prune
 
-sudo crictl images | grep instance-manager
-sudo crictl rmi c693e34af8c96
-sudo ctr images pull docker.io/longhornio/longhorn-instance-manager:v1.6.0
+# Force to pull the image or delete the pod.
+sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
 
 #########################
 # Deploy Metallb
