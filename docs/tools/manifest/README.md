@@ -131,6 +131,10 @@ kubectl apply -n gitops -f kubernetes/addons/database/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/observability/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/iam/appset.yaml
 
+# cri-tools
+# https://github.com/kubernetes-sigs/cri-tools
+# CLI and validation tools for Kubelet Container Runtime Interface (CRI) .
+
 # Get the runtime container name and version
 sudo crictl version
 
