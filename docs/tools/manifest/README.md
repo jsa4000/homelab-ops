@@ -153,14 +153,20 @@ sudo crictl images --verbose
 
 # Remove image that had has a problem with "exec format error..."
 kubectl get pods -A -o wide | grep CrashLoopBackOff | awk '{print $1" "$2}'
-kubectl get pod -n storage engine-image-ei-acb7590c-4hqrh -o jsonpath='{$.spec.nodeName}'
-kubectl get pod -n storage engine-image-ei-acb7590c-4hqrh -o jsonpath='{$.spec.containers[].image}'
+kubectl get pod -n storage csi-resizer-7466f7b45f-bttgv -o jsonpath='{$.spec.nodeName}'
+kubectl get pod -n storage csi-provisioner-6c78dcb664-rbqfk  -o jsonpath='{$.spec.containers[].image}'
 
-sudo crictl images | grep csi-resizer
-sudo crictl rmi d91e1600de134
+kubectl scale deployment -n storage csi-provisioner --replicas=0
+
+sudo crictl images | grep csi-provisioner
+sudo crictl rmi 2c4e3070dfbc0
 sudo crictl rmi --prune
 
-kubectl delete pod -n storage engine-image-ei-acb7590c-4hqrh
+kubectl scale deployment -n storage csi-provisioner --replicas=3
+
+sudo ctr images pull docker.io/longhornio/csi-provisioner:v3.6.2
+
+kubectl delete pod -n storage csi-resizer-7466f7b45f-bttgv
 
 # Check if still don0t working
 kubectl get pod -A -o wide| grep engine-image
@@ -171,6 +177,7 @@ sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
 # Restart pods by Status
 kubectl get pods --all-namespaces | grep Unknown | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
 kubectl get pods --all-namespaces | grep Terminating | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
+kubectl get pods --all-namespaces | grep CrashLoopBackOff | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
 
 # Restart pods by any Status
 kubectl delete -A --field-selector 'status.phase!=Running' pods --force
@@ -186,6 +193,9 @@ kubectl apply -k manifests/metallb
 kubectl apply -k manifests/metallb-pool/overlays/local
 
 # Check Metallb Pool overlays (Preview)
+kubectl create namespace networking
+kubectl kustomize clusters/remote/addons/networking/metallb --enable-helm | kubectl apply -f -
+
 # kubectl apply -k manifests/metallb-pool/overlays/home -o yaml
 # kubectl apply -k manifests/metallb-pool/overlays/local -o yaml
 
@@ -206,6 +216,9 @@ kubectl get pods,services
 
 # Deploy external-dns
 kubectl kustomize manifests/external-dns  --enable-helm | kubectl apply -f -
+
+# Overlay
+kubectl kustomize clusters/remote/addons/networking/external-dns --enable-helm | kubectl apply -f -
 
 # NOTE: Already created using external-secrets
 kubectl create secret -n networking generic external-dns-godaddy \
@@ -253,6 +266,9 @@ kubectl logs -n networking -l app=external-dns
 # Deploy godaddy-ddns
 kubectl apply -k manifests/godaddy-ddns
 
+# Overlay
+kubectl kustomize clusters/remote/addons/networking/godaddy-ddns --enable-helm | kubectl apply -f -
+
 # NOTE: Already created using external-secrets
 kubectl create secret -n networking generic godaddy-ddns \
     --from-literal=GD_KEY=$GODADDY_API_KEY \
@@ -274,6 +290,9 @@ kubectl logs -n networking -l app=godaddy-ddns -f
 
 # Deploy traeifk
 kubectl kustomize kubernetes/addons/networking/traefik-external --enable-helm | kubectl apply -f -
+
+# Overlay
+kubectl kustomize clusters/remote/addons/networking/traefik-external --enable-helm | kubectl apply -f -
 
 # Remove traeifk
 kubectl kustomize kubernetes/addons/networking/traefik-external --enable-helm | kubectl delete -f -
@@ -342,6 +361,9 @@ kubectl port-forward -n monitoring svc/prometheus-stack-kube-prom-prometheus 909
 # Deploy reflector
 kubectl kustomize manifests/reflector --enable-helm | kubectl apply -f -
 
+# Overlay
+kubectl kustomize clusters/remote/addons/kube-system/reflector --enable-helm | kubectl apply -f -
+
 # Remove reflector
 kubectl kustomize manifests/reflector --enable-helm | kubectl delete -f -
 
@@ -366,6 +388,9 @@ kubectl get pods,services -n kube-system
 kubectl kustomize kubernetes/addons/kube-system/cert-manager --enable-helm | kubectl apply -f -
 kubectl kustomize kubernetes/addons/kube-system/cert-manager/webhooks --enable-helm | kubectl apply -f -
 kubectl kustomize kubernetes/addons/kube-system/cert-manager/certs/staging --enable-helm | kubectl apply -f -
+
+# Overlay
+kubectl kustomize clusters/remote/addons/kube-system/cert-manager --enable-helm | kubectl apply -f -
 
 # NOTE: Already created using external-secrets
 kubectl create secret -n cert-manager generic godaddy-api-key \
