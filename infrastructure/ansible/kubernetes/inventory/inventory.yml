@@ -15,7 +15,7 @@ k3s_cluster:
   # Required Vars
   vars:
     ansible_port: 22
-    ansible_user: orangepi # dietpi
+    ansible_user: dietpi # dietpi,orangepi
     # To enable ansible_password run 'brew install sshpass'
     #ansible_password: orangepi
     ansible_sudo_pass: orangepi
