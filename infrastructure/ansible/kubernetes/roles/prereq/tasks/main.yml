@@ -20,10 +20,16 @@
           - containerd.io
         state: absent
 
+    - name: Check whether unattended-upgrades service is running
+      register: unattended_upgrades_service_status
+      command: systemctl is-active unattended-upgrades
+      ignore_errors: true
+      failed_when: false
+      changed_when: false
+
     - name: Stop unattended-upgrades service, if running
-      ansible.builtin.service:
-        name: unattended-upgrades
-        state: stopped
+      when: unattended_upgrades_service_status.rc == 0
+      command: systemctl stop unattended-upgrades
 
     - name: Check whether packagekit service is running
       register: packagekit_service_status
