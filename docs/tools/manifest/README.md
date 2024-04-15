@@ -168,6 +168,13 @@ kubectl get pod -A -o wide| grep engine-image
 # Force to pull the image or delete the pod.
 sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
 
+# Restart pods by Status
+kubectl get pods --all-namespaces | grep Unknown | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
+kubectl get pods --all-namespaces | grep Terminating | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
+
+# Restart pods by any Status
+kubectl delete -A --field-selector 'status.phase!=Running' pods --force
+
 #########################
 # Deploy Metallb
 #########################
