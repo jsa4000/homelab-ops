@@ -1,15 +1,48 @@
 ---
-- name: Install python3 apt
+- name: Manage Debian Dependencies
   when: ansible_distribution in ['Debian','Ubuntu']
-  ansible.builtin.apt:
-    name: python3-apt # Used by Gather the package facts
-    update_cache: true
+  block:
+    - name: Install python3 apt
+      ansible.builtin.apt:
+        name: python3-apt # Used by Gather the package facts
+        update_cache: true
 
-- name: Install Dependent Packages
-  when: ansible_distribution in ['Debian','Ubuntu']
-  ansible.builtin.apt:
-    name: policycoreutils # Used by install script to restore SELinux context
-    update_cache: true
+    - name: Install Dependent Packages
+      ansible.builtin.apt:
+        name: policycoreutils # Used by install script to restore SELinux context
+        update_cache: true
+
+    - name: Uninstall Container dependencies
+      ansible.builtin.apt:
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: absent
+
+    - name: Stop unattended-upgrades service, if running
+      ansible.builtin.service:
+        name: unattended-upgrades
+        state: stopped
+
+    - name: Check whether packagekit service is running
+      register: packagekit_service_status
+      command: systemctl is-active packagekit
+      ignore_errors: true
+      failed_when: false
+      changed_when: false
+
+    - name: Stop packagekit service, if running
+      when: packagekit_service_status.rc == 0
+      command: systemctl stop packagekit
+
+    - name: Uninstall automatics upgrades dependencies
+      ansible.builtin.apt:
+        pkg:
+          - needrestart
+          - unattended-upgrades
+          - packagekit
+        state: absent
 
 - name: Enable IPv4 forwarding
   ansible.posix.sysctl:

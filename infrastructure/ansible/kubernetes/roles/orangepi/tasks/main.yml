@@ -24,6 +24,14 @@
     ( ansible_facts.distribution|default("") == "Debian" or
       ansible_facts.os_family|default("") is match("Debian") )
 
+- name: Set detected_distribution to Ubuntu
+  ansible.builtin.set_fact:
+    detected_distribution: Ubuntu
+  when: >
+    orange_pi|default(false) and
+    ( ansible_facts.distribution|default("") == "Ubuntu" or
+      ansible_facts.os_family|default("") is match("Debian") )
+
 - name: Set detected_distribution to ArchLinux (ARM64)
   ansible.builtin.set_fact:
     detected_distribution: Archlinux
