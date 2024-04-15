@@ -152,10 +152,14 @@ sudo crictl images
 sudo crictl images --verbose
 
 # Remove image that had has a problem with "exec format error..."
+# https://github.com/containerd/containerd/issues/5854
+# https://stackoverflow.com/questions/71572715/decoupling-k3s-and-containerd
+# https://github.com/kinvolk/containerd-cri/blob/master/docs/installation.md
 kubectl get pods -A -o wide | grep CrashLoopBackOff | awk '{print $1" "$2}'
 kubectl get pod -n storage csi-resizer-7466f7b45f-bttgv -o jsonpath='{$.spec.nodeName}'
-kubectl get pod -n storage csi-provisioner-6c78dcb664-rbqfk  -o jsonpath='{$.spec.containers[].image}'
+kubectl get pod -n storage longhorn-csi-plugin-nglx2  -o jsonpath='{$.spec.containers[].image}'
 
+kubectl get deployment -n storage
 kubectl scale deployment -n storage csi-provisioner --replicas=0
 
 sudo crictl images | grep csi-provisioner
@@ -164,7 +168,7 @@ sudo crictl rmi --prune
 
 kubectl scale deployment -n storage csi-provisioner --replicas=3
 
-sudo ctr images pull docker.io/longhornio/csi-provisioner:v3.6.2
+sudo ctr images pull docker.io/csi-node-driver-registrar:v2.9.2
 
 kubectl delete pod -n storage csi-resizer-7466f7b45f-bttgv
 
@@ -326,6 +330,10 @@ kubectl kustomize clusters/local/addons/networking/traefik-external --enable-hel
 # Create Chart
 kubectl kustomize manifests/prometheus --enable-helm | kubectl create -f -                # Use create instead apply to avoid error,
 kubectl kustomize manifests/prometheus --enable-helm | kubectl apply --server-side -f -   # Another workaround (server-side apply)
+
+# Overlays
+kubectl create namespace observability
+kubectl kustomize clusters/remote/addons/observability/prometheus --enable-helm | kubectl create -f -
 
 # Remove Chart
 kubectl kustomize manifests/prometheus --enable-helm | kubectl delete -f -
