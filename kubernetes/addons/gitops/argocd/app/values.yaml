@@ -9,7 +9,7 @@ configs:
     timeout.hard.reconciliation: 0s
   params:
     create: true
-    controller.status.processors: 20
+    controller.status.processors: 10
     controller.operation.processors: 20
     controller.self.heal.timeout.seconds: 5
     controller.repo.server.timeout.seconds: 60
