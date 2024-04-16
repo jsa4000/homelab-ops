@@ -121,6 +121,9 @@ kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 # 4. When connection errors from argocd server use 'kubectl -n gitops delete pods --all'
 # 4. Go to https://zitadel.javstudio.org and set the new password (admin/RootPasswors1!)
 
+# Wathc all the pods whili initializing
+watch -n 0.5 kubectl get pods -A
+
 # Specific layer
 kubectl apply -n gitops -f kubernetes/addons/gitops/appset.yaml
 kubectl apply -n gitops -f kubernetes/addons/kube-system/appset.yaml
@@ -334,6 +337,9 @@ kubectl kustomize manifests/prometheus --enable-helm | kubectl apply --server-si
 # Overlays
 kubectl create namespace observability
 kubectl kustomize clusters/remote/addons/observability/prometheus --enable-helm | kubectl create -f -
+kubectl kustomize clusters/remote/addons/observability/prometheus --enable-helm | kubectl apply --server-side -f -
+
+kubectl kustomize clusters/remote/addons/observability/prometheus --enable-helm | kubectl delete -f -
 
 # Remove Chart
 kubectl kustomize manifests/prometheus --enable-helm | kubectl delete -f -
