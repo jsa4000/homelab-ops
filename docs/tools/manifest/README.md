@@ -655,8 +655,6 @@ kubectl get -n rook-ceph secret rook-ceph-mon -o yaml
 # kubectl create -k github.com/kubernetes-sigs/container-object-storage-interface-api
 
 # Create Stateful Set
-kubectl apply -f manifests/stateful-set
-
 kubectl apply -f kubernetes/apps/stateful-set
 
 # Check whether the volumes has been created and bind
