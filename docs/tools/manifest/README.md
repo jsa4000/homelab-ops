@@ -186,6 +186,8 @@ kubectl get pods --all-namespaces | grep Unknown | awk '{print $2 " --namespace=
 kubectl get pods --all-namespaces | grep Terminating | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
 kubectl get pods --all-namespaces | grep CrashLoopBackOff | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
 
+kubectl get pods --all-namespaces | grep instance-manager | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
+
 # Restart pods by any Status
 kubectl delete -A --field-selector 'status.phase!=Running' pods --force
 
@@ -651,6 +653,8 @@ kubectl get -n rook-ceph secret rook-ceph-mon -o yaml
 
 # Create Stateful Set
 kubectl apply -f manifests/stateful-set
+
+kubectl apply -f kubernetes/apps/stateful-set
 
 # Check whether the volumes has been created and bind
 kubectl get pod -w
