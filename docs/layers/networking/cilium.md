@@ -243,6 +243,13 @@ helm install cilium cilium/cilium --version 1.15.3 \
     kubectl get pods --all-namespaces -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
     ```
 
+If the containers have a `CrashLoopBackOff` status after the installation, that means there probable there is other `CNI` already installed. Check the K3s configuration or installation scripts.
+
+```bash
+level=info msg="Stop hook executed" duration="549.792µs" function="gops.registerGopsHooks.func2 (pkg/gops/cell.go:50)" subsys=hive
+level=fatal msg="failed to start: daemon creation failed: error while initializing daemon: failed while reinitializing datapath: failed to setup vxlan tunnel device: setting up vxlan device: creating vxlan device: setting up device cilium_vxlan: address already in use" subsys=daemon
+´´´
+
 Validate Cilium has been properly installed into kubernetes cluster running following command.
 
 ```bash

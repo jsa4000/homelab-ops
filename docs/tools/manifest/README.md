@@ -431,6 +431,9 @@ kubectl logs -n cert-manager -l app=cert-manager -f
 # Deploy Longhorn
 #########################
 
+## Check if system is compatible with longhorn
+## curl -sSfL https://raw.githubusercontent.com/longhorn/longhorn/master/scripts/environment_check.sh | bash
+
 # Deploy longhorn
 kubectl create namespace storage
 kubectl kustomize clusters/remote/addons/storage/longhorn --enable-helm | kubectl apply -f -

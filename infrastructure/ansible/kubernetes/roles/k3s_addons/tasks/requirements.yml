@@ -7,19 +7,21 @@
       apt:
         name: nfs-common
         state: present
-        update_cache: yes
 
     - name: Install open-iscsi
       apt:
         name: open-iscsi
         state: present
-        update_cache: yes
+
+    - name: Install cryptsetup
+      apt:
+        name: cryptsetup
+        state: present
 
     - name: Install util-linux
       apt:
         name: util-linux
         state: present
-        update_cache: yes
 
 - name: Install Tools (master)
   run_once: true
@@ -30,7 +32,6 @@
       apt:
         name: git
         state: present
-        update_cache: yes
 
     - name: Install Helm
       run_once: true
