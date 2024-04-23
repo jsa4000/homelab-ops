@@ -78,7 +78,7 @@ kubectl get ClusterSecretStore,SecretStore -n security
 kubectl create namespace gitops
 kubectl kustomize clusters/local/addons/gitops/argocd --enable-helm | kubectl apply -f -
 
-kubectl kustomize clusters/remote/addons/gitops/argocd--enable-helm | kubectl apply -f -
+kubectl kustomize clusters/remote/addons/gitops/argocd --enable-helm | kubectl apply -f -
 
 # Create Github Credentials
 # https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories
@@ -204,6 +204,9 @@ kubectl apply -k manifests/metallb-pool/overlays/local
 # Check Metallb Pool overlays (Preview)
 kubectl create namespace networking
 kubectl kustomize clusters/remote/addons/networking/metallb --enable-helm | kubectl apply -f -
+
+# Remove Metallb
+kubectl kustomize clusters/remote/addons/networking/metallb --enable-helm | kubectl delete -f -
 
 # kubectl apply -k manifests/metallb-pool/overlays/home -o yaml
 # kubectl apply -k manifests/metallb-pool/overlays/local -o yaml
@@ -460,6 +463,14 @@ kubectl port-forward svc/longhorn-frontend -n storage 8080:80
 kubectl kustomize manifests/cloudnative-pg --enable-helm | kubectl apply -f -
 kubectl apply -k manifests/postgres
 
+# Create remote
+kubectl create namespace database
+kubectl kustomize clusters/remote/addons/database/cloudnative-pg --enable-helm | kubectl apply -f -
+kubectl kustomize clusters/remote/addons/database/postgres --enable-helm | kubectl apply -f -
+
+# Delete Postgres
+kubectl kustomize clusters/remote/addons/database/postgres --enable-helm | kubectl delete -f -
+
 # Remove Cloud Native PG
 kubectl kustomize manifests/cloudnative-pg --enable-helm | kubectl delete -f -
 kubectl delete -k manifests/postgres
@@ -487,13 +498,13 @@ kubectl port-forward service/postgres-cluster-rw -n database 5432:5432
 kubectl get certificates -n database
 
 # Extract certificates created by cert-manager and set into postgres
-kubectl get secret postgres-zitadel-client-cert -n iam -o jsonpath='{.data.tls\.key}' | base64 -d > ~/Projects/Github/Mini-Cluster-Setup/tmp/tls.key
-kubectl get secret postgres-zitadel-client-cert -n iam -o jsonpath='{.data.tls\.crt}' | base64 -d > ~/Projects/Github/Mini-Cluster-Setup/tmp/tls.crt
-kubectl get secret postgres-zitadel-client-cert -n iam -o jsonpath='{.data.ca\.crt}' | base64 -d > ~/Projects/Github/Mini-Cluster-Setup/tmp/ca.crt
+kubectl get secret postgres-zitadel-client-cert -n iam -o jsonpath='{.data.tls\.key}' | base64 -d > ~/Projects/Github/temp/tls.key
+kubectl get secret postgres-zitadel-client-cert -n iam -o jsonpath='{.data.tls\.crt}' | base64 -d > ~/Projects/Github/temp/tls.crt
+kubectl get secret postgres-zitadel-client-cert -n iam -o jsonpath='{.data.ca\.crt}' | base64 -d > ~/Projects/Github/temp/ca.crt
 
-kubectl get secret postgres-cluster-superuser-cert -n database -o jsonpath='{.data.tls\.key}' | base64 -d > ~/Projects/Github/Mini-Cluster-Setup/tmp/tls.key
-kubectl get secret postgres-cluster-superuser-cert -n database -o jsonpath='{.data.tls\.crt}' | base64 -d > ~/Projects/Github/Mini-Cluster-Setup/tmp/tls.crt
-kubectl get secret postgres-cluster-superuser-cert -n database -o jsonpath='{.data.ca\.crt}' | base64 -d > ~/Projects/Github/Mini-Cluster-Setup/tmp/ca.crt
+kubectl get secret postgres-cluster-superuser-cert -n database -o jsonpath='{.data.tls\.key}' | base64 -d > ~/Projects/Github/temp/tls.key
+kubectl get secret postgres-cluster-superuser-cert -n database -o jsonpath='{.data.tls\.crt}' | base64 -d > ~/Projects/Github/temp/tls.crt
+kubectl get secret postgres-cluster-superuser-cert -n database -o jsonpath='{.data.ca\.crt}' | base64 -d > ~/Projects/Github/temp/ca.crt
 
 # Get all CRD (Custom Resource Definition) created
 kubectl get crds | grep cnpg.io
@@ -506,6 +517,13 @@ kubectl get crds | grep cnpg.io
 
 # Deploy Zitadel
 kubectl kustomize manifests/zitadel --enable-helm | kubectl apply -f -
+
+# Create Remote
+kubectl create namespace iam
+kubectl kustomize clusters/remote/addons/iam/zitadel --enable-helm | kubectl apply -f -
+
+# Delete Remote
+kubectl kustomize clusters/remote/addons/iam/zitadel --enable-helm | kubectl delete -f -
 
 # Remove Zitadel
 kubectl kustomize manifests/zitadel --enable-helm | kubectl delete -f -
@@ -554,6 +572,11 @@ cd ~/Projects/Github/Mini-Cluster-Setup
 
 # Deploy OAuth Proxy
 kubectl kustomize manifests/oauth2-proxy --enable-helm | kubectl apply -f -
+
+# Create Remote
+kubectl kustomize clusters/remote/addons/iam/oauth2-proxy --enable-helm | kubectl apply -f -
+
+kubectl kustomize clusters/remote/addons/iam/oauth2-proxy --enable-helm | kubectl delete -f -
 
 # Remove OAuth Proxy
 kubectl kustomize manifests/oauth2-proxy --enable-helm | kubectl delete -f -
