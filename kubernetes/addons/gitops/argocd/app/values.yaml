@@ -16,6 +16,7 @@ configs:
     controller.sharding.algorithm: round-robin
     server.insecure: true
     reposerver.parallelism.limit: 0
+    controller.kubectl.parallelism.limit: 10
     # timeout.reconciliation.jitter: 3m
   cmp:
     create: false
