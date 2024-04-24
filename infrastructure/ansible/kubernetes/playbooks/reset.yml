@@ -42,3 +42,12 @@
         tasks_from: uninstall
       when:
         - microceph_enabled == true
+
+- name: Undo addons setup
+  hosts: k3s_cluster
+  become: true
+  tasks:
+    - name: Uninstall longhorn
+      ansible.builtin.import_role:
+        name: k3s_addons
+        tasks_from: uninstall

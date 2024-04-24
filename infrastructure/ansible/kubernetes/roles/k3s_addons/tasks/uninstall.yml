@@ -1,0 +1,4 @@
+- name: Remove longhorn folder
+  file:
+    state: absent
+    path: "{{ longhorn_folder }}"

@@ -452,6 +452,8 @@ kubectl get pods,services,storageclass -n storage
 # Use Port-forwarding http://localhost:8080
 kubectl port-forward svc/longhorn-frontend -n storage 8080:80
 
+# Longhorn folder /var/lib/longhorn
+
 #########################
 # Deploy Cloud Native PG
 #########################
