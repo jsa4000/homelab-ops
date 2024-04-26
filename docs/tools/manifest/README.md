@@ -16,7 +16,8 @@ export GITHUB_USERNAME=<GITHUB_USERNAME>
 export GITHUB_PASSWORD=<GITHUB_PASSWORD>
 
 # Open Router NAT ports at http://192.168.3.1
-sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443
+sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443     # LoadBalancer
+sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.101:30443   # NodePort
 
 # Set environment (copy to root path if desired)
 source "/Users/jsantosa/Library/CloudStorage/GoogleDrive-jsa4000@gmail.com/My Drive/Ocio/Cluster/keys/.env"
@@ -115,7 +116,9 @@ kubectl get secret argocd-initial-admin-secret -n gitops -o jsonpath="{.data.pas
 kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 
 # NOTES:
-# 1. It is needed to open port 443 on router and `sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443` if local environment.
+# 1. It is needed to open port 443 on router and route traffic (port-forwarding) for local environment
+#   - LoadBalancer: sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443
+#   - NodePort:     sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.101:30443
 # 2. Sometimes it's needed to go to ArgoCD UI and "Terminate" then force to Sync again to trigger the creation. (Zitadel)
 # 3. Delete de Job from oauth-proxy, since it depends from previous task. `kubectl delete -n iam job oauth2-proxy-zitadel-init`
 # 4. When connection errors from argocd server use 'kubectl -n gitops delete pods --all'
@@ -181,11 +184,14 @@ kubectl get pod -A -o wide| grep engine-image
 # Force to pull the image or delete the pod.
 sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
 
+# https://github.com/longhorn/longhorn/discussions/7117
+# k3s ctr content ls | grep instance-manager | awk '{print $1}' | xargs k3s ctr content del
+# ctr images pull docker.io/longhornio/longhorn-instance-manager:v1.5.3-rc1
+
 # Restart pods by Status
 kubectl get pods --all-namespaces | grep Unknown | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
 kubectl get pods --all-namespaces | grep Terminating | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
 kubectl get pods --all-namespaces | grep CrashLoopBackOff | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
-
 kubectl get pods --all-namespaces | grep instance-manager | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
 
 # Restart pods by any Status
