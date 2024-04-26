@@ -132,4 +132,7 @@ source ./scripts/get-ssh-config.sh ./config/servers.yaml  ~/.ssh/server_key $HOM
 # Use one of the following ways to connect to server.
 ssh dietpi@192.168.3.100
 ssh dietpi@sbc-server-1
+
+# Connect using the ssh key
+ ssh -i /Users/jsantosa/.ssh/server_key -t dietpi@192.168.3.100
 ```
