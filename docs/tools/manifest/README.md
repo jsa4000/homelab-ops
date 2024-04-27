@@ -161,6 +161,7 @@ sudo crictl images --verbose
 
 # Remove image that had has a problem with "exec format error..."
 # https://github.com/containerd/containerd/issues/5854
+# https://github.com/containerd/containerd/pull/9401
 # https://stackoverflow.com/questions/71572715/decoupling-k3s-and-containerd
 # https://github.com/kinvolk/containerd-cri/blob/master/docs/installation.md
 kubectl get pods -A -o wide | grep CrashLoopBackOff | awk '{print $1" "$2}'
@@ -190,6 +191,10 @@ sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
 sudo k3s ctr content ls | grep longhorn-manager | awk '{print $1}' | xargs sudo k3s ctr content del
 sudo crictl rmi docker.io/longhornio/longhorn-manager:v1.6.0
 sudo ctr images pull docker.io/longhornio/longhorn-manager:v1.6.0
+
+# Ensure if snapshot's pagecache has been discarded in a unexpected reboot
+# https://github.com/juliusl/containerd/commit/57f5e1d2f0af89b6e4ae9597422eb501b7151c76
+sudo ctr image usage --snapshotter overlayfs docker.io/longhornio/longhorn-manager:v1.6.0
 
 # Restart pods by Status
 kubectl get pods --all-namespaces | grep Unknown | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod
