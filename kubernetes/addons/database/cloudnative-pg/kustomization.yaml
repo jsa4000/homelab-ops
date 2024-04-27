@@ -5,7 +5,7 @@ namespace: database
 helmCharts:
   - name: cloudnative-pg
     repo: https://cloudnative-pg.github.io/charts
-    version: 0.20.1
+    version: 0.21.1
     releaseName: cnpg
     namespace: database
     includeCRDs: true
