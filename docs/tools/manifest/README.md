@@ -81,6 +81,8 @@ kubectl kustomize clusters/local/addons/gitops/argocd --enable-helm | kubectl ap
 
 kubectl kustomize clusters/remote/addons/gitops/argocd --enable-helm | kubectl apply -f -
 
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/argocd-cmd-params-cm-yaml/
+
 # Create Github Credentials
 # https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories
 cat <<EOF | kubectl apply -n gitops -f -
@@ -185,8 +187,9 @@ kubectl get pod -A -o wide| grep engine-image
 sudo ctr images pull docker.io/longhornio/csi-resizer:v1.9.2
 
 # https://github.com/longhorn/longhorn/discussions/7117
-# k3s ctr content ls | grep instance-manager | awk '{print $1}' | xargs k3s ctr content del
-# ctr images pull docker.io/longhornio/longhorn-instance-manager:v1.5.3-rc1
+sudo k3s ctr content ls | grep longhorn-manager | awk '{print $1}' | xargs sudo k3s ctr content del
+sudo crictl rmi docker.io/longhornio/longhorn-manager:v1.6.0
+sudo ctr images pull docker.io/longhornio/longhorn-manager:v1.6.0
 
 # Restart pods by Status
 kubectl get pods --all-namespaces | grep Unknown | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete --force pod

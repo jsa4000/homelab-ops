@@ -34,7 +34,8 @@ sudo chown -R root:root /opt/cni/bin
 sudo mkdir /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml
 # NOTE: kubelet and containerd config need to agree about what cgroup driver to use, so do not modify containerd config
-#sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+# In k3s it would be needed to set '--kubelet-arg cgroup-driver=systemd'
+sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 sudo curl -L https://raw.githubusercontent.com/containerd/containerd/main/containerd.service -o /etc/systemd/system/containerd.service
 
 # Step 5: Start containerd service
