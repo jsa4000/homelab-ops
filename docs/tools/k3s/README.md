@@ -59,6 +59,7 @@ Remove containerd
 sudo systemctl disable --now containerd
 
 # Remove containerd
+sudo rm -r /etc/containerd
 sudo rm -r /run/containerd
 sudo rm -r /var/lib/containerd/
 sudo rm /etc/systemd/system/containerd.service
@@ -146,4 +147,24 @@ In `containerd` configuration file `/etc/containerd/config.toml`, set `image_pul
 [plugins."io.containerd.grpc.v1.cri"]
 
     image_pull_with_sync_fs = true
+```
+
+### Error Kernel modules
+
+`error="program cil_from_overlay: replacing clsact qdisc for interface cilium_vxlan: no such file or directory"`
+
+In order for the BPF feature to be enabled properly, the [following kernel](https://docs.cilium.io/en/v1.7/install/system_requirements/#linux-kernel) configuration options must be enabled. This is typically the case with distribution kernels. When an option can be built as a module or statically linked, either choice is valid.
+
+```bash
+# Get Kernel installed
+sudo cat /boot/config-6.1.43-rockchip-rk3588 | grep -E "CONFIG_BPF|CONFIG_BPF_SYSCALL|CONFIG_NET_CLS_BPF|CONFIG_BPF_JIT|CONFIG_NET_CLS_ACT|CONFIG_NET_SCH_INGRESS|CONFIG_CRYPTO_SHA1|CONFIG_CRYPTO_USER_API_HASH"
+
+# Add single modules to kernel
+sudo modprobe xfrm_user
+
+# Add multiple modules to kernel
+sudo modprobe -a ipt_REJECT xt_mark xt_multiport xt_TPROXY xt_CT sch_ingress ip_set cls_bpf xfrm_user configs
+
+# Check Kernel modules
+cat /proc/modules | grep ipt_REJECT
 ```
