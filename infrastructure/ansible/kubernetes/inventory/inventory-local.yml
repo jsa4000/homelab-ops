@@ -28,8 +28,8 @@ k3s_cluster:
     # To change the default container runtime socket (already installed in the host machine)
     #   --container-runtime-endpoint=unix:///run/containerd/containerd.sock --kubelet-arg cgroup-driver=systemd
     #extra_server_args: "--disable servicelb --disable traefik"
-    extra_server_args: "--disable servicelb --disable traefik --flannel-backend=none --disable-network-policy --container-runtime-endpoint=unix:///run/containerd/containerd.sock --kubelet-arg cgroup-driver=systemd"
-    extra_agent_args: "--container-runtime-endpoint=unix:///run/containerd/containerd.sock --kubelet-arg cgroup-driver=systemd"
+    extra_server_args: "--disable servicelb --disable traefik --flannel-backend=none --disable-network-policy"
+    extra_agent_args: ""
 
     # Addons
     cluster_env: local

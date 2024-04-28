@@ -43,6 +43,12 @@ sudo curl -L https://raw.githubusercontent.com/containerd/containerd/main/contai
 # Step 5: Start containerd service
 sudo systemctl daemon-reload
 sudo systemctl enable --now containerd
+```
+
+Verify `containerd` is running
+
+```bash
+# Verify containerd is running
 sudo systemctl status containerd
 ```
 
@@ -119,4 +125,25 @@ kubectl get pods -o wide -w
 # Uninstalling Agents
 /usr/local/bin/k3s-agent-uninstall.sh
 
+```
+
+## FAQ
+
+### Error `exec format error`
+
+This container error is mostly due the following scenarios:
+
+* The image currently running is not supported by the OS. For example running `amd64` image into `arm64` platform will throw this exception.
+* By missing the `command` or `entrypoint` of the OCI image, so when the container start it can reach to this error.
+* Lastly, *and the actual error*, is when the layers are pulled by the container runtime, but for some reason (restart, networking issue, I/O Throttling, etc..) those become corrupted so any time the container starts it throws an error.
+
+In `containerd` configuration file `/etc/containerd/config.toml`, set `image_pull_with_sync_fs = true` to check and sync the image layers from the `snapshotter`, usually the recommended `overlayfs`.
+
+* [exec user process caused: exec format error](https://github.com/containerd/containerd/issues/5854)
+* [Add option to perform syncfs after pull](https://github.com/containerd/containerd/pull/9401)
+
+```bash
+[plugins."io.containerd.grpc.v1.cri"]
+
+    image_pull_with_sync_fs = true
 ```

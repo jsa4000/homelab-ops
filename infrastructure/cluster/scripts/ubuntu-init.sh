@@ -28,8 +28,10 @@ SSH_OUTPUT_PATH=/mnt/home/orangepi/.ssh
 SSHD_OUTPUT_FILE=/mnt/etc/ssh/sshd_config
 HOSTNAME_OUTPUT_FILE=/mnt/etc/hostname
 HOSTS_OUTPUT_FILE=/mnt/etc/hosts
+SUDOERS_OUTPUT_FILE=/mnt/etc/sudoers
 SSD_ID=nvme0n1
 SSD_MOUNT=nvme0n1p2
+USER_NAME=orangepi
 
 echo "------------------------------------------------------------"
 echo "Initialization Script for Ubuntu"
@@ -143,6 +145,8 @@ if [ "$KEY_INPUT" = "y" ]; then
 
     sudo grep -q "ChallengeResponseAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*ChallengeResponseAuthentication[[:space:]]yes.*/c\ChallengeResponseAuthentication no" $SSHD_OUTPUT_FILE || echo "ChallengeResponseAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
     sudo grep -q "^[^#]*PasswordAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]yes/c\PasswordAuthentication no" $SSHD_OUTPUT_FILE || echo "PasswordAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
+
+    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | sudo tee -a $SUDOERS_OUTPUT_FILE > /dev/null 2>&1
 
     sudo mv $NETWORK_FILE $NETWORK_OUTPUT_PATH
     sudo chmod -R 600 $NETWORK_OUTPUT_PATH/$NETWORK_FILE
