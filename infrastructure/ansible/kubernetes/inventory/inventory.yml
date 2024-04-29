@@ -33,8 +33,8 @@ k3s_cluster:
     # To use different internal cidr, needed for flannel cni
     #   --cluster-cidr=10.244.0.0/16
     # Nodes latency profiles
-    #  --kube-apiserver-arg default-not-ready-toleration-seconds=60s --kube-apiserver-arg default-unreachable-toleration-seconds=60s --kube-controller-arg node-monitor-grace-period=2m --kubelet-arg node-status-update-frequency=20s
-    extra_server_args: "--disable servicelb --disable traefik --kube-apiserver-arg default-not-ready-toleration-seconds=60s --kube-apiserver-arg default-unreachable-toleration-seconds=60s --kube-controller-arg node-monitor-grace-period=2m --kubelet-arg node-status-update-frequency=20s"
+    #  --kube-apiserver-arg default-not-ready-toleration-seconds=60 --kube-apiserver-arg default-unreachable-toleration-seconds=60 --kube-controller-arg node-monitor-grace-period=2m --kubelet-arg node-status-update-frequency=20s
+    extra_server_args: "--disable servicelb --disable traefik --kube-apiserver-arg default-not-ready-toleration-seconds=60 --kube-apiserver-arg default-unreachable-toleration-seconds=60 --kube-controller-arg node-monitor-grace-period=2m --kubelet-arg node-status-update-frequency=20s"
     #extra_server_args: "--disable servicelb --disable traefik --flannel-backend=none --disable-network-policy"
     extra_agent_args: "--kubelet-arg node-status-update-frequency=20s"
 
