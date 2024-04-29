@@ -168,3 +168,44 @@ sudo modprobe -a ipt_REJECT xt_mark xt_multiport xt_TPROXY xt_CT sch_ingress ip_
 # Check Kernel modules
 cat /proc/modules | grep ipt_REJECT
 ```
+
+### Kubernetes Node Not Ready
+
+* [Kubernetes Node Not Ready Error and How to Fix It](https://lumigo.io/kubernetes-troubleshooting/kubernetes-node-not-ready-error-and-how-to-fix-it/)
+* [Diagnosis and Troubleshooting of a Kubernetes Node in "Not Ready" State](https://medium.com/@diego_maia/diagnosis-and-troubleshooting-of-a-kubernetes-node-in-not-ready-state-f5d0d5e5b061)
+* [Worker latency profiles](https://docs.openshift.com/container-platform/4.12/nodes/clusters/nodes-cluster-worker-latency-profiles.html)
+
+#### Medium worker latency profile
+
+* Use the MediumUpdateAverageReaction profile if the network latency is slightly higher than usual.
+* The MediumUpdateAverageReaction profile reduces the frequency of kubelet updates to 20 seconds and changes the period that the Kubernetes Controller Manager waits for those updates to 2 minutes. The pod eviction period for a pod on that node is reduced to 60 seconds. If the pod has the tolerationSeconds parameter, the eviction waits for the period specified by that parameter.
+* The Kubernetes Controller Manager waits for 2 minutes to consider a node unhealthy. In another minute, the eviction process starts.
+
+|Component|Parameter|Value|
+|---|---|----|
+|kubelet|`node-status-update-frequency`|`1m`|
+|Kubelet Controller Manager|`node-monitor-grace-period`|`5m`|
+|Kubernetes API Server Operator|`default-not-ready-toleration-seconds`|`60s`|
+|Kubernetes API Server Operator|`default-unreachable-toleration-seconds`|`60s`|
+
+### Low worker latency profile**
+
+* Use the LowUpdateSlowReaction profile if the network latency is extremely high.
+* The LowUpdateSlowReaction profile reduces the frequency of kubelet updates to 1 minute and changes the period that the Kubernetes Controller Manager waits for those updates to 5 minutes. The pod eviction period for a pod on that node is reduced to 60 seconds. If the pod has the tolerationSeconds parameter, the eviction waits for the period specified by that parameter.
+* The Kubernetes Controller Manager waits for 5 minutes to consider a node unhealthy. In another minute, the eviction process starts.
+
+|Component|Parameter|Value|
+|---|---|----|
+|kubelet|`node-status-update-frequency`|`20s`|
+|Kubelet Controller Manager|`node-monitor-grace-period`|`2m`|
+|Kubernetes API Server Operator|`default-not-ready-toleration-seconds`|`60s`|
+|Kubernetes API Server Operator|`default-unreachable-toleration-seconds`|`60s`|
+
+#### Troubleshooting
+
+For troubleshooting use following command:
+
+```bash
+# Check the events throw to kubernetes to get the state
+kubectl get events --all-namespaces
+```

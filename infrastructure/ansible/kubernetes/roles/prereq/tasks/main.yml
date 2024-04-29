@@ -250,3 +250,17 @@
         dest: "/var/lib/rancher/k3s/server/manifests"
         mode: 0600
       loop: "{{ extra_manifests }}"
+
+- name: Setup containerd config file
+  when: containerd_config_file is defined
+  block:
+    - name: Make config directory
+      ansible.builtin.file:
+        path: "/var/lib/rancher/k3s/agent/etc/containerd"
+        mode: 0755
+        state: directory
+    - name: Copy config values
+      ansible.builtin.copy:
+        src: "{{ containerd_config_file }}"
+        dest: "/var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl"
+        mode: 0644

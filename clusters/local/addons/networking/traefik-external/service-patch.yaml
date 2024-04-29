@@ -1,18 +1,18 @@
 ## Using LoadBalancer to assign VIP Address (default)
-#- op: replace
-#  path: /spec/loadBalancerIP
-#  value: 192.168.205.200
+- op: replace
+  path: /spec/loadBalancerIP
+  value: 192.168.205.200
 
 ## Use nodePort instead using L2 LoadBalancer, since the external router does not support VIP and it need a physical device with MAC Address.
 ## Kubernetes control plane will allocate a port from a range (default: 30000-32767)
-- op: replace
-  path: /spec/type
-  value: NodePort
-- op: replace
-  path: /spec/ports/0/nodePort
-  value: 30080
-- op: replace
-  path: /spec/ports/1/nodePort
-  value: 30443
-- op: remove
-  path: /spec/loadBalancerIP
+#- op: replace
+#  path: /spec/type
+#  value: NodePort
+#- op: replace
+#  path: /spec/ports/0/nodePort
+#  value: 30080
+#- op: replace
+#  path: /spec/ports/1/nodePort
+#  value: 30443
+#- op: remove
+#  path: /spec/loadBalancerIP

@@ -1,2 +1,3 @@
 ---
 api_port: 6443
+containerd_config_file: config.toml.tmpl
