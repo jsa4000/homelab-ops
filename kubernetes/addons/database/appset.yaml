@@ -50,7 +50,7 @@ spec:
         syncOptions:
           - Validate=true
           - CreateNamespace=true
-          #- ServerSideApply=true
+          - ServerSideApply=true
           - ApplyOutOfSyncOnly=true
           - PrunePropagationPolicy=foreground
           - PruneLast=true
