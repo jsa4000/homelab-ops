@@ -205,6 +205,13 @@ kubectl get pods --all-namespaces | grep instance-manager | awk '{print $2 " --n
 # Restart pods by any Status
 kubectl delete -A --field-selector 'status.phase!=Running' pods --force
 
+# Restart the entire deployment and replicas
+kubectl get deployments -n gitops
+kubectl rollout restart deployment argocd-server -n gitops
+kubectl rollout restart deployment argocd-repo-server -n gitops
+kubectl rollout restart deployment argocd-redis -n gitops
+kubectl rollout restart deployment argocd-applicationset-controller -n gitops
+
 #########################
 # Deploy Metallb
 #########################

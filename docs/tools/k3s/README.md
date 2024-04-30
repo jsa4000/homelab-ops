@@ -207,5 +207,5 @@ For troubleshooting use following command:
 
 ```bash
 # Check the events throw to kubernetes to get the state
-kubectl get events --all-namespaces
+kubectl get events -A
 ```

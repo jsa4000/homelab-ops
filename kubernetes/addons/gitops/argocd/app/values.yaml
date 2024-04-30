@@ -7,6 +7,7 @@ configs:
     kustomize.buildOptions: --enable-helm
     timeout.reconciliation: 180s
     timeout.hard.reconciliation: 0s
+    timeout.reconciliation.jitter: 1m
   params:
     create: true
     controller.status.processors: 10
@@ -17,7 +18,6 @@ configs:
     server.insecure: true
     reposerver.parallelism.limit: 0
     controller.kubectl.parallelism.limit: 10
-    # timeout.reconciliation.jitter: 3m
   cmp:
     create: false
     plugins: {}
