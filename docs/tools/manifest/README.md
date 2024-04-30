@@ -207,10 +207,10 @@ kubectl delete -A --field-selector 'status.phase!=Running' pods --force
 
 # Restart the entire deployment and replicas
 kubectl get deployments -n gitops
-kubectl rollout restart deployment argocd-server -n gitops
-kubectl rollout restart deployment argocd-repo-server -n gitops
-kubectl rollout restart deployment argocd-redis -n gitops
-kubectl rollout restart deployment argocd-applicationset-controller -n gitops
+kubectl rollout restart deployment -n gitops argocd-server
+kubectl rollout restart deployment -n gitops argocd-repo-server
+kubectl rollout restart deployment -n gitops argocd-redis
+kubectl rollout restart deployment -n gitops argocd-applicationset-controller
 
 #########################
 # Deploy Metallb
