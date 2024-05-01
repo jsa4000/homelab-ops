@@ -279,3 +279,47 @@ Check packages currently installed in debian or ubuntu (`apt`)
 # Check packages installed
 dpkg -l
 ```
+
+### Random MAC Address
+
+[Orange Pi 5 - MAC address changes on reboot](https://github.com/MichaIng/DietPi/issues/6663)
+[rk_vendor_read eth mac address failed](https://github.com/Joshua-Riek/ubuntu-rockchip/issues/274)
+
+```bash
+# Run following command
+sudo journalctl | grep rk_gmac-dwmac
+
+01 16:26:49 DietPi kernel: rk_gmac-dwmac fe1c0000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+May 01 16:26:49 DietPi kernel: rk_gmac-dwmac fe1c0000.ethernet: rk_get_eth_addr: rk_vendor_read eth mac address failed (-1)
+May 01 16:26:49 DietPi kernel: rk_gmac-dwmac fe1c0000.ethernet: rk_get_eth_addr: generate random eth mac address: b2:23:c3:61:ba:23
+May 01 16:26:49 DietPi kernel: rk_gmac-dwmac fe1c0000.ethernet: rk_get_eth_addr: rk_vendor_write eth mac address failed (-1)
+May 01 16:26:49 DietPi kernel: rk_gmac-dwmac fe1c0000.ethernet: rk_get_eth_addr: id: 1 rk_vendor_read eth mac address failed (-1)
+May 01 16:26:49 DietPi kernel: rk_gmac-dwmac fe1c0000.ethernet: rk_get_eth_addr: mac address: b2:23:c3:61:ba:23
+May 01 16:26:49 DietPi kernel: rk_gmac-dwmac fe1c0000.ethernet: device MAC address b2:23:c3:61:ba:23
+```
+
+Creating `/etc/network/interfaces.d/eth0` with content
+
+```bash
+# Create file with the fixed MAC Address
+sudo tee -a /etc/network/interfaces.d/eth0 > /dev/null <<EOT
+iface eth0 inet dhcp
+hwaddress ether 8a:33:ce:b3:b0:b9
+EOT
+
+sudo reboot
+
+# check the MAC Address has been assigned
+ip address | grep 8a:33:ce:b3:b0:b9
+```
+
+Using `dietpi-config` is necessary to add it into the existing interface (`eth0`) already created at `/etc/network/interfaces`
+
+```bash
+# Add new line with the MAC Address after 'iface eth0 inet static'
+IFACE_FILE=/etc/network/interfaces
+MAC_ADDRESS=8a:33:ce:b3:b0:b9
+HWADDRESS="hwaddress ether $MAC_ADDRESS"
+IFACE_STR="iface eth0 inet static"
+sed -i "" "s|$IFACE_STR|$IFACE_STR\n$HWADDRESS|g" $IFACE_FILE
+```

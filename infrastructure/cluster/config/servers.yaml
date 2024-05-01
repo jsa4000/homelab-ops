@@ -5,6 +5,7 @@ servers:
     mask: 255.255.255.0
     gateway: 192.168.3.1
     dns: 192.168.3.1
+    mac: b2:23:c3:61:ba:23
     user: dietpi
     ssh-key: $HOME/.ssh/server_key.pub
   sbc-server-2:
@@ -13,6 +14,7 @@ servers:
     mask: 255.255.255.0
     gateway: 192.168.3.1
     dns: 192.168.3.1
+    mac: 2a-33-ce-b3-b0-b9
     user: dietpi
     ssh-key: $HOME/.ssh/server_key.pub
   sbc-server-3:
@@ -21,5 +23,6 @@ servers:
     mask: 255.255.255.0
     gateway: 192.168.3.1
     dns: 192.168.3.1
+    mac: f6:72:a4:7a:96:b3
     user: dietpi
     ssh-key: $HOME/.ssh/server_key.pub
