@@ -322,8 +322,7 @@ IFACE_FILE=/etc/network/interfaces
 MAC_ADDRESS=8a:33:ce:b3:b0:b9
 HWADDRESS="hwaddress ether $MAC_ADDRESS"
 IFACE_STR="iface eth0 inet static"
-sed -i "s|$IFACE_STR|$IFACE_STR\n$HWADDRESS|g" $IFACE_FILE
-#sed -i "" "s|$IFACE_STR|$IFACE_STR\n$HWADDRESS|g" $IFACE_FILE # For MACoS use 'sed -i "" "s|xx|yy|g file
+sed -i "s|$IFACE_STR|$IFACE_STR\n$HWADDRESS|g" $IFACE_FILE # For macos use 'sed -i "" "s|xx|yy|g file
 
 # Restart Networking
 systemctl restart networking
