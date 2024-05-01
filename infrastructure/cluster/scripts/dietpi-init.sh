@@ -21,6 +21,8 @@ CONFIG_FILE=${2:-./config/servers.yaml}
 OUTPUT_FILE=${3:-./dietpi.txt}
 
 TEMPLATE_FILE=./config/templates/dietpi/dietpi.template.txt
+TEMPLATE_SCRIPT_FILE=./config/templates/dietpi/Automation_Custom_Script.template.sh
+SCRIPT_FILE=Automation_Custom_Script.sh
 DIETPI_IMAGE=DietPi_OrangePi5-ARMv8-Bookworm.img
 DIETPI_URL=https://dietpi.com/downloads/images/$DIETPI_IMAGE.xz
 DIETPI_FILE=dietpi.txt
@@ -116,6 +118,8 @@ echo "  user:     $SERVER_USER"
 
 envsubst < $TEMPLATE_FILE > $OUTPUT_FILE
 
+envsubst < $TEMPLATE_SCRIPT_FILE > $SCRIPT_FILE
+
 printf "Do you want to overwrite the target mount /mnt/$DIETPI_FILE? (y/n)"
 read -r KEY_INPUT </dev/tty
 
@@ -124,6 +128,7 @@ if [ "$KEY_INPUT" = "y" ]; then
     echo "Mounting the SSD boot and replace DietPi init"
     sudo mount /dev/$SSD_MOUNT /mnt/
     cat $OUTPUT_FILE | sudo tee /mnt/$DIETPI_FILE > /dev/null 2>&1
+    cat $SCRIPT_FILE | sudo tee /mnt/$SCRIPT_FILE > /dev/null 2>&1
     sudo umount /mnt/ && sudo sync
     echo "DietPi init replaced"
 
