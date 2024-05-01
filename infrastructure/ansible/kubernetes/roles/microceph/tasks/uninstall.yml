@@ -1,12 +1,11 @@
-- name: Make sure snapd is installed
-  ansible.builtin.package:
-    name:
-      - snapd
-    state: latest
-
 - name: Uninstall microceph
   ansible.builtin.snap:
     name: microceph
+    state: absent
+
+- name: Uninstall snapd
+  ansible.builtin.package:
+    name: snapd
     state: absent
 
 - name: Remove microceph folder
