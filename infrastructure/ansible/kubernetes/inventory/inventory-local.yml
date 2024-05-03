@@ -25,8 +25,15 @@ k3s_cluster:
     #   --node-taint node-role.kubernetes.io/control-plane:NoSchedule
     # To install different CNI such as cilium or calico
     #   --flannel-backend=none --disable-network-policy
+    # To disable k3s default storage class to install longhorn, rook-ceph, etc..
+    #   --disable=local-storage
     # To change the default container runtime socket (already installed in the host machine)
     #   --container-runtime-endpoint=unix:///run/containerd/containerd.sock --kubelet-arg cgroup-driver=systemd
+    # To use different internal cidr, needed for flannel cni
+    #   --cluster-cidr=10.244.0.0/16
+    # Master/workers latency performance timing
+    #  --kube-apiserver-arg default-not-ready-toleration-seconds=60 --kube-apiserver-arg default-unreachable-toleration-seconds=60 --kube-controller-arg node-monitor-grace-period=2m --kubelet-arg node-status-update-frequency=20s
+    #  --kubelet-arg node-status-update-frequency=20s
     extra_server_args: "--disable servicelb --disable traefik --disable=local-storage"
     #extra_server_args: "--disable servicelb --disable traefik --disable=local-storage --flannel-backend=none --disable-network-policy"
     extra_agent_args: ""
