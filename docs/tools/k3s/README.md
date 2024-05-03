@@ -174,6 +174,7 @@ cat /proc/modules | grep ipt_REJECT
 * [Kubernetes Node Not Ready Error and How to Fix It](https://lumigo.io/kubernetes-troubleshooting/kubernetes-node-not-ready-error-and-how-to-fix-it/)
 * [Diagnosis and Troubleshooting of a Kubernetes Node in "Not Ready" State](https://medium.com/@diego_maia/diagnosis-and-troubleshooting-of-a-kubernetes-node-in-not-ready-state-f5d0d5e5b061)
 * [Worker latency profiles](https://docs.openshift.com/container-platform/4.12/nodes/clusters/nodes-cluster-worker-latency-profiles.html)
+* [How To Make Kubernetes React Faster When Nodes Fail?](https://medium.com/tailwinds-navigator/kubernetes-tip-how-to-make-kubernetes-react-faster-when-nodes-fail-1e248e184890)
 
 #### Medium worker latency profile
 
@@ -208,4 +209,10 @@ For troubleshooting use following command:
 ```bash
 # Check the events throw to kubernetes to get the state
 kubectl get events -A
+
+# Get the status
+sudo systemctl status k3s
+
+# Get the logs
+sudo journalctl -u k3s | grep kubelet
 ```
