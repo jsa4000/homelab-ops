@@ -207,6 +207,10 @@ cat /proc/modules | grep ipt_REJECT
 For troubleshooting use following command:
 
 ```bash
+# Watch the pods and nodes statuses
+watch -n 0.5 kubectl get pods -A -o wide
+watch -n 0.5 kubectl get pods -A -o wide
+
 # Check the events throw to kubernetes to get the state
 kubectl get events -A
 
