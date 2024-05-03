@@ -211,6 +211,9 @@ For troubleshooting use following command:
 watch -n 0.5 kubectl get pods -A -o wide
 watch -n 0.5 kubectl get pods -A -o wide
 
+# Check that you have resolved any Additional OS Preparation
+k3s check-config
+
 # Check the events throw to kubernetes to get the state
 kubectl get events -A
 
