@@ -14,7 +14,7 @@ servers:
     mask: 255.255.255.0
     gateway: 192.168.3.1
     dns: 192.168.3.1
-    mac: 2a-33-ce-b3-b0-b9
+    mac: 1e:0c:a6:db:52:b8
     user: dietpi
     ssh-key: $HOME/.ssh/server_key.pub
   sbc-server-3:
