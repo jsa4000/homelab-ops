@@ -183,6 +183,8 @@ This is what happens when node dies or go into offline mode:
 * `kube-controller-manager` will see the node is unresponsive and has the grace period `--node-monitor-grace-period=40s` until it considers node **unhealthy**. > This parameter should be in N x `node-status-update-fequency`
 * Once the node marked unhealthy, the `kube-controller-manager` will remove the pods based on `--pod-eviction-timeout=5m`
 
+Now, if you tweaked the parameter `pod-eviction-timeout` to say 30 seconds, it will still take total 70 seconds to evict the pod from node The `node-status-update-fequency` and `node-monitor-grace-period` time counts in `node-monitor-grace-period` also. You can tweak these variable as well to further lower down your total node eviction time.
+
 #### Medium worker latency profile
 
 * Use the MediumUpdateAverageReaction profile if the network latency is slightly higher than usual.
