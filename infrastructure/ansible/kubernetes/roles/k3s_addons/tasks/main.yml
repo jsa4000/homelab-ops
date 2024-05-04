@@ -7,9 +7,9 @@
   include_tasks: dotenv.yml
   tags: dotenv
 
-- name: Deploy cilium
-  include_tasks: cilium.yml
-  tags: cilium
+#- name: Deploy cilium
+#  include_tasks: cilium.yml
+#  tags: cilium
 
 - name: Deploy External Secrets
   include_tasks: external-secrets.yml
