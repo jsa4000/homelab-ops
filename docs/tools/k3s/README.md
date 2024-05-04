@@ -176,6 +176,13 @@ cat /proc/modules | grep ipt_REJECT
 * [Worker latency profiles](https://docs.openshift.com/container-platform/4.12/nodes/clusters/nodes-cluster-worker-latency-profiles.html)
 * [How To Make Kubernetes React Faster When Nodes Fail?](https://medium.com/tailwinds-navigator/kubernetes-tip-how-to-make-kubernetes-react-faster-when-nodes-fail-1e248e184890)
 
+This is what happens when node dies or go into offline mode:
+
+* The `kubelet` posts its status to masters by `--node-status-update-fequency=10s`.
+* `kube-controller-manager` is monitoring all the nodes by `--node-monitor-period=5s`
+* `kube-controller-manager` will see the node is unresponsive and has the grace period `--node-monitor-grace-period=40s` until it considers node **unhealthy**. > This parameter should be in N x `node-status-update-fequency`
+* Once the node marked unhealthy, the `kube-controller-manager` will remove the pods based on `--pod-eviction-timeout=5m`
+
 #### Medium worker latency profile
 
 * Use the MediumUpdateAverageReaction profile if the network latency is slightly higher than usual.
