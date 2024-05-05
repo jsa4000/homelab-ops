@@ -212,6 +212,13 @@ kubectl rollout restart deployment -n gitops argocd-repo-server
 kubectl rollout restart deployment -n gitops argocd-redis
 kubectl rollout restart deployment -n gitops argocd-applicationset-controller
 
+# Multiple Kube-System pods not running with Unknown Status
+# https://github.com/k3s-io/k3s/issues/6185
+sudo k3s ctr container rm $(sudo find /var/lib/cni/flannel/ -size 0 | sudo xargs -n1 basename)
+
+sudo find /var/lib/cni/flannel/ -size 0 -delete
+sudo find /var/lib/cni/results/ -size 0 -delete # cached result
+
 #########################
 # Deploy Metallb
 #########################
