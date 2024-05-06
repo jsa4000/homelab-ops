@@ -27,7 +27,8 @@ NETWORK_TEMPLATE_FILE=./config/templates/ubuntu/netplan.template.yaml
 NETWORK_FILE=01-netplan.yaml
 NETWORK_OUTPUT_PATH=/mnt/etc/netplan
 USER_NAME=ubuntu
-SSH_OUTPUT_PATH=/mnt/home/$USER_NAME/.ssh
+HOME_OUTPUT_PATH=/mnt/home/$USER_NAME
+SSH_OUTPUT_PATH=$HOME_OUTPUT_PATH/.ssh
 SSHD_OUTPUT_FILE=/mnt/etc/ssh/sshd_config
 HOSTNAME_OUTPUT_FILE=/mnt/etc/hostname
 HOSTS_OUTPUT_FILE=/mnt/etc/hosts
@@ -142,8 +143,11 @@ if [ "$KEY_INPUT" = "y" ]; then
     echo "Mounting the SSD boot and replace Ubuntu config"
     sudo mount /dev/$SSD_MOUNT /mnt/
 
-    sudo mkdir -p $SSH_OUTPUT_PATH
-    cat "$SSH_PUBKEY_FILE" | sudo tee $SSH_OUTPUT_PATH/authorized_keys > /dev/null 2>&1
+    sudo mkdir $HOME_OUTPUT_PATH
+    sudo chmod -R 777 $HOME_OUTPUT_PATH
+
+    mkdir $SSH_OUTPUT_PATH
+    cat "$SSH_PUBKEY_FILE" | tee $SSH_OUTPUT_PATH/authorized_keys > /dev/null 2>&1
 
     sudo grep -q "ChallengeResponseAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*ChallengeResponseAuthentication[[:space:]]yes.*/c\ChallengeResponseAuthentication no" $SSHD_OUTPUT_FILE || echo "ChallengeResponseAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
     sudo grep -q "^[^#]*PasswordAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]yes/c\PasswordAuthentication no" $SSHD_OUTPUT_FILE || echo "PasswordAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
