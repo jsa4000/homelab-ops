@@ -15,10 +15,10 @@ spec:
               directories:
                 - path: kubernetes/addons/networking/*
                 # Cilium is used for L2 Announced / LB IPAM
-                - path: kubernetes/addons/networking/metallb
+                #- path: kubernetes/addons/networking/metallb
+                #  exclude: true
+                - path: kubernetes/addons/networking/cilium
                   exclude: true
-                # - path: kubernetes/addons/networking/cilium
-                #   exclude: true
               values:
                 namespace: networking
           - clusters:

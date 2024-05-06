@@ -112,6 +112,39 @@ source ./scripts/ubuntu-init.sh sbc-server-1 ./config/servers.yaml
 ssh orangepi@192.168.3.100
 ```
 
+### Joshua Installation
+
+These steps are done by the `joshua-init.sh` script automatically.
+
+1. Prepare the SD card
+2. Remove all the data from SDD or destination storage.
+3. Copy the image to the SDD or block storage (using `dd` or any other method)
+4. Copy the scripts to the SD card and ssh public key (using `scp` or `sftp`)
+5. Run this script for a specific server: `sbc-server-1`, `sbc-server-2`, etc.. (i.e `source ./scripts/joshua-init.sh sbc-server-1`)
+6. Check the configuration modified.
+7. Shutdown the device (`sudo poweroff`) and remove the SD card.
+
+```bash
+# ssh into the device (orangepi/orangepi)
+ssh orangepi@192.168.3.61
+
+# ssh public key must be copied to the path defined in servers.yaml. i.e "$HOME/.ssh/server_key.pub"
+# Go to folder copied with scripts
+cd cluster
+
+# Command line and parameters to be used to install ubuntu
+# source ./scripts/joshua-init.sh $SERVER_NAME $CONFIG_FILE $OUTPUT_FILE
+
+# Install ubuntu into 'sbc-server-1'
+source ./scripts/joshua-init.sh sbc-server-1
+
+# Install ubuntu into 'sbc-server-1' using custom configuration file
+source ./scripts/joshua-init.sh sbc-server-1 ./config/servers.yaml
+
+# Test current device by access using ssh.
+ssh ubuntu@192.168.3.100
+```
+
 ### SSH Configurations
 
 The `ssh-agent` is a helper program that keeps track of users' identity **keys** and their **passphrases**. The agent can then use the keys to log into other servers **without** having the user type in a password or passphrase again. This implements a form of **single sign-on** (SSO).
