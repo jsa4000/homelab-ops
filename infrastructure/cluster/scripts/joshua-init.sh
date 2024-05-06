@@ -162,6 +162,7 @@ if [ "$KEY_INPUT" = "y" ]; then
     CURRENT_HOSTNAME=$(cat $HOSTNAME_OUTPUT_FILE)
     echo $SERVER_HOSTNAME | sudo tee $HOSTNAME_OUTPUT_FILE > /dev/null 2>&1
     sudo sed -i "/127.0.1.1/s/$CURRENT_HOSTNAME/$SERVER_HOSTNAME/" $HOSTS_OUTPUT_FILE
+    echo "127.0.1.1 $SERVER_HOSTNAME" | sudo tee -a $HOSTS_OUTPUT_FILE > /dev/null 2>&1
 
     sudo umount /mnt/ && sudo sync
     echo "Ubuntu config replaced"
