@@ -1,0 +1,11 @@
+network:
+  ethernets:
+    $NETWORK_IFACE:
+      dhcp4: false
+      addresses: [$SERVER_IP/24]
+      routes:
+      - to: default
+        via: $SERVER_GATEWAY
+      nameservers:
+        addresses: [8.8.8.8,8.8.8.4]
+  version: 2

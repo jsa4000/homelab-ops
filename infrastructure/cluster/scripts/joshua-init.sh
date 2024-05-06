@@ -23,17 +23,17 @@ UBUNTU_IMAGE_FILE=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img
 UBUNTU_IMAGE_COMPRESSED=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img.xz
 IMAGE_VESRION=2.0.0
 IMAGE_URL=https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v$IMAGE_VESRION/$UBUNTU_IMAGE_COMPRESSED
-NETWORK_TEMPLATE_FILE=./config/templates/ubuntu/default.template.nmconnection
-NETWORK_FILE=default.nmconnection
-NETWORK_OUTPUT_PATH=/mnt/etc/NetworkManager/system-connections
-SSH_OUTPUT_PATH=/mnt/home/orangepi/.ssh
+NETWORK_TEMPLATE_FILE=./config/templates/ubuntu/netplan.template.yaml
+NETWORK_FILE=01-netplan.yaml
+NETWORK_OUTPUT_PATH=/mnt/etc/netplan
+USER_NAME=ubuntu
+SSH_OUTPUT_PATH=/mnt/home/$USER_NAME/.ssh
 SSHD_OUTPUT_FILE=/mnt/etc/ssh/sshd_config
 HOSTNAME_OUTPUT_FILE=/mnt/etc/hostname
 HOSTS_OUTPUT_FILE=/mnt/etc/hosts
 SUDOERS_OUTPUT_FILE=/mnt/etc/sudoers
 SSD_ID=nvme0n1
 SSD_MOUNT=nvme0n1p2
-USER_NAME=ubuntu
 
 echo "------------------------------------------------------------"
 echo "Initialization Script for Ubuntu"
@@ -111,7 +111,7 @@ export SERVER_MAC=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(stre
 export SSH_PUBKEY_FILE=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(strenv(SERVER_PATH)) | .ssh-key' $CONFIG_FILE)
 export SERVER_USER=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(strenv(SERVER_PATH)) | .user' $CONFIG_FILE)
 
-export NETWORK_IFACE=eth0
+export NETWORK_IFACE=end1
 export NETWORK_UUID=$(uuidgen | tr '[:upper:]' '[:lower:]')
 
 if ! [ -f "$SSH_PUBKEY_FILE" ]; then
@@ -141,9 +141,8 @@ if [ "$KEY_INPUT" = "y" ]; then
     echo "Mounting the SSD boot and replace Ubuntu config"
     sudo mount /dev/$SSD_MOUNT /mnt/
 
-    mkdir $SSH_OUTPUT_PATH
-    touch $SSH_OUTPUT_PATH/authorized_keys
-    cat "$SSH_PUBKEY_FILE" >> $SSH_OUTPUT_PATH/authorized_keys
+    sudo mkdir -p $SSH_OUTPUT_PATH
+    cat "$SSH_PUBKEY_FILE" | sudo tee $SSH_OUTPUT_PATH/authorized_keys > /dev/null 2>&1
 
     sudo grep -q "ChallengeResponseAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*ChallengeResponseAuthentication[[:space:]]yes.*/c\ChallengeResponseAuthentication no" $SSHD_OUTPUT_FILE || echo "ChallengeResponseAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
     sudo grep -q "^[^#]*PasswordAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]yes/c\PasswordAuthentication no" $SSHD_OUTPUT_FILE || echo "PasswordAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
