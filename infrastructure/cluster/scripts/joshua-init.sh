@@ -146,14 +146,13 @@ if [ "$KEY_INPUT" = "y" ]; then
     echo "Mounting the SSD boot and replace Ubuntu config"
     sudo mount /dev/$SSD_MOUNT /mnt/
 
-    sudo mkdir $HOME_OUTPUT_PATH
-    sudo chmod -R 777 $HOME_OUTPUT_PATH
-    #sudo chown -R $USER_NAME:$USER_NAME $HOME_OUTPUT_PATH
+    #sudo mkdir $HOME_OUTPUT_PATH
+    #sudo chmod -R 777 $HOME_OUTPUT_PATH
 
-    mkdir $SSH_OUTPUT_PATH
-    cat "$SSH_PUBKEY_FILE" | tee $SSH_OUTPUT_PATH/authorized_keys > /dev/null 2>&1
-    sudo chmod 700 $SSH_OUTPUT_PATH
-    sudo chmod 644 $SSH_OUTPUT_PATH/authorized_keys
+    #mkdir $SSH_OUTPUT_PATH
+    #cat "$SSH_PUBKEY_FILE" | tee $SSH_OUTPUT_PATH/authorized_keys > /dev/null 2>&1
+    #sudo chmod 700 $SSH_OUTPUT_PATH
+    #sudo chmod 644 $SSH_OUTPUT_PATH/authorized_keys
 
     sudo grep -q "ChallengeResponseAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*ChallengeResponseAuthentication[[:space:]]yes.*/c\ChallengeResponseAuthentication no" $SSHD_OUTPUT_FILE || echo "ChallengeResponseAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
     sudo grep -q "^[^#]*PasswordAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]yes/c\PasswordAuthentication no" $SSHD_OUTPUT_FILE || echo "PasswordAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
