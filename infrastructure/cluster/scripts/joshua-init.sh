@@ -18,10 +18,12 @@ SERVER_NAME=${1:-sbc-server-1}
 CONFIG_FILE=${2:-./config/servers.yaml}
 
 UBUNTU_IMAGE_PATH=.
-UBUNTU_IMAGE_NAME=ubuntu-24.04-preinstalled-server-arm64-orangepi-5
+#UBUNTU_IMAGE_NAME=ubuntu-24.04-preinstalled-server-arm64-orangepi-5
+UBUNTU_IMAGE_NAME=ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5
 UBUNTU_IMAGE_FILE=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img
 UBUNTU_IMAGE_COMPRESSED=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img.xz
-IMAGE_VESRION=2.0.0
+#IMAGE_VESRION=2.0.0
+IMAGE_VESRION=1.33
 IMAGE_URL=https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v$IMAGE_VESRION/$UBUNTU_IMAGE_COMPRESSED
 NETWORK_TEMPLATE_FILE=./config/templates/ubuntu/netplan.template.yaml
 NETWORK_FILE=01-netplan.yaml
@@ -113,7 +115,8 @@ export SERVER_MAC=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(stre
 export SSH_PUBKEY_FILE=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(strenv(SERVER_PATH)) | .ssh-key' $CONFIG_FILE)
 export SERVER_USER=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(strenv(SERVER_PATH)) | .user' $CONFIG_FILE)
 
-export NETWORK_IFACE=end1
+#export NETWORK_IFACE=end1
+export NETWORK_IFACE=eth0
 export NETWORK_UUID=$(uuidgen | tr '[:upper:]' '[:lower:]')
 
 if ! [ -f "$SSH_PUBKEY_FILE" ]; then
@@ -145,9 +148,12 @@ if [ "$KEY_INPUT" = "y" ]; then
 
     sudo mkdir $HOME_OUTPUT_PATH
     sudo chmod -R 777 $HOME_OUTPUT_PATH
+    #sudo chown -R $USER_NAME:$USER_NAME $HOME_OUTPUT_PATH
 
     mkdir $SSH_OUTPUT_PATH
     cat "$SSH_PUBKEY_FILE" | tee $SSH_OUTPUT_PATH/authorized_keys > /dev/null 2>&1
+    sudo chmod 700 $SSH_OUTPUT_PATH
+    sudo chmod 644 $SSH_OUTPUT_PATH/authorized_keys
 
     sudo grep -q "ChallengeResponseAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*ChallengeResponseAuthentication[[:space:]]yes.*/c\ChallengeResponseAuthentication no" $SSHD_OUTPUT_FILE || echo "ChallengeResponseAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
     sudo grep -q "^[^#]*PasswordAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]yes/c\PasswordAuthentication no" $SSHD_OUTPUT_FILE || echo "PasswordAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
