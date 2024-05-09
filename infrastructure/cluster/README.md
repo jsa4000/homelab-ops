@@ -169,3 +169,24 @@ ssh dietpi@sbc-server-1
 # Connect using the ssh key
  ssh -i /Users/jsantosa/.ssh/server_key -t dietpi@192.168.3.100
 ```
+
+## Benchmark
+
+### Geekbench
+
+```bash
+# Get linux distribution info
+lsb_release -a
+
+# Download the file and untar
+wget -qO- https://cdn.geekbench.com/Geekbench-6.3.0-LinuxARMPreview.tar.gz | tar xvz
+
+# Go to folder
+ cd Geekbench-6.3.0-LinuxARMPreview
+
+# Execute Benchmakr
+./geekbench_aarch64
+
+# Ubuntu 22.04.3 LTS (Joshua) - Single-Core 790 Score - Multi-Core 3184 Score
+
+```
