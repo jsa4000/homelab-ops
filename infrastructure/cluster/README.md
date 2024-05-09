@@ -141,7 +141,7 @@ source ./scripts/joshua-init.sh sbc-server-1
 # Install ubuntu into 'sbc-server-1' using custom configuration file
 source ./scripts/joshua-init.sh sbc-server-1 ./config/servers.yaml
 
-# Test current device by access using ssh.
+# Test current device by access using ssh. ('rm ~/.ssh/known_hosts')
 ssh ubuntu@192.168.3.100
 ```
 
