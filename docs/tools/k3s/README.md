@@ -231,4 +231,8 @@ sudo systemctl status k3s
 
 # Get the logs
 sudo journalctl -u k3s | grep kubelet
+
+# Get logs from agent
+systemctl status k3s-agent
+sudo journalctl -u k3s-agent -xn | less
 ```

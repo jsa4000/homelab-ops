@@ -4,22 +4,22 @@
   block:
 
     - name: Install nfs-common
-      apt:
+      ansible.builtin.package:
         name: nfs-common
         state: present
 
     - name: Install open-iscsi
-      apt:
+      ansible.builtin.package:
         name: open-iscsi
         state: present
 
     - name: Install cryptsetup
-      apt:
+      ansible.builtin.package:
         name: cryptsetup
         state: present
 
     - name: Install util-linux
-      apt:
+      ansible.builtin.package:
         name: util-linux
         state: present
 
@@ -29,7 +29,7 @@
   block:
 
     - name: Install git
-      apt:
+      ansible.builtin.package:
         name: git
         state: present
 
