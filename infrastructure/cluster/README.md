@@ -203,4 +203,14 @@ speedtest-cli --secure
 ```bash
 # Run following command
 sudo curl https://raw.githubusercontent.com/TheRemote/PiBenchmarks/master/Storage.sh | sudo bash
-````
+```
+
+### Kubernetes
+
+```bash
+# Check that you have resolved any Additional OS Preparation
+k3s check-config
+
+# Check if system is compatible with longhorn
+curl -sSfL https://raw.githubusercontent.com/longhorn/longhorn/master/scripts/environment_check.sh | bash
+```
