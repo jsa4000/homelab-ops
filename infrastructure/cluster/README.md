@@ -181,12 +181,26 @@ lsb_release -a
 # Download the file and untar
 wget -qO- https://cdn.geekbench.com/Geekbench-6.3.0-LinuxARMPreview.tar.gz | tar xvz
 
-# Go to folder
- cd Geekbench-6.3.0-LinuxARMPreview
-
 # Execute Benchmakr
-./geekbench_aarch64
+./Geekbench-6.3.0-LinuxARMPreview/geekbench_aarch64
 
 # Ubuntu 22.04.3 LTS (Joshua) - Single-Core 790 Score - Multi-Core 3184 Score
 
 ```
+
+### SpeedTest
+
+```bash
+# Install speedtest cli
+sudo apt install speedtest-cli
+
+# Run tests
+speedtest-cli --secure
+```
+
+### PiBenchmark
+
+```bash
+# Run following command
+sudo curl https://raw.githubusercontent.com/TheRemote/PiBenchmarks/master/Storage.sh | sudo bash
+````
