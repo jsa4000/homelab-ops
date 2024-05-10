@@ -205,6 +205,17 @@ speedtest-cli --secure
 sudo curl https://raw.githubusercontent.com/TheRemote/PiBenchmarks/master/Storage.sh | sudo bash
 ```
 
+### Memtester
+
+```bash
+# Install Memtester
+sudo apt install memtester
+
+# Use "size" with the memory capacity you want to allocate (200M)
+# And "iteration" with the number of passes or iterations you want to run for testing (1).
+sudo memtester 200M 1
+```
+
 ### Kubernetes
 
 ```bash
