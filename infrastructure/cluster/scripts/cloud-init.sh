@@ -34,7 +34,8 @@ NETWORK_FILE=network-config
 METADATA_FILE=meta-data
 USER_NAME=ubuntu
 SSD_ID=nvme0n1
-SSD_MOUNT=nvme0n1p1
+SSD_MOUNT_P1=nvme0n1p1
+SSD_MOUNT_P2=nvme0n1p2
 NETWORK_IFACE=end1 # eth0, end1
 
 echo "------------------------------------------------------------"
@@ -144,16 +145,22 @@ read -r KEY_INPUT </dev/tty
 
 if [ "$KEY_INPUT" = "y" ]; then
 
-    echo "Mounting the SSD boot and replace Ubuntu config"
-    sudo mount /dev/$SSD_MOUNT /mnt/
+    echo "Mounting the SSD boot (Partition 1) and replace Cloud Init config"
+    sudo mount /dev/$SSD_MOUNT_P1 /mnt/
 
     cat $USER_FILE | sudo tee /mnt/$USER_FILE > /dev/null 2>&1
     cat $NETWORK_FILE | sudo tee /mnt/$NETWORK_FILE > /dev/null 2>&1
     cat $METADATA_FILE | sudo tee /mnt/$METADATA_FILE > /dev/null 2>&1
 
+    sudo umount /mnt/ && sudo sync
+
+    echo "Mounting the SSD boot (Partition 2) and replace Ubuntu config"
+    sudo mount /dev/$SSD_MOUNT_P2 /mnt/
+
     echo "127.0.0.1 $SERVER_HOSTNAME" | sudo tee -a $HOSTS_OUTPUT_FILE > /dev/null 2>&1
 
     sudo umount /mnt/ && sudo sync
+
     echo "Ubuntu config replaced"
 
 fi
