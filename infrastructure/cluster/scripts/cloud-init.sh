@@ -28,6 +28,7 @@ IMAGE_URL=https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v$IMA
 USER_TEMPLATE_FILE=./config/templates/cloud-init/user-data.template
 NETWORK_TEMPLATE_FILE=./config/templates/cloud-init/network-config.template
 METADATA_TEMPLATE_FILE=./config/templates/cloud-init/meta-data.template
+HOSTS_OUTPUT_FILE=/mnt/etc/hosts
 USER_FILE=user-data
 NETWORK_FILE=network-config
 METADATA_FILE=meta-data
@@ -149,6 +150,8 @@ if [ "$KEY_INPUT" = "y" ]; then
     cat $USER_FILE | sudo tee /mnt/$USER_FILE > /dev/null 2>&1
     cat $NETWORK_FILE | sudo tee /mnt/$NETWORK_FILE > /dev/null 2>&1
     cat $METADATA_FILE | sudo tee /mnt/$METADATA_FILE > /dev/null 2>&1
+
+    echo "127.0.0.1 $SERVER_HOSTNAME" | sudo tee -a $HOSTS_OUTPUT_FILE > /dev/null 2>&1
 
     sudo umount /mnt/ && sudo sync
     echo "Ubuntu config replaced"
