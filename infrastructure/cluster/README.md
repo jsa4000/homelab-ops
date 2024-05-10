@@ -114,13 +114,13 @@ ssh orangepi@192.168.3.100
 
 ### Joshua Installation
 
-These steps are done by the `joshua-init.sh` script automatically.
+These steps are done by the `cloud-init.sh` script automatically.
 
 1. Prepare the SD card
 2. Remove all the data from SDD or destination storage.
 3. Copy the image to the SDD or block storage (using `dd` or any other method)
 4. Copy the scripts to the SD card and ssh public key (using `scp` or `sftp`)
-5. Run this script for a specific server: `sbc-server-1`, `sbc-server-2`, etc.. (i.e `source ./scripts/joshua-init.sh sbc-server-1`)
+5. Run this script for a specific server: `sbc-server-1`, `sbc-server-2`, etc.. (i.e `source ./scripts/cloud-init.sh sbc-server-1`)
 6. Check the configuration modified.
 7. Shutdown the device (`sudo poweroff`) and remove the SD card.
 
@@ -133,13 +133,13 @@ ssh orangepi@192.168.3.61
 cd cluster
 
 # Command line and parameters to be used to install ubuntu
-# source ./scripts/joshua-init.sh $SERVER_NAME $CONFIG_FILE $OUTPUT_FILE
+# source ./scripts/cloud-init.sh $SERVER_NAME $CONFIG_FILE $OUTPUT_FILE
 
 # Install ubuntu into 'sbc-server-1'
-source ./scripts/joshua-init.sh sbc-server-1
+source ./scripts/cloud-init.sh sbc-server-1
 
 # Install ubuntu into 'sbc-server-1' using custom configuration file
-source ./scripts/joshua-init.sh sbc-server-1 ./config/servers.yaml
+source ./scripts/cloud-init.sh sbc-server-1 ./config/servers.yaml
 
 # Test current device by access using ssh. ('rm ~/.ssh/known_hosts')
 ssh ubuntu@192.168.3.100

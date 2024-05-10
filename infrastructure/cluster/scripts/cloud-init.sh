@@ -25,19 +25,15 @@ UBUNTU_IMAGE_COMPRESSED=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img.xz
 #IMAGE_VESRION=2.0.0
 IMAGE_VESRION=1.33
 IMAGE_URL=https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v$IMAGE_VESRION/$UBUNTU_IMAGE_COMPRESSED
-NETWORK_TEMPLATE_FILE=./config/templates/ubuntu/netplan.template.yaml
-NETWORK_FILE=01-netplan.yaml
-NETWORK_OUTPUT_PATH=/mnt/etc/netplan
+USER_TEMPLATE_FILE=./config/templates/cloud-init/user-data.template
+NETWORK_TEMPLATE_FILE=./config/templates/cloud-init/network-config.template
+METADATA_TEMPLATE_FILE=./config/templates/cloud-init/meta-data.template
+USER_FILE=user-data
+NETWORK_FILE=network-config
+METADATA_FILE=meta-data
 USER_NAME=ubuntu
-HOME_OUTPUT_PATH=/mnt/home/$USER_NAME
-SSH_OUTPUT_PATH=$HOME_OUTPUT_PATH/.ssh
-SSHD_OUTPUT_FILE=/mnt/etc/ssh/sshd_config
-HOSTNAME_OUTPUT_FILE=/mnt/etc/hostname
-HOSTS_OUTPUT_FILE=/mnt/etc/hosts
-SUDOERS_OUTPUT_FILE=/mnt/etc/sudoers
-LOGIN_OUTPUT_FILE=/mnt/etc/login.defs
 SSD_ID=nvme0n1
-SSD_MOUNT=nvme0n1p2
+SSD_MOUNT=nvme0n1p1
 
 echo "------------------------------------------------------------"
 echo "Initialization Script for Ubuntu"
@@ -138,6 +134,10 @@ echo "  user:     $SERVER_USER"
 
 envsubst < $NETWORK_TEMPLATE_FILE > $NETWORK_FILE
 
+envsubst < $USER_TEMPLATE_FILE > $USER_FILE
+envsubst < $NETWORK_TEMPLATE_FILE > $NETWORK_FILE
+envsubst < $METADATA_TEMPLATE_FILE > $METADATA_FILE
+
 printf "Do you want to overwrite the default configuration? (y/n)"
 read -r KEY_INPUT </dev/tty
 
@@ -146,28 +146,9 @@ if [ "$KEY_INPUT" = "y" ]; then
     echo "Mounting the SSD boot and replace Ubuntu config"
     sudo mount /dev/$SSD_MOUNT /mnt/
 
-    #sudo mkdir $HOME_OUTPUT_PATH
-    #sudo chmod -R 777 $HOME_OUTPUT_PATH
-
-    #mkdir $SSH_OUTPUT_PATH
-    #cat "$SSH_PUBKEY_FILE" | tee $SSH_OUTPUT_PATH/authorized_keys > /dev/null 2>&1
-    #sudo chmod 700 $SSH_OUTPUT_PATH
-    #sudo chmod 644 $SSH_OUTPUT_PATH/authorized_keys
-
-    sudo grep -q "ChallengeResponseAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*ChallengeResponseAuthentication[[:space:]]yes.*/c\ChallengeResponseAuthentication no" $SSHD_OUTPUT_FILE || echo "ChallengeResponseAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
-    sudo grep -q "^[^#]*PasswordAuthentication" $SSHD_OUTPUT_FILE && sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]yes/c\PasswordAuthentication no" $SSHD_OUTPUT_FILE || echo "PasswordAuthentication no" | sudo tee -a $SSHD_OUTPUT_FILE > /dev/null 2>&1
-
-    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | sudo tee -a $SUDOERS_OUTPUT_FILE > /dev/null 2>&1
-    sudo sed -i "/^[^#]*PASS_WARN_AGE.*/c\#PASS_WARN_AGE" $LOGIN_OUTPUT_FILE
-
-    sudo mv $NETWORK_FILE $NETWORK_OUTPUT_PATH
-    sudo chmod -R 600 $NETWORK_OUTPUT_PATH/$NETWORK_FILE
-    sudo chown -R root:root $NETWORK_OUTPUT_PATH/$NETWORK_FILE
-
-    CURRENT_HOSTNAME=$(cat $HOSTNAME_OUTPUT_FILE)
-    echo $SERVER_HOSTNAME | sudo tee $HOSTNAME_OUTPUT_FILE > /dev/null 2>&1
-    sudo sed -i "/127.0.1.1/s/$CURRENT_HOSTNAME/$SERVER_HOSTNAME/" $HOSTS_OUTPUT_FILE
-    echo "127.0.1.1 $SERVER_HOSTNAME" | sudo tee -a $HOSTS_OUTPUT_FILE > /dev/null 2>&1
+    cat $USER_FILE | sudo tee /mnt/$USER_FILE > /dev/null 2>&1
+    cat $NETWORK_FILE | sudo tee /mnt/$NETWORK_FILE > /dev/null 2>&1
+    cat $METADATA_FILE | sudo tee /mnt/$METADATA_FILE > /dev/null 2>&1
 
     sudo umount /mnt/ && sudo sync
     echo "Ubuntu config replaced"
