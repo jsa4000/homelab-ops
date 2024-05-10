@@ -18,12 +18,12 @@ SERVER_NAME=${1:-sbc-server-1}
 CONFIG_FILE=${2:-./config/servers.yaml}
 
 UBUNTU_IMAGE_PATH=.
-#UBUNTU_IMAGE_NAME=ubuntu-24.04-preinstalled-server-arm64-orangepi-5
-UBUNTU_IMAGE_NAME=ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5
+UBUNTU_IMAGE_NAME=ubuntu-24.04-preinstalled-server-arm64-orangepi-5
+#UBUNTU_IMAGE_NAME=ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5
 UBUNTU_IMAGE_FILE=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img
 UBUNTU_IMAGE_COMPRESSED=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img.xz
-#IMAGE_VESRION=2.0.0
-IMAGE_VESRION=1.33
+IMAGE_VESRION=2.0.0
+#IMAGE_VESRION=1.33
 IMAGE_URL=https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v$IMAGE_VESRION/$UBUNTU_IMAGE_COMPRESSED
 USER_TEMPLATE_FILE=./config/templates/cloud-init/user-data.template
 NETWORK_TEMPLATE_FILE=./config/templates/cloud-init/network-config.template
@@ -34,6 +34,7 @@ METADATA_FILE=meta-data
 USER_NAME=ubuntu
 SSD_ID=nvme0n1
 SSD_MOUNT=nvme0n1p1
+NETWORK_IFACE=end1 # eth0, end1
 
 echo "------------------------------------------------------------"
 echo "Initialization Script for Ubuntu"
@@ -111,8 +112,7 @@ export SERVER_MAC=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(stre
 export SSH_PUBKEY_FILE=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(strenv(SERVER_PATH)) | .ssh-key' $CONFIG_FILE)
 export SERVER_USER=$(yq -e '(.. | select(tag == "!!str")) |= envsubst | eval(strenv(SERVER_PATH)) | .user' $CONFIG_FILE)
 
-#export NETWORK_IFACE=end1
-export NETWORK_IFACE=eth0
+export NETWORK_IFACE=$NETWORK_IFACE
 export NETWORK_UUID=$(uuidgen | tr '[:upper:]' '[:lower:]')
 
 if ! [ -f "$SSH_PUBKEY_FILE" ]; then

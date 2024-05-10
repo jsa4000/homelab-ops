@@ -83,7 +83,7 @@ ssh_deletekeys: false
 #  passwd: $5$hkui88$nvZgIle31cNpryjRfO9uArF7DYiBcWEnjqq7L1AQNN3
 
 ## Update apt database and upgrade packages on first boot
-package_update: false
+package_update: true
 package_upgrade: false
 
 ## Install additional packages on first boot
