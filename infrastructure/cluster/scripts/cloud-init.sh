@@ -6,13 +6,13 @@
 # 2. Remove all the data from SDD or destination storage.
 # 3. Copy the image to the SDD or block storage (using 'dd' or any other method)
 # 4. Copy the scripts to the SD card and ssh public key (using scp or sftp)
-# 5. Run this script for a specific server: sbc-server-1, sbc-server-2, etc.. (i.e 'source ./scripts/joshua-init.sh sbc-server-1')
+# 5. Run this script for a specific server: sbc-server-1, sbc-server-2, etc.. (i.e 'source ./scripts/cloud-init.sh sbc-server-1')
 # 7.  Shutdown the device (sudo poweroff) and remove the SD card.
 
 # How To use it:
-# > source ./scripts/joshua-init.sh sbc-server-1
-# > source ./scripts/joshua-init.sh sbc-server-1 ./config/servers.yaml
-# > source ./scripts/joshua-init.sh $SERVER_NAME $CONFIG_FILE
+# > source ./scripts/cloud-init.sh sbc-server-1
+# > source ./scripts/cloud-init.sh sbc-server-1 ./config/servers.yaml
+# > source ./scripts/cloud-init.sh $SERVER_NAME $CONFIG_FILE
 
 SERVER_NAME=${1:-sbc-server-1}
 CONFIG_FILE=${2:-./config/servers.yaml}
