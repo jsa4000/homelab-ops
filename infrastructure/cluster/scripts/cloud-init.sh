@@ -18,17 +18,22 @@ SERVER_NAME=${1:-sbc-server-1}
 CONFIG_FILE=${2:-./config/servers.yaml}
 
 UBUNTU_IMAGE_PATH=.
+# Ubuntu 24.04
 UBUNTU_IMAGE_NAME=ubuntu-24.04-preinstalled-server-arm64-orangepi-5
+IMAGE_VESRION=2.0.0
+NETWORK_IFACE=end1
+# Ubuntu 22.04.3
 #UBUNTU_IMAGE_NAME=ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5
+#IMAGE_VESRION=1.33
+#NETWORK_IFACE=eth0
 UBUNTU_IMAGE_FILE=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img
 UBUNTU_IMAGE_COMPRESSED=$UBUNTU_IMAGE_PATH/$UBUNTU_IMAGE_NAME.img.xz
-IMAGE_VESRION=2.0.0
-#IMAGE_VESRION=1.33
 IMAGE_URL=https://github.com/Joshua-Riek/ubuntu-rockchip/releases/download/v$IMAGE_VESRION/$UBUNTU_IMAGE_COMPRESSED
 USER_TEMPLATE_FILE=./config/templates/cloud-init/user-data.template
 NETWORK_TEMPLATE_FILE=./config/templates/cloud-init/network-config.template
 METADATA_TEMPLATE_FILE=./config/templates/cloud-init/meta-data.template
 HOSTS_OUTPUT_FILE=/mnt/etc/hosts
+GRUB_OUTPUT_FILE=/mnt/etc/default/grub
 USER_FILE=user-data
 NETWORK_FILE=network-config
 METADATA_FILE=meta-data
@@ -36,7 +41,6 @@ USER_NAME=ubuntu
 SSD_ID=nvme0n1
 SSD_MOUNT_P1=nvme0n1p1
 SSD_MOUNT_P2=nvme0n1p2
-NETWORK_IFACE=end1 # eth0, end1
 
 echo "------------------------------------------------------------"
 echo "Initialization Script for Ubuntu"
@@ -158,6 +162,7 @@ if [ "$KEY_INPUT" = "y" ]; then
     sudo mount /dev/$SSD_MOUNT_P2 /mnt/
 
     echo "127.0.0.1 $SERVER_HOSTNAME" | sudo tee -a $HOSTS_OUTPUT_FILE > /dev/null 2>&1
+    sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& nvme_core.default_ps_max_latency_us=0 pcie_aspm=off/' $GRUB_OUTPUT_FILE
 
     sudo umount /mnt/ && sudo sync
 
