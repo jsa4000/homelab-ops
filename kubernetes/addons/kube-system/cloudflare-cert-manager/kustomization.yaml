@@ -5,5 +5,4 @@ namespace: kube-system
 resources:
   - app
   - dashboards
-  - webhooks
   - certs/staging
