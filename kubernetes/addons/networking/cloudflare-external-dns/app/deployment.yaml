@@ -27,7 +27,6 @@ spec:
             - --txt-prefix=external-dns.
             - --txt-owner-id=homelab
             - --interval=1m
-            - --cloudflare-proxied
             - --log-format=text
             - --log-level=trace
             - --ignore-ingress-tls-spec

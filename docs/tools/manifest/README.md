@@ -258,7 +258,7 @@ kubectl get pods,services
 kubectl kustomize manifests/external-dns  --enable-helm | kubectl apply -f -
 
 # Overlay
-kubectl kustomize clusters/remote/addons/networking/external-dns --enable-helm | kubectl apply -f -
+kubectl kustomize clusters/remote/addons/networking/goddady-external-dns --enable-helm | kubectl apply -f -
 
 # NOTE: Already created using external-secrets
 kubectl create secret -n networking generic external-dns-godaddy \
@@ -278,6 +278,11 @@ kubectl delete -f manifests/nginx
 
 # Get logs for external-dns
 kubectl logs -n networking -l app=external-dns
+
+# Cloudflare
+
+kubectl kustomize clusters/local/addons/networking/cloudflare-external-dns --enable-helm | kubectl apply -f -
+kubectl kustomize clusters/remote/addons/networking/cloudflare-external-dns --enable-helm | kubectl apply -f -
 
 #########################
 # Dynamic DNS (DDNS)
@@ -327,8 +332,11 @@ kubectl logs -n networking -l app=godaddy-ddns -f
 # Cloudfare ddns
 # https://github.com/favonia/cloudflare-ddns
 
+kubectl create namespace networking
+kubectl kustomize clusters/local/addons/networking/cloudflare-ddns --enable-helm | kubectl apply -f -
+kubectl kustomize clusters/remote/addons/networking/cloudflare-ddns --enable-helm | kubectl apply -f -
+
 kubectl kustomize kubernetes/addons/networking/cloudflare-ddns --enable-helm | kubectl apply -f -
-kubectl kustomize clusters/remote/addons/networking/godaddy-ddns --enable-helm | kubectl apply -f -
 
 #########################
 # Deploy Traefik
