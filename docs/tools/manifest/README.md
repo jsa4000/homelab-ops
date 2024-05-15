@@ -32,7 +32,7 @@ kubectl create secret -n security generic cluster-secrets \
     --from-literal=GITHUB_PAT=$GITHUB_PAT
 
 # Add to /etc/hosts
-# 192.168.205.200 traefik.javstudio.org grafana.javstudio.org prometheus.javstudio.org longhorn.javstudio.org argocd.javstudio.org zitadel.javstudio.org oauth.javstudio.org
+# 192.168.205.200 traefik.javiersant.com grafana.javiersant.com prometheus.javiersant.com longhorn.javiersant.com argocd.javiersant.com zitadel.javiersant.com oauth.javiersant.com
 
 #########################
 # Cilium
@@ -109,7 +109,7 @@ kubectl get pods,services -n gitops
 # Connect to Argocd
 kubectl port-forward svc/argocd-server -n gitops 8080:80
 
-# https://argocd.javstudio.org
+# https://argocd.javiersant.com
 
 # Get the "admin" password
 kubectl get secret argocd-initial-admin-secret -n gitops -o jsonpath="{.data.password}" | base64 -d
@@ -124,7 +124,7 @@ kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 # 2. Sometimes it's needed to go to ArgoCD UI and "Terminate" then force to Sync again to trigger the creation. (Zitadel)
 # 3. Delete de Job from oauth-proxy, since it depends from previous task. `kubectl delete -n iam job oauth2-proxy-zitadel-init`
 # 4. When connection errors from argocd server use 'kubectl -n gitops delete pods --all'
-# 4. Go to https://zitadel.javstudio.org and set the new password (admin/RootPasswors1!)
+# 4. Go to https://zitadel.javiersant.com and set the new password (admin/RootPasswors1!)
 
 # Wathc all the pods whili initializing
 watch -n 0.5 kubectl get pods -A
@@ -294,10 +294,10 @@ kubectl logs -n networking -l app=external-dns
 
 # Type      Name  (host     Value (Points To)
 # A         @               188.26.209.56       # https://www.myip.com/ https://dnschecker.org/
-# CNAME     www             javstudio.org       # Optional
-# CNAME     traefik         javstudio.org       # Two lookups to resolve the DNS: traefik.javstudio.org -> javstudio.org -> 188.26.209.56
+# CNAME     www             javiersant.com       # Optional
+# CNAME     traefik         javiersant.com       # Two lookups to resolve the DNS: traefik.javiersant.com -> javiersant.com -> 188.26.209.56
 
-# NOTE: "@" is short way to specify the same domain @ == javstudio.org
+# NOTE: "@" is short way to specify the same domain @ == javiersant.com
 
 # Home servers or AWS Free Tier EC2 instances generally have dynamic IPv4 address. IP address keep changing when we restart our server or automatically after sometimes. Since, it's not easy to update the DNS record in GoDaddy manually every time IPv4 address changes.
 # https://github.com/navilg/godaddy-ddns
@@ -324,7 +324,8 @@ kubectl get pods,services,cm,secret -n networking
 # Get the logs from godaddy-ddns
 kubectl logs -n networking -l app=godaddy-ddns -f
 
-# Cloudfare
+# Cloudfare ddns
+# https://github.com/favonia/cloudflare-ddns
 
 kubectl kustomize kubernetes/addons/networking/cloudfare-ddns --enable-helm | kubectl apply -f -
 kubectl kustomize clusters/remote/addons/networking/godaddy-ddns --enable-helm | kubectl apply -f -
@@ -350,9 +351,9 @@ helm template traefik-external /Users/jsantosa/Projects/Github/Mini-Cluster-Setu
 
 # Host file sudo 'code /etc/hosts'
 # 192.168.205.200 traefik.local.example.com grafana.local.example.com prometheus.local.example.com
-# 192.168.205.200 traefik.javstudio.org grafana.javstudio.org prometheus.javstudio.org
+# 192.168.205.200 traefik.javiersant.com grafana.javiersant.com prometheus.javiersant.com
 
-# https://traefik.javstudio.org/
+# https://traefik.javiersant.com/
 
 # Traefik Base
 kubectl kustomize kubernetes/addons/networking/traefik-external --enable-helm | grep loadBalancerIP
@@ -403,8 +404,8 @@ kubectl port-forward -n monitoring svc/prometheus-stack-grafana 8080:80
 # http://localhost:9090
 kubectl port-forward -n monitoring svc/prometheus-stack-kube-prom-prometheus 9090:9090
 
-# https://prometheus.javstudio.org
-# https://grafana.javstudio.org
+# https://prometheus.javiersant.com
+# https://grafana.javiersant.com
 
 #########################
 # Deploy Reflector
@@ -480,7 +481,7 @@ kubectl kustomize manifests/longhorn --enable-helm | kubectl delete -f -
 # Get services deployed
 kubectl get pods,services,storageclass -n storage
 
-# Go to https://longhorn.javstudio.org
+# Go to https://longhorn.javiersant.com
 
 # Use Port-forwarding http://localhost:8080
 kubectl port-forward svc/longhorn-frontend -n storage 8080:80
@@ -574,10 +575,10 @@ kubectl get -n iam secrets zitadel-admin-sa -o yaml
 kubectl get -n iam secrets zitadel-admin-sa -o=jsonpath='{.data.zitadel-admin-sa\.json}' | base64 --decode | jq .
 
 # OpenTofu
-# Go to https://zitadel.javstudio.org and download certificate if not Let's Encrypt production.
-# openssl s_client -showcerts -connect zitadel.javstudio.org:443 -servername zitadel.javstudio.org  </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javstudio.org.pem
-# sudo security add-trusted-cert -d -r trustAsRoot -k /Library/Keychains/System.keychain javstudio.org.pem
-# rm javstudio.org.pem
+# Go to https://zitadel.javiersant.com and download certificate if not Let's Encrypt production.
+# openssl s_client -showcerts -connect zitadel.javiersant.com:443 -servername zitadel.javiersant.com  </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javiersant.com.pem
+# sudo security add-trusted-cert -d -r trustAsRoot -k /Library/Keychains/System.keychain javiersant.com.pem
+# rm javiersant.com.pem
 
 cd ~/Projects/Github/Mini-Cluster-Setup/docs/iam/tofu
 kubectl get -n iam secrets zitadel-admin-sa -o=jsonpath='{.data.zitadel-admin-sa\.json}' | base64 --decode | jq . > ../service-user-jwt/client-key-file.json
@@ -594,8 +595,8 @@ kubectl create secret -n iam generic oauth2-proxy \
 cd ~/Projects/Github/Mini-Cluster-Setup
 
 # admin/RootPasswors1!
-# https://zitadel.javstudio.org
-# https://zitadel.javstudio.org/.well-known/openid-configuration
+# https://zitadel.javiersant.com
+# https://zitadel.javiersant.com/.well-known/openid-configuration
 
 #########################
 # Deploy OAuth Proxy
@@ -622,7 +623,7 @@ kubectl get pods,services -n iam
 # Get logs from Pod
 kubectl logs -n iam -l app=oauth2-proxy
 
-# https://oauth.javstudio.org
+# https://oauth.javiersant.com
 
 #########################
 # Deploy Loki
@@ -803,7 +804,7 @@ htop
 # For linux running on amd64/arm
 docker run \
     --env GD_NAME=@ \
-    --env GD_DOMAIN=javstudio.org \
+    --env GD_DOMAIN=javiersant.com \
     --env GD_TTL=600 \
     --env GD_KEY=$GODADDY_API_KEY \
     --env GD_SECRET=$GODADDY_SECRET_KEY \

@@ -7,9 +7,9 @@ spec:
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer
-  commonName: "*.javstudio.org"
+  commonName: "*.javiersant.com"
   dnsNames:
-    - "*.javstudio.org"
+    - "*.javiersant.com"
   secretTemplate:
     annotations:
       reflector.v1.k8s.emberstack.com/reflection-allowed: "true"

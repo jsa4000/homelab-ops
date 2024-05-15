@@ -12,7 +12,7 @@ helmCharts:
     namespace: kube-system
     includeCRDs: false
     valuesInline:
-      groupName: acme.javstudio.org
+      groupName: acme.javiersant.com
       replicaCount: 1
       certManager:
         namespace: kube-system

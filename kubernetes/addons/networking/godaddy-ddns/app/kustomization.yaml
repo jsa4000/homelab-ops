@@ -9,5 +9,5 @@ configMapGenerator:
   - name: godaddy-ddns
     literals:
       - GD_NAME=@
-      - GD_DOMAIN=javstudio.org
+      - GD_DOMAIN=javiersant.com
       - GD_TTL=600

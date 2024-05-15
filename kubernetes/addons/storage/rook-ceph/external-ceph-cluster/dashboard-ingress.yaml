@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`ceph.javstudio.org`)
+    - match: Host(`ceph.javiersant.com`)
       kind: Rule
       services:
         - kind: Service

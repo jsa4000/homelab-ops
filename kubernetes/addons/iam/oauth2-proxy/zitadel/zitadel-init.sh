@@ -22,7 +22,7 @@ cd homelab-ops/infrastructure/terraform/zitadel/
 echo "Wating to connect to Zitadel"
 
 # Get HTTP Status Code
-status_code=$(curl -sk -o /dev/null -w "%{http_code}" https://zitadel.javstudio.org/debug/ready)
+status_code=$(curl -sk -o /dev/null -w "%{http_code}" https://zitadel.javiersant.com/debug/ready)
 if [[ "$status_code" -ne 200 ]] ; then
     sleep 5m
 fi
@@ -30,8 +30,8 @@ fi
 echo "Successfully connected to Zitadel"
 
 # Download the certificate
-openssl s_client -connect zitadel.javstudio.org:443 -servername zitadel.javstudio.org </dev/null | openssl x509 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javstudio.org.pem
-cp javstudio.org.pem /usr/local/share/ca-certificates/javstudio.org.pem
+openssl s_client -connect zitadel.javiersant.com:443 -servername zitadel.javiersant.com </dev/null | openssl x509 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javiersant.com.pem
+cp javiersant.com.pem /usr/local/share/ca-certificates/javiersant.com.pem
 update-ca-certificates
 
 # Init tofu providers

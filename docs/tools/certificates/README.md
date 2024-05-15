@@ -49,7 +49,7 @@ The first command we're gonna used is `openssl req`, which stands for `request`.
 openssl req -new -newkey rsa:4096 -sha256 -days 365 -out MyCertificate.csr -keyout MyKey.key
 
 # Provide all the information without prompting
-openssl req -new -newkey rsa:4096 -sha256 -days 365 -out MyCertificate.csr -keyout MyKey.key -subj "/C=ES/ST=Madrid/L=city/O=JSantosA/OU=IT/CN=*.javstudio.org/emailAddress=jsantosa@gmail.com"
+openssl req -new -newkey rsa:4096 -sha256 -days 365 -out MyCertificate.csr -keyout MyKey.key -subj "/C=ES/ST=Madrid/L=city/O=JSantosA/OU=IT/CN=*.javiersant.com/emailAddress=jsantosa@gmail.com"
 
 # Create a Self-signed certificate (-x509) without pass phrase (-nodes)
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out MySelfSignedCertificate.crt -keyout MyKey.key

@@ -31,12 +31,12 @@ metadata:
   namespace: iam
   annotations:
     kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javstudio.org
+    external-dns.alpha.kubernetes.io/target: javiersant.com
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`zitadel.javstudio.org`)
+    - match: Host(`zitadel.javiersant.com`)
       kind: Rule
       services:
         - kind: Service
@@ -179,15 +179,15 @@ cd homelab-ops/infrastructure/terraform/zitadel/
 
 # Get HTTP Status Code
 echo "Wating to connect to Zitadel"
-status_code=$(curl -sk -o /dev/null -w "%{http_code}" https://zitadel.javstudio.org/debug/ready)
+status_code=$(curl -sk -o /dev/null -w "%{http_code}" https://zitadel.javiersant.com/debug/ready)
 if [[ "$status_code" -ne 200 ]] ; then
   sleep 5m
 fi
 
 # Download the certificate
 # ls /usr/local/share/ca-certificates/
-openssl s_client -connect zitadel.javstudio.org:443 -servername zitadel.javstudio.org </dev/null | openssl x509 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javstudio.org.pem
-cp javstudio.org.pem /usr/local/share/ca-certificates/javstudio.org.pem
+openssl s_client -connect zitadel.javiersant.com:443 -servername zitadel.javiersant.com </dev/null | openssl x509 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javiersant.com.pem
+cp javiersant.com.pem /usr/local/share/ca-certificates/javiersant.com.pem
 update-ca-certificates
 
 # Init tofu providers

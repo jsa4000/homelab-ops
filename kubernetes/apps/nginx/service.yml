@@ -4,8 +4,8 @@ kind: Service
 metadata:
   name: nginx
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: nginx.javstudio.org
-    external-dns.alpha.kubernetes.io/target: javstudio.org
+    external-dns.alpha.kubernetes.io/hostname: nginx.javiersant.com
+    external-dns.alpha.kubernetes.io/target: javiersant.com
     external-dns.alpha.kubernetes.io/ttl: "120" #optional
 spec:
   ipFamilyPolicy: PreferDualStack

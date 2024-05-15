@@ -4,12 +4,12 @@ metadata:
   name: longhorn-dashboard
   annotations:
     kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javstudio.org
+    external-dns.alpha.kubernetes.io/target: javiersant.com
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`longhorn.javstudio.org`)
+    - match: Host(`longhorn.javiersant.com`)
       kind: Rule
       middlewares:
         - name: oauth2-proxy

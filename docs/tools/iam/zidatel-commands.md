@@ -2,7 +2,7 @@
 
 ```bash
 # https://zitadel.com/docs/apis/resources/mgmt/management-service-import-human-user
-export ZITADEL_URL=zitadel.javstudio.org
+export ZITADEL_URL=zitadel.javiersant.com
 export ZITADEL_PAT=Jf6MOx9h9UaWEfPuWZzCbho13KQSnbwNHNhJaVfpAXz2IxsFVfe7DI9Rqo5lurEI24ryiHM
 
 # Create a User

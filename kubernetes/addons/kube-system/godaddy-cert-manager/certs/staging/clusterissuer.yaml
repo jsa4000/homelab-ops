@@ -20,8 +20,8 @@ spec:
                 key: token
               production: true
               ttl: 600
-            groupName: acme.javstudio.org
+            groupName: acme.javiersant.com
             solverName: godaddy
         selector:
           dnsNames:
-            - "*.javstudio.org"
+            - "*.javiersant.com"

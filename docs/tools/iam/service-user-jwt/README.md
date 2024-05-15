@@ -32,8 +32,8 @@ Set the environment variables in `.env` file
 ```bash
 CLIENT_PRIVATE_KEY_FILE_PATH = "client-key-file.json"
 PROJECT_ID="zitadel"
-ZITADEL_DOMAIN = "https://zitadel.javstudio.org"
-ZITADEL_TOKEN_URL = "https://zitadel.javstudio.org/oauth/v2/token"
+ZITADEL_DOMAIN = "https://zitadel.javiersant.com"
+ZITADEL_TOKEN_URL = "https://zitadel.javiersant.com/oauth/v2/token"
 ```
 
 ### 2. Generate the token
@@ -69,7 +69,7 @@ Create a random user
 
 ```bash
 # https://zitadel.com/docs/apis/resources/mgmt/management-service-import-human-user
-export ZITADEL_URL=zitadel.javstudio.org
+export ZITADEL_URL=zitadel.javiersant.com
 export ZITADEL_PAT=$(python3 jwt-profile-token-generator.py | grep "Access token:" | awk '{print $3}')
 
 # Create a User

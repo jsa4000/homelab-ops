@@ -31,12 +31,12 @@ metadata:
   namespace: iam
   annotations:
     kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javstudio.org
+    external-dns.alpha.kubernetes.io/target: javiersant.com
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`zitadel.javstudio.org`)
+    - match: Host(`zitadel.javiersant.com`)
       kind: Rule
       services:
         - kind: Service

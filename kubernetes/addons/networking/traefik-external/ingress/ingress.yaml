@@ -5,12 +5,12 @@ metadata:
   namespace: networking
   annotations:
     kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javstudio.org
+    external-dns.alpha.kubernetes.io/target: javiersant.com
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`traefik.javstudio.org`)
+    - match: Host(`traefik.javiersant.com`)
       kind: Rule
       middlewares:
         # - name: default-headers
