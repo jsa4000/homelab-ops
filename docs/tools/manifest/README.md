@@ -347,6 +347,7 @@ kubectl kustomize kubernetes/addons/networking/traefik-external --enable-helm | 
 
 # Overlay
 kubectl kustomize clusters/remote/addons/networking/traefik-external --enable-helm | kubectl apply -f -
+kubectl kustomize clusters/local/addons/networking/traefik-external --enable-helm | kubectl apply -f -
 
 # Remove traeifk
 kubectl kustomize kubernetes/addons/networking/traefik-external --enable-helm | kubectl delete -f -
@@ -471,6 +472,10 @@ kubectl get challenges,Certificates -n cert-manager
 
 # Get the logs from cert-manager
 kubectl logs -n cert-manager -l app=cert-manager -f
+
+
+# Cloud flare
+kubectl kustomize clusters/local/addons/kube-system/cloudflare-cert-manager --enable-helm | kubectl apply -f -
 
 #########################
 # Deploy Longhorn
