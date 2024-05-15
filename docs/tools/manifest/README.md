@@ -462,16 +462,16 @@ kubectl create secret -n cert-manager generic godaddy-api-key \
 kubectl kustomize kubernetes/addons/kube-system/cert-manager --enable-helm | kubectl delete -f -
 kubectl kustomize kubernetes/addons/kube-system/cert-manager/webhooks --enable-helm | kubectl delete -f -
 kubectl kustomize kubernetes/addons/kube-system/cert-manager/certs/staging --enable-helm | kubectl delete -f -
-kubectl delete secret -n cert-manager godaddy-api-key
+kubectl delete secret -n kube-system godaddy-api-key
 
 # Get services deployed
-kubectl get pods,services,secrets,configmap -n cert-manager
+kubectl get pods,services,secrets,configmap -n kube-system
 
 # Get challenges
-kubectl get challenges,Certificates -n cert-manager
+kubectl get challenges,Certificates -n kube-system
 
 # Get the logs from cert-manager
-kubectl logs -n cert-manager -l app=cert-manager -f
+kubectl logs -n kube-system -l app=cert-manager -f
 
 
 # Cloud flare
