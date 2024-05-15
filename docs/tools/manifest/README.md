@@ -324,6 +324,11 @@ kubectl get pods,services,cm,secret -n networking
 # Get the logs from godaddy-ddns
 kubectl logs -n networking -l app=godaddy-ddns -f
 
+# Cloudfare
+
+kubectl kustomize kubernetes/addons/networking/cloudfare-ddns --enable-helm | kubectl apply -f -
+kubectl kustomize clusters/remote/addons/networking/godaddy-ddns --enable-helm | kubectl apply -f -
+
 #########################
 # Deploy Traefik
 #########################
