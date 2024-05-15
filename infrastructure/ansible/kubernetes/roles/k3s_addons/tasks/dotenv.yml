@@ -33,8 +33,8 @@
         . /tmp/.env && kubectl create secret -n security generic cluster-secrets \
           --from-literal=GODADDY_API_KEY=$GODADDY_API_KEY \
           --from-literal=GODADDY_SECRET_KEY=$GODADDY_SECRET_KEY \
-          --from-literal=CLOUDFARE_API_TOKEN=$CLOUDFARE_API_TOKEN \
-          --from-literal=CLOUDFARE_ZONE_ID=$CLOUDFARE_ZONE_ID \
+          --from-literal=CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN \
+          --from-literal=CLOUDFLARE_ZONE_ID=$CLOUDFLARE_ZONE_ID \
           --from-literal=GITHUB_REPO=$GITHUB_REPO \
           --from-literal=GITHUB_USERNAME=$GITHUB_USERNAME \
           --from-literal=GITHUB_PAT=$GITHUB_PAT

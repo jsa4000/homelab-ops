@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudfare-ddns
+  name: cloudflare-ddns
   labels:
-    app: cloudfare-ddns
+    app: cloudflare-ddns
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cloudfare-ddns
+      app: cloudflare-ddns
   template:
     metadata:
       labels:
-        app: cloudfare-ddns
+        app: cloudflare-ddns
     spec:
       containers:
-        - name: cloudfare-ddns
+        - name: cloudflare-ddns
           image: favonia/cloudflare-ddns:1.11.0
           envFrom:
             - configMapRef:
-                name: cloudfare-ddns
+                name: cloudflare-ddns
             - secretRef:
-                name: cloudfare-ddns
+                name: cloudflare-ddns

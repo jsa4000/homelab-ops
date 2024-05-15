@@ -327,7 +327,7 @@ kubectl logs -n networking -l app=godaddy-ddns -f
 # Cloudfare ddns
 # https://github.com/favonia/cloudflare-ddns
 
-kubectl kustomize kubernetes/addons/networking/cloudfare-ddns --enable-helm | kubectl apply -f -
+kubectl kustomize kubernetes/addons/networking/cloudflare-ddns --enable-helm | kubectl apply -f -
 kubectl kustomize clusters/remote/addons/networking/godaddy-ddns --enable-helm | kubectl apply -f -
 
 #########################

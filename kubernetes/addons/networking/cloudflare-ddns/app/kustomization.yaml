@@ -6,7 +6,7 @@ resources:
   - external-secret.yaml
 
 configMapGenerator:
-  - name: cloudfare-ddns
+  - name: cloudflare-ddns
     literals:
       - DOMAINS=javiersant.com
       - PROXIED=true
