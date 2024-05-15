@@ -185,7 +185,7 @@ wget -qO- https://cdn.geekbench.com/Geekbench-6.3.0-LinuxARMPreview.tar.gz | tar
 ./Geekbench-6.3.0-LinuxARMPreview/geekbench_aarch64
 
 # Ubuntu 22.04.3 LTS (Joshua) - Single-Core 790 Score - Multi-Core 3184 Score
-
+# Ubuntu 24.04.3 LTS (Joshua) - Single-Core 761 Score - Multi-Core 3166 Score
 ```
 
 ### SpeedTest
