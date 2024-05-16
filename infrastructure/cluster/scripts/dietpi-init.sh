@@ -130,7 +130,8 @@ if [ "$KEY_INPUT" = "y" ]; then
     sudo mount /dev/$SSD_MOUNT /mnt/
     cat $OUTPUT_FILE | sudo tee /mnt/$DIETPI_FILE > /dev/null 2>&1
     cat $SCRIPT_FILE | sudo tee /mnt/$SCRIPT_FILE > /dev/null 2>&1
-    sudo sed -i '/^extraargs=/s/$/ nvme_core.default_ps_max_latency_us=0 pcie_aspm=off/' /mnt/$DIETPIENV_FILE
+    # Disable ASPM (Active-State Power Management) for Best performance
+    #sudo sed -i '/^extraargs=/s/$/ nvme_core.default_ps_max_latency_us=0 pcie_aspm=off/' /mnt/$DIETPIENV_FILE
     sudo umount /mnt/ && sudo sync
     echo "DietPi init replaced"
 

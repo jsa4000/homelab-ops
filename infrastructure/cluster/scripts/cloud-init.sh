@@ -163,12 +163,13 @@ if [ "$KEY_INPUT" = "y" ]; then
     sudo mount /dev/$SSD_MOUNT_P2 /mnt/
 
     echo "127.0.0.1 $SERVER_HOSTNAME" | sudo tee -a $HOSTS_OUTPUT_FILE > /dev/null 2>&1
-    sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& nvme_core.default_ps_max_latency_us=0 pcie_aspm=off/' $GRUB_OUTPUT_FILE
-    sudo tee -a $SYSCTL_OUTPUT_FILE <<EOF > /dev/null 2>&1
-vm.dirty_background_ratio = 5
-vm.dirty_ratio = 15
-vm.overcommit_memory = 1
-EOF
+    # Disable ASPM (Active-State Power Management) for Best performance
+#     sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& nvme_core.default_ps_max_latency_us=0 pcie_aspm=off/' $GRUB_OUTPUT_FILE
+#     sudo tee -a $SYSCTL_OUTPUT_FILE <<EOF > /dev/null 2>&1
+# vm.dirty_background_ratio = 5
+# vm.dirty_ratio = 15
+# vm.overcommit_memory = 1
+# EOF
 
     sudo umount /mnt/ && sudo sync
 
