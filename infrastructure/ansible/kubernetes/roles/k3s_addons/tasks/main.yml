@@ -7,9 +7,9 @@
   include_tasks: dotenv.yml
   tags: dotenv
 
-#- name: Deploy cilium
-#  include_tasks: cilium.yml
-#  tags: cilium
+- name: Deploy cilium
+  include_tasks: cilium.yml
+  tags: cilium
 
 - name: Deploy External Secrets
   include_tasks: external-secrets.yml
@@ -19,6 +19,6 @@
   include_tasks: argocd.yml
   tags: argocd
 
-#- name: Bootstrap Cluster
-#  include_tasks: bootstrap.yml
-#  tags: bootstrap
+- name: Bootstrap Cluster
+  include_tasks: bootstrap.yml
+  tags: bootstrap
