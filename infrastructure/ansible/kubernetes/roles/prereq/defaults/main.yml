@@ -1,3 +1,4 @@
 ---
 api_port: 6443
+# Force to use custom containerd configuration. i.e 'image_pull_with_sync_fs = true'
 #containerd_config_file: config.toml.tmpl
