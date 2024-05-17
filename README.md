@@ -136,7 +136,7 @@ task lint:all
 Run following task to install dependencies using `homebrew`
 
 ```bash
-# Run 'init' task within brew include file
+# Run 'init' task within brew include file.
 task brew:init
 ```
 
