@@ -69,7 +69,7 @@ hubble:
       labels:
         release: prometheus-stack
     dashboards:
-      enabled: false
+      enabled: true
       label: grafana_dashboard
       labelValue: "true"
   ui:
