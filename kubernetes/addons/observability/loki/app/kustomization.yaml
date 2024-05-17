@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: loki
     repo: https://grafana.github.io/helm-charts
-    version: 5.47.2
+    version: 5.48.0
     includeCRDs: true
     releaseName: loki
     namespace: observability
