@@ -13,4 +13,5 @@ spec:
     group: cert-manager.io
   secretTemplate:
     labels:
+      # To automatically reload postgres instances to include certificates
       cnpg.io/reload: ""
