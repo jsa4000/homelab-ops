@@ -117,6 +117,9 @@ kubectl get secret argocd-initial-admin-secret -n gitops -o jsonpath="{.data.pas
 # Apply addons
 kubectl apply -f kubernetes/bootstrap/addons-appset.yaml
 
+# Apply apps
+kubectl apply -f kubernetes/bootstrap/apps-appset.yaml
+
 # NOTES:
 # 1. It is needed to open port 443 on router and route traffic (port-forwarding) for local environment
 #   - LoadBalancer: sudo socat TCP-LISTEN:8443,fork TCP:192.168.205.200:443
