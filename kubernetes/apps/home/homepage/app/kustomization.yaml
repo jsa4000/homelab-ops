@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - rbac.yaml
+
+helmCharts:
+  - name: app-template
+    repo: https://bjw-s.github.io/helm-charts
+    version: 3.1.0
+    releaseName: homepage
+    namespace: home
+    valuesFile: values.yaml
+
+configMapGenerator:
+  - name: homepage-config
+    files:
+      - bookmarks.yaml=./config/bookmarks.yaml
+      - docker.yaml=./config/docker.yaml
+      - kubernetes.yaml=./config/kubernetes.yaml
+      - services.yaml=./config/services.yaml
+      - settings.yaml=./config/settings.yaml
+      - widgets.yaml=./config/widgets.yaml
+generatorOptions:
+  # Force to restart Pods to update settings
+  disableNameSuffixHash: false

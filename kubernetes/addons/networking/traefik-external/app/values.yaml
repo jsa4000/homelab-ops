@@ -27,10 +27,13 @@ providers:
   kubernetesCRD:
     enabled: true
     ingressClass: traefik-external
+    # Allow Traefik to lookup for external name services
     allowExternalNameServices: true
+    # Allow Traefik to lookup for resources in different namespaces
     allowCrossNamespace: true
   kubernetesIngress:
     enabled: true
+    # Allow Traefik to lookup for external name services
     allowExternalNameServices: true
     # Needed to work with External DNS
     publishedService:

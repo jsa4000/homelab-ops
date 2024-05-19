@@ -639,6 +639,31 @@ kubectl logs -n iam -l app=oauth2-proxy
 # https://oauth.javiersant.com
 
 #########################
+# Deploy Homepage
+#########################
+
+# https://github.com/gethomepage/homepage/blob/main/kubernetes.md
+
+# Deploy Homepage
+kubectl create namespace home
+kubectl kustomize kubernetes/apps/home/homepage --enable-helm | kubectl apply -f -
+
+# Delete deployment
+kubectl kustomize kubernetes/apps/home/homepage --enable-helm | kubectl delete -f -
+
+# Port forward
+kubectl port-forward svc/homepage -n home 3000:3000
+
+# Exec into a container using deployment or service (randomily pickup the pod)
+kubectl exec -n home -it deployment/homepage -- sh
+
+# Get the configmao
+kubectl get cm -n home homepage-config -o yaml
+
+# Verify the parameters build helm + kustomize
+kubectl kustomize kubernetes/apps/home/homepage --enable-helm > test.yaml
+
+#########################
 # Deploy Loki
 #########################
 

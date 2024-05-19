@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traefik-dashboard
+  name: homepage-ingress
   annotations:
     kubernetes.io/ingress.class: traefik-external
     external-dns.alpha.kubernetes.io/target: javiersant.com
@@ -9,16 +9,14 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`traefik.javiersant.com`)
+    - match: Host(`homepage.javiersant.com`)
       kind: Rule
       middlewares:
-        # - name: default-headers
         - name: oauth2-proxy
           namespace: iam
-        # - name: oauth-errors
-        #   namespace: iam
       services:
-        - name: api@internal
-          kind: TraefikService
+        - kind: Service
+          name: homepage
+          port: 3000
   tls:
     secretName: wildcard-javstudio-org-tls

@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps-home
+  namespace: &namespace home
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/jsa4000/homelab-ops
+              revision: HEAD
+              directories:
+                - path: kubernetes/apps/home/*
+              values:
+                namespace: *namespace
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: enable_apps
+                    operator: In
+                    values: ["true"]
+  syncPolicy:
+    applicationsSync: create-update
+  template:
+    metadata:
+      name: "addon-{{.name}}-{{.path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: "https://github.com/jsa4000/homelab-ops"
+        path: "clusters/{{.name}}/apps/{{.values.namespace}}/{{.path.basename}}"
+        targetRevision: HEAD
+        directory:
+          recurse: false
+        kustomize:
+          namespace: "{{.values.namespace}}"
+          commonAnnotations:
+            argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+      destination:
+        namespace: "{{.values.namespace}}"
+        name: "{{.name}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - Validate=true
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - ApplyOutOfSyncOnly=true
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+        retry:
+          limit: -1
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m

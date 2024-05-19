@@ -1,0 +1,22 @@
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/service-widgets
+
+- kubernetes:
+    cluster:
+      show: true
+      cpu: true
+      memory: true
+      showLabel: true
+      label: "cluster"
+    nodes:
+      show: true
+      cpu: true
+      memory: true
+      showLabel: true
+- search:
+    provider: google
+    target: _blank
+- datetime:
+    text_size: xl
+    format:
+      timeStyle: short
