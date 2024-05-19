@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: apps-home
-  namespace: &namespace home
+  namespace: gitops
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -15,7 +15,9 @@ spec:
               directories:
                 - path: kubernetes/apps/home/*
               values:
-                namespace: *namespace
+                namespace: home
+                suffix: app
+                folder: apps
           - clusters:
               selector:
                 matchExpressions:
@@ -26,12 +28,12 @@ spec:
     applicationsSync: create-update
   template:
     metadata:
-      name: "addon-{{.name}}-{{.path.basename}}"
+      name: "{{.values.suffix}}-{{.name}}-{{.path.basename}}"
     spec:
       project: default
       source:
         repoURL: "https://github.com/jsa4000/homelab-ops"
-        path: "clusters/{{.name}}/apps/{{.values.namespace}}/{{.path.basename}}"
+        path: "clusters/{{.name}}/{{.values.folder}}/{{.values.namespace}}/{{.path.basename}}"
         targetRevision: HEAD
         directory:
           recurse: false
