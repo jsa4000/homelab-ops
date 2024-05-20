@@ -1,0 +1,33 @@
+interval: 1m
+logLevel: debug
+logFormat: text
+provider: cloudflare
+env:
+  - name: CF_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-cloudflare
+        key: CF_API_TOKEN
+extraArgs:
+  # - --cloudflare-proxied
+  - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+  - --crd-source-kind=DNSEndpoint
+  - --ingress-class=traefik-external
+policy: upsert-only
+sources: ["crd", "traefik-proxy"]
+txtPrefix: external-dns.
+txtOwnerId: homelab
+domainFilters:
+  - javiersant.com
+serviceMonitor:
+  enabled: true
+  additionalLabels:
+    release: prometheus-stack
+#podAnnotations:
+#  secret.reloader.stakater.com/reload: external-dns-cloudflare
+resources:
+  requests:
+    memory: 100Mi
+    cpu: 25m
+  limits:
+    memory: 250Mi

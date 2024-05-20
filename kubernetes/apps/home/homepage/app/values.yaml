@@ -7,12 +7,12 @@ controllers:
         image:
           repository: ghcr.io/gethomepage/homepage
           tag: v0.8.13
-        # resources:
-        #   requests:
-        #     cpu: 15m
-        #     memory: 200M
-        #   limits:
-        #     memory: 2G
+        resources:
+          requests:
+            cpu: 15m
+            memory: 200M
+          limits:
+            memory: 2G
 service:
   main:
     controller: main

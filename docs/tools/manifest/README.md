@@ -287,6 +287,9 @@ kubectl logs -n networking -l app=external-dns
 kubectl kustomize clusters/local/addons/networking/cloudflare-external-dns --enable-helm | kubectl apply -f -
 kubectl kustomize clusters/remote/addons/networking/cloudflare-external-dns --enable-helm | kubectl apply -f -
 
+# Test
+kubectl kustomize kubernetes/addons/networking/cloudflare-external-dns --enable-helm > test.yaml
+
 #########################
 # Dynamic DNS (DDNS)
 #########################
