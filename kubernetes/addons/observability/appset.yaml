@@ -16,8 +16,7 @@ spec:
                 - path: kubernetes/addons/observability/*
               values:
                 namespace: observability
-                suffix: addon
-                folder: addons
+                category: addons
           - clusters:
               selector:
                 matchExpressions:
@@ -28,12 +27,12 @@ spec:
     applicationsSync: create-update
   template:
     metadata:
-      name: "{{.values.suffix}}-{{.name}}-{{.path.basename}}"
+      name: "{{.values.category}}-{{.name}}-{{.path.basename}}"
     spec:
       project: default
       source:
         repoURL: "https://github.com/jsa4000/homelab-ops"
-        path: "clusters/{{.name}}/{{.values.folder}}/{{.values.namespace}}/{{.path.basename}}"
+        path: "clusters/{{.name}}/{{.values.category}}/{{.values.namespace}}/{{.path.basename}}"
         targetRevision: HEAD
         directory:
           recurse: false
