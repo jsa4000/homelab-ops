@@ -32,7 +32,7 @@ Following the step to use Cloudflare DDNS on the existing K8s cluster and set it
     ![SSL/TLS encryption mode](../../images/cloudflare-ddns-dns-ssl.png)
 3. Select `Always Use HTTPS` and configure it to use a minimum TLS 1.2 or higher. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> `Edge Certificates` -> Enable `Always Use HTTPS` and select `TLS 1.2` or higher
     ![Edge Certificates](../../images/cloudflare-ddns-dns-certifcates.png)
-4. Disable Universal SSL. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> `Edge Certificates` -> `Disable Universal SSL`
+4. Enable Universal SSL. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> `Edge Certificates` -> `Enable Universal SSL`
     ![Universal Certificate](../../images/cloudflare-ddns-dns-universal-certifcate.png)
 
 #### References
