@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`oauth.default.javiersant.com`)
+    - match: Host(`oauth.javiersant.com`)
       kind: Rule
       services:
         - name: oauth2-proxy

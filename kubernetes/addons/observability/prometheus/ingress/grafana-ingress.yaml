@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: traefik-external
     external-dns.alpha.kubernetes.io/target: javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://grafana.default.javiersant.com"
+    gethomepage.dev/href: "https://grafana.javiersant.com"
     gethomepage.dev/description: Grafana Dashboard
     gethomepage.dev/group: Observability
     gethomepage.dev/icon: grafana.svg
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`grafana.default.javiersant.com`)
+    - match: Host(`grafana.javiersant.com`)
       kind: Rule
       middlewares:
         - name: oauth2-proxy

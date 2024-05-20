@@ -1,6 +1,6 @@
 zitadel:
   configmapConfig:
-    ExternalDomain: zitadel.default.javiersant.com
+    ExternalDomain: zitadel.javiersant.com
     ExternalPort: 443
     ExternalSecure: true
     Machine:

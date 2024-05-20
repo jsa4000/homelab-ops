@@ -2,7 +2,7 @@
 variable "domain" {
   description = "Zitadel Domain"
   type        = string
-  default     = "zitadel.default.javiersant.com"
+  default     = "zitadel.javiersant.com"
 }
 
 variable "port" {
@@ -44,7 +44,7 @@ variable "application" {
 variable "redirect_url" {
   description = "Redirect URL"
   type        = string
-  default     = "https://oauth.default.javiersant.com/oauth2/callback"
+  default     = "https://oauth.javiersant.com/oauth2/callback"
 }
 
 variable "user_name" {
