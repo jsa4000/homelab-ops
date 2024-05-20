@@ -5,11 +5,17 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik-external
     external-dns.alpha.kubernetes.io/target: javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://argocd.default.javiersant.com"
+    gethomepage.dev/description: ArgoCD Dashboard
+    gethomepage.dev/group: GitOps
+    gethomepage.dev/icon: argocd.svg
+    gethomepage.dev/name: ArgoCD
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`argocd.javiersant.com`)
+    - match: Host(`argocd.default.javiersant.com`)
       kind: Rule
       middlewares:
         - name: oauth2-proxy
