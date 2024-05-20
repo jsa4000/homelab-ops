@@ -649,6 +649,7 @@ kubectl logs -n iam -l app=oauth2-proxy
 #########################
 
 # https://github.com/gethomepage/homepage/blob/main/kubernetes.md
+# https://gethomepage.dev/main/configs/kubernetes/
 
 # Deploy Homepage
 kubectl create namespace home
