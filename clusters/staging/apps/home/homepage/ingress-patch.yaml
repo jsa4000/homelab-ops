@@ -1,8 +1,8 @@
-- op: replace
-  path: /spec/routes/0/match
-  value: Host(`homepage.staging.javiersant.com`)
 - op: remove
   path: /metadata/annotations/gethomepage.dev~1href
 - op: add
   path: /metadata/annotations/gethomepage.dev~1href
   value: "https://homepage.staging.javiersant.com"
+- op: replace
+  path: /spec/routes/0/match
+  value: Host(`homepage.staging.javiersant.com`)
