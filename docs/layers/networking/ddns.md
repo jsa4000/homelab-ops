@@ -24,15 +24,36 @@ Following the step to use Cloudflare DDNS on the existing K8s cluster and set it
 
 ![DDNS Architecture in Kubernetes](../../images/cloudflare-ddns-architecture.gif)
 
+#### Create API Token
+
+Create API Token for DNS Management.
+
 > API Tokens are better than traditional API Keys since they don't need to inform the ZoneId and add more security since tokens can be revoked.
 
-1. Create API Token for DNS Management. Go to Cloudflare -> My Profile -> API Tokens -> `Create Token` in API Tokens.
-    ![Create API Token for DNS Management](../../images/cloudflare-ddns-dns-template.png)
-2. Set the DNS setup on the Cloudflare website to `Full`. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> Select `Full (Encrypts end-to-end, using a self signed certificate on the server)`
-    ![SSL/TLS encryption mode](../../images/cloudflare-ddns-dns-ssl.png)
-3. Select `Always Use HTTPS` and configure it to use a minimum TLS 1.2 or higher. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> `Edge Certificates` -> Enable `Always Use HTTPS` and select `TLS 1.2` or higher
+Go to Cloudflare -> My Profile -> API Tokens -> `Create Token` in API Tokens.
+
+![Create API Token for DNS Management](../../images/cloudflare-ddns-dns-template.png)
+
+#### Using Generated SSL by Cert Manager
+
+Enable Cloudflare to use vanilla DNS management from API.
+
+1. Set the DNS setup on the Cloudflare website to `off`. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> Select `Off (not secure`
+    ![SSL/TLS encryption mode](../../images/cloudflare-ddns-dns-ssl-off.png)
+2. Disable Universal SSL. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> `Edge Certificates` -> `Disable Universal SSL`
+    ![Universal Certificate](../../images/cloudflare-ddns-dns-universal-certifcate.png)
+
+#### Using Generated SSL by CloudFlare
+
+Allow `proxied` dns resolver so Cloudflare can manage automatically the connections allowing using universal certificates and preventing ddos and other  attacks.
+
+> Cloudflare does not allow to create certificates with more than two-level subdomain or upload custom certificates using the free tier.
+
+1. Set the DNS setup on the Cloudflare website to `Full`. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> Select `Full (Encrypts end-to-end, using a self signed certificate on the server)`
+    ![SSL/TLS encryption mode](../../images/cloudflare-ddns-dns-ssl-full.png)
+2. Select `Always Use HTTPS` and configure it to use a minimum TLS 1.2 or higher. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> `Edge Certificates` -> Enable `Always Use HTTPS` and select `TLS 1.2` or higher
     ![Edge Certificates](../../images/cloudflare-ddns-dns-certifcates.png)
-4. Enable Universal SSL. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> `Edge Certificates` -> `Enable Universal SSL`
+3. Enable Universal SSL. Go to Cloudflare -> Select DNS domain (`mydomain.com`) -> `SSL/TLS` -> `Edge Certificates` -> `Enable Universal SSL`
     ![Universal Certificate](../../images/cloudflare-ddns-dns-universal-certifcate.png)
 
 #### References
