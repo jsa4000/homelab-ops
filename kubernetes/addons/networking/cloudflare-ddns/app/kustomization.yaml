@@ -9,5 +9,5 @@ configMapGenerator:
   - name: cloudflare-ddns
     literals:
       - DOMAINS=javiersant.com
-      - PROXIED=false
+      - PROXIED=true
       - IP6_PROVIDER=none

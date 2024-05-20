@@ -9,7 +9,7 @@ env:
         name: external-dns-cloudflare
         key: CF_API_TOKEN
 extraArgs:
-  # - --cloudflare-proxied
+  - --cloudflare-proxied
   - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
   - --crd-source-kind=DNSEndpoint
   - --ingress-class=traefik-external
