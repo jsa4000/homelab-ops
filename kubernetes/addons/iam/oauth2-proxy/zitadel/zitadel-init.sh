@@ -30,7 +30,7 @@ fi
 echo "Successfully connected to Zitadel"
 
 # Download the certificate
-openssl s_client -connect zitadel.javiersant.com:443 -servername zitadel.javiersant.com </dev/null | openssl x509 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javiersant.com.pem
+openssl s_client -connect $ZITADEL_DOMAIN:443 -servername $ZITADEL_DOMAIN </dev/null | openssl x509 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > javiersant.com.pem
 cp javiersant.com.pem /usr/local/share/ca-certificates/javiersant.com.pem
 update-ca-certificates
 
