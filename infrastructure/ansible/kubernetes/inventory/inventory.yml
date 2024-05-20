@@ -44,7 +44,7 @@ k3s_cluster:
     extra_agent_args: ""
 
     # Addons
-    cluster_env: remote
+    cluster_env: pro
     cluster_dotenv: "/Users/jsantosa/Projects/Github/homelab-ops/.env"
     helm_version: v3.14.3
 
