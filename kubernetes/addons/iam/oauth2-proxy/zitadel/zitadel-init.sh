@@ -39,9 +39,9 @@ tofu init -upgrade
 
 # Apply Tofu changes
 tofu apply -auto-approve \
-    -var jwt_profile_file=/etc/config/zitadel-admin-sa.json \
-    -var domain=$ZITADEL_DOMAIN \
-    -var redirect_url=$REDIRECT_URL
+-var jwt_profile_file=/etc/config/zitadel-admin-sa.json \
+-var domain=$ZITADEL_DOMAIN \
+-var redirect_url=$REDIRECT_URL
 
 # Create the secret after run OpenTofu
 kubectl create secret -n iam generic oauth2-proxy \
