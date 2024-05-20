@@ -5,6 +5,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik-external
     external-dns.alpha.kubernetes.io/target: javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Longhorn Dashboard
+    gethomepage.dev/group: Storage
+    gethomepage.dev/icon: longhorn.svg
+    gethomepage.dev/name: Longhorn
 spec:
   entryPoints:
     - websecure

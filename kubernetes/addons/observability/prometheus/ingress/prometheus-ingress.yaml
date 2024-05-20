@@ -5,6 +5,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik-external
     external-dns.alpha.kubernetes.io/target: javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Prometheus Dashboard
+    gethomepage.dev/group: Observability
+    gethomepage.dev/icon: prometheus.svg
+    gethomepage.dev/name: Prometheus
 spec:
   entryPoints:
     - websecure
