@@ -16,6 +16,11 @@ spec:
           image: alpine:3.19.1
           command: ["sh"]
           args: ["/etc/scripts/zitadel-init.sh"]
+          env:
+            - name: ZITADEL_DOMAIN
+              value: zitadel.default.javiersant.com
+            - name: REDIRECT_URL
+              value: https://oauth.default.javiersant.com/oauth2/callback
           envFrom:
             - secretRef:
                 name: github-secret

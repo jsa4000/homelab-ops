@@ -22,7 +22,7 @@ cd homelab-ops/infrastructure/terraform/zitadel/
 echo "Wating to connect to Zitadel"
 
 # Get HTTP Status Code
-status_code=$(curl -sk -o /dev/null -w "%{http_code}" https://zitadel.javiersant.com/debug/ready)
+status_code=$(curl -sk -o /dev/null -w "%{http_code}" https://$ZITADEL_DOMAIN/debug/ready)
 if [[ "$status_code" -ne 200 ]] ; then
     sleep 5m
 fi
@@ -38,7 +38,10 @@ update-ca-certificates
 tofu init -upgrade
 
 # Apply Tofu changes
-tofu apply -auto-approve -var jwt_profile_file=/etc/config/zitadel-admin-sa.json
+tofu apply -auto-approve \
+    -var jwt_profile_file=/etc/config/zitadel-admin-sa.json \
+    -var domain=$ZITADEL_DOMAIN \
+    -var redirect_url=$REDIRECT_URL
 
 # Create the secret after run OpenTofu
 kubectl create secret -n iam generic oauth2-proxy \
