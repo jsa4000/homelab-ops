@@ -5,6 +5,12 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik-external
     external-dns.alpha.kubernetes.io/target: javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://homepage.javiersant.com"
+    gethomepage.dev/description: Homepage Dashboard
+    gethomepage.dev/group: Home
+    gethomepage.dev/icon: alma.svg
+    gethomepage.dev/name: Homepage
 spec:
   entryPoints:
     - websecure

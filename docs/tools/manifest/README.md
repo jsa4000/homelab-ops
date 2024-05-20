@@ -669,6 +669,7 @@ kubectl get cm -n home homepage-config -o yaml
 
 # Verify the parameters build helm + kustomize
 kubectl kustomize kubernetes/apps/home/homepage --enable-helm > test.yaml
+kubectl kustomize clusters/staging/apps/home/homepage --enable-helm > test.yaml
 
 #########################
 # Deploy Loki
