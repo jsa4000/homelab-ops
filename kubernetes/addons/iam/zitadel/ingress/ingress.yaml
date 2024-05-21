@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: traefik-external
     external-dns.alpha.kubernetes.io/target: javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://zitadel.javiersant.com"
+    gethomepage.dev/href: "https://zitadel.default.javiersant.com"
     gethomepage.dev/description: Zitadel Dashboard
     gethomepage.dev/group: IAM
     gethomepage.dev/icon: zitadel.svg
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`zitadel.javiersant.com`)
+    - match: Host(`zitadel.default.javiersant.com`)
       kind: Rule
       services:
         - kind: Service
