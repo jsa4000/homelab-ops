@@ -17,9 +17,6 @@ spec:
   routes:
     - match: Host(`longhorn.default.internal.javiersant.com`)
       kind: Rule
-      middlewares:
-        - name: oauth2-proxy
-          namespace: iam
       services:
         - kind: Service
           name: longhorn-frontend
