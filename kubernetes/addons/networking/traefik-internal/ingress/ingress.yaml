@@ -4,7 +4,7 @@ metadata:
   name: traefik-internal-ingress
   annotations:
     kubernetes.io/ingress.class: traefik-internal
-    external-dns.alpha.kubernetes.io/target: javiersant.com
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://traefik.javiersant.com"
     gethomepage.dev/description: Traefik Dashboard
