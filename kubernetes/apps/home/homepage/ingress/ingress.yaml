@@ -3,10 +3,10 @@ kind: IngressRoute
 metadata:
   name: homepage-ingress
   annotations:
-    kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javiersant.com
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://homepage.javiersant.com"
+    gethomepage.dev/href: "https://homepage.default.internal.javiersant.com"
     gethomepage.dev/description: Homepage Dashboard
     gethomepage.dev/group: Home
     gethomepage.dev/icon: alma.svg
@@ -15,11 +15,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`homepage.javiersant.com`)
+    - match: Host(`homepage.default.internal.javiersant.com`)
       kind: Rule
-      middlewares:
-        - name: oauth2-proxy
-          namespace: iam
       services:
         - kind: Service
           name: homepage
