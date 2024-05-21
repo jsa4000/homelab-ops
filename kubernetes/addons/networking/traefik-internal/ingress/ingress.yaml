@@ -6,16 +6,16 @@ metadata:
     kubernetes.io/ingress.class: traefik-internal
     external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://traefik.javiersant.com"
-    gethomepage.dev/description: Traefik Dashboard
+    gethomepage.dev/href: "https://traefik-internal.default.internal.javiersant.com"
+    gethomepage.dev/description: Traefik Internal Dashboard
     gethomepage.dev/group: Networking
     gethomepage.dev/icon: traefik.svg
-    gethomepage.dev/name: Traefik
+    gethomepage.dev/name: Traefik Internal
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`traefik.default.internal.javiersant.com`)
+    - match: Host(`traefik-internal.default.internal.javiersant.com`)
       kind: Rule
       services:
         - name: api@internal

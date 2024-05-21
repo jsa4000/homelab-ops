@@ -4,25 +4,19 @@ metadata:
   name: traefik-external-ingress
   annotations:
     kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javiersant.com
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://traefik.javiersant.com"
-    gethomepage.dev/description: Traefik Dashboard
+    gethomepage.dev/href: "https://traefik-external.default.internal.javiersant.com"
+    gethomepage.dev/description: Traefik External Dashboard
     gethomepage.dev/group: Networking
     gethomepage.dev/icon: traefik.svg
-    gethomepage.dev/name: Traefik
+    gethomepage.dev/name: Traefik External
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`traefik.javiersant.com`)
+    - match: Host(`traefik-external.default.internal.javiersant.com`)
       kind: Rule
-      middlewares:
-        # - name: default-headers
-        - name: oauth2-proxy
-          namespace: iam
-        # - name: oauth-errors
-        #   namespace: iam
       services:
         - name: api@internal
           kind: TraefikService
