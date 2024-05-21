@@ -18,7 +18,7 @@ spec:
     - match: Host(`traefik-external.default.internal.javiersant.com`)
       kind: Rule
       services:
-        - name: api@internal
-          kind: TraefikService
+        - name: traefik-external-dashboard
+          port: 9000
   tls:
     secretName: wildcard-javstudio-org-tls
