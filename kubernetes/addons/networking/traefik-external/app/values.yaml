@@ -5,6 +5,7 @@ globalArguments:
 additionalArguments:
   - "--serversTransport.insecureSkipVerify=true"
   - "--log.level=INFO"
+  - "--api.insecure=true"
 
 deployment:
   enabled: true
