@@ -4,7 +4,7 @@ metadata:
   name: traefik-dns
 spec:
   endpoints:
-    - dnsName: javiersant.internal
+    - dnsName: internal.javiersant.com
       recordTTL: 300
       recordType: A
       targets:
