@@ -1,0 +1,14 @@
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: traefik-dns
+spec:
+  endpoints:
+    - dnsName: javiersant.internal
+      recordTTL: 300
+      recordType: A
+      targets:
+        - 192.168.205.200
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: "false"
