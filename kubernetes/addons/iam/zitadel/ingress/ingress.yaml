@@ -17,6 +17,9 @@ spec:
   routes:
     - match: Host(`zitadel.default.javiersant.com`)
       kind: Rule
+      # middlewares:
+      #   - name: oauth2-proxy
+      #     namespace: iam
       services:
         - kind: Service
           name: zitadel
