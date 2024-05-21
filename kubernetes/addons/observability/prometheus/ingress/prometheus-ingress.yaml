@@ -3,7 +3,7 @@ kind: IngressRoute
 metadata:
   name: prometheus-ingress
   annotations:
-    kubernetes.io/ingress.class: traefik-external
+    kubernetes.io/ingress.class: traefik-internal
     external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://prometheus.default.internal.javiersant.com"
