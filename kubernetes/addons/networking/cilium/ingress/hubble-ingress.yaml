@@ -4,10 +4,10 @@ metadata:
   name: hubble-ingress
   namespace: monitoring
   annotations:
-    kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javiersant.com
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://hubble.javiersant.com"
+    gethomepage.dev/href: "https://hubble.default.internal.javiersant.com"
     gethomepage.dev/description: hubble Dashboard
     gethomepage.dev/group: Networking
     gethomepage.dev/icon: cilium.svg
@@ -16,11 +16,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`hubble.javiersant.com`)
+    - match: Host(`hubble.default.internal.javiersant.com`)
       kind: Rule
-      middlewares:
-        - name: oauth2-proxy
-          namespace: iam
       services:
         - kind: Service
           name: hubble-ui

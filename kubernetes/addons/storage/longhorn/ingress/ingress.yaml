@@ -4,9 +4,9 @@ metadata:
   name: longhorn-dashboard
   annotations:
     kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javiersant.com
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://longhorn.javiersant.com"
+    gethomepage.dev/href: "https://longhorn.default.internal.javiersant.com"
     gethomepage.dev/description: Longhorn Dashboard
     gethomepage.dev/group: Storage
     gethomepage.dev/icon: longhorn.svg
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`longhorn.javiersant.com`)
+    - match: Host(`longhorn.default.internal.javiersant.com`)
       kind: Rule
       middlewares:
         - name: oauth2-proxy

@@ -3,10 +3,10 @@ kind: IngressRoute
 metadata:
   name: grafana-ingress
   annotations:
-    kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: javiersant.com
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://grafana.javiersant.com"
+    gethomepage.dev/href: "https://grafana.default.internal.javiersant.com"
     gethomepage.dev/description: Grafana Dashboard
     gethomepage.dev/group: Observability
     gethomepage.dev/icon: grafana.svg
@@ -15,11 +15,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`grafana.javiersant.com`)
+    - match: Host(`grafana.default.internal.javiersant.com`)
       kind: Rule
-      middlewares:
-        - name: oauth2-proxy
-          namespace: iam
       services:
         - kind: Service
           name: prometheus-stack-grafana
