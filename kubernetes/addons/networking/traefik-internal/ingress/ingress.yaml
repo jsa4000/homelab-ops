@@ -1,0 +1,30 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+    external-dns.alpha.kubernetes.io/target: javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://traefik.javiersant.com"
+    gethomepage.dev/description: Traefik Dashboard
+    gethomepage.dev/group: Networking
+    gethomepage.dev/icon: traefik.svg
+    gethomepage.dev/name: Traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`traefik.default.internal.javiersant.com`)
+      kind: Rule
+      middlewares:
+        # - name: default-headers
+        - name: oauth2-proxy
+          namespace: iam
+        # - name: oauth-errors
+        #   namespace: iam
+      services:
+        - name: api@internal
+          kind: TraefikService
+  tls:
+    secretName: wildcard-javstudio-org-tls

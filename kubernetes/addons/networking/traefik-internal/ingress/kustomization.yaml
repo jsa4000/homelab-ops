@@ -5,3 +5,4 @@ namespace: networking
 
 resources:
   - ingress.yaml
+  - dnsendpoint.yaml

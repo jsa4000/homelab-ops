@@ -4,7 +4,7 @@ kind: Kustomization
 
 configMapGenerator:
   # Ref: https://grafana.com/grafana/dashboards/4475
-  - name: traefik-external-dashboard
+  - name: traefik-internal-dashboard
     files:
       - traefik-dashboard.json
 generatorOptions:

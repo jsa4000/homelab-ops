@@ -1,0 +1,65 @@
+globalArguments:
+  - "--global.sendanonymoususage=false"
+  - "--global.checknewversion=false"
+
+additionalArguments:
+  - "--serversTransport.insecureSkipVerify=true"
+  - "--log.level=INFO"
+
+deployment:
+  enabled: true
+  replicas: 1
+
+ports:
+  web:
+    redirectTo:
+      port: websecure
+      priority: 10
+  websecure:
+    tls:
+      enabled: true
+
+ingressRoute:
+  dashboard:
+    enabled: false
+
+providers:
+  kubernetesCRD:
+    enabled: true
+    ingressClass: traefik-internal
+    # Allow Traefik to lookup for external name services
+    allowExternalNameServices: true
+    # Allow Traefik to lookup for resources in different namespaces
+    allowCrossNamespace: true
+  kubernetesIngress:
+    enabled: true
+    # Allow Traefik to lookup for external name services
+    allowExternalNameServices: true
+    # Needed to work with External DNS
+    publishedService:
+      enabled: false
+
+metrics:
+  prometheus:
+    disableAPICheck: true
+    service:
+      enabled: true
+    serviceMonitor:
+      interval: 30s
+      additionalLabels:
+        release: prometheus-stack
+
+rbac:
+  enabled: true
+
+service:
+  enabled: true
+  type: LoadBalancer
+  spec:
+    # Static IP in the MetalLB range
+    loadBalancerIP: 192.168.205.201
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 50Mi
