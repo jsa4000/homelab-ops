@@ -6,3 +6,9 @@ resources:
 
 patches:
   - path: ingress-patch.yaml
+
+# Check if there is additional configMaps to add to the configuration
+configMapGenerator:
+  - name: zitadel-config
+    files:
+      - zitadel-config.yaml
