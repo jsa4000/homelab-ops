@@ -13,6 +13,9 @@ patches:
 
 configMapGenerator:
   - name: oauth2-proxy-zitadel-init-config
+    behavior: merge
     literals:
-      - ZITADEL_DOMAIN=zitadel.staging.javiersant.com
-      - REDIRECT_URL=https://oauth.staging.javiersant.com/oauth2/callback
+    #  - ZITADEL_DOMAIN=zitadel.staging.javiersant.com
+    #  - REDIRECT_URL=https://oauth.staging.javiersant.com/oauth2/callback
+      - ZITADEL_DOMAIN=zitadel.staging.internal.javiersant.com
+      - REDIRECT_URL=https://oauth.staging.internal.javiersant.com/oauth2/callback
