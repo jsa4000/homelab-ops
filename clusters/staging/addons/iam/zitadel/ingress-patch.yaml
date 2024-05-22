@@ -1,9 +1,19 @@
+#- op: replace
+#  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+#  value: javiersant.com
+#- op: replace
+#  path: /metadata/annotations/gethomepage.dev~1href
+#  value: "https://zitadel.staging.javiersant.com"
+#- op: replace
+#  path: /spec/routes/0/match
+#  value: Host(`zitadel.staging.javiersant.com`)
+
 - op: replace
   path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
-  value: javiersant.com
+  value: staging.internal.javiersant.com
 - op: replace
   path: /metadata/annotations/gethomepage.dev~1href
-  value: "https://zitadel.staging.javiersant.com"
+  value: "https://zitadel.staging.internal.javiersant.com"
 - op: replace
   path: /spec/routes/0/match
-  value: Host(`zitadel.staging.javiersant.com`)
+  value: Host(`zitadel.staging.internal.javiersant.com`)
