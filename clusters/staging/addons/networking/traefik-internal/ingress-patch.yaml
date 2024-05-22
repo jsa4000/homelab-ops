@@ -1,13 +1,14 @@
-- op: remove
-  path: /metadata/annotations/gethomepage.dev~1href
-- op: add
-  path: /metadata/annotations/gethomepage.dev~1href
-  value: "https://traefik-internal.staging.internal.javiersant.com"
-- op: remove
-  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
-- op: add
-  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
-  value: staging.internal.javiersant.com
-- op: replace
-  path: /spec/routes/0/match
-  value: Host(`traefik-internal.staging.internal.javiersant.com`)
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-internal-ingress
+  annotations:
+    external-dns.alpha.kubernetes.io/target: staging.internal.javiersant.com
+    gethomepage.dev/href: "https://traefik-internal.staging.internal.javiersant.com"
+spec:
+  routes:
+    - match: Host(`traefik-internal.staging.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - name: traefik-internal-dashboard
+          port: 9000

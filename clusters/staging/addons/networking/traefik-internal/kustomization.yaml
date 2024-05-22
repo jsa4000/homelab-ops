@@ -13,8 +13,4 @@ patches:
       kind: Service
       name: traefik-internal
     path: service-patch.yaml
-  - target:
-      version: v1alpha1
-      kind: IngressRoute
-      name: traefik-internal-ingress
-    path: ingress-patch.yaml
+  - path: ingress-patch.yaml
