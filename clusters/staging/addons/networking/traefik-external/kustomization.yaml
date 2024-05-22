@@ -12,3 +12,8 @@ patches:
       kind: Service
       name: traefik-external
     path: service-patch.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: homepage-ingress
+    path: ingress-patch.yaml
