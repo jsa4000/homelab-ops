@@ -10,6 +10,9 @@ spec:
   commonName: "*.javiersant.com"
   dnsNames:
     - "*.javiersant.com"
+    - "*.staging.javiersant.com"
+    - "*.internal.javiersant.com"
+    - "*.staging.internal.javiersant.com"
   secretTemplate:
     annotations:
       reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
