@@ -16,5 +16,5 @@ patches:
   - target:
       version: v1alpha1
       kind: IngressRoute
-      name: homepage-ingress
+      name: traefik-internal-ingress
     path: ingress-patch.yaml
