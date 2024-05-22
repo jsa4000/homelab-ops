@@ -8,4 +8,8 @@ resources:
   - cluster-secret.yaml
 
 patches:
-  - path: ingress-patch.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: argocd-dashboard
+    path: ingress-patch.yaml

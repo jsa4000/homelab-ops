@@ -1,15 +1,9 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: prometheus-ingress
-  annotations:
-    external-dns.alpha.kubernetes.io/target: staging.internal.javiersant.com
-    gethomepage.dev/href: "https://prometheus.staging.internal.javiersant.com"
-spec:
-  routes:
-    - match: Host(`prometheus.staging.internal.javiersant.com`)
-      kind: Rule
-      services:
-        - kind: Service
-          name: prometheus-stack-kube-prom-prometheus
-          port: 9090
+- op: replace
+  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+  value: staging.internal.javiersant.com
+- op: replace
+  path: /metadata/annotations/gethomepage.dev~1href
+  value: "https://prometheus.staging.internal.javiersant.com"
+- op: replace
+  path: /spec/routes/0/match
+  value: Host(`prometheus.staging.internal.javiersant.com`)

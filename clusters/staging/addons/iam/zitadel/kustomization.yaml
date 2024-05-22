@@ -5,7 +5,11 @@ resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/iam/zitadel?ref=main
 
 patches:
-  - path: ingress-patch.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: zitadel-dashboard
+    path: ingress-patch.yaml
 
 # Check if there is additional configMaps to add to the configuration
 configMapGenerator:

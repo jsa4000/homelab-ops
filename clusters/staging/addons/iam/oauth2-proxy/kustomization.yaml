@@ -5,4 +5,8 @@ resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/iam/oauth2-proxy?ref=main
 
 patches:
-  - path: ingress-patch.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: oauth2-proxy
+    path: ingress-patch.yaml

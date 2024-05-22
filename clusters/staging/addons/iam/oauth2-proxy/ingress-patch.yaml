@@ -1,15 +1,9 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: oauth2-proxy
-  annotations:
-    external-dns.alpha.kubernetes.io/target: javiersant.com
-spec:
-  routes:
-    - match: Host(`oauth.staging.javiersant.com`)
-      kind: Rule
-      services:
-        - name: oauth2-proxy
-          port: 80
-      middlewares:
-        - name: auth-headers
+- op: replace
+  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+  value: javiersant.com
+- op: replace
+  path: /metadata/annotations/gethomepage.dev~1href
+  value: "https://oauth.staging.javiersant.com"
+- op: replace
+  path: /spec/routes/0/match
+  value: Host(`oauth.staging.javiersant.com`)

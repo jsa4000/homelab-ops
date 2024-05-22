@@ -5,4 +5,8 @@ resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/storage/longhorn?ref=main
 
 patches:
-  - path: ingress-patch.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: longhorn-dashboard
+    path: ingress-patch.yaml
