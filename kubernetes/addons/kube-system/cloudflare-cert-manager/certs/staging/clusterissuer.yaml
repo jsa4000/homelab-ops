@@ -17,6 +17,3 @@ spec:
             apiTokenSecretRef:
               name: cloudflare-api-token
               key: api-token
-        selector:
-          dnsNames:
-            - "*.javiersant.com"
