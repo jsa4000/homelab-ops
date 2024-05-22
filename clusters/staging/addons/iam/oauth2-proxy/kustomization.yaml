@@ -10,3 +10,9 @@ patches:
       kind: IngressRoute
       name: oauth2-proxy
     path: ingress-patch.yaml
+
+configMapGenerator:
+  - name: oauth2-proxy-zitadel-init-config
+    literals:
+      - ZITADEL_DOMAIN=zitadel.staging.javiersant.com
+      - REDIRECT_URL=https://oauth.staging.javiersant.com/oauth2/callback
