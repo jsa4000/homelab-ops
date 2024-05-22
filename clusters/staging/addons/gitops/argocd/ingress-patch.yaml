@@ -1,0 +1,15 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-dashboard
+  annotations:
+    external-dns.alpha.kubernetes.io/target: staging.internal.javiersant.com
+    gethomepage.dev/href: "https://argocd.staging.internal.javiersant.com"
+spec:
+  routes:
+    - match: Host(`argocd.staging.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: argocd-server
+          port: 80

@@ -8,3 +8,4 @@ resources:
 
 patches:
   - path: ip-pool.yaml
+  - path: hubble-ingress-patch.yaml

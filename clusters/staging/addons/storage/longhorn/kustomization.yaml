@@ -3,3 +3,6 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/storage/longhorn?ref=main
+
+patches:
+  - path: ingress-patch.yaml
