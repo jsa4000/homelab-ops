@@ -11,6 +11,8 @@ metadata:
     gethomepage.dev/group: Observability
     gethomepage.dev/icon: prometheus.svg
     gethomepage.dev/name: Prometheus
+    gethomepage.dev/widget.type: prometheus
+    gethomepage.dev/widget.url: "http://prometheus-stack-kube-prom-prometheus.observability.svc.cluster.local:9090"
 spec:
   entryPoints:
     - websecure
