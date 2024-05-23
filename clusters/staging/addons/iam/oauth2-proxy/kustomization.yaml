@@ -15,7 +15,7 @@ configMapGenerator:
   - name: oauth2-zitadel-config
     behavior: merge
     literals:
-    # - ZITADEL_DOMAIN=zitadel.default.javiersant.com
-    # - OAUTH2_DOMAIN=oauth.default.javiersant.com
+    # - ZITADEL_DOMAIN=zitadel.staging.javiersant.com
+    # - OAUTH2_DOMAIN=oauth.staging.javiersant.com
       - ZITADEL_DOMAIN=zitadel.staging.internal.javiersant.com
       - OAUTH2_DOMAIN=oauth.staging.internal.javiersant.com
