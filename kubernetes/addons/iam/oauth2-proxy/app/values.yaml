@@ -15,9 +15,9 @@ extraArgs:
   user-id-claim: sub
   cookie-secure: true
   provider-display-name: ZITADEL
-  oidc-jwks-url: https://${ZITADEL_DOMAIN}/oauth/v2/keys
-  oidc-issuer-url: https://${ZITADEL_DOMAIN}
-  redirect-url: https://${OAUTH2_DOMAIN}/oauth2/callback
+  oidc-jwks-url: https://$ZITADEL_DOMAIN/oauth/v2/keys
+  oidc-issuer-url: https://$ZITADEL_DOMAIN
+  redirect-url: https://$OAUTH2_DOMAIN/oauth2/callback
   cookie-name: "_oauth2_proxy"
   cookie-domain: .javiersant.com
   whitelist-domain: .javiersant.com
