@@ -8,3 +8,11 @@ helmCharts:
     releaseName: oauth2-proxy
     namespace: iam
     valuesFile: values.yaml
+
+configMapGenerator:
+  - name: oauth2-zitadel-config
+    literals:
+      - ZITADEL_DOMAIN=zitadel.default.javiersant.com
+      - OAUTH2_DOMAIN=oauth.default.javiersant.com
+generatorOptions:
+  disableNameSuffixHash: true

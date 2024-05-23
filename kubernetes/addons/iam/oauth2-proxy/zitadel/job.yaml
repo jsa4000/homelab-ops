@@ -20,7 +20,7 @@ spec:
             - secretRef:
                 name: github-secret
             - configMapRef:
-                name: oauth2-proxy-zitadel-init-config
+                name: oauth2-zitadel-config
           volumeMounts:
             - name: zitadel-admin-sa
               mountPath: /etc/config

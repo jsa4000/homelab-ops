@@ -11,9 +11,5 @@ configMapGenerator:
   - name: oauth2-proxy-zitadel-init
     files:
       - zitadel-init.sh
-  - name: oauth2-proxy-zitadel-init-config
-    literals:
-      - ZITADEL_DOMAIN=zitadel.default.javiersant.com
-      - REDIRECT_URL=https://oauth.default.javiersant.com/oauth2/callback
 generatorOptions:
   disableNameSuffixHash: true

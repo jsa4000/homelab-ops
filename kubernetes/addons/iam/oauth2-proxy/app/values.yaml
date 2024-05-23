@@ -6,14 +6,18 @@ config:
     upstreams = [ "static://202" ]
     silence_ping_logging = true
 
+envFrom:
+  - configMapRef:
+      name: oauth2-zitadel-config
+
 extraArgs:
   provider: oidc
   user-id-claim: sub
   cookie-secure: true
   provider-display-name: ZITADEL
-  oidc-jwks-url: https://zitadel.default.javiersant.com/oauth/v2/keys
-  oidc-issuer-url: https://zitadel.default.javiersant.com
-  redirect-url: https://oauth.default.javiersant.com/oauth2/callback
+  oidc-jwks-url: https://${ZITADEL_DOMAIN}/oauth/v2/keys
+  oidc-issuer-url: https://${ZITADEL_DOMAIN}
+  redirect-url: https://${OAUTH2_DOMAIN}/oauth2/callback
   cookie-name: "_oauth2_proxy"
   cookie-domain: .javiersant.com
   whitelist-domain: .javiersant.com
