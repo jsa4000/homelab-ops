@@ -30,16 +30,7 @@
     # Update secret use: --dry-run=client -o yaml | kubectl apply -f -
     - name: Create dotenv Secrets
       shell: |
-        . /tmp/.env && kubectl create secret -n security generic cluster-secrets \
-          --from-literal=GODADDY_API_KEY=$GODADDY_API_KEY \
-          --from-literal=GODADDY_SECRET_KEY=$GODADDY_SECRET_KEY \
-          --from-literal=CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN \
-          --from-literal=CLOUDFLARE_ZONE_ID=$CLOUDFLARE_ZONE_ID \
-          --from-literal=GITHUB_REPO=$GITHUB_REPO \
-          --from-literal=GITHUB_USERNAME=$GITHUB_USERNAME \
-          --from-literal=GITHUB_PAT=$GITHUB_PAT \
-          --from-literal=ZITADEL_MATERKEY=$ZITADEL_MATERKEY
-
+        kubectl create secret generic -n security cluster-secrets --from-env-file=/tmp/.env
     - name: Remove dotenv file
       ansible.builtin.file:
         path: /tmp/.env
