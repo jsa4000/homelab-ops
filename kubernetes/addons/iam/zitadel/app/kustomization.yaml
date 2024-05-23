@@ -3,9 +3,9 @@ kind: Kustomization
 
 resources:
   - masterkey.yaml
-  # - secret-password.yaml
   - zitadel-config.yaml
   - db-cert.yaml
+  # - secret-password.yaml
   - secret-tls.yaml
 
 helmCharts:
