@@ -1,13 +1,26 @@
-apiVersion: v1
-kind: Secret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: zitadel-masterkey
-  annotations:
-    # Hooks needed to be executed prior to init job
-    helm.sh/hook: 'pre-install,pre-upgrade'
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: '0'
-type: Opaque
-stringData:
-  # LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32
-  masterkey: x123456789012345678901234567891y
+spec:
+  refreshInterval: 1m
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: kube-secret-store
+  target:
+    name: zitadel-masterkey
+    template:
+      type: Opaque
+      metadata:
+        annotations:
+          # Hooks needed to be executed prior to init job
+          helm.sh/hook: 'pre-install,pre-upgrade'
+          helm.sh/hook-delete-policy: before-hook-creation
+          helm.sh/hook-weight: '0'
+      data:
+        masterkey: "{{ .ZITADEL_MATERKEY }}"
+  data:
+    - secretKey: ZITADEL_MATERKEY
+      remoteRef:
+        key: cluster-secrets
+        property: ZITADEL_MATERKEY

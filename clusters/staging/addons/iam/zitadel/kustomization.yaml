@@ -11,8 +11,9 @@ patches:
       name: zitadel-dashboard
     path: ingress-patch.yaml
 
-# Check if there is additional configMaps to add to the configuration
 configMapGenerator:
   - name: zitadel-config
-    files:
-      - zitadel-config.yaml
+    behavior: merge
+    literals:
+      # - ZITADEL_EXTERNALDOMAIN=zitadel.staging.javiersant.com
+      - ZITADEL_EXTERNALDOMAIN=zitadel.staging.internal.javiersant.com

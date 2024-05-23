@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - masterkey.yaml
-  #  - secret-password.yaml
+  # - secret-password.yaml
   - db-cert.yaml
   - secret-tls.yaml
 
@@ -14,3 +14,8 @@ helmCharts:
     releaseName: zitadel
     namespace: iam
     valuesFile: values.yaml
+
+configMapGenerator:
+  - name: zitadel-config
+    literals:
+      - ZITADEL_EXTERNALDOMAIN=zitadel.default.javiersant.com

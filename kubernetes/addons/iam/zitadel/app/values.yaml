@@ -1,6 +1,5 @@
 zitadel:
   configmapConfig:
-    #ExternalDomain: zitadel.default.javiersant.com
     ExternalPort: 443
     ExternalSecure: true
     Machine:
@@ -44,6 +43,13 @@ zitadel:
   dbSslCaCrtSecret: postgres-cluster-superuser-cert
   dbSslAdminCrtSecret: postgres-cluster-superuser-cert
   dbSslUserCrtSecret: postgres-cluster-zitadel-cert
+
+env:
+  - name: ZITADEL_EXTERNALDOMAIN
+    valueFrom:
+      configMapKeyRef:
+        name: zitadel-config
+        key: ZITADEL_EXTERNALDOMAIN
 
 replicaCount: 1
 
