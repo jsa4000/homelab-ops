@@ -6,7 +6,7 @@ metadata:
     # Hooks needed to be executed prior to init job
     helm.sh/hook: 'pre-install,pre-upgrade'
     helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: '0'
+    helm.sh/hook-weight: '-1'
 spec:
   secretName: postgres-cluster-zitadel-cert
   usages:
