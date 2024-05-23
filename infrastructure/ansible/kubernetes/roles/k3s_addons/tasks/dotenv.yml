@@ -37,7 +37,8 @@
           --from-literal=CLOUDFLARE_ZONE_ID=$CLOUDFLARE_ZONE_ID \
           --from-literal=GITHUB_REPO=$GITHUB_REPO \
           --from-literal=GITHUB_USERNAME=$GITHUB_USERNAME \
-          --from-literal=GITHUB_PAT=$GITHUB_PAT
+          --from-literal=GITHUB_PAT=$GITHUB_PAT \
+          --from-literal=ZITADEL_MATERKEY=$ZITADEL_MATERKEY
 
     - name: Remove dotenv file
       ansible.builtin.file:
