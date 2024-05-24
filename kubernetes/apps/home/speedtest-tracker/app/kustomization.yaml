@@ -13,7 +13,7 @@ configMapGenerator:
   - name: speedtest-tracker
     literals:
       - PUBLIC_DASHBOARD=true
-      - TZ=CET
+      - TZ=Europe/Madrid
 
       # SQL Lite Database Connection
       - DB_CONNECTION=sqlite
