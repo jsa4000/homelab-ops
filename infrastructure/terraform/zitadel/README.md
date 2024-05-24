@@ -45,7 +45,7 @@ spec:
           passHostHeader: true
           port: 8080
   tls:
-    secretName: wildcard-javstudio-org-tls
+    secretName: wildcard-javiersant-com-tls
 ```
 
 ## Structure

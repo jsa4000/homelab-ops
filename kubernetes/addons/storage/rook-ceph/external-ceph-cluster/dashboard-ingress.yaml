@@ -15,4 +15,4 @@ spec:
           name: microceph-dashboard
           port: 8443
   tls:
-    secretName: wildcard-javstudio-org-tls
+    secretName: wildcard-javiersant-com-tls

@@ -22,4 +22,4 @@ spec:
           name: hubble-ui
           port: 80
   tls:
-    secretName: wildcard-javstudio-org-tls
+    secretName: wildcard-javiersant-com-tls

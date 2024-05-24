@@ -21,4 +21,4 @@ spec:
         - name: traefik-external-dashboard
           port: 9000
   tls:
-    secretName: wildcard-javstudio-org-tls
+    secretName: wildcard-javiersant-com-tls

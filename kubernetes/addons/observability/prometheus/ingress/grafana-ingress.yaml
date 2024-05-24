@@ -28,4 +28,4 @@ spec:
               secure: true
               sameSite: none
   tls:
-    secretName: wildcard-javstudio-org-tls
+    secretName: wildcard-javiersant-com-tls
