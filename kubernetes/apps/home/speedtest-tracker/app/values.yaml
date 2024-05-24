@@ -1,8 +1,8 @@
-# kubectl kustomize kubernetes/apps/home/speedtest-tracker --enable-helm > test.yaml
 controllers:
   main:
     replicas: 1
     strategy: RollingUpdate
+    type: statefulset
     containers:
       main:
         image:
@@ -15,11 +15,24 @@ controllers:
           requests:
             cpu: 15m
             memory: 200M
-          limits:
-            memory: 2G
+    statefulset:
+      volumeClaimTemplates:
+        - name: config
+          accessMode: ReadWriteOnce
+          size: 1Gi
+          storageClass: longhorn
+          globalMounts:
+            - path: /config
 
-# Using Databases with cluster DNS names may not work if nameservers are external to the k8s cluster.
 defaultPodOptions:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    supplementalGroups: [3000, 3001, 568]
+    fsGroupChangePolicy: "OnRootMismatch"
+  # Using Databases with cluster DNS names may not work
+  # if nameservers are external to the k8s cluster.
   dnsPolicy: None
   dnsConfig:
     nameservers:
