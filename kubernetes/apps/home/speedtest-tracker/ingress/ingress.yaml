@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: speedtest-tracker-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://speedtest.default.internal.javiersant.com"
+    gethomepage.dev/description: Speedtest Tracker Dashboard
+    gethomepage.dev/group: Home
+    gethomepage.dev/icon: librespeed.svg
+    gethomepage.dev/name: Speedtest Tracker
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`speedtest.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: speedtest-tracker
+          port: 80
+  tls:
+    secretName: wildcard-javiersant-com-tls

@@ -1,0 +1,38 @@
+# kubectl kustomize kubernetes/apps/home/speedtest-tracker --enable-helm > test.yaml
+controllers:
+  main:
+    replicas: 1
+    strategy: RollingUpdate
+    containers:
+      main:
+        image:
+          repository: lscr.io/linuxserver/speedtest-tracker
+          tag: 0.19.0
+        envFrom:
+          - configMapRef:
+              name: speedtest-tracker
+        resources:
+          requests:
+            cpu: 15m
+            memory: 200M
+          limits:
+            memory: 2G
+
+defaultPodOptions:
+  dnsPolicy: None
+  dnsConfig:
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+    searches:
+      - speedtest-tracker.svc.cluster.local
+    options:
+      - name: ndots
+        value: "5"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 80
