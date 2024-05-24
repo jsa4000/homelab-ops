@@ -12,6 +12,16 @@ helmCharts:
 configMapGenerator:
   - name: speedtest-tracker
     literals:
-      - DB_CONNECTION=sqlite
       - PUBLIC_DASHBOARD=true
       - TZ=CET
+
+      # SQL Lite Database Connection
+      # - DB_CONNECTION=sqlite
+
+      # Postgres Database Connection
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres-cluster-rw.database.svc.cluster.local
+      - DB_PORT=5432
+      - DB_DATABASE=speedtest_tracker
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=4UTV3f9QvbO5vgy90Dm2VCfzzf7LEpOwGRRGHZhhUSUsMnvexbqoGrxVyNVHV98z
