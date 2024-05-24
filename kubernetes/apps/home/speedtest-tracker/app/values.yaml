@@ -25,7 +25,7 @@ defaultPodOptions:
       - 1.1.1.1
       - 8.8.8.8
     searches:
-      - speedtest-tracker.svc.cluster.local
+      - speedtest-tracker.home.svc.cluster.local
     options:
       - name: ndots
         value: "5"

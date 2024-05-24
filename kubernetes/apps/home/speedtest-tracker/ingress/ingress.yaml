@@ -11,6 +11,8 @@ metadata:
     gethomepage.dev/group: Home
     gethomepage.dev/icon: librespeed.svg
     gethomepage.dev/name: Speedtest Tracker
+    gethomepage.dev/widget.type: speedtest
+    gethomepage.dev/widget.url: "http://speedtest-tracker.home.svc.cluster.local:80"
 spec:
   entryPoints:
     - websecure
