@@ -13,3 +13,4 @@ configMapGenerator:
   - name: speedtest-tracker
     literals:
       - DB_CONNECTION=sqlite
+      - PUBLIC_DASHBOARD=true
