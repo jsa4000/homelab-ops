@@ -15,21 +15,26 @@ controllers:
           requests:
             cpu: 15m
             memory: 200M
-    statefulset:
-      volumeClaimTemplates:
-        - name: config
-          accessMode: ReadWriteOnce
-          size: 1Gi
-          storageClass: longhorn
-          globalMounts:
-            - path: /config
+    #statefulset:
+    #  volumeClaimTemplates:
+    #    - name: config
+    #      accessMode: ReadWriteOnce
+    #      size: 1Gi
+    #      storageClass: longhorn
+    #      globalMounts:
+    #        - path: /config
 
 defaultPodOptions:
-  # Using Databases with cluster DNS names may not work
-  # if nameservers are external to the k8s cluster.
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    supplementalGroups: [568]
+    fsGroupChangePolicy: OnRootMismatch
   dnsPolicy: None
   dnsConfig:
     nameservers:
+      # Use ClusterIP for CoreDns service if using internal host such as database
       - 1.1.1.1
       - 8.8.8.8
     searches:
@@ -44,3 +49,11 @@ service:
     ports:
       http:
         port: 80
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /config
