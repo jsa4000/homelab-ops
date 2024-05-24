@@ -1,6 +1,8 @@
 zitadel:
   configmapConfig:
     ExternalPort: 443
+    # External Domain has been moved to an environment variable to be override more easily.
+    # ExternalDomain: zitadel.default.javiersant.com
     ExternalSecure: true
     Machine:
       Identification:

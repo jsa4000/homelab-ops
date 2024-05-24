@@ -15,6 +15,7 @@ extraArgs:
   user-id-claim: sub
   cookie-secure: true
   provider-display-name: ZITADEL
+  # The arguments are not interpreted by a shell using curly braces within a container, use parenthesis $(VAR_NAME) instead.
   oidc-jwks-url: https://$(ZITADEL_DOMAIN)/oauth/v2/keys
   oidc-issuer-url: https://$(ZITADEL_DOMAIN)
   redirect-url: https://$(OAUTH2_DOMAIN)/oauth2/callback
