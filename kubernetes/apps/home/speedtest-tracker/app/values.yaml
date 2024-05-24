@@ -15,14 +15,6 @@ controllers:
           requests:
             cpu: 15m
             memory: 200M
-    #statefulset:
-    #  volumeClaimTemplates:
-    #    - name: config
-    #      accessMode: ReadWriteOnce
-    #      size: 1Gi
-    #      storageClass: longhorn
-    #      globalMounts:
-    #        - path: /config
 
 defaultPodOptions:
   securityContext:
