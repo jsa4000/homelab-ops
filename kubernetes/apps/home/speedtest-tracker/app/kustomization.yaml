@@ -17,4 +17,4 @@ configMapGenerator:
     literals:
       - DB_CONNECTION=sqlite
       - PUBLIC_DASHBOARD=true
-      - TZ=CEST
+      - TZ=CET
