@@ -25,12 +25,6 @@ controllers:
             - path: /config
 
 defaultPodOptions:
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000
-    supplementalGroups: [3000, 3001, 568]
-    fsGroupChangePolicy: "OnRootMismatch"
   # Using Databases with cluster DNS names may not work
   # if nameservers are external to the k8s cluster.
   dnsPolicy: None
