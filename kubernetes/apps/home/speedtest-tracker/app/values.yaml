@@ -18,17 +18,18 @@ controllers:
           limits:
             memory: 2G
 
-#defaultPodOptions:
-#  dnsPolicy: None
-#  dnsConfig:
-#    nameservers:
-#      - 1.1.1.1
-#      - 8.8.8.8
-#    searches:
-#      - speedtest-tracker.home.svc.cluster.local
-#    options:
-#      - name: ndots
-#        value: "5"
+# Using Databases with cluster DNS names may not work if nameservers are external to the k8s cluster.
+defaultPodOptions:
+  dnsPolicy: None
+  dnsConfig:
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+    searches:
+      - speedtest-tracker.home.svc.cluster.local
+    options:
+      - name: ndots
+        value: "5"
 
 service:
   main:
