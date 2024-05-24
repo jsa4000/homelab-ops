@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/apps/home/homepage?ref=main
+  - external-ingress.yaml
 
 patches:
   - target:
