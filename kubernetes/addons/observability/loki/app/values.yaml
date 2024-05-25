@@ -77,9 +77,6 @@ resultsCache:
 minio:
   enabled: false
 
-gateway:
-  enabled: false
-
 monitoring:
   dashboards:
     enabled: true
