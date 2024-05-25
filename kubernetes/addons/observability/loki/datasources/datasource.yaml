@@ -3,7 +3,7 @@ datasources:
   - name: Loki
     type: loki
     access: proxy
-    url: "http://loki.obervability.svc.cluster.local:3100"
+    url: "http://loki.observability.svc.cluster.local:3100"
     version: 1
     isDefault: true
     jsonData:
