@@ -13,6 +13,8 @@ extraArgs:
   - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
   - --crd-source-kind=DNSEndpoint
   - --ingress-class=traefik-external
+  # Traefik has deprecated the legacy API group, traefik.containo.us, in favor of traefik.io.
+  # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/traefik-proxy.md
   - --traefik-disable-legacy
 policy: upsert-only
 sources: ["crd", "traefik-proxy"]
