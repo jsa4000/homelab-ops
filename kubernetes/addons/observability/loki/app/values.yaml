@@ -72,7 +72,7 @@ chunksCache:
 
 resultsCache:
   # -- Specifies whether memcached based results-cache should be enabled
-  enabled: true
+  enabled: false
 
 minio:
   enabled: false
