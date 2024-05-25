@@ -13,7 +13,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: alpine
-          image: alpine:3.19.1
+          image: alpine:3.20.0
           command: ["sh"]
           args: ["/etc/scripts/zitadel-init.sh"]
           envFrom:
