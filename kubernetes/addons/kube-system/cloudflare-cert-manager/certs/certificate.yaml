@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: wildcard-javiersant-com-tls
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-cert
     kind: ClusterIssuer
   commonName: "*.javiersant.com"
   dnsNames:

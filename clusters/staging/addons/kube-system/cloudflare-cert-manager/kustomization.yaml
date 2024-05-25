@@ -6,3 +6,4 @@ resources:
 
 patches:
   - path: certificate-patch.yaml
+  - path: clusterissuer-patch.yaml
