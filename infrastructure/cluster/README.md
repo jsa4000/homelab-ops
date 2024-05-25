@@ -2,11 +2,13 @@
 
 ## Installation
 
-The installation are divided into two steps:
+The installation are divided into three steps:
 
 1. Prepare a SD card with default image (only the first time).
 2. Install the SPI loader to enable NVME drive.
 3. Install the DietPi/Ubuntu using default configuration.
+
+> NOTE: Be sure to configure the Router to restrict the DHCP assignment range from 0 to 99 for example.
 
 ### Prepare SD Card
 
