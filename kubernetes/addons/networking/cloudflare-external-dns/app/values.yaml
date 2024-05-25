@@ -13,6 +13,7 @@ extraArgs:
   - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
   - --crd-source-kind=DNSEndpoint
   - --ingress-class=traefik-external
+  - --traefik-disable-legacy
 policy: upsert-only
 sources: ["crd", "traefik-proxy"]
 txtPrefix: external-dns.
