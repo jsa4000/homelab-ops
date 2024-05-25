@@ -93,8 +93,6 @@ monitoring:
     enabled: false
     grafanaAgent:
       installOperator: false
-  lokiCanary:
-    enabled: false
 
 # Zero out replica counts of other deployment modes
 backend:
