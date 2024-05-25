@@ -13,6 +13,7 @@
 
     # TODO: Add the namespace for the kustomization depending on the addon
     #   kustomize create --resources {{ repository }}//{{ path }}?ref={{ branch }} --namespace {{ namespace }}
+    #   kubectl kustomize . --enable-helm | kubectl apply -f - || true
     - name: Install Cilium Addon (Eventual)
       vars:
         timeout: 35s
