@@ -11,6 +11,8 @@
       failed_when: false
       changed_when: false
 
+    # TODO: Add the namespace for the kustomization depending on the addon
+    #   kustomize create --resources {{ repository }}//{{ path }}?ref={{ branch }} --namespace {{ namespace }}
     - name: Install Cilium Addon (Eventual)
       vars:
         timeout: 35s
