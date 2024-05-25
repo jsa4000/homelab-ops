@@ -65,8 +65,14 @@ singleBinary:
     size: 1Gi
 
 chunksCache:
+  # -- Specifies whether memcached based chunks-cache should be enabled
+  enabled: false
   # default is 500MB, with limited memory keep this smaller
   writebackSizeLimit: 10MB
+
+resultsCache:
+  # -- Specifies whether memcached based results-cache should be enabled
+  enabled: true
 
 minio:
   enabled: false
