@@ -3,3 +3,15 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/observability/prometheus?ref=main
+
+patches:
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: grafana-ingress
+    path: grafana-ingress-patch.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: prometheus-ingress
+    path: prometheus-ingress-patch.yaml

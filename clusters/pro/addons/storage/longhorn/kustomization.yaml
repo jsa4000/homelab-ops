@@ -3,3 +3,10 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/storage/longhorn?ref=main
+
+patches:
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: longhorn-dashboard
+    path: ingress-patch.yaml

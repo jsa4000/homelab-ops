@@ -8,3 +8,8 @@ resources:
 
 patches:
   - path: ip-pool.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: hubble-ingress
+    path: hubble-ingress-patch.yaml

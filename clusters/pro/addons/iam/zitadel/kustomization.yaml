@@ -3,3 +3,17 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/iam/zitadel?ref=main
+
+patches:
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: zitadel-dashboard
+    path: ingress-patch.yaml
+
+configMapGenerator:
+  - name: zitadel-config
+    behavior: merge
+    literals:
+      # - ZITADEL_EXTERNALDOMAIN=zitadel.javiersant.com
+      - ZITADEL_EXTERNALDOMAIN=zitadel.internal.javiersant.com

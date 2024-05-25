@@ -1,0 +1,10 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-cert
+spec:
+  acme:
+    # staging
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # prod
+    # server: https://acme-v02.api.letsencrypt.org/directory

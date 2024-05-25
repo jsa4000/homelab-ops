@@ -3,3 +3,7 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/kube-system/cloudflare-cert-manager?ref=main
+
+patches:
+  - path: certificate-patch.yaml
+  - path: clusterissuer-patch.yaml

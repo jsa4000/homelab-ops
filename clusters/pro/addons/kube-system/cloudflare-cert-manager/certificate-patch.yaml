@@ -1,0 +1,8 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-javiersant-com
+spec:
+  dnsNames:
+    - "*.javiersant.com"
+    - "*.internal.javiersant.com"

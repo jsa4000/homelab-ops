@@ -3,3 +3,19 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/iam/oauth2-proxy?ref=main
+
+patches:
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: oauth2-proxy
+    path: ingress-patch.yaml
+
+configMapGenerator:
+  - name: oauth2-zitadel-config
+    behavior: merge
+    literals:
+    # - ZITADEL_DOMAIN=zitadel.javiersant.com
+    # - OAUTH2_DOMAIN=oauth.javiersant.com
+      - ZITADEL_DOMAIN=zitadel.internal.javiersant.com
+      - OAUTH2_DOMAIN=oauth.internal.javiersant.com
