@@ -56,6 +56,9 @@ singleBinary:
     # Keep a little bit lower than memory limits
     - name: GOMEMLIMIT
       value: 3750MiB
+  persistence:
+    enabled: true
+    size: 1Gi
 
 chunksCache:
   # default is 500MB, with limited memory keep this smaller
