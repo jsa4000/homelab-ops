@@ -1,29 +1,34 @@
 loki:
-  structuredConfig:
-    auth_enabled: false
-    server:
-      log_level: info
-      http_listen_port: 3100
-      grpc_listen_port: 9095
-    limits_config:
-      retention_period: 14d
-      enforce_metric_name: false
-      reject_old_samples: true
-      reject_old_samples_max_age: 168h
-      max_cache_freshness_per_query: 10m
-      split_queries_by_interval: 24h
-      max_query_parallelism: 100
-      ingestion_rate_mb: 50
-      ingestion_burst_size_mb: 1000
-      per_stream_rate_limit: 5MB
-      per_stream_rate_limit_burst: 20MB
-      shard_streams:
-        enabled: true
-    commonConfig:
-      path_prefix: /var/loki
-      replication_factor: 1
-    analytics:
-      reporting_enabled: false
+  auth_enabled: false
+  server:
+    log_level: info
+    http_listen_port: 3100
+    grpc_listen_port: 9095
+  limits_config:
+    retention_period: 14d
+    enforce_metric_name: false
+    reject_old_samples: true
+    reject_old_samples_max_age: 168h
+    max_cache_freshness_per_query: 10m
+    split_queries_by_interval: 24h
+    max_query_parallelism: 100
+    ingestion_rate_mb: 50
+    ingestion_burst_size_mb: 1000
+    per_stream_rate_limit: 5MB
+    per_stream_rate_limit_burst: 20MB
+    shard_streams:
+      enabled: true
+  commonConfig:
+    path_prefix: /var/loki
+    replication_factor: 1
+  storage:
+    type: filesystem
+    filesystem:
+      chunks_directory: /var/loki/chunks
+      rules_directory: /var/loki/rules
+      admin_api_directory: /var/loki/admin
+  analytics:
+    reporting_enabled: false
   schemaConfig:
     configs:
       - from: 2024-04-01
@@ -65,7 +70,7 @@ chunksCache:
   writebackSizeLimit: 10MB
 
 minio:
-  enabled: true
+  enabled: false
 
 monitoring:
   dashboards:
