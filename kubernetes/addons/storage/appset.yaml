@@ -9,9 +9,15 @@ spec:
   generators:
     - matrix:
         generators:
+          - clusters:
+              selector:
+                matchExpressions:
+                  - key: enable_addons
+                    operator: In
+                    values: ["true"]
           - git:
               repoURL: https://github.com/jsa4000/homelab-ops
-              revision: HEAD
+              revision: '{{ index .metadata.labels "branch" }}'
               directories:
                 - path: kubernetes/addons/storage/*
                 - path: kubernetes/addons/storage/rook-ceph
@@ -19,12 +25,6 @@ spec:
               values:
                 namespace: storage
                 category: addons
-          - clusters:
-              selector:
-                matchExpressions:
-                  - key: enable_addons
-                    operator: In
-                    values: ["true"]
   syncPolicy:
     applicationsSync: create-update
   template:
@@ -35,7 +35,7 @@ spec:
       source:
         repoURL: "https://github.com/jsa4000/homelab-ops"
         path: "clusters/{{.name}}/{{.values.category}}/{{.values.namespace}}/{{.path.basename}}"
-        targetRevision: HEAD
+        targetRevision: '{{ index .metadata.labels "branch" }}'
         directory:
           recurse: false
         kustomize:
