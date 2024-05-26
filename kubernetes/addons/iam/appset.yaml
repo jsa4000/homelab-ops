@@ -17,7 +17,7 @@ spec:
                     values: ["true"]
           - git:
               repoURL: https://github.com/jsa4000/homelab-ops
-              revision: '{{ index .metadata.labels "branch" }}'
+              revision: '{{ index .metadata.labels "tag" }}'
               directories:
                 - path: kubernetes/addons/iam/*
               values:
@@ -33,7 +33,7 @@ spec:
       source:
         repoURL: "https://github.com/jsa4000/homelab-ops"
         path: "clusters/{{.name}}/{{.values.category}}/{{.values.namespace}}/{{.path.basename}}"
-        targetRevision: '{{ index .metadata.labels "branch" }}'
+        targetRevision: '{{ index .metadata.labels "tag" }}'
         directory:
           recurse: false
         kustomize:

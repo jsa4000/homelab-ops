@@ -17,7 +17,7 @@ spec:
                     values: ["true"]
           - git:
               repoURL: https://github.com/jsa4000/homelab-ops
-              revision: '{{ index .metadata.labels "branch" }}'
+              revision: '{{ index .metadata.labels "tag" }}'
               directories:
                 - path: kubernetes/addons/*
               values:
@@ -32,7 +32,7 @@ spec:
       source:
         repoURL: "https://github.com/jsa4000/homelab-ops"
         path: "{{.path.path}}"
-        targetRevision: '{{ index .metadata.labels "branch" }}'
+        targetRevision: '{{ index .metadata.labels "tag" }}'
         directory:
           recurse: false
       destination:
