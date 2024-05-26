@@ -47,14 +47,14 @@ tasks:
     desc: Merge Kubernetes configuration
     env:
       KUBECONFIG:
-        sh: echo $(realpath ~/)/.kube/config:$(realpath ~/)/.kube/config.new
+        sh: echo $(realpath ~/)/.kube/config:$(realpath ~/)/.kube/config.staging
     preconditions:
-      - test -f ~/.kube/config.new
+      - test -f ~/.kube/config.staging
     cmds:
       - cp ~/.kube/config ~/.kube/config.bak
       - kubectl config view --flatten > ~/.kube/config.merged
       - mv ~/.kube/config.merged ~/.kube/config
-      - kubectl config use-context k3s-ansible
+      - kubectl config use-context k3s-staging
       - chmod o-r ~/.kube/config
       - chmod g-r ~/.kube/config
     status:
