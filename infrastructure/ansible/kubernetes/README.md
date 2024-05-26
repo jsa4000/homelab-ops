@@ -93,13 +93,13 @@ Setting up a loadbalancer or VIP beforehand to use as the API endpoint is possib
 
 # Check all servers in the inventory ('-i' flag is not necessary because it will use the default in ansible.cfg)
 ansible all -m ping
-ansible all -m ping -i inventory/inventory-local.yml
+ansible all -m ping -i inventory/inventory-staging.yml
 
 # Create cluster with default inventory and token
 ansible-playbook playbooks/site.yml
 
-# If you need to deploy a specific inventory (local)
-ansible-playbook playbooks/site.yml -i inventory/inventory-local.yml
+# If you need to deploy a specific inventory (staging)
+ansible-playbook playbooks/site.yml -i inventory/inventory-staging.yml
 
 # Create Cluster using external token
 ansible-playbook playbooks/site.yml --extra-vars token=$MY_SECURE_TOKEN
@@ -107,12 +107,12 @@ ansible-playbook playbooks/site.yml --extra-vars token=$MY_SECURE_TOKEN
 # Reset Installation
 ansible-playbook playbooks/reset.yml
 
-ansible-playbook playbooks/reset.yml -i  inventory/inventory-local.yml
+ansible-playbook playbooks/reset.yml -i  inventory/inventory-staging.yml
 
 # Reboot
 ansible-playbook playbooks/reboot.yml
 
-ansible-playbook playbooks/reboot.yml -i inventory-local.yml
+ansible-playbook playbooks/reboot.yml -i inventory-staging.yml
 
 # Add logs (register: myvar)
 - debug: var=myvar.stdout
