@@ -6,8 +6,8 @@ env:
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
   ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
-  ANSIBLE_INVENTORY_ENV: '{{.ANSIBLE_INVENTORY_ENV | default ""}}'
-  ANSIBLE_INVENTORY_FILE: "inventory{{.ANSIBLE_INVENTORY_ENV}}.yml"
+  ANSIBLE_INVENTORY_ENV: '{{.ANSIBLE_INVENTORY_ENV | default "staging"}}'
+  ANSIBLE_INVENTORY_FILE: "inventory-{{.ANSIBLE_INVENTORY_ENV}}.yml"
 
 tasks:
   init:
@@ -38,23 +38,23 @@ tasks:
 
   config-restore:
     desc: Restore Kubernetes configuration
-    preconditions:
-      - test -f ~/.kube/config.bak
     cmds:
       - mv ~/.kube/config.bak ~/.kube/config
+    ignore_error: true
 
   config:
     desc: Merge Kubernetes configuration
     env:
       KUBECONFIG:
-        sh: echo $(realpath ~/)/.kube/config:$(realpath ~/)/.kube/config.staging
+        sh: echo $(realpath ~/)/.kube/config:$(realpath ~/)/.kube/config.{{.ANSIBLE_INVENTORY_ENV}}
     preconditions:
-      - test -f ~/.kube/config.staging
+      - test -f ~/.kube/config.{{.ANSIBLE_INVENTORY_ENV}}
     cmds:
+      - task: config-restore
       - cp ~/.kube/config ~/.kube/config.bak
       - kubectl config view --flatten > ~/.kube/config.merged
       - mv ~/.kube/config.merged ~/.kube/config
-      - kubectl config use-context k3s-staging
+      - kubectl config use-context k3s-{{.ANSIBLE_INVENTORY_ENV}}
       - chmod o-r ~/.kube/config
       - chmod g-r ~/.kube/config
     status:

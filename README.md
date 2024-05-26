@@ -145,17 +145,16 @@ task brew:init
 task ansible:init
 
 # Check the inventory server statuses (staging)
-task ansible:ping ANSIBLE_INVENTORY_ENV=-staging
+task ansible:ping ANSIBLE_INVENTORY_ENV=staging
 
 # Install kubernetes (staging)
-task ansible:install ANSIBLE_INVENTORY_ENV=-staging
+task ansible:install ANSIBLE_INVENTORY_ENV=staging
 
 # Merge Kube config
-task ansible:config-restore
-task ansible:config
+task ansible:config ANSIBLE_INVENTORY_ENV=staging
 
 # Uninstall Kubernetes (staging)
-task ansible:uninstall ANSIBLE_INVENTORY_ENV=-staging
+task ansible:uninstall ANSIBLE_INVENTORY_ENV=staging
 ```
 
 ### Super-Lint
