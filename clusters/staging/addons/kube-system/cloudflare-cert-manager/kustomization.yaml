@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - github.com/jsa4000/homelab-ops//kubernetes/addons/kube-system/cloudflare-cert-manager?ref=main
+  - github.com/jsa4000/homelab-ops//kubernetes/addons/kube-system/cloudflare-cert-manager?ref=staging
 
 patches:
   - path: certificate-patch.yaml

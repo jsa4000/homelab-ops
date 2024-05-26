@@ -9,20 +9,20 @@ spec:
   generators:
     - matrix:
         generators:
-          - git:
-              repoURL: https://github.com/jsa4000/homelab-ops
-              revision: HEAD
-              directories:
-                - path: kubernetes/addons/security/*
-              values:
-                namespace: security
-                category: addons
           - clusters:
               selector:
                 matchExpressions:
                   - key: enable_addons
                     operator: In
                     values: ["true"]
+          - git:
+              repoURL: https://github.com/jsa4000/homelab-ops
+              revision: '{{ index .metadata.labels "branch" }}'
+              directories:
+                - path: kubernetes/addons/security/*
+              values:
+                namespace: security
+                category: addons
   syncPolicy:
     applicationsSync: create-update
   template:
@@ -33,7 +33,7 @@ spec:
       source:
         repoURL: "https://github.com/jsa4000/homelab-ops"
         path: "clusters/{{.name}}/{{.values.category}}/{{.values.namespace}}/{{.path.basename}}"
-        targetRevision: HEAD
+        targetRevision: '{{ index .metadata.labels "branch" }}'
         directory:
           recurse: false
         kustomize:

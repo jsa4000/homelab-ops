@@ -9,19 +9,19 @@ spec:
   generators:
     - matrix:
         generators:
-          - git:
-              repoURL: https://github.com/jsa4000/homelab-ops
-              revision: HEAD
-              directories:
-                - path: kubernetes/apps/*
-              values:
-                category: apps
           - clusters:
               selector:
                 matchExpressions:
                   - key: enable_apps
                     operator: In
                     values: ["true"]
+          - git:
+              repoURL: https://github.com/jsa4000/homelab-ops
+              revision: '{{ index .metadata.labels "branch" }}'
+              directories:
+                - path: kubernetes/apps/*
+              values:
+                category: apps
   syncPolicy:
     applicationsSync: create-update
   template:
@@ -32,7 +32,7 @@ spec:
       source:
         repoURL: "https://github.com/jsa4000/homelab-ops"
         path: "{{.path.path}}"
-        targetRevision: HEAD
+        targetRevision: '{{ index .metadata.labels "branch" }}'
         directory:
           recurse: false
       destination:

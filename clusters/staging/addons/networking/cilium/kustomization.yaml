@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: networking
 
 resources:
-  - github.com/jsa4000/homelab-ops//kubernetes/addons/networking/cilium?ref=main
+  - github.com/jsa4000/homelab-ops//kubernetes/addons/networking/cilium?ref=staging
 
 patches:
   - path: ip-pool.yaml
