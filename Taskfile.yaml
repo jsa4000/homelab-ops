@@ -18,4 +18,4 @@ tasks:
     cmds: ["task -l"]
   init:
     - task: precommit:init
-    - task: brew:init
+    # - task: brew:init
