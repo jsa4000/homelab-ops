@@ -36,7 +36,7 @@ service:
     ports:
       http:
         port: *port
-  # Service to export bittorrent
+  # Service to export bittorrent port, use NodePort or LoadBalancer to expose the service.
   bittorrent:
     enabled: true
     controller: main
