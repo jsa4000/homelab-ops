@@ -21,9 +21,6 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.template.spec.containers[]?.resources'
-      apps/Deployment:
-        ignoreDifferences: |
-          jqPathExpressions:
             - '.spec.template.spec.initContainers[]?.resources'
   params:
     create: true
