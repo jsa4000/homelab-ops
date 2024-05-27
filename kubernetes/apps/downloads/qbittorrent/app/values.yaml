@@ -11,9 +11,6 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/qbittorrent
           tag: 4.6.5
-        envFrom:
-          - configMapRef:
-              name: qbittorrent
         env:
           TZ: Europe/Madrid
           QBITTORRENT__PORT: &port 80
