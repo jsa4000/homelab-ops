@@ -5,3 +5,4 @@ namespace: downloads
 resources:
   - app
   - ingress
+  - tools
