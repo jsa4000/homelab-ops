@@ -22,6 +22,11 @@ configs:
           jqPathExpressions:
             - '.spec.template.spec.containers[]?.resources'
             - '.spec.template.spec.initContainers[]?.resources'
+      apps/DaemonSet:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.template.spec.containers[]?.resources'
+            - '.spec.template.spec.initContainers[]?.resources'
   params:
     create: true
     controller.status.processors: 10
