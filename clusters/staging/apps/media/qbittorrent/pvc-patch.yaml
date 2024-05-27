@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/resources/requests/storage
+  value: 2Gi

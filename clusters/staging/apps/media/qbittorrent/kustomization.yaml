@@ -10,3 +10,8 @@ patches:
       kind: IngressRoute
       name: qbittorrent-ingress
     path: ingress-patch.yaml
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: qbittorrent-downloads
+    path: pvc-patch.yaml
