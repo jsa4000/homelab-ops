@@ -8,6 +8,11 @@ configs:
     timeout.reconciliation: 180s
     timeout.hard.reconciliation: 0s
     timeout.reconciliation.jitter: 1m
+    resource.customizations: |
+      admissionregistration.k8s.io/MutatingWebhookConfiguration:
+        ignoreDifferences: |
+          jsonPointers:
+          - /webhooks/0/clientConfig/caBundle
   params:
     create: true
     controller.status.processors: 10
@@ -48,12 +53,6 @@ server:
     - --insecure
   extensions:
     enabled: false
-  config:
-    resource.customizations: |
-      admissionregistration.k8s.io/MutatingWebhookConfiguration:
-        ignoreDifferences: |
-          jsonPointers:
-          - /webhooks/0/clientConfig/caBundle
 
 repoServer:
   replicas: 1
