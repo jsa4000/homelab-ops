@@ -17,6 +17,10 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.webhooks[]?.clientConfig.caBundle'
+      Deployment:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.template.spec.containers[]?.resources'
   params:
     create: true
     controller.status.processors: 10
