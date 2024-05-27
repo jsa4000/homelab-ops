@@ -69,11 +69,13 @@ persistence:
     globalMounts:
       - path: /config
   downloads:
-    existingClaim: qbittorrent-downloads
+    # Persistent Volume Claims cannot be shared across namespaces (v1.26 [alpha])
+    # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#cross-namespace-data-sources
+    existingClaim: downloads
     advancedMounts:
       main:
         main:
-          - path: /media
+          - path: /downloads
   transcode:
     type: emptyDir
     globalMounts:

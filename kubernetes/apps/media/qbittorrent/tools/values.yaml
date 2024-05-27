@@ -13,7 +13,7 @@ controllers:
         args: [
           "reannounce",
           "--process-seeding",
-          "--server", "qbittorrent-main.downloads.svc.cluster.local",
+          "--server", "qbittorrent-main.media.svc.cluster.local",
           "--port", "80"
         ]
         env:

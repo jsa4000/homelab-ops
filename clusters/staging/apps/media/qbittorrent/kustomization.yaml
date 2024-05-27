@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - github.com/jsa4000/homelab-ops//kubernetes/apps/downloads/qbittorrent?ref=staging
+  - github.com/jsa4000/homelab-ops//kubernetes/apps/media/qbittorrent?ref=staging
 
 patches:
   - target:
