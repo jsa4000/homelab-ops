@@ -1,25 +1,25 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: homepage-ingress
+  name: jellyfin-ingress
   annotations:
     kubernetes.io/ingress.class: traefik-internal
     external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://homepage.default.internal.javiersant.com"
-    gethomepage.dev/description: Homepage Dashboard
-    gethomepage.dev/group: Home
-    gethomepage.dev/icon: filecloud.png
-    gethomepage.dev/name: Homepage
+    gethomepage.dev/href: "https://jellyfin.default.internal.javiersant.com"
+    gethomepage.dev/description: Jellyfin Media Server
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: jellyfin.svg
+    gethomepage.dev/name: Jellyfin
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`homepage.default.internal.javiersant.com`)
+    - match: Host(`jellyfin.default.internal.javiersant.com`)
       kind: Rule
       services:
         - kind: Service
-          name: homepage
-          port: 3000
+          name: jellyfin
+          port: 8096
   tls:
     secretName: wildcard-javiersant-com-tls
