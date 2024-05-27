@@ -43,6 +43,7 @@ k3s_cluster:
 
     # Addons
     cluster_env: staging
+    cluster_addons_tag: staging
     cluster_dotenv: "/Users/jsantosa/Projects/Github/homelab-ops/.env"
     helm_version: v3.14.3
 
