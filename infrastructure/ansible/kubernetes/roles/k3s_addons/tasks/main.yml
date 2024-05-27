@@ -19,6 +19,6 @@
   include_tasks: argocd.yml
   tags: argocd
 
-#- name: Bootstrap Cluster
-#  include_tasks: bootstrap.yml
-#  tags: bootstrap
+- name: Bootstrap Cluster
+  include_tasks: bootstrap.yml
+  tags: bootstrap

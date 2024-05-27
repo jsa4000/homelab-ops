@@ -1,4 +1,5 @@
 ---
 cluster_env: local
+cluster_addons_tag: main
 helm_version: v3.14.3
 longhorn_folder: /var/lib/longhorn

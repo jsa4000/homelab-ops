@@ -19,7 +19,7 @@
         timeout: 35s
         repository: 'github.com/jsa4000/homelab-ops'
         path: 'clusters/{{ cluster_env }}/addons/networking/cilium'
-        branch: main
+        branch: '{{ cluster_addons_tag }}'
       shell: |
         kubectl kustomize {{ repository }}//{{ path }}?ref={{ branch }} --enable-helm | kubectl apply -f - || true
         {% if item.type == 'daemonset' %}

@@ -4,8 +4,9 @@
   when: inventory_hostname == groups['server'][0]
   block:
 
-    # TODO: User main or staging depending on the environment
     - name: Create Application Set
+      vars:
+        branch: '{{ cluster_addons_tag }}'
       shell: |
-        kubectl apply -f https://raw.githubusercontent.com/jsa4000/homelab-ops/main/kubernetes/bootstrap/addons-appset.yaml
+        kubectl apply -f https://raw.githubusercontent.com/jsa4000/homelab-ops/{{ branch }}/kubernetes/bootstrap/addons-appset.yaml
       changed_when: false
