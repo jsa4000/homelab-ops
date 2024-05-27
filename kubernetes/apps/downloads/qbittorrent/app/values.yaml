@@ -36,6 +36,14 @@ service:
     ports:
       http:
         port: *port
+  bittorrent:
+    enabled: true
+    type: NodePort
+    ports:
+      bittorrent:
+        protocol: TCP
+        port: *port-bt
+        nodePort: *port-bt
 
 persistence:
   config:
