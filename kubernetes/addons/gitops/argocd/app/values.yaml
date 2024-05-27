@@ -8,6 +8,21 @@ configs:
     timeout.reconciliation: 180s
     timeout.hard.reconciliation: 0s
     timeout.reconciliation.jitter: 1m
+    # Server Side Apply differs from the original manifest so it must be ignored some fields.
+    resource.customizations: |
+      admissionregistration.k8s.io/MutatingWebhookConfiguration:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.webhooks[]?.clientConfig.caBundle'
+      admissionregistration.k8s.io/ValidatingWebhookConfiguration:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.webhooks[]?.clientConfig.caBundle'
+      apps/*:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.template.spec.containers[]?.resources'
+            - '.spec.template.spec.initContainers[]?.resources'
   params:
     create: true
     controller.status.processors: 10
