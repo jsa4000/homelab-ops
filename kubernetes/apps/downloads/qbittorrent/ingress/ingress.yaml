@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/icon: qbittorrent.svg
     gethomepage.dev/name: Torrent Client
     gethomepage.dev/widget.type: qbittorrent
-    gethomepage.dev/widget.url: "http://qbittorrent.downloads.svc.cluster.local:80"
+    gethomepage.dev/widget.url: "http://qbittorrent-main.downloads.svc.cluster.local:80"
 spec:
   entryPoints:
     - websecure
@@ -21,7 +21,7 @@ spec:
       kind: Rule
       services:
         - kind: Service
-          name: qbittorrent
+          name: qbittorrent-main
           port: 80
   tls:
     secretName: wildcard-javiersant-com-tls
