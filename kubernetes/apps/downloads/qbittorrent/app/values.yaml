@@ -14,7 +14,7 @@ controllers:
         env:
           TZ: Europe/Madrid
           QBITTORRENT__PORT: &port 80
-          QBITTORRENT__BT_PORT: &port-bt 54321
+          QBITTORRENT__BT_PORT: &port-bt 32100
           QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
           QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
             10.42.3.0/24, 10.42.0.0/24, 10.42.2.0/24, 10.42.1.0/24, 10.52.1.0/24, 192.168.205.0/24, 192.168.3.0/24
