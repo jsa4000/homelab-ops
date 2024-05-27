@@ -20,6 +20,6 @@ spec:
       services:
         - kind: Service
           name: jellyfin
-          port: 80
+          port: 8096
   tls:
     secretName: wildcard-javiersant-com-tls
