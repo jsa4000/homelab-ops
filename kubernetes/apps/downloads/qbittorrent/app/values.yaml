@@ -39,6 +39,7 @@ service:
   # Service to export bittorrent
   bittorrent:
     enabled: true
+    controller: main
     type: NodePort
     ports:
       bittorrent:
