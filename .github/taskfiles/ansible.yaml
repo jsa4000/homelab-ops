@@ -57,8 +57,8 @@ tasks:
       - kubectl config use-context k3s-{{.ANSIBLE_INVENTORY_ENV}}
       - chmod o-r ~/.kube/config
       - chmod g-r ~/.kube/config
-    status:
-      - test -f ~/.kube/config.bak
+    #status:
+    #  - test -f ~/.kube/config.bak
 
   ping:
     desc: Ping all the hosts
