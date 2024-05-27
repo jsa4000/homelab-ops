@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/href: "https://speedtest.default.internal.javiersant.com"
     gethomepage.dev/description: Speedtest Tracker Dashboard
     gethomepage.dev/group: Home
-    gethomepage.dev/icon: watchyourlan.svg
+    gethomepage.dev/icon: watchyourlan.png
     gethomepage.dev/name: Speedtest Tracker
     gethomepage.dev/widget.type: speedtest
     gethomepage.dev/widget.url: "http://speedtest-tracker.home.svc.cluster.local:80"
