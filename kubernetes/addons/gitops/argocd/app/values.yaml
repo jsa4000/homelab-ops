@@ -17,7 +17,7 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.webhooks[]?.clientConfig.caBundle'
-      apps/Deployment:
+      apps/*:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.template.spec.containers[]?.resources'
