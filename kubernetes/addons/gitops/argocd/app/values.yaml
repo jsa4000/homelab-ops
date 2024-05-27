@@ -13,6 +13,10 @@ configs:
         ignoreDifferences: |
           jsonPointers:
           - /webhooks/0/clientConfig/caBundle
+      admissionregistration.k8s.io/ValidatingWebhookConfiguration:
+        ignoreDifferences: |
+          jsonPointers:
+          - /webhooks/0/clientConfig/caBundle
   params:
     create: true
     controller.status.processors: 10
