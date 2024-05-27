@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/href: "https://homepage.default.internal.javiersant.com"
     gethomepage.dev/description: Homepage Dashboard
     gethomepage.dev/group: Home
-    gethomepage.dev/icon: alma.svg
+    gethomepage.dev/icon: filecloud-light.svg
     gethomepage.dev/name: Homepage
 spec:
   entryPoints:
