@@ -59,7 +59,6 @@ persistence:
     globalMounts:
       - path: /config
   downloads:
-    nameOverride: downloads
     type: persistentVolumeClaim
     accessMode: ReadWriteMany
     storageClass: longhorn

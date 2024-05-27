@@ -71,7 +71,7 @@ persistence:
   downloads:
     # Persistent Volume Claims cannot be shared across namespaces (v1.26 [alpha])
     # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#cross-namespace-data-sources
-    existingClaim: downloads
+    existingClaim: qbittorrent-downloads
     advancedMounts:
       main:
         main:
