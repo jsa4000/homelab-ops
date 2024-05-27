@@ -48,6 +48,12 @@ server:
     - --insecure
   extensions:
     enabled: false
+  config:
+    resource.customizations: |
+      admissionregistration.k8s.io/MutatingWebhookConfiguration:
+        ignoreDifferences: |
+          jsonPointers:
+          - /webhooks/0/clientConfig/caBundle
 
 repoServer:
   replicas: 1
