@@ -5,6 +5,7 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
+    type: statefulset
     containers:
       main:
         image:
