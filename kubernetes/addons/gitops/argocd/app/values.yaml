@@ -1,6 +1,9 @@
 crds:
   install: true
 
+global:
+  domain: argocd.default.internal.javiersant.com
+
 configs:
   cm:
     create: true
