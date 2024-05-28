@@ -1,0 +1,71 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    type: statefulset
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/sonarr
+          tag: 4.0.4
+        env:
+          TZ: Europe/Madrid
+          COMPlus_EnableDiagnostics: "0"
+          PUSHOVER_DEBUG: "false"
+          SONARR__INSTANCE_NAME: Sonarr
+          SONARR__PORT: &port 80
+          SONARR__LOG_LEVEL: info
+          SONARR__THEME: dark
+        probes:
+          liveness: &probe
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /ping
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probe
+          startup:
+            enabled: true
+        resources:
+          requests:
+            cpu: 10m
+
+defaultPodOptions:
+  enableServiceLinks: false
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+    supplementalGroups: [44, 105, 10000, 568]
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: *port
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: longhorn
+    size: 1Gi
+    globalMounts:
+      - path: /config
+  downloads:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteMany
+    storageClass: longhorn
+    size: 1Gi
+    globalMounts:
+      - path: /downloads
