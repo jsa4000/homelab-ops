@@ -11,12 +11,11 @@ alertmanager:
 grafana:
   enabled: true
   defaultDashboardsEnabled: true
-  defaultDashboardsTimezone: utc
-  adminPassword: prom-operator
-  # admin:
-  #   existingSecret: ""
-  #   userKey: admin-user
-  #   passwordKey: admin-password
+  defaultDashboardsTimezone: Europe/Madrid
+  admin:
+    existingSecret: prometheus-stack-grafana-admin
+    userKey: admin-user
+    passwordKey: admin-password
   ingress:
     enabled: false
   sidecar:
