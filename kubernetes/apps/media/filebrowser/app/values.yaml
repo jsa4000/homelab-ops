@@ -1,0 +1,79 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    type: statefulset
+    containers:
+      main:
+        image:
+          repository: filebrowser/filebrowser
+          tag: v2.30.0
+        env:
+          TZ: Europe/Madrid
+          FB_ROOT: "/downloads"
+          FB_LOG: "stdout"
+          FB_NOAUTH: "true"
+        probes:
+          liveness: &probe
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: &port 80
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probe
+          startup:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 30
+        resources:
+          requests:
+            cpu: 10m
+            memory: 50Mi
+
+defaultPodOptions:
+  enableServiceLinks: false
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+    supplementalGroups: [44, 105, 10000, 568]
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: *port
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: longhorn
+    size: 1Gi
+    globalMounts:
+      - path: /config
+  downloads:
+    # Persistent Volume Claims cannot be shared across namespaces (v1.26 [alpha])
+    # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#cross-namespace-data-sources
+    existingClaim: qbittorrent-downloads
+    advancedMounts:
+      main:
+        main:
+          - path: /downloads

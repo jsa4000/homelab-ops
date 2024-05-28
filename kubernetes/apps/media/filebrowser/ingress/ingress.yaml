@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: filebrowser-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://filebrowser.default.internal.javiersant.com"
+    gethomepage.dev/description: File Browser
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: filebrowser.svg
+    gethomepage.dev/name: filebrowser
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`filebrowser.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: filebrowser
+          port: 80
+  tls:
+    secretName: wildcard-javiersant-com-tls
