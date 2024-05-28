@@ -20,6 +20,6 @@ spec:
       services:
         - kind: Service
           name: radarr
-          port: 9696
+          port: 80
   tls:
     secretName: wildcard-javiersant-com-tls
