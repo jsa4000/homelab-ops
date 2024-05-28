@@ -7,24 +7,94 @@ controllers:
     strategy: RollingUpdate
     containers:
       main:
-        image:
+        image: &image
           repository: ghcr.io/buroa/qbtools
           tag: v0.15.2
-        args: [
-          "reannounce",
-          "--process-seeding",
-          "--server", "qbittorrent-main.media.svc.cluster.local",
-          "--port", "80"
-        ]
+        args:
+          - reannounce
+          - --process-seeding
+          - -s
+          - qbittorrent-main.media.svc.cluster.local
+          - -p
+          - "80"
         env:
           TZ: Europe/Madrid
           POD_NAMESPACE:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-        resources:
+        resources: &resources
           requests:
             cpu: 25m
+      tagging:
+        type: cronjob
+        cronjob:
+          schedule: "@hourly"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          ttlSecondsAfterFinished: 30
+        containers:
+          main:
+            image: *image
+            resources: *resources
+            args:
+              - tagging
+              - --added-on
+              - --expired
+              - --last-activity
+              - --not-working
+              - --sites
+              - --unregistered
+              - --server
+              - qbittorrent.downloads.svc.cluster.local
+              - --port
+              - "80"
+              - --config
+              - /config/config.yaml
+      prune-expired:
+        type: cronjob
+        cronjob:
+          schedule: 10 */6 * * *
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          ttlSecondsAfterFinished: 30
+        containers:
+          main:
+            image: *image
+            resources: *resources
+            args:
+              - prune
+              - --exclude-category
+              - manual
+              - --include-tag
+              - expired
+              - --exclude-tag
+              - activity:24h
+              - --server
+              - qbittorrent.downloads.svc.cluster.local
+              - --port
+              - "80"
+      prune-unregistered:
+        type: cronjob
+        cronjob:
+          schedule: 20 */6 * * *
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          ttlSecondsAfterFinished: 30
+        containers:
+          main:
+            image: *image
+            resources: *resources
+            args:
+              - prune
+              - --include-tag
+              - unregistered
+              - --exclude-tag
+              - expired
+              - --server
+              - qbittorrent.downloads.svc.cluster.local
+              - --port
+              - "80"
 
 defaultPodOptions:
   securityContext:
@@ -32,3 +102,13 @@ defaultPodOptions:
     runAsUser: 568
     runAsGroup: 568
     seccompProfile: { type: RuntimeDefault }
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: qbittorrent-tools
+    readOnly: true
+    globalMounts:
+      - path: /config/config.yaml
+        subPath: config.yaml
