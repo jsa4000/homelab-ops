@@ -26,75 +26,75 @@ controllers:
         resources: &resources
           requests:
             cpu: 25m
-      tagging:
-        type: cronjob
-        cronjob:
-          schedule: "@hourly"
-          concurrencyPolicy: Forbid
-          successfulJobsHistory: 1
-          ttlSecondsAfterFinished: 30
-        containers:
-          main:
-            image: *image
-            resources: *resources
-            args:
-              - tagging
-              - --added-on
-              - --expired
-              - --last-activity
-              - --not-working
-              - --sites
-              - --unregistered
-              - --server
-              - qbittorrent.downloads.svc.cluster.local
-              - --port
-              - "80"
-              - --config
-              - /config/config.yaml
-      prune-expired:
-        type: cronjob
-        cronjob:
-          schedule: 10 */6 * * *
-          concurrencyPolicy: Forbid
-          successfulJobsHistory: 1
-          ttlSecondsAfterFinished: 30
-        containers:
-          main:
-            image: *image
-            resources: *resources
-            args:
-              - prune
-              - --exclude-category
-              - manual
-              - --include-tag
-              - expired
-              - --exclude-tag
-              - activity:24h
-              - --server
-              - qbittorrent.downloads.svc.cluster.local
-              - --port
-              - "80"
-      prune-unregistered:
-        type: cronjob
-        cronjob:
-          schedule: 20 */6 * * *
-          concurrencyPolicy: Forbid
-          successfulJobsHistory: 1
-          ttlSecondsAfterFinished: 30
-        containers:
-          main:
-            image: *image
-            resources: *resources
-            args:
-              - prune
-              - --include-tag
-              - unregistered
-              - --exclude-tag
-              - expired
-              - --server
-              - qbittorrent.downloads.svc.cluster.local
-              - --port
-              - "80"
+  tagging:
+    type: cronjob
+    cronjob:
+      schedule: "@hourly"
+      concurrencyPolicy: Forbid
+      successfulJobsHistory: 1
+      ttlSecondsAfterFinished: 30
+    containers:
+      main:
+        image: *image
+        resources: *resources
+        args:
+          - tagging
+          - --added-on
+          - --expired
+          - --last-activity
+          - --not-working
+          - --sites
+          - --unregistered
+          - --server
+          - qbittorrent.downloads.svc.cluster.local
+          - --port
+          - "80"
+          - --config
+          - /config/config.yaml
+  prune-expired:
+    type: cronjob
+    cronjob:
+      schedule: 10 */6 * * *
+      concurrencyPolicy: Forbid
+      successfulJobsHistory: 1
+      ttlSecondsAfterFinished: 30
+    containers:
+      main:
+        image: *image
+        resources: *resources
+        args:
+          - prune
+          - --exclude-category
+          - manual
+          - --include-tag
+          - expired
+          - --exclude-tag
+          - activity:24h
+          - --server
+          - qbittorrent.downloads.svc.cluster.local
+          - --port
+          - "80"
+  prune-unregistered:
+    type: cronjob
+    cronjob:
+      schedule: 20 */6 * * *
+      concurrencyPolicy: Forbid
+      successfulJobsHistory: 1
+      ttlSecondsAfterFinished: 30
+    containers:
+      main:
+        image: *image
+        resources: *resources
+        args:
+          - prune
+          - --include-tag
+          - unregistered
+          - --exclude-tag
+          - expired
+          - --server
+          - qbittorrent.downloads.svc.cluster.local
+          - --port
+          - "80"
 
 defaultPodOptions:
   securityContext:
