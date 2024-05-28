@@ -1,0 +1,9 @@
+- op: replace
+  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+  value: staging.internal.javiersant.com
+- op: replace
+  path: /metadata/annotations/gethomepage.dev~1href
+  value: "https://filebrowser.staging.internal.javiersant.com"
+- op: replace
+  path: /spec/routes/0/match
+  value: Host(`filebrowser.staging.internal.javiersant.com`)
