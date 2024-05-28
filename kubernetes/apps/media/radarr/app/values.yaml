@@ -11,6 +11,9 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/radarr
           tag: 5.6.0
+        envFrom:
+          - secretRef:
+              name: radarr-secret
         env:
           TZ: Europe/Madrid
           RADARR__INSTANCE_NAME: Radarr
