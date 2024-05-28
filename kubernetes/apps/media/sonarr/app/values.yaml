@@ -11,6 +11,9 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/sonarr
           tag: 4.0.4
+        envFrom:
+          - secretRef:
+              name: sonarr-secret
         env:
           TZ: Europe/Madrid
           COMPlus_EnableDiagnostics: "0"
