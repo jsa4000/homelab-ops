@@ -108,7 +108,6 @@ persistence:
     enabled: true
     type: configMap
     name: qbittorrent-tools
-    readOnly: true
     globalMounts:
       - path: /config/config.yaml
         subPath: config.yaml
