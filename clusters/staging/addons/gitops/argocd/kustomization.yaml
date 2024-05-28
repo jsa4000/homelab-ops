@@ -13,3 +13,8 @@ patches:
       kind: IngressRoute
       name: argocd-dashboard
     path: ingress-patch.yaml
+  - target:
+      version: v1
+      kind: ConfigMap
+      name: argocd-cm
+    path: configmap-patch.yaml

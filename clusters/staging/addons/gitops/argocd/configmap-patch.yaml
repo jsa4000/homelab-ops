@@ -1,0 +1,3 @@
+- op: replace
+  path: /data/url
+  value: "https://argocd.staging.internal.javiersant.com"
