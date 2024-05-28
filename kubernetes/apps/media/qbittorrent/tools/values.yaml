@@ -46,7 +46,7 @@ controllers:
           - --sites
           - --unregistered
           - --server
-          - qbittorrent.downloads.svc.cluster.local
+          - qbittorrent-main.media.svc.cluster.local
           - --port
           - "80"
           - --config
@@ -71,7 +71,7 @@ controllers:
           - --exclude-tag
           - activity:24h
           - --server
-          - qbittorrent.downloads.svc.cluster.local
+          - qbittorrent-main.media.svc.cluster.local
           - --port
           - "80"
   prune-unregistered:
@@ -92,7 +92,7 @@ controllers:
           - --exclude-tag
           - expired
           - --server
-          - qbittorrent.downloads.svc.cluster.local
+          - qbittorrent-main.media.svc.cluster.local
           - --port
           - "80"
 
