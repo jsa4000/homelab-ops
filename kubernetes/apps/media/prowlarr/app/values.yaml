@@ -1,0 +1,65 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/prowlarr-nightly
+          tag: 1.18.0.4532
+        env:
+          TZ: Europe/Madrid
+          PROWLARR__INSTANCE_NAME: Prowlarr
+          PROWLARR__LOG_LEVEL: info
+          PROWLARR__AUTHENTICATION_METHOD: External
+          PROWLARR__PORT: &port 9696
+          PROWLARR__THEME: dark
+        probes:
+          liveness: &probe
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /ping
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probe
+          startup:
+            enabled: true
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
+        resources:
+          requests:
+            cpu: 10m
+
+defaultPodOptions:
+  enableServiceLinks: false
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+    supplementalGroups: [44, 105, 10000, 568]
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: *port
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: longhorn
+    size: 1Gi
