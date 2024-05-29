@@ -4,8 +4,8 @@ set -a
 set -o allexport
 
 # How To use it:
-# > source kubernetes/scripts/servarr-init.sh
-# > source kubernetes/scripts/servarr-init.sh staging
+# > source kubernetes/utils/servarr-init.sh
+# > source kubernetes/utils/servarr-init.sh pro
 
 echo "------------------------------------------------------------------------"
 echo "Initialization Script for Servarr (Prowlarr, Sonarr, Radarr, etc.)"
@@ -26,7 +26,7 @@ API_KEY=${2:-$SERVARR_APIKEY}
 INTERNAL_PORT=
 INTERNAL_SCHEME_URL=https
 INTERNAL_DOMAIN=internal.javiersant.com
-TEMPLATE_FOLDER=./kubernetes/scripts/templates/servarr
+TEMPLATE_FOLDER=./kubernetes/utils/templates/servarr
 
 # Cluster Network Configuration (kubernetes)
 CLUSTER_SCHEME_URL=http
@@ -38,15 +38,16 @@ PROWLARR=prowlarr
 PROWLARR_URL=http://prowlarr.media.svc.cluster.local:80
 PROWLARR_TEMPLATE_FOLDER=$TEMPLATE_FOLDER/$PROWLARR
 
-SONARR=sonarr
-SONARR_URL=http://sonarr.media.svc.cluster.local:80
-SONARR_TEMPLATE_FOLDER=$TEMPLATE_FOLDER/$SONARR
-
 RADARR=radarr
 RADARR_URL=http://radarr.media.svc.cluster.local:80
 RADARR_TEMPLATE_FOLDER=$TEMPLATE_FOLDER/$RADARR
 
-QBITTORRENT_URL=http://qbittorrent.media.svc.cluster.local:80
+SONARR=sonarr
+SONARR_URL=http://sonarr.media.svc.cluster.local:80
+SONARR_TEMPLATE_FOLDER=$TEMPLATE_FOLDER/$SONARR
+
+QBITTORRENT_HOST=qbittorrent.media.svc.cluster.local
+QBITTORRENT_PORT=80
 
 jq --version > /dev/null 2>&1
 if [ $? -ne 0 ]; then
@@ -82,20 +83,46 @@ echo
 
 echo -n "Adding Radarr Application -> "
 
-curl -sk --output /dev/null --write-out '%{http_code}\n' -X POST "$SCHEME_URL://$PROWLARR.$DOMAIN/api/v1/applications" \
+curl -sk --output /dev/null --write-out '%{http_code}\n' -X POST "$SCHEME_URL://$PROWLARR.$DOMAIN$PORT/api/v1/applications" \
 -H 'Accept: application/json' -H 'Content-Type: application/json' -H "X-Api-Key: $SERVARR_APIKEY" \
 --data "$(envsubst < $PROWLARR_TEMPLATE_FOLDER/create-radarr-application-request.json)"
 
 echo -n "Adding Sonarr Application -> "
 
-curl -sk --output /dev/null --write-out '%{http_code}\n' -X POST "$SCHEME_URL://prowlarr.$DOMAIN/api/v1/applications" \
+curl -sk --output /dev/null --write-out '%{http_code}\n' -X POST "$SCHEME_URL://$PROWLARR.$DOMAIN$PORT/api/v1/applications" \
 -H 'Accept: application/json' -H 'Content-Type: application/json' -H "X-Api-Key: $SERVARR_APIKEY" \
 --data "$(envsubst < $PROWLARR_TEMPLATE_FOLDER/create-sonarr-application-request.json)"
 
-# Indexes should be added manually for privacy reasons.
+# NOTE: Indexes should be added manually for privacy reasons.
 
 echo
-echo "Configuring Radarr ($SCHEME_URL://$SONARR.$DOMAIN$PORT)"
+echo "Configuring Radarr ($SCHEME_URL://$RADARR.$DOMAIN$PORT)"
 echo
 
-echo -n "Adding Radarr Application -> "
+echo -n "Adding Radarr Download Clients -> "
+
+curl -sk --output /dev/null --write-out '%{http_code}\n' -X POST "$SCHEME_URL://$RADARR.$DOMAIN$PORT/api/v3/downloadclient" \
+-H 'Accept: application/json' -H 'Content-Type: application/json' -H "X-Api-Key: $SERVARR_APIKEY" \
+--data "$(envsubst < $RADARR_TEMPLATE_FOLDER/create-download-client-request.json)"
+
+echo -n "Adding Radarr RootFolder -> "
+
+curl -sk --output /dev/null --write-out '%{http_code}\n' -X POST "$SCHEME_URL://$RADARR.$DOMAIN$PORT/api/v3/rootFolder" \
+-H 'Accept: application/json' -H 'Content-Type: application/json' -H "X-Api-Key: $SERVARR_APIKEY" \
+--data "$(envsubst < $RADARR_TEMPLATE_FOLDER/create-rootfolder-request.json)"
+
+echo
+echo "Configuring Sonarr ($SCHEME_URL://$SONARR.$DOMAIN$PORT)"
+echo
+
+echo -n "Adding Sonarr Download Clients -> "
+
+curl -sk --output /dev/null --write-out '%{http_code}\n' -X POST "$SCHEME_URL://$SONARR.$DOMAIN$PORT/api/v3/downloadclient" \
+-H 'Accept: application/json' -H 'Content-Type: application/json' -H "X-Api-Key: $SERVARR_APIKEY" \
+--data "$(envsubst < $SONARR_TEMPLATE_FOLDER/create-download-client-request.json)"
+
+echo -n "Adding Sonarr RootFolder -> "
+
+curl -sk --output /dev/null --write-out '%{http_code}\n' -X POST "$SCHEME_URL://$SONARR.$DOMAIN$PORT/api/v3/rootFolder" \
+-H 'Accept: application/json' -H 'Content-Type: application/json' -H "X-Api-Key: $SERVARR_APIKEY" \
+--data "$(envsubst < $SONARR_TEMPLATE_FOLDER/create-rootfolder-request.json)"

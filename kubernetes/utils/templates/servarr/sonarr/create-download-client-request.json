@@ -1,0 +1,67 @@
+{
+    "enable": true,
+    "protocol": "torrent",
+    "priority": 1,
+    "removeCompletedDownloads": true,
+    "removeFailedDownloads": true,
+    "name": "qBittorrent",
+    "fields": [
+        {
+            "name": "host",
+            "value": "qbittorrent.media.svc.cluster.local"
+        },
+        {
+            "name": "port",
+            "value": "80"
+        },
+        {
+            "name": "useSsl",
+            "value": false
+        },
+        {
+            "name": "urlBase"
+        },
+        {
+            "name": "username"
+        },
+        {
+            "name": "password"
+        },
+        {
+            "name": "tvCategory",
+            "value": "tv-sonarr"
+        },
+        {
+            "name": "tvImportedCategory"
+        },
+        {
+            "name": "recentTvPriority",
+            "value": 0
+        },
+        {
+            "name": "olderTvPriority",
+            "value": 0
+        },
+        {
+            "name": "initialState",
+            "value": 0
+        },
+        {
+            "name": "sequentialOrder",
+            "value": false
+        },
+        {
+            "name": "firstAndLast",
+            "value": false
+        },
+        {
+            "name": "contentLayout",
+            "value": 0
+        }
+    ],
+    "implementationName": "qBittorrent",
+    "implementation": "QBittorrent",
+    "configContract": "QBittorrentSettings",
+    "infoLink": "https://wiki.servarr.com/sonarr/supported#qbittorrent",
+    "tags": []
+}
