@@ -77,6 +77,13 @@ echo "Environment: $ENVIRONMENT"
 echo "Api Key: $API_KEY"
 echo "Domain: $DOMAIN"
 
+echo "Wait connecting to services..."
+while [ "$(curl -sk -o /dev/null -w '%{http_code}' $SCHEME_URL://$PROWLARR.$DOMAIN$PORT/ping)" -ne 200 ]; do sleep 10; done
+while [ "$(curl -sk -o /dev/null -w '%{http_code}' $SCHEME_URL://$RADARR.$DOMAIN$PORT/ping)" -ne 200 ]; do sleep 10; done
+while [ "$(curl -sk -o /dev/null -w '%{http_code}' $SCHEME_URL://$SONARR.$DOMAIN$PORT/ping)" -ne 200 ]; do sleep 10; done
+
+exit 1
+
 echo
 echo "Configuring Prowlarr ($SCHEME_URL://$PROWLARR.$DOMAIN$PORT)"
 echo
