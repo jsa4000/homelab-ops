@@ -40,6 +40,15 @@ controllers:
         resources:
           requests:
             cpu: 10m
+      exporter:
+        dependsOn: main
+        image:
+          repository: ghcr.io/onedr0p/exportarr
+          tag: v2.0.1
+        env:
+          PORT: &port-exp 9707
+          # URL
+          # APIKEY
 
 defaultPodOptions:
   enableServiceLinks: false
@@ -57,6 +66,11 @@ service:
     ports:
       http:
         port: *port
+  exporter:
+    controller: main
+    ports:
+      http:
+        port: *port-exp
 
 persistence:
   config:
@@ -74,18 +88,15 @@ persistence:
     globalMounts:
       - path: /downloads
 
-metrics:
-  enabled: true
-  serviceMonitor:
-    interval: 3m
-    scrapeTimeout: 1m
-  prometheusRule:
-    enabled: true
+serviceMonitor:
   exporter:
-    image:
-      repository: ghcr.io/onedr0p/exportarr
-      tag: v2.0.1
-    env:
-      port: 9794
-      additionalMetrics: true
-      unknownQueueItems: true
+    enabled: true
+    labels:
+      release: prometheus-stack
+    serviceName: sonarr-exporter
+    endpoints:
+      - port: http
+        scheme: http
+        path: /metrics
+        interval: 1m
+        scrapeTimeout: 10s
