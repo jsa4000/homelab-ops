@@ -45,10 +45,27 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/exportarr
           tag: v2.0.1
+        args:
+          - radarr
         env:
           PORT: &port-exp 9707
           URL: "http://radarr.media.svc.cluster.local:80"
           # APIKEY
+        probes:
+          liveness: &probe-ex
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /healthz
+                port: *port-exp
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probe-ex
+          startup:
+            enabled: true
 
 defaultPodOptions:
   enableServiceLinks: false
