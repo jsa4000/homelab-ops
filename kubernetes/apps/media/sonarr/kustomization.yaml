@@ -5,3 +5,4 @@ namespace: media
 resources:
   - app
   - ingress
+  - dashboards
