@@ -4,7 +4,7 @@ metadata:
   name: homepage-external-ingress
   annotations:
     kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: .javiersant.com
+    external-dns.alpha.kubernetes.io/target: javiersant.com
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://homepage.javiersant.com"
     gethomepage.dev/description: External Homepage Dashboard

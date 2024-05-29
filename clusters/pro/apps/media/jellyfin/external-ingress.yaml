@@ -4,7 +4,7 @@ metadata:
   name: jellyfin-ingress
   annotations:
     kubernetes.io/ingress.class: traefik-external
-    external-dns.alpha.kubernetes.io/target: .javiersant.com
+    external-dns.alpha.kubernetes.io/target: javiersant.com
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://jellyfin.javiersant.com"
     gethomepage.dev/description: Jellyfin Media Server
