@@ -73,3 +73,19 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /downloads
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    interval: 3m
+    scrapeTimeout: 1m
+  prometheusRule:
+    enabled: true
+  exporter:
+    image:
+      repository: ghcr.io/onedr0p/exportarr
+      tag: v2.0.1
+    env:
+      port: 9794
+      additionalMetrics: true
+      unknownQueueItems: true
