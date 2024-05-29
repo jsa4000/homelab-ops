@@ -63,7 +63,7 @@ defaultPodOptions:
 service:
   main:
     controller: main
-    nameOverride: ""
+    primary: true
     ports:
       http:
         port: *port

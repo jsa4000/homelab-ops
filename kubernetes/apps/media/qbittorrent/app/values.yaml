@@ -36,6 +36,7 @@ defaultPodOptions:
 service:
   main:
     controller: main
+    primary: true
     ports:
       http:
         port: *port

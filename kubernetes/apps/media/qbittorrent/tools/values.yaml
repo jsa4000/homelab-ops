@@ -14,7 +14,7 @@ controllers:
           - reannounce
           - --process-seeding
           - -s
-          - qbittorrent-main.media.svc.cluster.local
+          - qbittorrent.media.svc.cluster.local
           - -p
           - "80"
         env:
@@ -46,7 +46,7 @@ controllers:
           - --sites
           - --unregistered
           - --server
-          - qbittorrent-main.media.svc.cluster.local
+          - qbittorrent.media.svc.cluster.local
           - --port
           - "80"
           - --config
@@ -71,7 +71,7 @@ controllers:
           - --exclude-tag
           - activity:24h
           - --server
-          - qbittorrent-main.media.svc.cluster.local
+          - qbittorrent.media.svc.cluster.local
           - --port
           - "80"
   prune-unregistered:
@@ -92,7 +92,7 @@ controllers:
           - --exclude-tag
           - expired
           - --server
-          - qbittorrent-main.media.svc.cluster.local
+          - qbittorrent.media.svc.cluster.local
           - --port
           - "80"
 
