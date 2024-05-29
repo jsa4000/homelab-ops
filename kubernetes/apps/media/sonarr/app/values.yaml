@@ -53,7 +53,7 @@ controllers:
           APIKEY:
             secretKeyRef:
               name: sonarr-secret
-              key: SONARR__API_KE
+              key: SONARR__API_KEY
         probes:
           liveness: &probe-ex
             enabled: true
