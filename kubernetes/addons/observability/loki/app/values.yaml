@@ -80,7 +80,7 @@ minio:
 # This category will be Deprecated
 monitoring:
   dashboards:
-    enabled: false
+    enabled: true
     annotations:
       grafana_folder: Loki
     labels:
@@ -89,7 +89,7 @@ monitoring:
     enabled: false
     alerting: false
   serviceMonitor:
-    enabled: false
+    enabled: true
     labels:
       release: prometheus-stack
     interval: 15s
