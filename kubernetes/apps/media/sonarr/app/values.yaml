@@ -47,7 +47,7 @@ controllers:
           tag: v2.0.1
         env:
           PORT: &port-exp 9707
-          # URL
+          URL: "http://radarr-main.media.svc.cluster.local:80"
           # APIKEY
 
 defaultPodOptions:
