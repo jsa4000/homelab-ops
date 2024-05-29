@@ -48,6 +48,7 @@ controllers:
 
 defaultPodOptions:
   enableServiceLinks: false
+  # Same user as qbittorrent so it has permissions rw over downloads volume
   securityContext:
     runAsUser: 568
     runAsGroup: 568
