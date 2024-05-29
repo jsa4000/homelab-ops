@@ -19,7 +19,7 @@ controllers:
           PROWLARR__INSTANCE_NAME: Prowlarr
           PROWLARR__LOG_LEVEL: info
           PROWLARR__AUTHENTICATION_METHOD: External
-          PROWLARR__PORT: &port 9696
+          PROWLARR__PORT: &port 80
           PROWLARR__THEME: dark
         probes:
           liveness: &probe
@@ -44,6 +44,35 @@ controllers:
         resources:
           requests:
             cpu: 10m
+      exporter:
+        dependsOn: main
+        image:
+          repository: ghcr.io/onedr0p/exportarr
+          tag: v2.0.1
+        args:
+          - prowlarr
+        env:
+          PORT: &port-exp 9707
+          URL: "http://prowlarr.media.svc.cluster.local:80"
+          APIKEY:
+            secretKeyRef:
+              name: prowlarr-secret
+              key: PROWLARR__AUTH__APIKEY
+        probes:
+          liveness: &probe-ex
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /healthz
+                port: *port-exp
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probe-ex
+          startup:
+            enabled: true
 
 defaultPodOptions:
   enableServiceLinks: false
@@ -57,9 +86,15 @@ defaultPodOptions:
 service:
   main:
     controller: main
+    primary: true
     ports:
       http:
         port: *port
+  exporter:
+    controller: main
+    ports:
+      http:
+        port: *port-exp
 
 persistence:
   config:
@@ -69,3 +104,16 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /config
+
+serviceMonitor:
+  exporter:
+    enabled: true
+    labels:
+      release: prometheus-stack
+    serviceName: prowlarr-exporter
+    endpoints:
+      - port: http
+        scheme: http
+        path: /metrics
+        interval: 1m
+        scrapeTimeout: 10s
