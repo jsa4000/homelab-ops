@@ -82,8 +82,6 @@ while [ "$(curl -sk -o /dev/null -w '%{http_code}' $SCHEME_URL://$PROWLARR.$DOMA
 while [ "$(curl -sk -o /dev/null -w '%{http_code}' $SCHEME_URL://$RADARR.$DOMAIN$PORT/ping)" -ne 200 ]; do sleep 10; done
 while [ "$(curl -sk -o /dev/null -w '%{http_code}' $SCHEME_URL://$SONARR.$DOMAIN$PORT/ping)" -ne 200 ]; do sleep 10; done
 
-exit 1
-
 echo
 echo "Configuring Prowlarr ($SCHEME_URL://$PROWLARR.$DOMAIN$PORT)"
 echo
