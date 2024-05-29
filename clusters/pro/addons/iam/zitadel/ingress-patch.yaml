@@ -1,22 +1,22 @@
-#- op: replace
-#  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
-#  value: javiersant.com
-#- op: replace
-#  path: /metadata/annotations/gethomepage.dev~1href
-#  value: "https://zitadel.javiersant.com"
-#- op: replace
-#  path: /spec/routes/0/match
-#  value: Host(`zitadel.javiersant.com`)
-
-- op: replace
-  path: /metadata/annotations/kubernetes.io~1ingress.class
-  value: traefik-internal
 - op: replace
   path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
-  value: internal.javiersant.com
+  value: javiersant.com
 - op: replace
   path: /metadata/annotations/gethomepage.dev~1href
-  value: "https://zitadel.internal.javiersant.com"
+  value: "https://zitadel.javiersant.com"
 - op: replace
   path: /spec/routes/0/match
-  value: Host(`zitadel.internal.javiersant.com`)
+  value: Host(`zitadel.javiersant.com`)
+
+#- op: replace
+#  path: /metadata/annotations/kubernetes.io~1ingress.class
+#  value: traefik-internal
+#- op: replace
+#  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+#  value: internal.javiersant.com
+#- op: replace
+#  path: /metadata/annotations/gethomepage.dev~1href
+#  value: "https://zitadel.internal.javiersant.com"
+#- op: replace
+#  path: /spec/routes/0/match
+#  value: Host(`zitadel.internal.javiersant.com`)

@@ -10,7 +10,7 @@ metadata:
     gethomepage.dev/description: External Homepage Dashboard
     gethomepage.dev/group: Home
     gethomepage.dev/icon: filecloud.svg
-    gethomepage.dev/name: External Homepage
+    gethomepage.dev/name: Homepage External
 spec:
   entryPoints:
     - websecure

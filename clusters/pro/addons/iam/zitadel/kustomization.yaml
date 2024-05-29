@@ -15,5 +15,5 @@ configMapGenerator:
   - name: zitadel-config
     behavior: merge
     literals:
-      # - ZITADEL_EXTERNALDOMAIN=zitadel.javiersant.com
-      - ZITADEL_EXTERNALDOMAIN=zitadel.internal.javiersant.com
+      - ZITADEL_EXTERNALDOMAIN=zitadel.javiersant.com
+    # - ZITADEL_EXTERNALDOMAIN=zitadel.internal.javiersant.com
