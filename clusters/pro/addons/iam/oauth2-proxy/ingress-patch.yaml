@@ -1,22 +1,22 @@
-#- op: replace
-#  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
-#  value: javiersant.com
-#- op: replace
-#  path: /metadata/annotations/gethomepage.dev~1href
-#  value: "https://oauth.staging.javiersant.com"
-#- op: replace
-#  path: /spec/routes/0/match
-#  value: Host(`oauth.staging.javiersant.com`)
-
-- op: replace
-  path: /metadata/annotations/kubernetes.io~1ingress.class
-  value: traefik-internal
 - op: replace
   path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
-  value: internal.javiersant.com
+  value: javiersant.com
 - op: replace
   path: /metadata/annotations/gethomepage.dev~1href
-  value: "https://oauth.internal.javiersant.com"
+  value: "https://oauth.javiersant.com"
 - op: replace
   path: /spec/routes/0/match
-  value: Host(`oauth.internal.javiersant.com`)
+  value: Host(`oauth.javiersant.com`)
+
+#- op: replace
+#  path: /metadata/annotations/kubernetes.io~1ingress.class
+#  value: traefik-internal
+#- op: replace
+#  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+#  value: internal.javiersant.com
+#- op: replace
+#  path: /metadata/annotations/gethomepage.dev~1href
+#  value: "https://oauth.internal.javiersant.com"
+#- op: replace
+#  path: /spec/routes/0/match
+#  value: Host(`oauth.internal.javiersant.com`)
