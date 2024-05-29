@@ -50,7 +50,10 @@ controllers:
         env:
           PORT: &port-exp 9707
           URL: "http://sonarr.media.svc.cluster.local:80"
-          # APIKEY
+          APIKEY:
+            secretKeyRef:
+              name: sonarr-secret
+              key: SONARR__API_KE
         probes:
           liveness: &probe-ex
             enabled: true
