@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: home-assistant-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://home.default.internal.javiersant.com"
+    gethomepage.dev/description: Home Assistant Dashboard
+    gethomepage.dev/group: Home
+    gethomepage.dev/icon: home-assistant.svg
+    gethomepage.dev/name: Home Assistant
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`home.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: home-assistant
+          port: 8123
+  tls:
+    secretName: wildcard-javiersant-com-tls

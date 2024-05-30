@@ -9,9 +9,9 @@ patches:
       version: v1alpha1
       kind: IngressRoute
       name: home-assistant-ingress
-    path: hass-ingress-patch.yaml
+    path: home-assistant-ingress-patch.yaml
   - target:
       version: v1alpha1
       kind: IngressRoute
       name: home-assistant-code-server-ingress
-    path: hass-code-ingress-patch.yaml
+    path: code-server-ingress-patch.yaml
