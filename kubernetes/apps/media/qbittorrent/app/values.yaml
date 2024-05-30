@@ -66,3 +66,4 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /downloads
+        subPath: /downloads

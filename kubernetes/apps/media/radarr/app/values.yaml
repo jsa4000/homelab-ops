@@ -107,6 +107,9 @@ persistence:
       main:
         main:
           - path: /downloads
+            subPath: /downloads
+          - path: /media/movies
+            subPath: /media/movies
 
 serviceMonitor:
   exporter:
