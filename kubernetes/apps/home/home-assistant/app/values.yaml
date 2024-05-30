@@ -1,0 +1,53 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    type: statefulset
+    containers:
+      main:
+        image:
+          repository: ghcr.io/home-assistant/home-assistant
+          tag: 2024.5.5
+        env:
+          TZ: Europe/Madrid
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
+        resources:
+          requests:
+            cpu: 15m
+
+defaultPodOptions:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8123
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: longhorn
+    size: 1Gi
+    globalMounts:
+      - path: /config
