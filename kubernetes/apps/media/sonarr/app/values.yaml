@@ -109,6 +109,8 @@ persistence:
       main:
         main:
           - path: /downloads
+  tmp:
+    type: emptyDir
 
 serviceMonitor:
   exporter:
