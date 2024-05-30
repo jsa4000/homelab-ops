@@ -84,6 +84,7 @@ prometheusOperator:
   # https://github.com/prometheus-community/helm-charts/pull/4510
   admissionWebhooks:
     patch:
+      enabled: true
       ttlSecondsAfterFinished: 30
 
 prometheus:
