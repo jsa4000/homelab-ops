@@ -18,14 +18,6 @@ controllers:
           # Trusted Networks cidr (Flannel and Cilium)
           HASS_HTTP_TRUSTED_PROXY_1: 10.42.0.0/16
           HASS_HTTP_TRUSTED_PROXY_2: 10.52.0.0/16
-          # kubectl exec -n home home-assistant-0 -c main -it -- sh
-          # vi /config/configuration.yaml
-          #
-          # http:
-          #   use_x_forwarded_for: true
-          #   trusted_proxies:
-          #     - 10.42.0.0/16
-          #     - 10.52.0.0/16
         probes:
           liveness:
             enabled: false
