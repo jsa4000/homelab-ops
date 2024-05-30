@@ -76,7 +76,6 @@ persistence:
       main:
         main:
           - path: /downloads
-
   transcode:
     type: emptyDir
     globalMounts:
