@@ -6,6 +6,13 @@ controllers:
     replicas: 1
     strategy: RollingUpdate
     type: statefulset
+    initContainers:
+      init:
+        image:
+          repository: bash
+          tag: alpine3.20
+        command: ["bash"]
+        args: ["/etc/scripts/media-init.sh"]
     containers:
       main:
         image:
@@ -17,7 +24,7 @@ controllers:
           QBITTORRENT__BT_PORT: &port-bt 32100
           QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
           QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-            10.42.0.0/24, 10.42.1.0/24, 10.42.2.0/24, 10.42.3.0/24, 10.52.0.0/24, 10.52.1.0/24, 10.52.2.0/24, 10.52.3.0/24, 192.168.205.0/24, 192.168.3.0/24
+            10.42.0.0/16, 10.52.0.0/16, 192.168.205.0/24, 192.168.3.0/24
         resources:
           requests:
             cpu: 25m
@@ -59,6 +66,7 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /config
+  # Create 'qbittorrent-downloads' volume claim to be shared among media namespace
   downloads:
     type: persistentVolumeClaim
     accessMode: ReadWriteMany
@@ -66,3 +74,9 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /downloads
+  init:
+    type: configMap
+    name: media-init
+    defaultMode: 0775
+    globalMounts:
+      - path: /etc/scripts

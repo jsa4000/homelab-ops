@@ -1,0 +1,81 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    type: statefulset
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/home-assistant
+          # TODO: onedr0p images are not immutable, so it needed to add the @shaXYZ after the tag version to ensure using the same image.
+          # https://github.com/onedr0p/containers?tab=readme-ov-file#tag-immutability
+          tag: 2024.5.5
+        env:
+          TZ: Europe/Madrid
+          # Trusted Networks cidr (Flannel and Cilium)
+          HASS_HTTP_TRUSTED_PROXY_1: 10.42.0.0/16
+          HASS_HTTP_TRUSTED_PROXY_2: 10.52.0.0/16
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
+        resources:
+          requests:
+            cpu: 15m
+      code-server:
+        image:
+          repository: ghcr.io/coder/code-server
+          tag: 4.89.1
+        args:
+          - --auth
+          - none
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
+          - --port
+          - "8080"
+          - "/config"
+        env:
+          TZ: Europe/Madrid
+
+defaultPodOptions:
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: OnRootMismatch
+    seccompProfile: { type: RuntimeDefault }
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8123
+      code-server:
+        port: 8080
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: longhorn
+    size: 1Gi
+    globalMounts:
+      - path: /config
+  logs:
+    type: emptyDir
+    globalMounts:
+      - path: /config/logs
+  tts:
+    type: emptyDir
+    globalMounts:
+      - path: /config/tts
+  tmp:
+    type: emptyDir
