@@ -78,4 +78,5 @@ persistence:
     advancedMounts:
       main:
         main:
-          - path: /
+          - path: /downloads
+          - path: /media
