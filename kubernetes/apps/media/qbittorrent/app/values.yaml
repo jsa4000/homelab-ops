@@ -6,6 +6,13 @@ controllers:
     replicas: 1
     strategy: RollingUpdate
     type: statefulset
+    initContainers:
+      init:
+        image:
+          repository: bash
+          tag: alpine3.20
+        command: ["bash"]
+        args: ["/etc/scripts/media-init.sh"]
     containers:
       main:
         image:
@@ -22,16 +29,6 @@ controllers:
           requests:
             cpu: 25m
             memory: 700Mi
-  # Create a job instead of container-init, so it can be executed any time to create additional folders (idempotence)
-  init:
-    type: job
-    containers:
-      main:
-        image:
-          repository: bash
-          tag: alpine3.20
-        command: ["bash"]
-        args: ["/etc/scripts/media-init.sh"]
 
 defaultPodOptions:
   securityContext:
