@@ -109,7 +109,6 @@ persistence:
       main:
         main:
           - path: /downloads
-          - path: /downloads/series
 
 serviceMonitor:
   exporter:

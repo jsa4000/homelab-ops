@@ -75,8 +75,7 @@ persistence:
     advancedMounts:
       main:
         main:
-          - path: /downloads/movies
-          - path: /downloads/series
+          - path: /downloads
 
   transcode:
     type: emptyDir
