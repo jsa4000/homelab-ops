@@ -79,4 +79,3 @@ persistence:
       main:
         main:
           - path: /downloads
-          - path: /media
