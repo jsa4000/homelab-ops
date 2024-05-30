@@ -27,9 +27,9 @@ controllers:
     containers:
       main:
         image:
-          repository: alpine
-          tag: 3.20.0
-        command: ["sh"]
+          repository: bash
+          tag: alpine3.20
+        command: ["bash"]
         args: ["/etc/scripts/media-init.sh"]
 
 defaultPodOptions:

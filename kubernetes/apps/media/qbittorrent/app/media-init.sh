@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ROOT_FOLDER=/downloads
 
 FOLDERS=( "movies" "series" "deleted" "tmp")
