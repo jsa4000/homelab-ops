@@ -10,7 +10,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/sonarr
-          tag: 4.0.4
+          tag: 4.0.5
         envFrom:
           - secretRef:
               name: sonarr-secret
