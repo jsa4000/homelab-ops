@@ -2,7 +2,7 @@
 
 ROOT_FOLDER=/downloads
 
-FOLDERS=( "movies" "series" "deleted" "tmp")
+FOLDERS=( "movies" "series" "music" "ebooks" "deleted" "tmp")
 
 printf "Creating folder structure for media.\n"
 
