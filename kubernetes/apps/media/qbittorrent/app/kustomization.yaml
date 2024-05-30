@@ -8,3 +8,10 @@ helmCharts:
     releaseName: qbittorrent
     namespace: media
     valuesFile: values.yaml
+
+configMapGenerator:
+  - name: media-init
+    files:
+      - media-init.sh
+generatorOptions:
+  disableNameSuffixHash: true

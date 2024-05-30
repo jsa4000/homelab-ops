@@ -22,6 +22,15 @@ controllers:
           requests:
             cpu: 25m
             memory: 700Mi
+  init:
+    type: job
+    containers:
+      main:
+        image:
+          repository: alpine
+          tag: 3.20.0
+        command: ["sh"]
+        args: ["/etc/scripts/media-init.sh"]
 
 defaultPodOptions:
   securityContext:
@@ -67,3 +76,9 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /downloads
+  init:
+    type: configMap
+    name: media-init
+    defaultMode: 0775
+    globalMounts:
+      - path: /etc/scripts
