@@ -59,6 +59,7 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /config
+  # Create 'qbittorrent-downloads' volume claim to be shared among media namespace
   downloads:
     type: persistentVolumeClaim
     accessMode: ReadWriteMany
