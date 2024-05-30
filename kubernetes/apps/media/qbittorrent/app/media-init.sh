@@ -1,7 +1,7 @@
 #!/bin/bash
 
+# Folders to be created in the shared volume for media.
 ROOT_FOLDER=/downloads
-
 FOLDERS=( "movies" "series" "music" "ebooks" "deleted" "tmp")
 
 printf "Creating folder structure for media.\n"
