@@ -18,13 +18,10 @@ controllers:
           # Trusted Networks cidr (Flannel and Cilium)
           HASS_HTTP_TRUSTED_PROXY_1: 10.42.0.0/16
           HASS_HTTP_TRUSTED_PROXY_2: 10.52.0.0/16
-        probes:
-          liveness:
-            enabled: false
-          readiness:
-            enabled: false
-          startup:
-            enabled: false
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
         resources:
           requests:
             cpu: 15m
@@ -48,10 +45,12 @@ controllers:
 defaultPodOptions:
   automountServiceAccountToken: false
   securityContext:
+    runAsNonRoot: true
     runAsUser: 568
     runAsGroup: 568
     fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
+    fsGroupChangePolicy: OnRootMismatch
+    seccompProfile: { type: RuntimeDefault }
 
 service:
   main:
@@ -70,3 +69,13 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /config
+  logs:
+    type: emptyDir
+    globalMounts:
+      - path: /config/logs
+  tts:
+    type: emptyDir
+    globalMounts:
+      - path: /config/tts
+  tmp:
+    type: emptyDir
