@@ -22,6 +22,7 @@ controllers:
           requests:
             cpu: 25m
             memory: 700Mi
+  # Create a job instead of container-init, so it can be executed any time to create additional folders (idempotence)
   init:
     type: job
     containers:
