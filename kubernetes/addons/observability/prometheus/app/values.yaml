@@ -80,6 +80,11 @@ prometheusOperator:
       requests:
         cpu: 200m
         memory: 50Mi
+  # Set ttlSecondsAfterFinished relevant for argocd
+  # https://github.com/prometheus-community/helm-charts/pull/4510
+  admissionWebhooks:
+    patch:
+      ttlSecondsAfterFinished: 30
 
 prometheus:
   enabled: true
