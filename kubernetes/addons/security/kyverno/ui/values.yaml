@@ -43,10 +43,6 @@ monitoring:
     folder:
       annotation: grafana_folder
       name: Security
-    datasource:
-      label: Prometheus
-      pluginId: prometheus
-      pluginName: Prometheus
 
 global:
   plugins:
