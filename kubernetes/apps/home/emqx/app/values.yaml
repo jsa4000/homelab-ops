@@ -26,6 +26,8 @@ envFromSecret: emqx-basic-auth
 emqxConfig:
   EMQX_ALLOW_ANONYMOUS: "false"
   MQX_AUTH__MNESIA__PASSWORD_HASH: plain
+  EMQX_DASHBOARD__DEFAULT_USERNAME: "admin"
+  EMQX_DASHBOARD__DEFAULT_PASSWORD: "public"
 
 service:
   type: LoadBalancer
