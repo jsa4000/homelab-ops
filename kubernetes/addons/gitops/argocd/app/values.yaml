@@ -41,10 +41,10 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.rules[]?.skipBackgroundRequests'
-      Service:
-        ignoreDifferences: |
-          jqPathExpressions:
-            - '.spec.ports[]?.nodePort'
+      # Service:
+      #  ignoreDifferences: |
+      #    jqPathExpressions:
+      #      - '.spec.ports[]?.nodePort'
       apps/StatefulSet:
         ignoreDifferences: |
           jqPathExpressions:

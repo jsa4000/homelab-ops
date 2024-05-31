@@ -35,8 +35,30 @@ service:
   type: LoadBalancer
   loadBalancerIP: 192.168.205.202
   externalTrafficPolicy: Cluster
+  # Allocate ports so ArgoCD does not complaint for ServerSide Apply
+  nodePorts:
+    mqtt: 31100
+    mqttssl: 31101
+    mgmt: 31102
+    ws: 31103
+    wss: 31104
+    dashboard: 31105
+    dashboardtls: 31106
   labels:
     release: prometheus-stack
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - emqx
+          topologyKey: kubernetes.io/hostname
 
 metrics:
   enabled: true
