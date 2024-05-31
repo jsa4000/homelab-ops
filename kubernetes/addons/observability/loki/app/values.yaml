@@ -82,7 +82,7 @@ monitoring:
   dashboards:
     enabled: false
     annotations:
-      grafana_folder: Loki
+      grafana_folder: Observability
     labels:
       grafana_dashboard: "true"
   rules:

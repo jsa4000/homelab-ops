@@ -8,5 +8,7 @@ configMapGenerator:
       - postgres-dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    grafana_folder: "Database"
   labels:
     grafana_dashboard: "true"

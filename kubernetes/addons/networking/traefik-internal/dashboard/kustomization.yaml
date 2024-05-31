@@ -9,5 +9,7 @@ configMapGenerator:
       - traefik-dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    grafana_folder: "Networking"
   labels:
     grafana_dashboard: "true"

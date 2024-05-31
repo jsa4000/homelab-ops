@@ -8,5 +8,7 @@ configMapGenerator:
       - dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    grafana_folder: "Media"
   labels:
     grafana_dashboard: "true"

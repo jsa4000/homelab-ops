@@ -8,5 +8,7 @@ configMapGenerator:
       - longhorn-dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    grafana_folder: "Storage"
   labels:
     grafana_dashboard: "true"

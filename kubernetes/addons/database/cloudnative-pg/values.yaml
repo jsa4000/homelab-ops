@@ -10,5 +10,7 @@ monitoring:
   podMonitorEnabled: false
   grafanaDashboard:
     create: true
-    sidecarLabel: "grafana_dashboard"
-    sidecarLabelValue: "true"
+    annotations:
+      grafana_folder: "Database"
+    labels:
+      grafana_dashboard: "true"
