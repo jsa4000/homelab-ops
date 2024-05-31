@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - github.com/jsa4000/homelab-ops//kubernetes/apps/home/emqx?ref=staging
+
+patches:
+  - target:
+      version: v1
+      kind: Service
+      name: emqx
+    path: service-patch.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: emqx-ingress
+    path: ingress-patch.yaml
