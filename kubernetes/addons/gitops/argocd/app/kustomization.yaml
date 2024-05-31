@@ -8,7 +8,7 @@ resources:
 helmCharts:
   - name: argo-cd
     repo: https://argoproj.github.io/argo-helm
-    version: 7.0.0
+    version: 7.1.0
     releaseName: argocd
     namespace: gitops
     includeCRDs: true
