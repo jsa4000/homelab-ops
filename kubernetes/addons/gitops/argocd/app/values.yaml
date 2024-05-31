@@ -37,6 +37,10 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.data[]?.remoteRef'
+      kyverno.io/ClusterPolicy:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.rules[]?.skipBackgroundRequests'
   params:
     create: true
     controller.status.processors: 10
