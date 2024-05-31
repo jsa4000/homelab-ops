@@ -21,3 +21,10 @@ helmCharts:
       podSecurityStandard: baseline
       # Pod Security Standard (`low`, `medium`, `high`).
       podSecuritySeverity: medium
+      # API server behavior if the webhook fails to respond ('Ignore', 'Fail')
+      # For more info: https://kyverno.io/docs/writing-policies/policy-settings/
+      failurePolicy: Fail
+      # Validation failure action (`Audit`, `Enforce`).
+      # For more info https://kyverno.io/docs/writing-policies/validate.
+      validationFailureAction: Audit
+      background: true
