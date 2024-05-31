@@ -94,12 +94,16 @@ backgroundController:
       memory: 64Mi
 
 cleanupController:
+  enabled: true
+  replicas: 1
   serviceMonitor:
     enabled: true
     additionalLabels:
       release: prometheus-stack
 
 reportsController:
+  enabled: true
+  replicas: 1
   serviceMonitor:
     enabled: true
     additionalLabels:
