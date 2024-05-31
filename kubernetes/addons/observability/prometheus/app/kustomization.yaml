@@ -13,6 +13,7 @@ helmCharts:
     namespace: observability
     valuesFile: values.yaml
 
+# Add grafana folder label for the default grafana dashboards.
 patches:
   - target:
       version: v1
