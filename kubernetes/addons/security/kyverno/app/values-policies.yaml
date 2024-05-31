@@ -21,3 +21,4 @@ policyExclude:
             - Pod
           namespaces:
             - storage
+            - networking
