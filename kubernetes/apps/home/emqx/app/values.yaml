@@ -34,6 +34,7 @@ emqxConfig:
 service:
   type: LoadBalancer
   loadBalancerIP: 192.168.205.202
+  externalTrafficPolicy: Local
   labels:
     release: prometheus-stack
 
