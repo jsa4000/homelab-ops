@@ -31,6 +31,22 @@ kyvernoPlugin:
 
 monitoring:
   enabled: false
+  serviceMonitor:
+    interval: "10s"
+    labels:
+      release: prometheus-stack
+  grafana:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      value: "true"
+    folder:
+      annotation: grafana_folder
+      name: Security
+    datasource:
+      label: Prometheus
+      pluginId: prometheus
+      pluginName: Prometheus
 
 global:
   plugins:
