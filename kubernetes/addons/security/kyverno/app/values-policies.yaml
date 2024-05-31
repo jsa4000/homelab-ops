@@ -13,6 +13,8 @@ validationFailureAction: Audit
 background: true
 
 # Exclude resources from individual policies
+# Scan are executed depending on the backgroundScanInterval setting (default 1h) by background Controller.
+# https://kyverno.io/docs/installation/customization/#container-flags
 policyExclude:
   disallow-host-path:
     any:
