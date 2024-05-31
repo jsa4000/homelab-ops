@@ -41,6 +41,10 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.rules[]?.skipBackgroundRequests'
+      Service:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.ports[]?.nodePort'
   params:
     create: true
     controller.status.processors: 10
