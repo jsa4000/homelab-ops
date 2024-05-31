@@ -30,7 +30,7 @@ kyvernoPlugin:
   enabled: true
 
 monitoring:
-  enabled: false
+  enabled: true
   serviceMonitor:
     interval: "10s"
     labels:
