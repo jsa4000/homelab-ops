@@ -19,27 +19,26 @@ resources:
   limits:
     memory: 512Mi
 
-#envFromSecret: emqx-secret
+envFromSecret: emqx-secret
 
 # EMQX configuration
 # https://hub.docker.com/r/emqx/emqx)
 emqxConfig:
   EMQX_ALLOW_ANONYMOUS: "false"
   MQX_AUTH__MNESIA__PASSWORD_HASH: plain
+  # Password must be reset after the first login
+  EMQX_DASHBOARD__DEFAULT_USERNAME: "admin"
+  EMQX_DASHBOARD__DEFAULT_PASSWORD: "password"
   # Allow deletion of a previous values file key (null)
   # https://github.com/helm/helm/pull/2648
-  EMQX_DASHBOARD__DEFAULT_USERNAME: "admin"
-  EMQX_DASHBOARD__DEFAULT_PASSWORD: "public"
-  # Create additional users using envFromSecret
-  # EMQX_AUTH__USER__1__USERNAME: user
-  # EMQX_AUTH__USER__1__PASSWORD
 
 service:
   type: LoadBalancer
   loadBalancerIP: 192.168.205.202
   externalTrafficPolicy: Cluster
   # Allocate custom ports since ArgoCD differs using ServerSide Apply
-  # To access through MQTT use 192.168.205.202:31100
+  # To access through MQTT use 192.168.205.202:1883
+  # To access through WebSockets use 192.168.205.202:8083
   nodePorts:
     mqtt: 31100
     mqttssl: 31101
