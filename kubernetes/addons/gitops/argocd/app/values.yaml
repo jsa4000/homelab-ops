@@ -31,8 +31,8 @@ configs:
           jqPathExpressions:
             - '.spec.template.spec.containers[]?.resources'
             - '.spec.template.spec.initContainers[]?.resources'
-            - '.spec.jobTemplate.spec.containers[]?.resources'
-            - '.spec.jobTemplate.spec.initContainers[]?.resources'
+            - '.spec.jobTemplate.spec.template.containers[]?.resources'
+            - '.spec.jobTemplate.spec.template.initContainers[]?.resources'
       external-secrets.io/ExternalSecret:
         ignoreDifferences: |
           jqPathExpressions:
