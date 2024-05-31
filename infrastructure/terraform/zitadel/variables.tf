@@ -63,5 +63,5 @@ variable "user_password" {
   description = "Password"
   type        = string
   sensitive   = true
-  default     = "password"
+  default     = "RootPassword1!"
 }
