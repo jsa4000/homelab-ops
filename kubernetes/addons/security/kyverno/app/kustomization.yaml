@@ -8,23 +8,10 @@ helmCharts:
     includeCRDs: true
     releaseName: kyverno
     namespace: security
-    valuesFile: values.yaml
+    valuesFile: values-kyverno.yaml
   - name: kyverno-policies
     repo: https://kyverno.github.io/kyverno
     version: 3.2.3
     releaseName: kyverno-policies
     namespace: security
-    valuesInline:
-      policyKind: ClusterPolicy
-      # Pod Security Standard profile (`baseline`, `restricted`, `privileged`, `custom`).
-      # https://kyverno.io/policies/pod-security.
-      podSecurityStandard: baseline
-      # Pod Security Standard (`low`, `medium`, `high`).
-      podSecuritySeverity: medium
-      # API server behavior if the webhook fails to respond ('Ignore', 'Fail')
-      # For more info: https://kyverno.io/docs/writing-policies/policy-settings/
-      failurePolicy: Fail
-      # Validation failure action (`Audit`, `Enforce`).
-      # For more info https://kyverno.io/docs/writing-policies/validate.
-      validationFailureAction: Audit
-      background: true
+    valuesFile: values-policies.yaml
