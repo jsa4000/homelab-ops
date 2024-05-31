@@ -10,8 +10,8 @@ kubectl exec -n home home-assistant-0 -c main -- bash -c "cat <<EOT >> /config/c
 http:
   use_x_forwarded_for: true
   trusted_proxies:
-    - 10.42.0.0/16
-    - 10.52.0.0/16
+    - !env_var HASS_HTTP_TRUSTED_PROXY_1
+    - !env_var HASS_HTTP_TRUSTED_PROXY_2
   ip_ban_enabled: true
   login_attempts_threshold: 5
 EOT"

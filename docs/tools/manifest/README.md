@@ -127,7 +127,7 @@ kubectl apply -f kubernetes/bootstrap/apps-appset.yaml
 # 2. Sometimes it's needed to go to ArgoCD UI and "Terminate" then force to Sync again to trigger the creation. (Zitadel)
 # 3. Delete de Job from oauth-proxy, since it depends from previous task. `kubectl delete -n iam job oauth2-proxy-zitadel-init`
 # 4. When connection errors from argocd server use 'kubectl -n gitops delete pods --all'
-# 4. Go to https://zitadel.javiersant.com and set the new password (admin/RootPasswors1!)
+# 4. Go to https://zitadel.javiersant.com and set the new password (admin/RootPassword1!)
 
 # Wathc all the pods whili initializing
 watch -n 0.5 kubectl get pods -A
@@ -613,7 +613,7 @@ kubectl create secret -n iam generic oauth2-proxy \
 
 cd ~/Projects/Github/Mini-Cluster-Setup
 
-# admin/RootPasswors1!
+# admin/RootPassword1!
 # https://zitadel.javiersant.com
 # https://zitadel.javiersant.com/.well-known/openid-configuration
 

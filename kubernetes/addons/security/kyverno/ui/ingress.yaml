@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kyverno-dashboard
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://kyverno.default.internal.javiersant.com"
+    gethomepage.dev/description: Kyverno Dashboard
+    gethomepage.dev/group: Tools
+    gethomepage.dev/icon: https://raw.githubusercontent.com/kyverno/kyverno/main/img/logo.png
+    gethomepage.dev/name: Kyverno
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`kyverno.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: policy-reporter-ui
+          port: 8080
+  tls:
+    secretName: wildcard-javiersant-com-tls

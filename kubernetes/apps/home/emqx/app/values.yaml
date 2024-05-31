@@ -1,0 +1,75 @@
+## It is recommended to have odd number of nodes in a cluster, otherwise the emqx cluster cannot be automatically healed in case of net-split.
+replicaCount: 3
+
+# Pod deployment policy
+# value: OrderedReady | Parallel
+# To redeploy a chart with existing PVC(s), the value must be set to Parallel to avoid deadlock
+podManagementPolicy: Parallel
+
+persistence:
+  enabled: true
+  size: 250Mi
+  storageClassName: longhorn
+  accessMode: ReadWriteOnce
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 150Mi
+  limits:
+    memory: 512Mi
+
+#envFromSecret: emqx-secret
+
+# EMQX configuration
+# https://hub.docker.com/r/emqx/emqx)
+emqxConfig:
+  EMQX_ALLOW_ANONYMOUS: "false"
+  MQX_AUTH__MNESIA__PASSWORD_HASH: plain
+  # Allow deletion of a previous values file key (null)
+  # https://github.com/helm/helm/pull/2648
+  EMQX_DASHBOARD__DEFAULT_USERNAME: "admin"
+  EMQX_DASHBOARD__DEFAULT_PASSWORD: "public"
+  # Create additional users using envFromSecret
+  # EMQX_AUTH__USER__1__USERNAME: user
+  # EMQX_AUTH__USER__1__PASSWORD
+
+service:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.205.202
+  externalTrafficPolicy: Cluster
+  # Allocate custom ports since ArgoCD differs using ServerSide Apply
+  # To access through MQTT use 192.168.205.202:31100
+  nodePorts:
+    mqtt: 31100
+    mqttssl: 31101
+    mgmt: 31102
+    ws: 31103
+    wss: 31104
+    dashboard: 31105
+    dashboardtls: 31106
+  labels:
+    release: prometheus-stack
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - emqx
+          topologyKey: kubernetes.io/hostname
+
+metrics:
+  enabled: true
+  type: prometheus
+
+# Setting PodDisruptionBudget.
+# https://kubernetes.io/docs/tasks/run-application/configure-pdb
+pdb:
+  enabled: true
+  maxUnavailable: 1

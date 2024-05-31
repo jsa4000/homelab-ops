@@ -10,5 +10,10 @@ monitoring:
   podMonitorEnabled: false
   grafanaDashboard:
     create: true
-    sidecarLabel: "grafana_dashboard"
-    sidecarLabelValue: "true"
+    # DEPRECATED: Use labels instead.
+    # https://github.com/cloudnative-pg/grafana-dashboards/blob/main/charts/cluster/values.yaml
+    sidecarLabel: ""
+    annotations:
+      grafana_folder: "Database"
+    labels:
+      grafana_dashboard: "true"

@@ -1,0 +1,110 @@
+upgrade:
+  fromV2: false
+
+crds:
+  install: true
+
+grafana:
+  enabled: true
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana_folder: Security
+
+features:
+  admissionReports:
+    enabled: true
+  aggregateReports:
+    enabled: true
+  policyReports:
+    enabled: true
+  autoUpdateWebhooks:
+    enabled: true
+  backgroundScan:
+    enabled: true
+  globalContext:
+    maxApiCallResponseLength: 2000000
+  logging:
+    format: text
+    verbosity: 2
+
+cleanupJobs:
+  admissionReports:
+    enabled: true
+  clusterAdmissionReports:
+    enabled: true
+  updateRequests:
+    enabled: true
+  ephemeralReports:
+    enabled: true
+  clusterEphemeralReports:
+    enabled: true
+
+admissionController:
+  replicas: 1
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      release: prometheus-stack
+  rbac:
+    clusterRole:
+      # Add rbac permissions to allow Kyverno to modify resources at flight.
+      extraResources:
+        - apiGroups:
+            - ""
+          resources:
+            - pods
+          verbs:
+            - create
+            - update
+            - delete
+  container:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  nodeAffinity: {}
+  tolerations: []
+  topologySpreadConstraints: []
+
+backgroundController:
+  enabled: true
+  replicas: 1
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      release: prometheus-stack
+  rbac:
+    clusterRole:
+      extraResources:
+        - apiGroups:
+            - ""
+          resources:
+            - pods
+          verbs:
+            - create
+            - update
+            - patch
+            - delete
+            - get
+            - list
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+
+cleanupController:
+  enabled: true
+  replicas: 1
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      release: prometheus-stack
+
+reportsController:
+  enabled: true
+  replicas: 1
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      release: prometheus-stack

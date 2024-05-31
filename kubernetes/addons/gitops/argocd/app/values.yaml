@@ -31,10 +31,24 @@ configs:
           jqPathExpressions:
             - '.spec.template.spec.containers[]?.resources'
             - '.spec.template.spec.initContainers[]?.resources'
+            - '.spec.jobTemplate.spec.template.spec.containers[]?.resources'
+            - '.spec.jobTemplate.spec.template.spec.initContainers[]?.resources'
       external-secrets.io/ExternalSecret:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.data[]?.remoteRef'
+      kyverno.io/ClusterPolicy:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.rules[]?.skipBackgroundRequests'
+      # Service:
+      #  ignoreDifferences: |
+      #    jqPathExpressions:
+      #      - '.spec.ports[]?.nodePort'
+      apps/StatefulSet:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.volumeClaimTemplates'
   params:
     create: true
     controller.status.processors: 10

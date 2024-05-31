@@ -32,7 +32,9 @@ spec:
       min_wal_size: "1GB"
       max_wal_size: "3GB"
     pg_hba:
+      # Allow ssl only hosts (with cert)
       - hostssl all all all cert
+      # Reject all non ssl connections.
       - host all all all reject
   logLevel: debug
   storage:

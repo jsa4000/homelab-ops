@@ -1,4 +1,3 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -8,5 +7,7 @@ configMapGenerator:
       - cert-manager-dashboard.json=https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    grafana_folder: "Kubernetes"
   labels:
     grafana_dashboard: "true"

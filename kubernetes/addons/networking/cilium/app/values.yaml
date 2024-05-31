@@ -72,6 +72,8 @@ hubble:
       enabled: true
       label: grafana_dashboard
       labelValue: "true"
+      annotations:
+        grafana_folder: Networking
   ui:
     enabled: true
     replicas: 1
@@ -117,6 +119,8 @@ dashboards:
   enabled: true
   label: grafana_dashboard
   labelValue: "true"
+  annotations:
+    grafana_folder: Networking
 
 # mTLS
 #authentication:

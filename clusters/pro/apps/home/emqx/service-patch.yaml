@@ -1,0 +1,4 @@
+## Using LoadBalancer to assign VIP Address (default)
+- op: replace
+  path: /spec/loadBalancerIP
+  value: 192.168.3.202
