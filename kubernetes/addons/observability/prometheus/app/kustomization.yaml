@@ -17,7 +17,7 @@ patches:
   - target:
       version: v1
       kind: ConfigMap
-      labelSelector: grafana_dashboard in (1)
+      labelSelector: grafana_dashboard in (true)
     patch: |-
       apiVersion: v1
       kind: ConfigMap
