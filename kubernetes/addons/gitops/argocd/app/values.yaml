@@ -45,6 +45,10 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.ports[]?.nodePort'
+      apps/StatefulSet:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.volumeClaimTemplates'
   params:
     create: true
     controller.status.processors: 10
