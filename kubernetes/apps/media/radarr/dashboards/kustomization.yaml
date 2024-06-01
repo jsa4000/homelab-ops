@@ -4,7 +4,8 @@ kind: Kustomization
 configMapGenerator:
   - name: radarr-dashboard
     files:
-      - dashboard.json
+      # Dashboards must have different file names to avoid conflicts in grafana.
+      - radarr.json=dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

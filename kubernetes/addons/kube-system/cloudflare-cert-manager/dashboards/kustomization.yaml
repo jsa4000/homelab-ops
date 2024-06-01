@@ -4,7 +4,8 @@ kind: Kustomization
 configMapGenerator:
   - name: cert-manager-dashboard
     files:
-      - cert-manager-dashboard.json=https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+      # Dashboards must have different file names to avoid conflicts in grafana.
+      - cert-manager.json=https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
