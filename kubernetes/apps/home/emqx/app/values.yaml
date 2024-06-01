@@ -1,5 +1,6 @@
 ## It is recommended to have odd number of nodes in a cluster, otherwise the emqx cluster cannot be automatically healed in case of net-split.
 replicaCount: 3
+recreatePods: true
 
 # Pod deployment policy
 # value: OrderedReady | Parallel
