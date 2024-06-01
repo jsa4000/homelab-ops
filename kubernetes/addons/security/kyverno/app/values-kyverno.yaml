@@ -22,6 +22,9 @@ features:
     enabled: true
   backgroundScan:
     enabled: true
+    backgroundScanWorkers: 2
+    backgroundScanInterval: 1h
+    skipResourceFilters: true
   globalContext:
     maxApiCallResponseLength: 2000000
   logging:
@@ -31,14 +34,24 @@ features:
 cleanupJobs:
   admissionReports:
     enabled: true
+    schedule: '*/30 * * * *'
+    threshold: 10000
   clusterAdmissionReports:
     enabled: true
+    schedule: '*/30 * * * *'
+    threshold: 10000
   updateRequests:
     enabled: true
+    schedule: '*/30 * * * *'
+    threshold: 10000
   ephemeralReports:
     enabled: true
+    schedule: '*/30 * * * *'
+    threshold: 10000
   clusterEphemeralReports:
     enabled: true
+    schedule: '*/30 * * * *'
+    threshold: 10000
 
 admissionController:
   replicas: 1
