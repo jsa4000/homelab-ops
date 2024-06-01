@@ -51,7 +51,6 @@ controllers:
       ttlSecondsAfterFinished: 30
     containers:
       main:
-        restartPolicy: Never
         image:
           repository: bash
           tag: alpine3.20
