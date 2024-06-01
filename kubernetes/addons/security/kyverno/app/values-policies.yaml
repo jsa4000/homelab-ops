@@ -24,3 +24,30 @@ policyExclude:
           namespaces:
             - storage
             - networking
+            - observability
+  disallow-capabilities:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - storage
+            - networking
+  disallow-host-ports:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - storage
+            - networking
+            - observability
+  disallow-host-namespaces:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - storage
+            - networking
+            - observability

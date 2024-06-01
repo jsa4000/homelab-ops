@@ -4,7 +4,8 @@ kind: Kustomization
 configMapGenerator:
   - name: longhorn-dashboard
     files:
-      - longhorn-dashboard.json
+      # Dashboards must have different file names to avoid conflicts in grafana.
+      - longhorn.json=dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

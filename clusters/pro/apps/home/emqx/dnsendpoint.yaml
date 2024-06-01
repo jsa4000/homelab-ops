@@ -1,6 +1,6 @@
 - op: replace
   path: /spec/endpoints/0/dnsName
-  value: internal.javiersant.com
+  value: mqtt.internal.javiersant.com
 - op: replace
   path: /spec/endpoints/0/targets/0
-  value: 192.168.3.201
+  value: 192.168.3.202

@@ -4,7 +4,8 @@ kind: Kustomization
 configMapGenerator:
   - name: postgres-dashboard
     files:
-      - postgres-dashboard.json
+      # Dashboards must have different file names to avoid conflicts in grafana.
+      - postgres.json=dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

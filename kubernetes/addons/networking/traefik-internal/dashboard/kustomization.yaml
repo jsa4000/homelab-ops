@@ -5,7 +5,8 @@ configMapGenerator:
   # Ref: https://grafana.com/grafana/dashboards/4475
   - name: traefik-internal-dashboard
     files:
-      - traefik-dashboard.json
+      # Dashboards must have different file names to avoid conflicts in grafana.
+      - traefik.json=dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

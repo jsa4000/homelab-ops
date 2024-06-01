@@ -1,5 +1,6 @@
 ## It is recommended to have odd number of nodes in a cluster, otherwise the emqx cluster cannot be automatically healed in case of net-split.
 replicaCount: 3
+recreatePods: true
 
 # Pod deployment policy
 # value: OrderedReady | Parallel
@@ -19,27 +20,22 @@ resources:
   limits:
     memory: 512Mi
 
-#envFromSecret: emqx-secret
+envFromSecret: emqx-secret
 
 # EMQX configuration
 # https://hub.docker.com/r/emqx/emqx)
 emqxConfig:
   EMQX_ALLOW_ANONYMOUS: "false"
-  MQX_AUTH__MNESIA__PASSWORD_HASH: plain
+  EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
   # Allow deletion of a previous values file key (null)
   # https://github.com/helm/helm/pull/2648
-  EMQX_DASHBOARD__DEFAULT_USERNAME: "admin"
-  EMQX_DASHBOARD__DEFAULT_PASSWORD: "public"
-  # Create additional users using envFromSecret
-  # EMQX_AUTH__USER__1__USERNAME: user
-  # EMQX_AUTH__USER__1__PASSWORD
 
 service:
   type: LoadBalancer
   loadBalancerIP: 192.168.205.202
   externalTrafficPolicy: Cluster
-  # Allocate custom ports since ArgoCD differs using ServerSide Apply
-  # To access through MQTT use 192.168.205.202:31100
+  # Allocate custom NodePorts since ArgoCD detect differences using Server-Side Apply
+  # In order to access through empqz, use standard porst such as 1883 (plain mqtt) or 8083 (websockets)
   nodePorts:
     mqtt: 31100
     mqttssl: 31101
@@ -51,6 +47,7 @@ service:
   labels:
     release: prometheus-stack
 
+# Spread instances over the custer to avoid being deployed in the same node.
 affinity:
   podAntiAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:

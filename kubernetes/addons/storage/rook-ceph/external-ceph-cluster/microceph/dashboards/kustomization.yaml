@@ -5,7 +5,8 @@ configMapGenerator:
   # Ref: https://grafana.com/grafana/dashboards/2842
   - name: ceph-cluster-dashboard
     files:
-      - ceph-cluster-dashboard.json
+      # Dashboards must have different file names to avoid conflicts in grafana.
+      - ceph-cluster.json=dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
