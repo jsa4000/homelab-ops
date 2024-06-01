@@ -30,6 +30,8 @@ emqxConfig:
   # https://github.com/emqx/emqx/blob/master/deploy/charts/emqx/values.yaml
   # Allow deletion of a previous values file key (null)
   # https://github.com/helm/helm/pull/2648
+  EMQX_DASHBOARD__DEFAULT_USERNAME: null
+  EMQX_DASHBOARD__DEFAULT_PASSWORD: null
 
 service:
   type: LoadBalancer
