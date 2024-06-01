@@ -11,6 +11,7 @@ spec:
   secretName: postgres-zitadel-cert
   usages:
     - client auth
+  # Username to be used for the certificate
   commonName: zitadel
   issuerRef:
     name: ca-issuer

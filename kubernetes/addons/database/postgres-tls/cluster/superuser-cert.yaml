@@ -6,7 +6,8 @@ spec:
   secretName: postgres-tls-superuser-cert
   usages:
     - client auth
-  commonName: postgres-tls
+  # Username to be used for the certificate
+  commonName: postgres
   issuerRef:
     name: ca-issuer
     kind: ClusterIssuer
