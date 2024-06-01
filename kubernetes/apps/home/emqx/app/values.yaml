@@ -26,7 +26,7 @@ envFromSecret: emqx-secret
 # https://hub.docker.com/r/emqx/emqx)
 emqxConfig:
   EMQX_ALLOW_ANONYMOUS: "false"
-  MQX_AUTH__MNESIA__PASSWORD_HASH: plain
+  EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
   # Password must be reset after the first login (admin/public)
   # https://github.com/emqx/emqx/blob/master/deploy/charts/emqx/values.yaml
   # Allow deletion of a previous values file key (null)
