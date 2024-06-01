@@ -4,8 +4,10 @@ metadata:
   name: postgres-tls-client-cert
 spec:
   secretName: postgres-tls-client-cert
+  # Certificate to be used for Authentication and Authorization.
   usages:
     - client auth
+  # Username to be used for the certificate
   commonName: app
   issuerRef:
     name: ca-issuer

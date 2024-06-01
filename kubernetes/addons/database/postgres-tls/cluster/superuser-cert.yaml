@@ -4,9 +4,12 @@ metadata:
   name: postgres-tls-superuser-cert
 spec:
   secretName: postgres-tls-superuser-cert
+  # Certificate to be used for Authentication and Authorization.
   usages:
     - client auth
   # Username to be used for the certificate
+  # By default 'postgres' is the owner of the database.
+  # https://cloudnative-pg.io/documentation/1.18/bootstrap/#bootstrap
   commonName: postgres
   issuerRef:
     name: ca-issuer

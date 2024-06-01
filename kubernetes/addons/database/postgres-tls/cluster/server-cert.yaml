@@ -4,8 +4,11 @@ metadata:
   name: postgres-tls-server-cert
 spec:
   secretName: postgres-tls-server-cert
+  # Certificate to be used for the SSL connection (client-server)
+  # https://cloudnative-pg.io/documentation/current/certificates/
   usages:
     - server auth
+  # DNS names that allows this certificate
   dnsNames:
     - postgres-tls-rw
     - postgres-tls-rw.database.svc.cluster.local
