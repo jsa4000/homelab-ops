@@ -27,8 +27,6 @@ envFromSecret: emqx-secret
 emqxConfig:
   EMQX_ALLOW_ANONYMOUS: "false"
   EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
-  # Password must be reset after the first login (admin/public)
-  # https://github.com/emqx/emqx/blob/master/deploy/charts/emqx/values.yaml
   # Allow deletion of a previous values file key (null)
   # https://github.com/helm/helm/pull/2648
 
