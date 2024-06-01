@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-cluster-tls
+  name: postgres-tls
 spec:
   instances: 1
   startDelay: 300
@@ -46,10 +46,10 @@ spec:
     storageClass: longhorn
   enableSuperuserAccess: true
   certificates:
-    serverTLSSecret: postgres-cluster-tls-server-cert
-    serverCASecret: postgres-cluster-tls-server-cert
-    clientCASecret: postgres-cluster-tls-client-cert
-    replicationTLSSecret: postgres-cluster-tls-client-cert
+    serverTLSSecret: postgres-tls-server-cert
+    serverCASecret: postgres-tls-server-cert
+    clientCASecret: postgres-tls-client-cert
+    replicationTLSSecret: postgres-tls-client-cert
   monitoring:
     enablePodMonitor: true
   bootstrap:
