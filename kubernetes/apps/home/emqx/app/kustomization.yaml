@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - external-secret.yaml
 
+# As an alternative it can be used the EMQX Operator to simplify and manage EMQX Clusters.
+# https://github.com/emqx/emqx-operator
 helmCharts:
   - name: emqx
     repo: https://repos.emqx.io/charts
