@@ -39,4 +39,15 @@ policyExclude:
           kinds:
             - Pod
           namespaces:
+            - storage
             - networking
+            - observability
+  disallow-host-namespaces:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - storage
+            - networking
+            - observability
