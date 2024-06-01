@@ -41,24 +41,6 @@ controllers:
           - "/config"
         env:
           TZ: Europe/Madrid
-  init:
-    type: job
-    job:
-      backoffLimit: 5
-      parallelism: 1
-      # By default, a Job will run uninterrupted
-      # activeDeadlineSeconds: 1000
-      ttlSecondsAfterFinished: 30
-    containers:
-      main:
-        image:
-          repository: bash
-          tag: alpine3.20
-        command: ["bash"]
-        args: ["/etc/scripts/home-assistant-init.sh"]
-        resources:
-          requests:
-            cpu: 15m
 
 defaultPodOptions:
   automountServiceAccountToken: false
@@ -97,9 +79,3 @@ persistence:
       - path: /config/tts
   tmp:
     type: emptyDir
-  init:
-    type: configMap
-    name: home-assistant-init
-    defaultMode: 0775
-    globalMounts:
-      - path: /etc/scripts
