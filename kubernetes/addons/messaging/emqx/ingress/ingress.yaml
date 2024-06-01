@@ -8,7 +8,7 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://emqx.default.internal.javiersant.com"
     gethomepage.dev/description: EMQX MQTT broker
-    gethomepage.dev/group: Home
+    gethomepage.dev/group: Tools
     gethomepage.dev/icon: emqx.svg
     gethomepage.dev/name: EMQX
 spec:

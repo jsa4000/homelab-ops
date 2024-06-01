@@ -9,6 +9,6 @@ configMapGenerator:
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
-    grafana_folder: "Home"
+    grafana_folder: "Messaging"
   labels:
     grafana_dashboard: "true"

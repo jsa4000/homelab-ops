@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - github.com/jsa4000/homelab-ops//kubernetes/apps/home/emqx?ref=main
+  - github.com/jsa4000/homelab-ops//kubernetes/addons/messaging/emqx?ref=staging
 
 patches:
   - target:

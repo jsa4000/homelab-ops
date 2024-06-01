@@ -11,5 +11,5 @@ helmCharts:
     repo: https://repos.emqx.io/charts
     version: 5.7.0
     releaseName: emqx
-    namespace: home
+    namespace: messaging
     valuesFile: values.yaml
