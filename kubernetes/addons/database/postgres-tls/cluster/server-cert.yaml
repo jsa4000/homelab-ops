@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-cluster-tls-server-cert
+spec:
+  secretName: postgres-cluster-tls-server-cert
+  usages:
+    - server auth
+  dnsNames:
+    - postgres-cluster-tls-rw
+    - postgres-cluster-tls-rw.database.svc.cluster.local
+    - postgres-cluster-tls-r
+    - postgres-cluster-tls-r.database.svc.cluster.local
+    - postgres-cluster-tls-ro
+    - postgres-cluster-tls-ro.database.svc.cluster.local
+    - localhost
+  issuerRef:
+    name: ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  secretTemplate:
+    labels:
+      # To automatically reload postgres instances to include certificates
+      cnpg.io/reload: ""

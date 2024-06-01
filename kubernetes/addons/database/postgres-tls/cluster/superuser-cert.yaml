@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postgres-cluster-superuser-cert
+  name: postgres-cluster-tls-superuser-cert
 spec:
-  secretName: postgres-cluster-superuser-cert
+  secretName: postgres-cluster-tls-superuser-cert
   usages:
     - client auth
-  commonName: postgres
+  commonName: postgres-tls
   issuerRef:
     name: ca-issuer
     kind: ClusterIssuer

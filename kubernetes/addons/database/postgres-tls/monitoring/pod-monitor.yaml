@@ -1,10 +1,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: postgres-cluster
+  name: postgres-tls-cluster
 spec:
   selector:
     matchLabels:
-      postgresql: postgres-cluster
+      postgresql: postgres-tls-cluster
   podMetricsEndpoints:
     - port: metrics

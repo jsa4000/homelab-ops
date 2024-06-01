@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Backup
 metadata:
-  name: postgres
+  name: postgres-tls
 spec:
   cluster:
-    name: postgres-cluster
+    name: postgres-tls-cluster

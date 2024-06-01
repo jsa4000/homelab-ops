@@ -4,7 +4,8 @@ namespace: database
 
 resources:
   #  - password-cluster
-  - tls-cluster
+  - cluster
   - backup
-  #  - monitoring # Don't needed since it's already created with the cluster
+  # Don't needed since it's already created with the cluster
+  #  - monitoring
   - dashboards

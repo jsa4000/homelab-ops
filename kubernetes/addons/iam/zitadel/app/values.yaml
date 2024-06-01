@@ -15,7 +15,7 @@ zitadel:
     Database:
       Postgres:
         Database: zitadel
-        Host: postgres-cluster-rw.database.svc.cluster.local
+        Host: postgres-cluster-tls-rw.database.svc.cluster.local
         Port: 5432
         MaxOpenConns: 20
         MaxIdleConns: 10
@@ -42,8 +42,8 @@ zitadel:
   masterkeySecretName: zitadel-masterkey
 
   # Postgres over TLS
-  dbSslCaCrtSecret: postgres-cluster-superuser-cert
-  dbSslAdminCrtSecret: postgres-cluster-superuser-cert
+  dbSslCaCrtSecret: postgres-cluster-tls-superuser-cert
+  dbSslAdminCrtSecret: postgres-cluster-tls-superuser-cert
   dbSslUserCrtSecret: postgres-cluster-zitadel-cert
 
 env:
