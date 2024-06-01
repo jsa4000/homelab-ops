@@ -7,7 +7,11 @@ resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/networking/traefik-internal?ref=main
 
 patches:
-  - path: dnsendpoint.yaml
+  - target:
+      version: v1alpha1
+      kind: DNSEndpoint
+      name: traefik-internal-dns
+    path: dnsendpoint.yaml
   - target:
       version: v1
       kind: Service

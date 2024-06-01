@@ -6,6 +6,11 @@ resources:
 
 patches:
   - target:
+      version: v1alpha1
+      kind: DNSEndpoint
+      name: emqx-internal-dns
+    path: dnsendpoint.yaml
+  - target:
       version: v1
       kind: Service
       name: emqx
