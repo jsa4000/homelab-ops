@@ -9,7 +9,7 @@ controllers:
       main:
         image: &image
           repository: ghcr.io/buroa/qbtools
-          tag: v0.15.2
+          tag: v0.15.3
         args:
           - reannounce
           - --process-seeding
