@@ -6,6 +6,3 @@ resources:
   #  - password-cluster
   - cluster
   - backup
-  # Don't needed since it's already created with the cluster
-  #  - monitoring
-  - dashboards
