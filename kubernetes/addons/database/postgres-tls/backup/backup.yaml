@@ -4,4 +4,4 @@ metadata:
   name: postgres-tls
 spec:
   cluster:
-    name: postgres-tls-cluster
+    name: postgres-cluster-tls
