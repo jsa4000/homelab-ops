@@ -8,3 +8,10 @@ helmCharts:
     releaseName: home-assistant
     namespace: home
     valuesFile: values.yaml
+
+configMapGenerator:
+  - name: home-assistant-init
+    files:
+      - home-assistant-init.sh
+generatorOptions:
+  disableNameSuffixHash: true
