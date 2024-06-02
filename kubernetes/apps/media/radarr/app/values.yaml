@@ -28,6 +28,10 @@ controllers:
           TZ: Europe/Madrid
           RADARR__INSTANCE_NAME: Radarr
           RADARR__PORT: &port 80
+          # TODO: Deprecate envsubt methods in radarr, sonarr, prowlarr readarr and lidarr
+          # https://github.com/onedr0p/containers/issues/1013
+          # https://github.com/onedr0p/home-ops/commit/67607bfedf21896112644338719e3fd92aad5900
+          # RADARR__LOG__DBENABLED: "False"
           RADARR__LOG_LEVEL: info
           RADARR__THEME: dark
         probes:
