@@ -4,19 +4,15 @@ crds:
   install: true
 
 operator:
-  name: keda-operator
-  revisionHistoryLimit: 10
   replicaCount: 1
   disableCompression: true
 
 metricsServer:
-  revisionHistoryLimit: 10
   replicaCount: 1
   disableCompression: true
 
 webhooks:
   enabled: true
-  useHostNetwork: false
   replicaCount: 1
 
 logging:
@@ -30,36 +26,21 @@ logging:
     level: info
     format: console
 
-serviceAccount:
-  operator:
-    create: true
-    name: keda-operator
-  metricServer:
-    create: true
-    name: keda-metrics-server
-  webhooks:
-    create: true
-    name: keda-webhook
-
 prometheus:
   metricServer:
     enabled: true
-    port: 8080
-    portName: metrics
     serviceMonitor:
       enabled: true
       additionalLabels:
         release: prometheus-stack
   operator:
     enabled: true
-    port: 8080
     serviceMonitor:
       enabled: true
       additionalLabels:
         release: prometheus-stack
   webhooks:
     enabled: true
-    port: 8080
     serviceMonitor:
       enabled: true
       additionalLabels:
