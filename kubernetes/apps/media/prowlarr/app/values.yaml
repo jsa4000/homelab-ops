@@ -67,7 +67,7 @@ controllers:
           APIKEY:
             secretKeyRef:
               name: prowlarr-secret
-              key: PROWLARR__AUTH__APIKEY
+              key: PROWLARR__API_KEY
         probes:
           liveness: &probe-ex
             enabled: true
