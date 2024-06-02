@@ -61,7 +61,7 @@ controllers:
           APIKEY:
             secretKeyRef:
               name: radarr-secret
-              key: RADARR__AUTH__APIKEY
+              key: RADARR__API_KEY
         probes:
           liveness: &probe-ex
             enabled: true
