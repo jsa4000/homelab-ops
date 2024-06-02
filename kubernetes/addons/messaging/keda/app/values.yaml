@@ -31,7 +31,15 @@ logging:
     format: console
 
 serviceAccount:
-  name: keda-operator
+  operator:
+    create: true
+    name: keda-operator
+  metricServer:
+    create: true
+    name: keda-metrics-server
+  webhooks:
+    create: true
+    name: keda-webhook
 
 prometheus:
   metricServer:
