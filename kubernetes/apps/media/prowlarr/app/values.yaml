@@ -19,8 +19,8 @@ controllers:
     containers:
       main:
         image:
-          repository: ghcr.io/onedr0p/prowlarr
-          tag: 1.8.0
+          repository:
+          tag: 1.18.0
         envFrom:
           - secretRef:
               name: prowlarr-secret
