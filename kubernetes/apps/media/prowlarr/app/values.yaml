@@ -27,6 +27,7 @@ controllers:
         env:
           TZ: Europe/Madrid
           PROWLARR__INSTANCE_NAME: Prowlarr
+          PROWLARR__LOG__DBENABLED: "False"
           PROWLARR__LOG_LEVEL: info
           PROWLARR__PORT: &port 80
           PROWLARR__THEME: dark
