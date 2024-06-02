@@ -5,7 +5,17 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
-    type: statefulset
+    # Use deployment (stateless) and Database for store the state instead.
+    # type: statefulset
+    initContainers:
+      # This container will create the main database and user
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 16.3
+        envFrom:
+          - secretRef:
+              name: sonarr-secret
     containers:
       main:
         image:
@@ -17,11 +27,12 @@ controllers:
         env:
           TZ: Europe/Madrid
           COMPlus_EnableDiagnostics: "0"
-          PUSHOVER_DEBUG: "false"
           SONARR__INSTANCE_NAME: Sonarr
-          SONARR__PORT: &port 80
-          SONARR__LOG_LEVEL: info
-          SONARR__THEME: dark
+          SONARR__SERVER__PORT: &port 80
+          SONARR__AUTH__METHOD: External
+          SONARR__LOG__DBENABLED: "False"
+          SONARR__LOG__LEVEL: info
+          SONARR__APP__THEME: dark
         probes:
           liveness: &probe
             enabled: true
