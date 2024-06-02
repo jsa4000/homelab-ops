@@ -13,8 +13,9 @@ spec:
       metadata:
         timezone: Europe/Madrid
         # At 09:00 on every day-of-week from Monday through Friday
-        start: 0 9 * * 1-5
+        # start: 0 9 * * 1-5
+        start: 0 9 * * *
         # At 17:00 on every day-of-week from Monday through Friday
         # end: 0 17 * * 1-5
-        end: 56 23 * * 1-7
+        end: 56 23 * * *
         desiredReplicas: "1"
