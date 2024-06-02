@@ -3,6 +3,6 @@ kind: Kustomization
 namespace: database
 
 resources:
-  #  - password-cluster
-  - cluster
   - backup
+  - certs
+  - cluster

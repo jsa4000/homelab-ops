@@ -2,8 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - selfsigned-issuer.yaml
-  - superuser-cert.yaml
-  - client-cert.yaml
-  - server-cert.yaml
   - cluster.yaml
