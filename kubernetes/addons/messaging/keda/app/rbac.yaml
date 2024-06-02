@@ -3,6 +3,8 @@ kind: ClusterRole
 metadata:
   name: keda-operator-auth-reader
 rules:
+  # Needed to access a configmap within kube-system namespace
+  # The configmap is 'extension-apiserver-authentication' for metric-server
   - apiGroups:
       - '*'
     resources:
