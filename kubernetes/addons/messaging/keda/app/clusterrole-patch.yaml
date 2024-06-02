@@ -2,10 +2,9 @@
   path: /rules/1
   value:
     apiGroups:
-      - ""
+      - '*'
     resources:
-      - configmaps
-      - configmaps/status
+      - '*'
     verbs:
       - get
       - list
