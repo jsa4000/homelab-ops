@@ -30,6 +30,9 @@ logging:
     level: info
     format: console
 
+serviceAccount:
+  name: keda-operator
+
 prometheus:
   metricServer:
     enabled: true
