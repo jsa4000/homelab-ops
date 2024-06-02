@@ -1,0 +1,20 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: sleepy-workload-scaler
+spec:
+  scaleTargetRef:
+    name: nginx
+  pollingInterval: 10
+  cooldownPeriod: 0
+  minReplicaCount: 0
+  triggers:
+    - type: cron
+      metadata:
+        timezone: Europa/Madrid
+        # At 09:00 on every day-of-week from Monday through Friday
+        start: 0 9 * * 1-5
+        # At 17:00 on every day-of-week from Monday through Friday
+        # end: 0 17 * * 1-5
+        end: 48 23 * * 1-7
+        desiredReplicas: "1"
