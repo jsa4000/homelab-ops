@@ -17,5 +17,5 @@ spec:
         start: 0 9 * * *
         # At 17:00 on every day-of-week from Monday through Friday
         # end: 0 17 * * 1-5
-        end: 56 23 * * *
+        end: 58 23 * * *
         desiredReplicas: "1"
