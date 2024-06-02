@@ -1,0 +1,55 @@
+clusterName: kubernetes-default
+
+crds:
+  install: true
+
+operator:
+  name: keda-operator
+  revisionHistoryLimit: 10
+  replicaCount: 1
+  disableCompression: true
+
+metricsServer:
+  revisionHistoryLimit: 10
+  replicaCount: 1
+  disableCompression: true
+
+webhooks:
+  enabled: true
+  useHostNetwork: false
+  replicaCount: 1
+
+logging:
+  operator:
+    level: info
+    format: console
+  metricServer:
+    level: 0
+    stderrthreshold: ERROR
+  webhooks:
+    level: info
+    format: console
+
+prometheus:
+  metricServer:
+    enabled: true
+    port: 8080
+    portName: metrics
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus-stack
+  operator:
+    enabled: true
+    port: 8080
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus-stack
+  webhooks:
+    enabled: true
+    port: 8080
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus-stack
