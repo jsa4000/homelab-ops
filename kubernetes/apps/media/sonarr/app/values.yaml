@@ -28,11 +28,9 @@ controllers:
           TZ: Europe/Madrid
           COMPlus_EnableDiagnostics: "0"
           SONARR__INSTANCE_NAME: Sonarr
-          SONARR__SERVER__PORT: &port 80
-          SONARR__AUTH__METHOD: External
-          SONARR__LOG__DBENABLED: "False"
-          SONARR__LOG__LEVEL: info
-          SONARR__APP__THEME: dark
+          SONARR__PORT: &port 80
+          SONARR__LOG_LEVEL: info
+          SONARR__THEME: dark
         probes:
           liveness: &probe
             enabled: true

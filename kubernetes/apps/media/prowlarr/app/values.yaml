@@ -27,11 +27,9 @@ controllers:
         env:
           TZ: Europe/Madrid
           PROWLARR__INSTANCE_NAME: Prowlarr
-          PROWLARR__LOG__DBENABLED: "False"
           PROWLARR__LOG_LEVEL: info
-          PROWLARR__AUTHENTICATION_METHOD: External
-          PROWLARR__SERVER__PORT: &port 80
-          PROWLARR__APP__THEME: dark
+          PROWLARR__PORT: &port 80
+          PROWLARR__THEME: dark
         probes:
           liveness: &probe
             enabled: true

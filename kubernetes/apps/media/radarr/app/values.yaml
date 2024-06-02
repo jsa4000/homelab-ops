@@ -27,11 +27,9 @@ controllers:
         env:
           TZ: Europe/Madrid
           RADARR__INSTANCE_NAME: Radarr
-          RADARR__SERVER__PORT: &port 80
-          RADARR__AUTH__METHOD: External
-          RADARR__LOG__DBENABLED: "False"
-          RADARR__LOG__LEVEL: info
-          RADARR__APP__THEME: dark
+          RADARR__PORT: &port 80
+          RADARR__LOG_LEVEL: info
+          RADARR__THEME: dark
         probes:
           liveness: &probe
             enabled: true
