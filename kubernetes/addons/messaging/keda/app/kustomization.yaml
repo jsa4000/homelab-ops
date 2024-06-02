@@ -9,3 +9,10 @@ helmCharts:
     namespace: messaging
     includeCRDs: true
     valuesFile: values.yaml
+
+patches:
+  - target:
+      version: v1
+      kind: ClusterRole
+      name: keda-operator-external-metrics-reader
+    path: clusterrole-patch.yaml
