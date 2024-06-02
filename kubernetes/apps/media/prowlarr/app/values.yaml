@@ -5,7 +5,17 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
-    type: statefulset
+    # Use deployment (stateless) and Database for store the state instead.
+    # type: statefulset
+    initContainers:
+      # This container will create the main database and user
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 16.3
+        envFrom:
+          - secretRef:
+              name: prowlarr-secret
     containers:
       main:
         image:
@@ -17,6 +27,7 @@ controllers:
         env:
           TZ: Europe/Madrid
           PROWLARR__INSTANCE_NAME: Prowlarr
+          PROWLARR__LOG__DBENABLED: "False"
           PROWLARR__LOG_LEVEL: info
           PROWLARR__AUTHENTICATION_METHOD: External
           PROWLARR__PORT: &port 80
