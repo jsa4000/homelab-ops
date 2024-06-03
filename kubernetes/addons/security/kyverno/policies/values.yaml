@@ -51,3 +51,11 @@ policyExclude:
             - storage
             - networking
             - observability
+  disallow-privileged-containers:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - storage
+            - networking
