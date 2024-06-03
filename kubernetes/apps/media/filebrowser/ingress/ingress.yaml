@@ -11,6 +11,7 @@ metadata:
     gethomepage.dev/group: Media
     gethomepage.dev/icon: filebrowser.svg
     gethomepage.dev/name: filebrowser
+    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure

@@ -3,3 +3,5 @@ cluster_env: local
 cluster_addons_tag: main
 helm_version: v3.14.3
 longhorn_folder: /var/lib/longhorn
+node_labels_enabled: false
+node_label_template: "custom.node.kubernetes.io/{{ item.key }}=true"
