@@ -21,8 +21,8 @@ spec:
     kind: Deployment
     name: nginx
   pollingInterval: 30
-  # Scaling down time in minutes after the cron schedule end parameter defined in cron scaler. (Default 3 minutes)
-  cooldownPeriod: 300
+  # Scaling down time in seconds after the cron schedule end parameter defined in cron scaler. (Default 300 seconds)
+  cooldownPeriod: 120
   # Scale to 0 during off hours
   minReplicaCount: 0
   # In this case it must match with the desiredReplicas parameter defined in cron scaler
