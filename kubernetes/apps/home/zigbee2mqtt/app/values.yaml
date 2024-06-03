@@ -27,7 +27,7 @@ controllers:
           ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
           ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
           ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
-          ZIGBEE2MQTT_CONFIG_FRONTEND: "true"
+          ZIGBEE2MQTT_CONFIG_FRONTEND: "false"
           ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port "80"
           ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.default.internal.javiersant.com
           ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
@@ -43,6 +43,7 @@ controllers:
           # For USB adapters use format "/dev/ttyACM0" and for Ethernet adapters use format "tcp://192.168.1.12:6638"
           # https://www.zigbee2mqtt.io/guide/configuration/adapter-settings.html#configuration-of-the-zigbee-adapter
           # ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
+          ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.1.12:6638
         envFrom:
           - secretRef:
               name: zigbee2mqtt-secret
