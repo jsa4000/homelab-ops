@@ -21,6 +21,6 @@ spec:
       services:
         - kind: Service
           name: zigbee2mqtt
-          port: 80
+          port: 8080
   tls:
     secretName: wildcard-javiersant-com-tls
