@@ -8,8 +8,9 @@ spec:
     kind: StatefulSet
     name: filebrowser
   pollingInterval: 10
-  cooldownPeriod: 0
+  cooldownPeriod: 30
   minReplicaCount: 0
+  maxReplicaCount: 1
   triggers:
     - type: cron
       metadata:
