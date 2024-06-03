@@ -3,7 +3,7 @@ kind: Kustomization
 
 helmCharts:
   - name: node-feature-discovery
-    repo: https://stakater.github.io/stakater-charts
+    repo: https://kubernetes-sigs.github.io/node-feature-discovery/charts
     version: 0.16.0
     releaseName: node-feature-discovery
     namespace: kube-system
