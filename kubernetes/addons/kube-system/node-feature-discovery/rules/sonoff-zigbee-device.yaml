@@ -8,7 +8,7 @@ spec:
       # https://devicehunt.com/
       name: sonoff.zigbee
       labels:
-        aeotec.feature.node.kubernetes.io/zigbee: "true"
+        sonoff.feature.node.kubernetes.io/zigbee: "true"
       matchFeatures:
         - feature: usb.device
           matchExpressions:
