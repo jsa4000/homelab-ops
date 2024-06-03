@@ -21,3 +21,6 @@ worker:
 gc:
   enable: true
   replicaCount: 1
+
+prometheus:
+  enable: true
