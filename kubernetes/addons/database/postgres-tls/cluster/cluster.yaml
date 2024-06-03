@@ -1,0 +1,97 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-tls
+spec:
+  # Instances must be in high availability > 1
+  instances: 1
+  # Delay the probe execution to ensure cluster is ready.
+  startDelay: 300
+  stopDelay: 300
+  replicationSlots:
+    highAvailability:
+      enabled: false
+    updateInterval: 300
+  primaryUpdateStrategy: unsupervised
+  postgresql:
+    # shared_preload_libraries:
+    #   - timescaledb
+    parameters:
+      max_connections: "400"
+      shared_buffers: 256MB
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+      auto_explain.log_min_duration: "10s"
+      effective_cache_size: "768MB"
+      maintenance_work_mem: "64MB"
+      checkpoint_completion_target: "0.9"
+      wal_buffers: "7864kB"
+      default_statistics_target: "100"
+      random_page_cost: "1.1"
+      effective_io_concurrency: "200"
+      work_mem: "655kB"
+      huge_pages: "off"
+      min_wal_size: "1GB"
+      max_wal_size: "3GB"
+    # Postgres host-based authentication
+    # - Allow ssl only hosts (with cert)
+    # - Reject all non ssl connections.
+    pg_hba:
+      - hostssl all all all cert
+      - host all all all reject
+  logLevel: info
+  storage:
+    size: 5Gi
+    storageClass: longhorn
+  # Write-Ahead Log (WAL)
+  walStorage:
+    size: 4Gi
+    storageClass: longhorn
+  # Enable super user access to create databases and schemas
+  # NOTE: CloudNative PG has been designed to work as a microservice architecture, one database per service.
+  enableSuperuserAccess: true
+  certificates:
+    serverTLSSecret: postgres-tls-server-cert
+    serverCASecret: postgres-tls-server-cert
+    clientCASecret: postgres-tls-client-cert
+    replicationTLSSecret: postgres-tls-client-cert
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: false
+  monitoring:
+    enablePodMonitor: true
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      encoding: "UTF8"
+  # Backup configuration
+  # backup:
+  #   retentionPolicy: 5d
+  #   barmanObjectStore:
+  #      data:
+  #        compression: bzip2
+  #      wal:
+  #        compression: bzip2
+  #        maxParallel: 8
+  #      destinationPath: s3://backups/postgres
+  #      endpointURL: https://s3.us-east-1.amazonaws.com
+  #      serverName: postgres-v1
+  #      s3Credentials:
+  #        accessKeyId:
+  #          name: postgres-s3
+  #          key: AWS_ACCESS_KEY
+  #        secretAccessKey:
+  #          name: postgres-s3
+  #          key: AWS_SECRET_KEY
+  resources:
+    requests:
+      cpu: 500m
+    limits:
+      memory: 2Gi
+
+  # https://cloudnative-pg.io/documentation/1.20/scheduling/
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred

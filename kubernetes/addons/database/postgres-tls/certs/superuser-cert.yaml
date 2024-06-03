@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-tls-superuser-cert
+spec:
+  secretName: postgres-tls-superuser-cert
+  # Certificate to be used for Authentication and Authorization.
+  usages:
+    - client auth
+  # Username to be used for the certificate
+  # By default 'postgres' is the owner of the database.
+  # https://cloudnative-pg.io/documentation/1.18/bootstrap/#bootstrap
+  commonName: postgres
+  issuerRef:
+    name: ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "iam"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "iam"
+    labels:
+      # To automatically reload postgres instances to include certificates
+      cnpg.io/reload: ""

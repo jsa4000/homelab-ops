@@ -1,5 +1,11 @@
 {
     "markdownlint.config": {
         "extends": ".github/linters/.markdown-lint.yaml"
+    },
+    "yaml.schemas": {
+        "https://json.schemastore.org/yamllint.json": [
+            "file:///Users/jsantosa/Projects/Github/homelab-ops/kubernetes/addons/database/postgres/cluster/cluster.yaml",
+            "file:///Users/jsantosa/Projects/Github/homelab-ops/kubernetes/addons/database/postgres-tls/cluster/cluster.yaml"
+        ]
     }
 }

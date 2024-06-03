@@ -1,0 +1,26 @@
+enableNodeFeatureApi: true
+
+featureGates:
+  NodeFeatureAPI: true
+  NodeFeatureGroupAPI: false
+
+master:
+  enable: true
+  replicaCount: 1
+
+worker:
+  enable: true
+  config:
+    core:
+      sources: ["custom", "pci", "system", "usb"]
+    sources:
+      usb:
+        deviceClassWhitelist: ["02", "03", "0e", "ef", "fe", "ff"]
+        deviceLabelFields: ["class", "vendor", "device"]
+
+gc:
+  enable: true
+  replicaCount: 1
+
+prometheus:
+  enable: true

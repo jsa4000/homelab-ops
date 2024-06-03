@@ -3,7 +3,9 @@ controllers:
     annotations:
       # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
       reloader.stakater.com/auto: "true"
-    replicas: 1
+    # Avoid tracking the number of 'replicas' in Git so ArgoCD does not track the change done by HPA.
+    # https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#leaving-room-for-imperativeness
+    # replicas: 1
     strategy: RollingUpdate
     type: statefulset
     containers:

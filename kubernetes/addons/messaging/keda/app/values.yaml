@@ -1,0 +1,47 @@
+clusterName: kubernetes-default
+
+crds:
+  install: true
+
+operator:
+  replicaCount: 1
+  disableCompression: true
+
+metricsServer:
+  replicaCount: 1
+  disableCompression: true
+
+webhooks:
+  enabled: true
+  replicaCount: 1
+
+logging:
+  operator:
+    level: info
+    format: console
+  metricServer:
+    level: 0
+    stderrthreshold: ERROR
+  webhooks:
+    level: info
+    format: console
+
+prometheus:
+  metricServer:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus-stack
+  operator:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus-stack
+  webhooks:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus-stack

@@ -4,4 +4,4 @@ metadata:
   name: postgres
 spec:
   cluster:
-    name: postgres-cluster
+    name: postgres

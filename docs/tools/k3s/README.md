@@ -236,3 +236,13 @@ sudo journalctl -u k3s | grep kubelet
 systemctl status k3s-agent
 sudo journalctl -u k3s-agent -xn | less
 ```
+
+When a pod get stucks into Terminating state, use these commands to remove the pod completely.
+
+```bash
+# Force to dekete the pod
+kubectl delete pod <pod> -n <namespace> --grace-period=0 --force
+
+# Modify the finalizers that prevents finish the pod.
+kubectl patch pod <pod>  -n <namespace> -p '{"metadata":{"finalizers":null}}'
+```

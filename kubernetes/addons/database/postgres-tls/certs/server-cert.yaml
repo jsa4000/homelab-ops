@@ -1,0 +1,27 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-tls-server-cert
+spec:
+  secretName: postgres-tls-server-cert
+  # Certificate to be used for the SSL connection (client-server)
+  # https://cloudnative-pg.io/documentation/current/certificates/
+  usages:
+    - server auth
+  # DNS names that allows this certificate
+  dnsNames:
+    - postgres-tls-rw
+    - postgres-tls-rw.database.svc.cluster.local
+    - postgres-tls-r
+    - postgres-tls-r.database.svc.cluster.local
+    - postgres-tls-ro
+    - postgres-tls-ro.database.svc.cluster.local
+    - localhost
+  issuerRef:
+    name: ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  secretTemplate:
+    labels:
+      # To automatically reload postgres instances to include certificates
+      cnpg.io/reload: ""

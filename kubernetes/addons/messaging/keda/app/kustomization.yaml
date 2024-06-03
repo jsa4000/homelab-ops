@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - rbac.yaml
+
+helmCharts:
+  - name: keda
+    repo: https://kedacore.github.io/charts
+    version: 2.14.2
+    releaseName: keda
+    namespace: messaging
+    includeCRDs: true
+    valuesFile: values.yaml

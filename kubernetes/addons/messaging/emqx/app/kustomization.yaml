@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - external-secret.yaml
+
+# As an alternative it can be used the EMQX Operator to simplify and manage EMQX Clusters.
+# https://github.com/emqx/emqx-operator
+helmCharts:
+  - name: emqx
+    repo: https://repos.emqx.io/charts
+    version: 5.7.0
+    releaseName: emqx
+    namespace: messaging
+    valuesFile: values.yaml
