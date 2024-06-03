@@ -42,7 +42,7 @@ controllers:
           ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
           # For USB adapters use format "/dev/ttyACM0" and for Ethernet adapters use format "tcp://192.168.1.12:6638"
           # https://www.zigbee2mqtt.io/guide/configuration/adapter-settings.html#configuration-of-the-zigbee-adapter
-          ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
+          # ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
         envFrom:
           - secretRef:
               name: zigbee2mqtt-secret
@@ -93,9 +93,9 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /config
-  usb:
-    type: hostPath
-    hostPath: /dev/ttyACM0
-  udev:
-    type: hostPath
-    hostPath: /run/udev
+  # usb:
+  #   type: hostPath
+  #   hostPath: /dev/ttyACM0
+  # udev:
+  #   type: hostPath
+  #   hostPath: /run/udev
