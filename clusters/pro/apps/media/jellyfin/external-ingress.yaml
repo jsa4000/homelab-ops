@@ -11,6 +11,7 @@ metadata:
     gethomepage.dev/group: Media
     gethomepage.dev/icon: jellyfin.svg
     gethomepage.dev/name: Jellyfin External
+    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
