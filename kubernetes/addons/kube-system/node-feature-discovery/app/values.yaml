@@ -16,13 +16,13 @@ master:
             matchExpressions:
               - key: "node-role.kubernetes.io/master"
                 operator: In
-                values: ["true"]
+                values: ["", "true"]
         - weight: 1
           preference:
             matchExpressions:
               - key: "node-role.kubernetes.io/control-plane"
                 operator: In
-                values: ["true"]
+                values: ["", "true"]
 
 worker:
   enable: true
