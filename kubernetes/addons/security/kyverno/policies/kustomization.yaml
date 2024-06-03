@@ -3,7 +3,8 @@ kind: Kustomization
 
 resources:
   - disallow-latest-tag.yaml
-  - inject-timezone.yaml
+  # Commented the mutate policy since it creates a new pod and slowdown the startup
+  # - inject-timezone.yaml
   - remove-cpu-limits.yaml
 
 helmCharts:

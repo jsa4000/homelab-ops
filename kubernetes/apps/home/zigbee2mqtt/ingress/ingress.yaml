@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: zigbee2mqtt-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://zigbee.default.internal.javiersant.com"
+    gethomepage.dev/description: Zigbee to MQTT bridge
+    gethomepage.dev/group: Home
+    gethomepage.dev/icon: zigbee2mqtt.svg
+    gethomepage.dev/name: Zigbee to MQTT Dashboard
+    gethomepage.dev/pod-selector: ""
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`zigbee.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: zigbee2mqtt
+          port: 80
+  tls:
+    secretName: wildcard-javiersant-com-tls

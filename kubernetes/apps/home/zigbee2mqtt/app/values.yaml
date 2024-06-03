@@ -1,0 +1,102 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    containers:
+      main:
+        image:
+          repository: ghcr.io/koenkk/zigbee2mqtt
+          tag: 1.38.0
+        env:
+          TZ: Europe/Madrid
+          ZIGBEE2MQTT_DATA: /config
+          ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
+          ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_ENTITY_ATTRIBUTES: "false"
+          ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_TRIGGERS: "false"
+          ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_STATUS_TOPIC: homeassistant/status
+          ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
+          ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: "false"
+          ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
+          ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
+          ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+          ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
+          ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
+          ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
+          ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
+          ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
+          ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
+          # These URL must not have subdomains, so it will fail during startup
+          # https://github.com/Koenkk/zigbee2mqtt/issues/13078
+          ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee2mqtt.dev
+          ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
+          ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
+          ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
+          ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
+          ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
+          ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://emqx.messaging.svc.cluster.local:1883
+          ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
+          ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
+          ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
+          ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
+          # For USB adapters use "/dev/ttyACM0" and for Ethernet adapters use "tcp://192.168.1.12:6638"
+          # https://www.zigbee2mqtt.io/guide/configuration/adapter-settings.html#configuration-of-the-zigbee-adapter
+          ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
+        envFrom:
+          - secretRef:
+              name: zigbee2mqtt-secret
+        probes:
+          liveness:
+            enabled: true
+          readiness:
+            enabled: true
+          startup:
+            enabled: true
+            spec:
+              failureThreshold: 30
+              periodSeconds: 10
+        # Set privilege mode since it must interact with USB devices on host machine.
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 10m
+          limits:
+            memory: 512Mi
+
+defaultPodOptions:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: OnRootMismatch
+    seccompProfile: { type: RuntimeDefault }
+  nodeSelector:
+    # Deploy the workload only in nodes with Zigbee devices attached
+    sonoff.feature.node.kubernetes.io/zigbee: "true"
+
+service:
+  main:
+    controller: main
+    primary: true
+    ports:
+      http:
+        port: *port
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: longhorn
+    size: 1Gi
+    globalMounts:
+      - path: /config
+  usb:
+    type: hostPath
+    hostPath: /dev/ttyACM0
+  udev:
+    type: hostPath
+    hostPath: /run/udev
