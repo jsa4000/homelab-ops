@@ -28,8 +28,8 @@ controllers:
           ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
           ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
           ZIGBEE2MQTT_CONFIG_FRONTEND: "false"
-          ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
-          ZIGBEE2MQTT_CONFIG_FRONTEND_URL: null
+          ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: 8080
+          ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee2mqtt.bjw-s.dev
           ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
           ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
           ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
@@ -84,7 +84,8 @@ service:
     primary: true
     ports:
       http:
-        port: *port
+        # port: *port
+        port: 8080
 
 persistence:
   config:
