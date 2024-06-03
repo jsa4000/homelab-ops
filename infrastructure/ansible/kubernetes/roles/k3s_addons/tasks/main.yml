@@ -3,6 +3,10 @@
   include_tasks: requirements.yml
   tags: requirements
 
+- name: Label Nodes
+  include_tasks: labels.yml
+  tags: labels
+
 - name: Deploy Secrets
   include_tasks: dotenv.yml
   tags: dotenv

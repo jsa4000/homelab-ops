@@ -47,6 +47,15 @@ k3s_cluster:
     cluster_dotenv: "/Users/jsantosa/Projects/Github/homelab-ops/.env"
     helm_version: v3.14.3
 
+    # Node labels
+    # i.e. custom.node.kubernetes.io/gpu=true
+    node_labels_enabled: true
+    node_labels:
+      gpu:
+        - server-2
+      iot:
+        - server-3
+
     # MicroCeph
     microceph_enabled: false
     microceph_version: latest/stable
