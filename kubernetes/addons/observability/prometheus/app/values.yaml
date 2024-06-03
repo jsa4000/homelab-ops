@@ -94,6 +94,7 @@ prometheus:
   prometheusSpec:
     replicas: 1
     replicaExternalLabelName: "replica"
+    # These values must be set to false to be scrapped by this instance (release label)
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     scrapeConfigSelectorNilUsesHelmValues: false

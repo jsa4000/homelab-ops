@@ -3,6 +3,13 @@ kind: ScaledObject
 metadata:
   name: sleepy-workload-scaler
 spec:
+  # Destination Target to be scaled, it can be statefulset, deployments or custom resources
+  # https://keda.sh/docs/2.14/concepts/scaling-deployments/
+  #scaleTargetRef:
+  #  apiVersion:    {api-version-of-target-resource}         # Optional. Default: apps/v1
+  #  kind:          {kind-of-target-resource}                # Optional. Default: Deployment
+  #  name:          {name-of-target-resource}                # Mandatory. Must be in the same namespace as the ScaledObject
+  #  envSourceContainerName: {container-name}                # Optional. Default: .spec.template.spec.containers[0]
   scaleTargetRef:
     name: nginx
   pollingInterval: 10
