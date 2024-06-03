@@ -3,8 +3,11 @@ kind: ScaledObject
 metadata:
   name: filebrowser
 spec:
-  # If you want the number of your deployment's replicas to be managed by Horizontal Pod Autoscaler, then you would not want to track replicas in Git.
+  # If you want the number of your deployment's replicas to be managed by 'Horizontal Pod Autoscaler', then you would not want to track 'replicas' in Git.
   # https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#leaving-room-for-imperativeness
+  # You can ignore this field by:
+  # - Removing the 'replicas' field in the resource definition (deployment, stateful, etc..
+  # - Adding this field as an exclusion in argocd configuration.
   scaleTargetRef:
     apiVersion: apps/v1
     kind: StatefulSet
@@ -17,6 +20,6 @@ spec:
     - type: cron
       metadata:
         timezone: Europe/Madrid
-        start: 45 9 * * *
-        end: 40 9 * * *
+        start: 0 7 * * *
+        end: 0 0 * * *
         desiredReplicas: "1"
