@@ -11,6 +11,7 @@ metadata:
     gethomepage.dev/group: Home
     gethomepage.dev/icon: alma.svg
     gethomepage.dev/name: Homepage External
+    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
