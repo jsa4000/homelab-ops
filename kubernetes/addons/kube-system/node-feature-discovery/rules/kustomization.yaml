@@ -6,4 +6,4 @@ resources:
   - google-coral-device.yaml
   - intel-gpu-device.yaml
   - nesdr-rtl-sdr-device.yaml
-  - silicon-zigbee-device.yaml
+  - sonoff-zigbee-device.yaml
