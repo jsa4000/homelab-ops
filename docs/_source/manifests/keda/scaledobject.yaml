@@ -1,9 +1,14 @@
+# Use `kubectl get ScaledObject' to get the resources for Scale in Keda and verify if it's ACTIVE.
+#NAME                     SCALETARGETKIND      SCALETARGETNAME   MIN   MAX   TRIGGERS   AUTHENTICATION   READY   ACTIVE   FALLBACK   PAUSED    AGE
+# sleepy-workload-scaler   apps/v1.Deployment   nginx             0     10    cron                        True    True     False      Unknown   8h
 apiVersion: keda.sh/v1alpha1
+# There is another workload called TriggerAuthentication, that it used to authenticate to the scalers, Kafka, Prometheus, Redis, Kinesis, etc..
 kind: ScaledObject
 metadata:
   name: sleepy-workload-scaler
 spec:
   # Destination Target to be scaled, it can be statefulset, deployments or custom resources
+  # NOTE: The search scope is limited to the namespace where the ScaledObject is deployed.
   # https://keda.sh/docs/2.14/concepts/scaling-deployments/
   #scaleTargetRef:
   #  apiVersion:    {api-version-of-target-resource}         # Optional. Default: apps/v1
@@ -13,12 +18,14 @@ spec:
   scaleTargetRef:
     # Use "kubectl get deployments" to get the name. Use the kind of the resource to be scaled (deployment, statefulset, etc..)
     name: nginx
-  pollingInterval: 10
-  cooldownPeriod: 0
+  pollingInterval: 30
+  cooldownPeriod: 300
   minReplicaCount: 0
+  maxReplicaCount: 3
   # Triggers that are going to be monitored by keda
   # NOTE: The target can be only be manager by one ScaledObject, so add as many triggers as wanted for the same deployment, stateful etc..
   triggers:
+    # https://keda.sh/docs/2.14/scalers/cron/
     - type: cron
       metadata:
         timezone: Europe/Madrid
@@ -27,11 +34,21 @@ spec:
         # At 20:00 on every day-of-week from Monday through Friday
         end: 0 20 * * 1-5
         desiredReplicas: "1"
-    - type: cron
-      metadata:
-        timezone: Europe/Madrid
-        # At 09:00 on every day-of-week from Monday through Friday
-        start: 0 9 * * 1-5
-        # At 17:00 on every day-of-week from Monday through Friday
-        end: 0 17 * * 1-5
-        desiredReplicas: "1"
+    # https://keda.sh/docs/2.14/scalers/prometheus/
+    # - type: prometheus
+    #   metadata:
+    #     serverAddress: http://prometheus-stack-kube-prom-prometheus.observability.svc.cluster.local:9090
+    #     metricName: nginx_service_requests_total
+    #     threshold: "40"
+    #     query: sum(rate(nginx_ingress_controller_requests[1m]))
+    # https://keda.sh/docs/2.14/scalers/kubernetes-workload/
+    # - type: kubernetes-workload
+    #   metadata:
+    #     # Label selector that will be used to get the pod count. It supports multiple selectors split by a comma character (,)
+    #     # Use 'kubectl get pods --show-labels' or take a look to the labels being configured in the template definition.
+    #     podSelector: 'app=nginx'
+    #     # Target relation between the scaled workload and the amount of pods which matches the selector.
+    #     # It will be calculated following this formula: relation = (pods which match selector) / (scaled workload pods)
+    #     value: '3'
+    #     # Target value for activating the scaler. Learn more about activation here. (Default: 0, Optional)
+    #     activationValue: '3.1'

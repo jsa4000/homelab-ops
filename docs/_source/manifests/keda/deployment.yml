@@ -9,6 +9,7 @@ spec:
   replicas: 1
   template:
     metadata:
+      # Set Labels that can be used for matching Services or ScaledObject (kubernetes-workload)
       labels:
         app: nginx
     spec:
