@@ -15,6 +15,7 @@ background: true
 # Exclude resources from individual policies
 # Scan are executed depending on the backgroundScanInterval setting (default 1h) by background Controller.
 # https://kyverno.io/docs/installation/customization/#container-flags
+# Exclude following resources for: cilium, longhorn, loki, node-feature-discovery, etc..
 policyExclude:
   disallow-host-path:
     any:
@@ -25,6 +26,7 @@ policyExclude:
             - storage
             - networking
             - observability
+            - kube-system
   disallow-capabilities:
     any:
       - resources:
@@ -58,4 +60,18 @@ policyExclude:
             - Pod
           namespaces:
             - storage
+            - networking
+  restrict-apparmor-profiles:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - networking
+  disallow-selinux:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
             - networking
