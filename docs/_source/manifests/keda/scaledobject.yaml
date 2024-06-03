@@ -11,11 +11,22 @@ spec:
   #  name:          {name-of-target-resource}                # Mandatory. Must be in the same namespace as the ScaledObject
   #  envSourceContainerName: {container-name}                # Optional. Default: .spec.template.spec.containers[0]
   scaleTargetRef:
+    # Use "kubectl get deployments" to get the name. Use the kind of the resource to be scaled (deployment, statefulset, etc..)
     name: nginx
   pollingInterval: 10
   cooldownPeriod: 0
   minReplicaCount: 0
+  # Triggers that are going to be monitored by keda
+  # NOTE: The target can be only be manager by one ScaledObject, so add as many triggers as wanted for the same deployment, stateful etc..
   triggers:
+    - type: cron
+      metadata:
+        timezone: Europe/Madrid
+        # At 07:00 on every day-of-week from Monday through Friday
+        start: 0 7 * * 1-5
+        # At 20:00 on every day-of-week from Monday through Friday
+        end: 0 20 * * 1-5
+        desiredReplicas: "1"
     - type: cron
       metadata:
         timezone: Europe/Madrid
