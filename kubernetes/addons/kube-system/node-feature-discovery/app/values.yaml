@@ -7,28 +7,12 @@ featureGates:
 master:
   enable: true
   replicaCount: 1
-  # kubectl get nodes --show-labels | grep "master"
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: "node-role.kubernetes.io/master"
-                operator: In
-                values: ["", "true"]
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: "node-role.kubernetes.io/control-plane"
-                operator: In
-                values: ["", "true"]
 
 worker:
   enable: true
   config:
     core:
-      sources: ["custom", "pci", "usb"]
+      sources: ["custom", "pci", "system", "usb"]
     sources:
       usb:
         deviceClassWhitelist: ["02", "03", "0e", "ef", "fe", "ff"]
