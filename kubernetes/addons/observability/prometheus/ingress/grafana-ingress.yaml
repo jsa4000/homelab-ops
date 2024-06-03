@@ -11,6 +11,7 @@ metadata:
     gethomepage.dev/group: Observability
     gethomepage.dev/icon: grafana.svg
     gethomepage.dev/name: Grafana
+    gethomepage.dev/pod-selector: ""
 spec:
   entryPoints:
     - websecure
