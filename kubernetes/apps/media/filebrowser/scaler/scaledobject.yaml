@@ -10,11 +10,10 @@ spec:
   pollingInterval: 30
   cooldownPeriod: 120
   minReplicaCount: 0
-  maxReplicaCount: 1
   triggers:
     - type: cron
       metadata:
         timezone: Europe/Madrid
-        start: 15 9 * * *
-        end: 8 9 * * *
+        start: 30 9 * * *
+        end: 15 9 * * *
         desiredReplicas: "1"
