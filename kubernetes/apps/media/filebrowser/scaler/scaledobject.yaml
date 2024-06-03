@@ -3,6 +3,8 @@ kind: ScaledObject
 metadata:
   name: filebrowser
 spec:
+  # If you want the number of your deployment's replicas to be managed by Horizontal Pod Autoscaler, then you would not want to track replicas in Git.
+  # https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#leaving-room-for-imperativeness
   scaleTargetRef:
     apiVersion: apps/v1
     kind: StatefulSet
@@ -15,6 +17,6 @@ spec:
     - type: cron
       metadata:
         timezone: Europe/Madrid
-        start: 40 9 * * *
-        end: 34 9 * * *
+        start: 45 9 * * *
+        end: 40 9 * * *
         desiredReplicas: "1"

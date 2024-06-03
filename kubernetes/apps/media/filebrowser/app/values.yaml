@@ -3,7 +3,7 @@ controllers:
     annotations:
       # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
       reloader.stakater.com/auto: "true"
-    replicas: 1
+    #replicas: 1
     strategy: RollingUpdate
     type: statefulset
     containers:
