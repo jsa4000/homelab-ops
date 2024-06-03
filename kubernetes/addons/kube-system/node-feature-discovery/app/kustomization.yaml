@@ -7,4 +7,5 @@ helmCharts:
     version: 0.16.0
     releaseName: node-feature-discovery
     namespace: kube-system
+    includeCRDs: true
     valuesFile: values.yaml

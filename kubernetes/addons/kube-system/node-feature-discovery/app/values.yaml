@@ -1,4 +1,14 @@
+enableNodeFeatureApi: true
+
+featureGates:
+  NodeFeatureAPI: true
+  NodeFeatureGroupAPI: false
+
+master:
+  enable: true
+
 worker:
+  enable: true
   config:
     core:
       sources: ["custom", "pci", "usb"]
