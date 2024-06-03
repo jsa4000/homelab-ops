@@ -17,22 +17,32 @@ spec:
   #  envSourceContainerName: {container-name}                # Optional. Default: .spec.template.spec.containers[0]
   scaleTargetRef:
     # Use "kubectl get deployments" to get the name. Use the kind of the resource to be scaled (deployment, statefulset, etc..)
+    apiVersion: apps/v1
+    kind: Deployment
     name: nginx
   pollingInterval: 30
+  # Scaling down time in minutes after the cron schedule end parameter defined in cron scaler. (Default 3 minutes)
   cooldownPeriod: 300
+  # Scale to 0 during off hours
   minReplicaCount: 0
-  maxReplicaCount: 3
+  # In this case it must match with the desiredReplicas parameter defined in cron scaler
+  maxReplicaCount: 1
   # Triggers that are going to be monitored by keda
   # NOTE: The target can be only be manager by one ScaledObject, so add as many triggers as wanted for the same deployment, stateful etc..
   triggers:
     # https://keda.sh/docs/2.14/scalers/cron/
     - type: cron
       metadata:
+        # One of the acceptable values from the IANA Time Zone Database
+        # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
         timezone: Europe/Madrid
+        # Cron expression indicating the start of the cron schedule.
         # At 07:00 on every day-of-week from Monday through Friday
         start: 0 7 * * 1-5
+        # Cron expression indicating the end of the cron schedule.
         # At 20:00 on every day-of-week from Monday through Friday
         end: 0 20 * * 1-5
+        # Number of replicas to which the resource has to be scaled between the start and end of the cron schedule.
         desiredReplicas: "1"
     # https://keda.sh/docs/2.14/scalers/prometheus/
     # - type: prometheus
