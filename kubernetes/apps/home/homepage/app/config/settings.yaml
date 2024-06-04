@@ -3,7 +3,7 @@
 
 title: Homelab
 theme: dark
-color: blue
+color: slate
 background:
   image: https://images.unsplash.com/photo-1481234877003-b379d46b7f2b?auto=format&fit=crop&w=2560&q=80
   blur: sm # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
@@ -11,9 +11,10 @@ background:
   brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
   opacity: 50 # 0-100
 
-useEqualHeights: true
-headerStyle: clean
-
 providers:
   openweathermap: openweathermapapikey
   weatherapi: weatherapiapikey
+
+useEqualHeights: true
+headerStyle: clean
+hideVersion: true
