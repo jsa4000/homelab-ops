@@ -3,7 +3,7 @@
 
 title: Homelab
 theme: dark
-color: slate
+color: blue
 background:
   image: https://images.unsplash.com/photo-1481234877003-b379d46b7f2b?auto=format&fit=crop&w=2560&q=80
   blur: sm # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
