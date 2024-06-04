@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/icon: filebrowser.svg
     gethomepage.dev/name: filebrowser
     gethomepage.dev/pod-selector: ""
-    gethomepage.dev/weight: 294
+    gethomepage.dev/weight: 295
 spec:
   entryPoints:
     - websecure
