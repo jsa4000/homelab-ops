@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: filecloud.svg
     gethomepage.dev/name: Homepage External
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 194
 spec:
   entryPoints:
     - websecure
