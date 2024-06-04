@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/icon: traefik.svg
     gethomepage.dev/name: Traefik External
     gethomepage.dev/pod-selector: ""
-    gethomepage.dev/weight: 398
+    gethomepage.dev/weight: 397
 spec:
   entryPoints:
     - websecure
