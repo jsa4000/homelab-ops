@@ -12,6 +12,7 @@ background:
   opacity: 50 # 0-100
 
 useEqualHeights: true
+headerStyle: clean
 
 providers:
   openweathermap: openweathermapapikey
