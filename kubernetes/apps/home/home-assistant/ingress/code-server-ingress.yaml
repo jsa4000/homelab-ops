@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: code.png
     gethomepage.dev/name: Code Server (Home Assistant)
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 197
 spec:
   entryPoints:
     - websecure

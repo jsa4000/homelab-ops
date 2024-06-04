@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: zigbee2mqtt.svg
     gethomepage.dev/name: Zigbee to MQTT Dashboard
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 198
 spec:
   entryPoints:
     - websecure
