@@ -12,6 +12,8 @@ metadata:
     gethomepage.dev/icon: prowlarr.svg
     gethomepage.dev/name: Prowlarr
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 100
+    gethomepage.dev/instance: "private"
 spec:
   entryPoints:
     - websecure

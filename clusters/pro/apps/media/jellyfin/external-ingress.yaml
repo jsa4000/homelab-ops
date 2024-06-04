@@ -12,6 +12,8 @@ metadata:
     gethomepage.dev/icon: jellyfin.svg
     gethomepage.dev/name: Jellyfin External
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 110
+    gethomepage.dev/instance: "public"
 spec:
   entryPoints:
     - websecure
