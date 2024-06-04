@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/icon: radarr.svg
     gethomepage.dev/name: Radarr
     gethomepage.dev/pod-selector: ""
-    gethomepage.dev/weight: 100
+    gethomepage.dev/weight: 202
 spec:
   entryPoints:
     - websecure

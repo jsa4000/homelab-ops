@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/icon: sonarr.svg
     gethomepage.dev/name: sonarr
     gethomepage.dev/pod-selector: ""
-    gethomepage.dev/weight: 100
+    gethomepage.dev/weight: 201
 spec:
   entryPoints:
     - websecure
