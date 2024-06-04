@@ -11,6 +11,8 @@ background:
   brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
   opacity: 50 # 0-100
 
+useEqualHeights: true
+
 providers:
   openweathermap: openweathermapapikey
   weatherapi: weatherapiapikey
