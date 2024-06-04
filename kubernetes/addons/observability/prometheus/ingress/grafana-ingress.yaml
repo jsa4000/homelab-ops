@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: grafana.svg
     gethomepage.dev/name: Grafana
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 399
 spec:
   entryPoints:
     - websecure

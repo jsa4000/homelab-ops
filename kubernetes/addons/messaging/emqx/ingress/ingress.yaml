@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: emqx.svg
     gethomepage.dev/name: EMQX
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 499
 spec:
   entryPoints:
     - websecure
