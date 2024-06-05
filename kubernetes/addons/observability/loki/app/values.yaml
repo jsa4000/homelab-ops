@@ -63,9 +63,14 @@ singleBinary:
       value: 3750MiB
   persistence:
     enabled: true
+    # Since kubernetes 1.24 the Volume Expansion is Stable.
+    # https://kubernetes.io/blog/2022/05/05/volume-expansion-ga/
     # Make sure the 'storageclass' has 'allowVolumeExpansion' to resize the volume from the initial size.
-    # NAME                 PROVISIONER          RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
-    # longhorn (default)   driver.longhorn.io   Delete          Immediate           true                   39h
+    #   NAME                 PROVISIONER          RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+    #   longhorn (default)   driver.longhorn.io   Delete          Immediate           true                   39h
+    # Finally, since the chart does not create a PersistentVolumeClaim and uses volumeClaimTemplates within the statefulset to create it dynamically.
+    # it is neccesary to execute following command (kustomize does not work since it does not create PersistentVolumeClaim to be patched).
+    # > kubectl patch pvc storage-loki-0 -n observability -p '{"spec":{"resources":{"requests":{"storage":"2Gi"}}}}'
     size: 2Gi
 
 chunksCache:
