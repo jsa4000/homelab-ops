@@ -51,6 +51,15 @@ defaultPodOptions:
     fsGroup: 568
     fsGroupChangePolicy: OnRootMismatch
     seccompProfile: { type: RuntimeDefault }
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: "custom.node.kubernetes.io/iot"
+                operator: "In"
+                values: ["true"]
 
 service:
   main:
