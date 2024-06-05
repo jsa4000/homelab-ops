@@ -101,7 +101,8 @@ prometheus:
     scrapeConfigSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
-    retention: 6h
+    # Adjust the retention period for the metrics to be stored.
+    retention: 3d
     retentionSize: 4GB
     enableAdminAPI: true
     walCompression: true

@@ -1,0 +1,37 @@
+views:
+  - title: Energy View
+    cards:
+      - type: energy-date-selection
+      - type: energy-usage-graph
+      - type: energy-sources-table
+      - type: energy-distribution
+      - chart_type: line
+        period: 5minute
+        type: statistics-graph
+        entities:
+          - sensor.enchufe_salon_power
+        stat_types:
+          - min
+          - mean
+          - max
+        title: Energia
+      - type: entities
+        entities:
+          - entity: sensor.enchufe_salon_current
+            name: Current
+          - binary_sensor.enchufe_salon_update_available
+          - entity: sensor.enchufe_salon_last_seen
+            name: Last seen
+          - entity: sensor.enchufe_salon_linkquality
+            name: Linkquality
+          - entity: sensor.enchufe_salon_power
+            name: Power
+          - entity: sensor.enchufe_salon_power_outage_memory
+            name: Power outage memory
+          - entity: sensor.enchufe_salon_update_state
+            name: Update state
+          - entity: sensor.enchufe_salon_voltage
+            name: Voltage
+        title: Enchufe Salón
+    icon: mdi:lightning-bolt-circle
+title: Energy Dashboard
