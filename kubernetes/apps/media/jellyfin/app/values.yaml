@@ -52,6 +52,7 @@ defaultPodOptions:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
     supplementalGroups: [44, 105, 10000, 568]
+  # Deploy the workload into a node with GPU support (preferably).
   affinity:
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
