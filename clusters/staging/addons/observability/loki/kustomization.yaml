@@ -3,10 +3,3 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/observability/loki?ref=staging
-
-patches:
-  - target:
-      version: v1
-      kind: PersistentVolumeClaim
-      name: storage-loki-0
-    path: pvc-patch.yaml
