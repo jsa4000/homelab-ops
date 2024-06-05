@@ -63,6 +63,9 @@ singleBinary:
       value: 3750MiB
   persistence:
     enabled: true
+    # Make sure the 'storageclass' has 'allowVolumeExpansion' to resize the volume from the initial size.
+    # NAME                 PROVISIONER          RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+    # longhorn (default)   driver.longhorn.io   Delete          Immediate           true                   39h
     size: 2Gi
 
 chunksCache:

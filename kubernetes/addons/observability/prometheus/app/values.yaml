@@ -101,7 +101,7 @@ prometheus:
     scrapeConfigSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
-    # Adjust the retention period for the metrics to be stored.
+    # Adjust the retention period and max size for the metrics to be stored.
     retention: 3d
     retentionSize: 4GB
     enableAdminAPI: true
