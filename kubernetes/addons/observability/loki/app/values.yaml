@@ -63,7 +63,7 @@ singleBinary:
       value: 3750MiB
   persistence:
     enabled: true
-    size: 1Gi
+    size: 2Gi
 
 chunksCache:
   # -- Specifies whether memcached based chunks-cache should be enabled
