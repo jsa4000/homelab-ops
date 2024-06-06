@@ -59,7 +59,7 @@ defaultPodOptions:
         - weight: 100
           preference:
             matchExpressions:
-              - key: "custom.node.kubernetes.io/iot"
+              - key: "sonoff.feature.node.kubernetes.io/zigbee"
                 operator: "In"
                 values: ["true"]
 

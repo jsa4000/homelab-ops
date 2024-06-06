@@ -1,0 +1,12 @@
+- op: merge
+  path: /spec/template/spec
+  value:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+                - key: "custom.node.kubernetes.io/iot"
+                  operator: "In"
+                  values: ["true"]
