@@ -4,23 +4,11 @@ Create a Homelab from Scratch using latest best practices, patterns and tools.
 
 ## Cluster
 
-![Cluster, Spain. Javier Santos](images/orangepi_cluster_up_v1.jpg){data-gallery="cluster"}
-
-![Cluster, Spain. Javier Santos](images/orangepi_cluster_back_v1.jpg){data-gallery="cluster"}
-
-### Smart Devices
-
-![Smart Devices, Spain. Javier Santos](images/sonoff_zigbee_smart_plug.jpg){data-gallery="devices"}
-
 === "Front"
-
-    ``` markdown title="Image, aligned to left"
-    ![Front](images/orangepi_cluster_up_v1.jpg){ align=left }
-    ```
 
     <div class="result" markdown>
 
-    ![Image title](images/orangepi_cluster_front_v1.jpg){ align=left width=300 }
+    ![Image title](images/orangepi_cluster_front_v1.jpg){ vertical-align=top horizontal-align=center width=800 }
 
     Top View
 
@@ -28,14 +16,62 @@ Create a Homelab from Scratch using latest best practices, patterns and tools.
 
 === "Back"
 
-    ``` markdown title="Image, aligned to right"
-    ![Back](images/orangepi_cluster_back_v1.jpg){ align=right }
-    ```
+    <div class="result" markdown>
+
+    ![Image title](images/orangepi_cluster_back_v1.jpg){ vertical-align=top horizontal-align=center width=800 }
+
+    Back View
+
+    </div>
+
+=== "Up"
 
     <div class="result" markdown>
 
-    ![Image title](images/orangepi_cluster_back_v1.jpg){ align=right width=300 }
+    ![Image title](images/orangepi_cluster_up_v1.jpg){ vertical-align=top horizontal-align=center width=800 }
 
     Back View
+
+    </div>
+
+=== "Top"
+
+    <div class="result" markdown>
+
+    ![Image title](images/orangepi_cluster_top_v1.jpg){ vertical-align=top horizontal-align=center width=800 }
+
+    Back View
+
+    </div>
+
+=== "Left"
+
+    <div class="result" markdown>
+
+    ![Image title](images/orangepi_cluster_left_v1.jpg){ vertical-align=top horizontal-align=center width=800 }
+
+    Back View
+
+    </div>
+
+=== "Back"
+
+    <div class="result" markdown>
+
+    ![Image title](images/orangepi_cluster_back_v1.jpg){ vertical-align=top horizontal-align=center width=800 }
+
+    Back View
+
+    </div>
+
+## Devices
+
+=== "SONOFF Zigbee 3.0 USB Dongle Plus V2"
+
+    <div class="result" markdown>
+
+    ![Image title](images/sonoff_zigbee_smart_plug.jpg){ vertical-align=top horizontal-align=center width=800 }
+
+    Top View
 
     </div>
