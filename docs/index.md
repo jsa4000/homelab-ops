@@ -54,16 +54,6 @@ Create a Homelab from Scratch using latest best practices, patterns and tools.
 
     </div>
 
-=== "Back"
-
-    <div class="result" markdown>
-
-    ![Image title](images/orangepi_cluster_back_v1.jpg){ vertical-align=top horizontal-align=center width=800 }
-
-    Back View
-
-    </div>
-
 ## Devices
 
 === "SONOFF Zigbee 3.0 USB Dongle Plus V2"
