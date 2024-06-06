@@ -13,7 +13,7 @@ lovelace:
   dashboards:
     lovelace-enery: # Needs to contain a hyphen (-)
       mode: yaml
-      filename: energy-dashboard.yaml
+      filename: dashobards/energy-dashboard.yaml
       title: Custom
       icon: mdi:tools
       show_in_sidebar: true
