@@ -1,9 +1,20 @@
-- op: add
-  path: /spec/template/spec/affinity/nodeAffinity/preferredDuringSchedulingIgnoredDuringExecution
-  value:
-    weight: 100
-    preference:
-      matchExpressions:
-        - key: "custom.node.kubernetes.io/iot"
-          operator: "In"
-          values: ["true"]
+# Use strategic Merge Patch using '$patch: merge'
+# https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md
+$patch: merge
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: home-assistant
+spec:
+  template:
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: custom.node.kubernetes.io/iot
+                    operator: In
+                    values:
+                      - 'true'
+              weight: 100

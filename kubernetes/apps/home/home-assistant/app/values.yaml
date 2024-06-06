@@ -53,15 +53,20 @@ defaultPodOptions:
     seccompProfile: { type: RuntimeDefault }
   # Deploy the workload into a node with IoT capabilities and devices attached to (preferably).
   # Commonly 'Node Feature Discovery' service will label nodes with the specific device attached to (see zigbee2mqtt)
-  # affinity:
-  #   nodeAffinity:
-  #     preferredDuringSchedulingIgnoredDuringExecution:
-  #       - weight: 100
-  #         preference:
-  #           matchExpressions:
-  #             - key: "sonoff.feature.node.kubernetes.io/zigbee"
-  #               operator: "In"
-  #               values: ["true"]
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: "sonoff.feature.node.kubernetes.io/zigbee"
+                operator: "In"
+                values: ["true"]
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: fuckoff.home.arpa/home-assistant
+                operator: DoesNotExist
 
 service:
   main:
