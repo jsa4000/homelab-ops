@@ -1,0 +1,22 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    containers:
+      main:
+        image:
+          repository: ghcr.io/corentinth/it-tools
+          tag: 2024.5.13-a0bc346
+        resources:
+          requests:
+            memory: 10Mi
+            cpu: 10m
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 80

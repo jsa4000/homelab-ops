@@ -1,0 +1,27 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: it-tools-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://it-tools.default.internal.javiersant.com"
+    gethomepage.dev/description: Handy tools for developments
+    gethomepage.dev/group: Tools
+    gethomepage.dev/icon: it-tools.svg
+    gethomepage.dev/name: IT Tools
+    gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 194
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`it-tools.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: it-tools
+          port: 80
+  tls:
+    secretName: wildcard-javiersant-com-tls
