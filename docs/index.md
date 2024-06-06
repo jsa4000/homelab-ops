@@ -2,18 +2,12 @@
 
 Create a Homelab from Scratch using latest best practices, patterns and tools.
 
-## Commands
+## Cluster
 
-- `mkdocs new [dir-name]` - Create a new project.
-- `mkdocs serve` - Start the live-reloading docs server.
-- `mkdocs build` - Build the documentation site.
-- `mkdocs -h` - Print help message and exit.
+![Cluster, Spain. Javier Santos](images/orangepi_cluster_up_v1.jpg){data-gallery="cluster"}
 
-## Project layout
+![Cluster, Spain. Javier Santos](images/orangepi_cluster_back_v1.jpg){data-gallery="cluster"}
 
-```txt
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-```
+### Smart Devices
+
+![Smart Devices, Spain. Javier Santos](images/sonoff_zigbee_smart_plug.jpg){data-gallery="devices"}
