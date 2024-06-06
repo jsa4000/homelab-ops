@@ -3,7 +3,8 @@ controllers:
     annotations:
       # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
       reloader.stakater.com/auto: "true"
-    replicas: 1
+    # Do not use replicas since it will be managed by KEDA, so argocd does not detect diffs.
+    # replicas: 1
     strategy: RollingUpdate
     containers:
       main:
