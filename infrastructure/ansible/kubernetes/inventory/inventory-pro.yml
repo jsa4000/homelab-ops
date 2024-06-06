@@ -3,13 +3,13 @@ k3s_cluster:
   children:
     server:
       hosts:
-        server-1:
+        sbc-server-1:
           ansible_host: 192.168.3.100
     agent:
       hosts:
-        server-2:
+        sbc-server-2:
           ansible_host: 192.168.3.101
-        server-3:
+        sbc-server-3:
           ansible_host: 192.168.3.102
 
   # Required Vars
