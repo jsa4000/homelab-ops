@@ -11,3 +11,4 @@ patches:
       kind: IngressRoute
       name: jellyfin-ingress
     path: ingress-patch.yaml
+  - path: statefulset-patch.yaml

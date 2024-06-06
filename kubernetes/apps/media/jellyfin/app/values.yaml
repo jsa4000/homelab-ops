@@ -59,7 +59,7 @@ defaultPodOptions:
         - weight: 100
           preference:
             matchExpressions:
-              - key: "custom.node.kubernetes.io/gpu"
+              - key: "intel.feature.node.kubernetes.io/gpu"
                 operator: "In"
                 values: ["true"]
 
