@@ -10,7 +10,7 @@ controllers:
       main:
         image:
           repository: jellyfin/jellyfin
-          tag: 10.9.4
+          tag: 10.9.5
         env:
           TZ: Europe/Madrid
           DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
