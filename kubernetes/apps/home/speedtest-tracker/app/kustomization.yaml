@@ -12,7 +12,7 @@ helmCharts:
 configMapGenerator:
   - name: speedtest-tracker
     literals:
-      # Default configutations (*/60 * * * *) (* */6 * * *)
+      # Default configutations (0 * * * *)
       - PUBLIC_DASHBOARD=true
       - TZ=Europe/Madrid
 
