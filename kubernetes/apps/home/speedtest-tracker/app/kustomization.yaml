@@ -21,7 +21,7 @@ configMapGenerator:
 
       # Postgres Database Connection
       # - DB_CONNECTION=pgsql
-      # - DB_HOST=postgres-cluster-rw.database.svc.cluster.local
+      # - DB_HOST=postgres-rw.database.svc.cluster.local
       # - DB_PORT=5432
       # - DB_DATABASE=speedtest_tracker
       # - DB_USERNAME=postgres
