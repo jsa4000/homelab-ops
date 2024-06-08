@@ -5,7 +5,18 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
-    type: statefulset
+    # Use deployment (stateless) and Database for store the state instead.
+    # https://spacelift.io/blog/statefulset-vs-deployment
+    # type: statefulset
+    initContainers:
+      # This container will create the main database and user
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 16.3
+        envFrom:
+          - secretRef:
+              name: speedtest-tracker
     containers:
       main:
         image:
@@ -13,6 +24,8 @@ controllers:
           tag: 0.19.0
         envFrom:
           - configMapRef:
+              name: speedtest-tracker
+          - secretRef:
               name: speedtest-tracker
         resources:
           requests:
