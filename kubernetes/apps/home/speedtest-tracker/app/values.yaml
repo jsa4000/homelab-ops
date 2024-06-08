@@ -31,19 +31,30 @@ controllers:
           requests:
             cpu: 15m
             memory: 200M
+        dnsPolicy: None
+        dnsConfig:
+          nameservers:
+            # Use ClusterIP for CoreDns service if using internal host such as database
+            - 1.1.1.1
+            - 8.8.8.8
+          searches:
+            - speedtest-tracker.home.svc.cluster.local
+          options:
+            - name: ndots
+              value: "5"
 
-defaultPodOptions:
-  dnsPolicy: None
-  dnsConfig:
-    nameservers:
-      # Use ClusterIP for CoreDns service if using internal host such as database
-      - 1.1.1.1
-      - 8.8.8.8
-    searches:
-      - speedtest-tracker.home.svc.cluster.local
-    options:
-      - name: ndots
-        value: "5"
+# defaultPodOptions:
+#   dnsPolicy: None
+#   dnsConfig:
+#     nameservers:
+#       # Use ClusterIP for CoreDns service if using internal host such as database
+#       - 1.1.1.1
+#       - 8.8.8.8
+#     searches:
+#       - speedtest-tracker.home.svc.cluster.local
+#     options:
+#       - name: ndots
+#         value: "5"
 
 service:
   main:
