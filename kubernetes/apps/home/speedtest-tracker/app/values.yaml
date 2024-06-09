@@ -52,7 +52,7 @@ service:
       http:
         port: 80
 
-# Use persistence if needed using sqlite for statefulset
+# Use persistence if needed using DB_CONNECTION=sqlite for statefulset
 # persistence:
 #   config:
 #     type: persistentVolumeClaim
