@@ -29,6 +29,8 @@ controllers:
           TZ: Europe/Madrid
           RADARR__APP__INSTANCENAME: Radarr
           RADARR__SERVER__PORT: &port 80
+          RADARR__AUTH__METHOD: External
+          RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
           RADARR__LOG__DBENABLED: "False"
           RADARR__LOG__LEVEL: info
           RADARR__APP__THEME: dark
