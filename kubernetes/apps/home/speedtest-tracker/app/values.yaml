@@ -53,11 +53,12 @@ service:
         port: 80
 
 # Use persistence if needed using DB_CONNECTION=sqlite for statefulset
-# persistence:
-#   config:
-#     type: persistentVolumeClaim
-#     accessMode: ReadWriteOnce
-#     storageClass: longhorn
-#     size: 1Gi
-#     globalMounts:
-#       - path: /config
+persistence:
+  config:
+    type: emptyDir
+    # type: persistentVolumeClaim
+    # accessMode: ReadWriteOnce
+    # storageClass: longhorn
+    # size: 1Gi
+    # globalMounts:
+    #   - path: /config

@@ -28,9 +28,9 @@ controllers:
         env:
           TZ: Europe/Madrid
           PROWLARR__APP__INSTANCENAME: Prowlarr
+          PROWLARR__SERVER__PORT: &port 80
           PROWLARR__LOG__DBENABLED: "False"
           PROWLARR__LOG__LEVEL: info
-          PROWLARR__SERVER__PORT: &port 80
           PROWLARR__APP__THEME: dark
         probes:
           liveness: &probe
@@ -87,6 +87,7 @@ controllers:
 
 defaultPodOptions:
   enableServiceLinks: false
+  # Since it does not interact with qbittorrent volume it does need to login as same user
   securityContext:
     runAsUser: 1000
     runAsGroup: 1000
