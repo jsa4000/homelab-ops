@@ -26,10 +26,11 @@ controllers:
               name: prowlarr-secret
         env:
           TZ: Europe/Madrid
-          PROWLARR__INSTANCE_NAME: Prowlarr
-          PROWLARR__LOG_LEVEL: info
-          PROWLARR__PORT: &port 80
-          PROWLARR__THEME: dark
+          PROWLARR__APP__INSTANCENAME: Prowlarr
+          PROWLARR__LOG__DBENABLED: "False"
+          PROWLARR__LOG__LEVEL: info
+          PROWLARR__SERVER__PORT: &port 80
+          PROWLARR__APP__THEME: dark
         probes:
           liveness: &probe
             enabled: true
@@ -66,7 +67,7 @@ controllers:
           APIKEY:
             secretKeyRef:
               name: prowlarr-secret
-              key: PROWLARR__API_KEY
+              key: PROWLARR__AUTH__APIKEY
         probes:
           liveness: &probe-ex
             enabled: true
