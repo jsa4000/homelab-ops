@@ -28,6 +28,7 @@ controllers:
         envFrom:
           - secretRef:
               name: gotify-webhook-secret
+          # Secret created by init container that initialize the application in Godify and creates a secret with GOTIFY_TOKEN.
           - secretRef:
               name: gotify-webhook-token
         resources:
