@@ -1,9 +1,14 @@
+#!/bin/sh
+
 #############################################################################################
 ###      Zitadel Init
 #############################################################################################
 # Init Script for Zitadel to create initial user, application to be used by Oauth2 Proxy
 #
 # TODO: Build docker container with immutable versions instead
+
+OAUTH2_PROXY_SECRET=oauth2-proxy
+OAUTH2_PROXY_NAMESPACE=iam
 
 # Install utils
 apk add curl git openssl kubectl
@@ -44,7 +49,7 @@ tofu apply -auto-approve \
 -var redirect_url=https://$OAUTH2_DOMAIN/oauth2/callback
 
 # Create the secret after run OpenTofu
-kubectl create secret -n iam generic oauth2-proxy \
+kubectl create secret -n $OAUTH2_PROXY_NAMESPACE generic $OAUTH2_PROXY_SECRET \
 --from-literal=client-id=$(tofu output -raw zitadel_application_client_id) \
 --from-literal=client-secret=$(tofu output -raw zitadel_application_client_secret) \
 --from-literal=cookie-secret=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
