@@ -26,11 +26,27 @@ controllers:
           tag: 2.4.0
         env:
           TZ: Europe/Madrid
+          GOTIFY_SERVER_PORT: &port 80
           GOTIFY_DATABASE_DIALECT: postgres
           GOTIFY_REGISTRATION: false
         envFrom:
           - secretRef:
               name: gotify-secret
+        probes:
+          liveness: &probe
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probe
+          startup:
+            enabled: true
         resources:
           requests:
             cpu: 15m
@@ -51,7 +67,7 @@ service:
     controller: main
     ports:
       http:
-        port: 80
+        port: *port
 
 persistence:
   config:
