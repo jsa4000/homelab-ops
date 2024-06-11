@@ -32,6 +32,8 @@ controllers:
           requests:
             cpu: 15m
 
+# Init Container must be created as root since it need to install packages
+# TODO: Create custom (idempotent) image that contains dependencies
 # defaultPodOptions:
 #   automountServiceAccountToken: false
 #   securityContext:
@@ -56,6 +58,10 @@ persistence:
     defaultMode: 0775
     globalMounts:
       - path: /etc/scripts
+  config:
+    type: emptyDir
+    globalMounts:
+      - path: /config
 
 serviceMonitor:
   exporter:
