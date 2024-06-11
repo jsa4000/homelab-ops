@@ -25,7 +25,7 @@ controllers:
           PORT: &port 80
           METRICS_PATH: &metrics /metrics
           GOTIFY_ENDPOINT: http://gotify.observability.svc.cluster.local:80/message
-          GOTIFY_TOKEN: A0Ao1781WwzMxEg
+          #GOTIFY_TOKEN: 123
         envFrom:
           - secretRef:
               name: gotify-webhook-secret
@@ -63,6 +63,7 @@ persistence:
     type: emptyDir
     globalMounts:
       - path: /config
+        subPath: .env
 
 serviceMonitor:
   exporter:
