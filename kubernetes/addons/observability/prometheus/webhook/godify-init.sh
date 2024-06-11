@@ -7,8 +7,8 @@ GOTIFY_PORT=80
 GOTIFY_HEALTH_ENDPOINT=/health
 GOTIFY_APPICATION_ENDPOINT=/application
 GOTIFY_TOKEN_ENV=GOTIFY_TOKEN
-CONFIG_FOLDER=/config
-OUTPUT_FILE=.env
+GOTIFY_SECRET_NAME=gotify-webhook-token
+GOTIFY_SECRET_NAMESPACE=observability
 
 # Install utils
 # TODO: Use custom immutable image
@@ -25,12 +25,13 @@ if [ ! -z "$RESULT" ]; then
 fi
 
 echo "Creating application $GOTIFY_APPLICATION_NAME"
-curl -k -s -u $GOTIFY_USER_NAME:$GOTIFY_USER_PASS $SCHEME_URL://$GOTIFY_URL$PORT$GOTIFY_APPICATION_ENDPOINT \
+GOTIFY_TOKEN=$(curl -k -s -u $GOTIFY_USER_NAME:$GOTIFY_USER_PASS $SCHEME_URL://$GOTIFY_URL$PORT$GOTIFY_APPICATION_ENDPOINT \
 -F "name=$GOTIFY_APPLICATION_NAME" \
 -F "description=$GOTIFY_APPLICATION_DESCRIPTION" \
-| echo "GOTIFY_TOKEN_ENV=$(jq '.token')" > $CONFIG_FOLDER/$OUTPUT_FILE
+| jq '.token'))
 
-# Debug
-cat $CONFIG_FOLDER/$OUTPUT_FILE
+# Create the secret with the generated token
+kubectl create secret -n $GOTIFY_SECRET_NAMESPACE generic $GOTIFY_SECRET_NAME \
+--from-literal=$GOTIFY_TOKEN_ENV=$GOTIFY_TOKEN
 
 printf "Gotify initialized created.\n"

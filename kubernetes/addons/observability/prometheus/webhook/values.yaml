@@ -25,10 +25,11 @@ controllers:
           PORT: &port 80
           METRICS_PATH: &metrics /metrics
           GOTIFY_ENDPOINT: http://gotify.observability.svc.cluster.local:80/message
-          #GOTIFY_TOKEN: 123
         envFrom:
           - secretRef:
               name: gotify-webhook-secret
+          - secretRef:
+              name: gotify-webhook-token
         resources:
           requests:
             cpu: 15m
@@ -45,6 +46,11 @@ controllers:
 #     fsGroupChangePolicy: OnRootMismatch
 #     seccompProfile: { type: RuntimeDefault }
 
+# Service Account to create secret
+serviceAccount:
+  create: false
+  name: gotify-webhook-init
+
 service:
   main:
     controller: main
@@ -59,11 +65,6 @@ persistence:
     defaultMode: 0775
     globalMounts:
       - path: /etc/scripts
-  config:
-    type: emptyDir
-    globalMounts:
-      - path: /config
-        subPath: .env
 
 serviceMonitor:
   exporter:

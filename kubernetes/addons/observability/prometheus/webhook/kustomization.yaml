@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - external-secret.yaml
+  - rbac.yaml
 
 helmCharts:
   - name: app-template
