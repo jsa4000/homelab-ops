@@ -8,8 +8,6 @@ controllers:
     containers:
       main:
         image:
-          # Gotify has different container registries for different architectures
-          #repository: ghcr.io/gotify/server
           repository: ghcr.io/druggeri/alertmanager_gotify_bridge
           tag: 2.3.1
         env:
