@@ -14,7 +14,7 @@ apk add curl jq
 echo "Wait connecting to Gotify..."
 while [ "$(curl -sk -o /dev/null -w '%{http_code}' $SCHEME_URL://$GOTIFY_URL$PORT$GOTIFY_HEALTH_ENDPOINT)" -ne 200 ]; do sleep 10; done
 
-curl -k -u $GOTIFY_USER_NAME:$GOTIFY_USER_PASS $SCHEME_URL://$GOTIFY_URL$PORT$GOTIFY_APPICATION_ENDPOINT \
+curl -k -s -u $GOTIFY_USER_NAME:$GOTIFY_USER_PASS $SCHEME_URL://$GOTIFY_URL$PORT$GOTIFY_APPICATION_ENDPOINT \
 -F "name=$GOTIFY_APPLICATION_NAME" \
 -F "description=$GOTIFY_APPLICATION_DESCRIPTION" \
 | jq '.token' > $CONFIG_FOLDER/GOTIFY_TOKEN
