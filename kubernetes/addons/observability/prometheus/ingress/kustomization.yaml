@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - grafana-ingress.yaml
   - prometheus-ingress.yaml
+  - alertmanager-ingress.yaml
