@@ -11,7 +11,7 @@ controllers:
           repository: bash
           tag: alpine3.20
         command: ["bash"]
-        args: ["/etc/scripts/godify-init.sh"]
+        args: ["/etc/scripts/gotify-init.sh"]
         envFrom:
           - secretRef:
               name: gotify-webhook-secret
@@ -28,7 +28,7 @@ controllers:
         envFrom:
           - secretRef:
               name: gotify-webhook-secret
-          # Secret created by init container that initialize the application in Godify and creates a secret with GOTIFY_TOKEN.
+          # Secret created by init container that initialize the application in Gotify and creates a secret with GOTIFY_TOKEN.
           - secretRef:
               name: gotify-webhook-token
         resources:
@@ -62,7 +62,7 @@ service:
 persistence:
   init:
     type: configMap
-    name: godify-init
+    name: gotify-init
     defaultMode: 0775
     globalMounts:
       - path: /etc/scripts

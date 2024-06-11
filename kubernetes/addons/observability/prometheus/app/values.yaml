@@ -5,6 +5,16 @@ cleanPrometheusOperatorObjectNames: true
 
 alertmanager:
   enabled: true
+  config:
+    global:
+      resolve_timeout: 5m
+    receivers:
+      # Alertmanager to Gotify webhook bridge
+      # https://github.com/DRuggeri/alertmanager_gotify_bridge
+      - name: gotify
+        webhook_configs:
+          - url: http://gotify-webhook.observability.svc.cluster.local:80/gotify_webhook
+            send_resolved: false
   ingress:
     enabled: false
 

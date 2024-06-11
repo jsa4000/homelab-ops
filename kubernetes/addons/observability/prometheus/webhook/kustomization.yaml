@@ -14,8 +14,8 @@ helmCharts:
     valuesFile: values.yaml
 
 configMapGenerator:
-  - name: godify-init
+  - name: gotify-init
     files:
-      - godify-init.sh
+      - gotify-init.sh
 generatorOptions:
   disableNameSuffixHash: true
