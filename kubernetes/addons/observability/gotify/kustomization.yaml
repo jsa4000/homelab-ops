@@ -5,4 +5,3 @@ namespace: observability
 resources:
   - app
   - ingress
-  - webhook
