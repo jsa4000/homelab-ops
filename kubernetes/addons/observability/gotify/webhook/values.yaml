@@ -5,36 +5,25 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
-    # Use deployment (stateless) instead statefulset and Database for store the state instead of persistence.
-    # https://spacelift.io/blog/statefulset-vs-deployment
-    # type: statefulset
-    initContainers:
-      # This container will create the main database and user
-      init-db:
-        image:
-          repository: ghcr.io/onedr0p/postgres-init
-          tag: 16.3
-        envFrom:
-          - secretRef:
-              name: gotify-secret
     containers:
       main:
         image:
           # Gotify has different container registries for different architectures
-          # repository: ghcr.io/gotify/server
-          repository: ghcr.io/gotify/server-arm64
+          #repository: ghcr.io/gotify/server
+          repository: ghcr.io/druggeri/alertmanager_gotify_bridge
           tag: 2.4.0
         env:
           TZ: Europe/Madrid
-          GOTIFY_DATABASE_DIALECT: postgres
-          GOTIFY_REGISTRATION: false
+          PORT: &port 80
+          METRICS_PATH: &metrics /metrics
+          GOTIFY_ENDPOINT: http://gotify.observability.svc.cluster.local:80/message
+          # GOTIFY_TOKEN: 124
         envFrom:
           - secretRef:
               name: gotify-secret
         resources:
           requests:
             cpu: 15m
-            memory: 200M
 
 defaultPodOptions:
   automountServiceAccountToken: false
@@ -51,10 +40,17 @@ service:
     controller: main
     ports:
       http:
-        port: 80
+        port: *port
 
-persistence:
-  config:
-    type: emptyDir
-    globalMounts:
-      - path: /app/data
+serviceMonitor:
+  exporter:
+    enabled: true
+    labels:
+      release: prometheus-stack
+    serviceName: gotify-webhook
+    endpoints:
+      - port: http
+        scheme: http
+        path: *metrics
+        interval: 1m
+        scrapeTimeout: 10s
