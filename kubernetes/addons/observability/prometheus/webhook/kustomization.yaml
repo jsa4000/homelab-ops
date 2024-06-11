@@ -11,3 +11,10 @@ helmCharts:
     releaseName: gotify-webhook
     namespace: observability
     valuesFile: values.yaml
+
+configMapGenerator:
+  - name: godify-init
+    files:
+      - godify-init.sh
+generatorOptions:
+  disableNameSuffixHash: true

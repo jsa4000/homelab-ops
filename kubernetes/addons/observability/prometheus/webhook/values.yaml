@@ -5,6 +5,16 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
+    initContainers:
+      init:
+        image:
+          repository: bash
+          tag: alpine3.20
+        command: ["bash"]
+        args: ["/etc/scripts/godify-init.sh"]
+        envFrom:
+          - secretRef:
+              name: gotify-webhook-secret
     containers:
       main:
         image:
@@ -38,6 +48,14 @@ service:
     ports:
       http:
         port: *port
+
+persistence:
+  init:
+    type: configMap
+    name: godify-init
+    defaultMode: 0775
+    globalMounts:
+      - path: /etc/scripts
 
 serviceMonitor:
   exporter:
