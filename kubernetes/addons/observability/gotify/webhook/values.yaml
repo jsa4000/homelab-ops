@@ -11,7 +11,7 @@ controllers:
           # Gotify has different container registries for different architectures
           #repository: ghcr.io/gotify/server
           repository: ghcr.io/druggeri/alertmanager_gotify_bridge
-          tag: 2.4.0
+          tag: 2.3.1
         env:
           TZ: Europe/Madrid
           PORT: &port 80
