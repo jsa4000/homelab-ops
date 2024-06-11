@@ -20,7 +20,9 @@ controllers:
     containers:
       main:
         image:
-          repository: ghcr.io/gotify/server
+          # Gotify has different container registries for different architectures
+          #repository: ghcr.io/gotify/server
+          repository: ghcr.io/gotify/server-arm64
           tag: 2.4.0
         env:
           TZ: Europe/Madrid
