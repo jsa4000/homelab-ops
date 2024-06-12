@@ -22,11 +22,13 @@ alertmanager:
       receiver: 'gotify'
       routes:
         - receiver: "null"
-          match:
-            alertname: Watchdog
+          matchers:
+            - alertname =~ "InfoInhibitor|Watchdog"
         - receiver: "gotify"
-          match_re:
-            severity: critical
+          matchers:
+            - severity = "critical"
+            - severity = "warning"
+            - severity = "info"
           continue: true
     receivers:
       - name: "null"
