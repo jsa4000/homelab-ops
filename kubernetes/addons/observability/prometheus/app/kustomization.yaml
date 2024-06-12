@@ -13,6 +13,12 @@ helmCharts:
     namespace: observability
     valuesFile: values.yaml
 
+# Alertmanager configuration
+secretGenerator:
+  - name: alertmanager-secret
+    files:
+      - alertmanager.yaml=config/alertmanager.yaml
+
 # Add grafana folder label for the default grafana dashboards.
 patches:
   - target:
