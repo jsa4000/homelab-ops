@@ -18,6 +18,7 @@ configMapGenerator:
       # Default configutations (0 * * * *)
       - PUBLIC_DASHBOARD=true
       - TZ=Europe/Madrid
+      - SPEEDTEST_SCHEDULE=0 * * * *
       # Database Drivers
       # https://docs.speedtest-tracker.dev/getting-started/database-drivers
       # - DB_CONNECTION=sqlite
