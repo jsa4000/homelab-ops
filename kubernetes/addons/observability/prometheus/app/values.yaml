@@ -8,6 +8,39 @@ alertmanager:
   config:
     global:
       resolve_timeout: 5m
+    inhibit_rules:
+      - source_matchers:
+          - 'severity = critical'
+        target_matchers:
+          - 'severity =~ warning|info'
+        equal:
+          - 'namespace'
+          - 'alertname'
+      - source_matchers:
+          - 'severity = warning'
+        target_matchers:
+          - 'severity = info'
+        equal:
+          - 'namespace'
+          - 'alertname'
+      - source_matchers:
+          - 'alertname = InfoInhibitor'
+        target_matchers:
+          - 'severity = info'
+        equal:
+          - 'namespace'
+      - target_matchers:
+          - 'alertname = InfoInhibitor'
+    route:
+      group_by: ['namespace']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'null'
+      routes:
+        - receiver: 'gotify'
+          matchers:
+            - alertname = "Watchdog"
     receivers:
       # Alertmanager to Gotify webhook bridge
       # https://github.com/DRuggeri/alertmanager_gotify_bridge
@@ -15,6 +48,8 @@ alertmanager:
         webhook_configs:
           - url: http://gotify-webhook.observability.svc.cluster.local:80/gotify_webhook
             send_resolved: false
+    templates:
+      - '/etc/alertmanager/config/*.tmpl'
   ingress:
     enabled: false
 
