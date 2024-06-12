@@ -18,6 +18,8 @@ secretGenerator:
   - name: alertmanager-secret
     files:
       - alertmanager.yaml=config/alertmanager.yaml
+generatorOptions:
+  disableNameSuffixHash: true
 
 # Add grafana folder label for the default grafana dashboards.
 patches:
