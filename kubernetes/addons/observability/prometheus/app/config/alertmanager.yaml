@@ -20,7 +20,7 @@ route:
       matchers:
         - severity = "critical"
         - severity = "warning"
-        - severity = "info"
+        # - severity = "info"
       continue: true
 receivers:
   - name: "null"
