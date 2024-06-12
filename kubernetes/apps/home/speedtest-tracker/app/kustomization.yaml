@@ -20,7 +20,7 @@ configMapGenerator:
       - TZ=Europe/Madrid
       - APP_TIMEZONE=Europe/Madrid
       - DISPLAY_TIMEZONE=Europe/Madrid
-      - SPEEDTEST_SCHEDULE="0 * * * *"
+      - SPEEDTEST_SCHEDULE="* * * * *"
       # Database Drivers
       # https://docs.speedtest-tracker.dev/getting-started/database-drivers
       # - DB_CONNECTION=sqlite
