@@ -5,9 +5,12 @@ cleanPrometheusOperatorObjectNames: true
 
 alertmanager:
   enabled: true
-  spec:
-    # externalURL: https://alertmanager.default.internal.javiersant.com
-    replicaCount: 1
+  alertmanagerSpec:
+    # externalUrl: https://alertmanager.default.internal.javiersant.com
+    replicas: 1
+    retention: 48h
+    # Set to true in order to provide a secret with alertmanager configuration
+    useExistingSecret: true
     configSecret: alertmanager-secret
   ingress:
     enabled: false
