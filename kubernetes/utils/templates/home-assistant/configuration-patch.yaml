@@ -1,0 +1,20 @@
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - !env_var HASS_HTTP_TRUSTED_PROXY_1
+    - !env_var HASS_HTTP_TRUSTED_PROXY_2
+  ip_ban_enabled: true
+
+lovelace:
+  mode: yaml
+  # Add more dashboards into Home Assistant
+  # https://www.home-assistant.io/dashboards/dashboards/#adding-more-dashboards-with-yaml
+  dashboards:
+    lovelace-enery: # Needs to contain a hyphen (-)
+      mode: yaml
+      filename: dashobards/energy-dashboard.yaml
+      title: Custom
+      icon: mdi:tools
+      show_in_sidebar: true
+      require_admin: false

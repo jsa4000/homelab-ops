@@ -13,12 +13,18 @@ echo "Initialization Script for Home Assistant"
 echo "------------------------------------------------------------------------"
 echo
 
-CONFIGURATION_FILE=/config/configuration.yaml
+POD_NAME=home-assistant-0
+CONTAINER_NAME=main
+NAMESPACE=home
+CONFIGURATION_FOLDER=/config
+DASHBOARDS_FOLDER=$CONFIGURATION_FOLDER/dashobards
+CONFIGURATION_FILE=$CONFIGURATION_FOLDER/configuration.yaml
+TEMPLATE_FOLDER=kubernetes/utils/templates/home-assistant/
 VAR_TO_CHECK=HASS_HTTP_TRUSTED_PROXY_1
 
 echo "Checking if the configuration has been already applied (idempotent)"
 
-kubectl exec -n home home-assistant-0 -c main -- bash -c "cat $CONFIGURATION_FILE | grep -q $VAR_TO_CHECK &>/dev/null" &>/dev/null
+kubectl exec -n $NAMESPACE $POD_NAME -c $CONTAINER_NAME -- bash -c "cat $CONFIGURATION_FILE | grep -q $VAR_TO_CHECK" &>/dev/null
 if [ $? -eq 0 ]; then
     echo "Configuration has already been applied"
     return 0
@@ -26,18 +32,17 @@ fi
 
 echo "Appling the configuration to Home Assistant"
 
-echo " - Adding proxy exceptions to access from different access points and IP Addresses."
-kubectl exec -n home home-assistant-0 -c main -- bash -c "cat <<EOT >> $CONFIGURATION_FILE
+echo " - Removing previous configuration"
+kubectl exec -n $NAMESPACE $POD_NAME -c $CONTAINER_NAME -- bash -c "rm -rf $DASHBOARDS_FOLDER" &>/dev/null
 
-http:
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - !env_var HASS_HTTP_TRUSTED_PROXY_1
-    - !env_var HASS_HTTP_TRUSTED_PROXY_2
-  ip_ban_enabled: true
-EOT"
+echo " - Copying dashboards and patches files to the Home Assistant"
+kubectl cp -n $NAMESPACE $TEMPLATE_FOLDER $POD_NAME:$DASHBOARDS_FOLDER -c $CONTAINER_NAME
+
+echo " - Adding proxy exceptions to access from different access points and IP Addresses and dashobards"
+kubectl exec -n $NAMESPACE $POD_NAME -c $CONTAINER_NAME -- bash -c "cat $DASHBOARDS_FOLDER/configuration-patch.yaml >> $CONFIGURATION_FILE" &>/dev/null
 
 # Force to Restart Home Assistant
-kubectl delete pod -n home home-assistant-0
+kubectl delete pod -n $NAMESPACE $POD_NAME
 
+echo
 echo "Configuration Applied"

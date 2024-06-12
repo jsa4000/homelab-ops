@@ -5,7 +5,18 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
-    type: statefulset
+    # Use deployment (stateless) instead statefulset and Database for store the state instead of persistence.
+    # https://spacelift.io/blog/statefulset-vs-deployment
+    # type: statefulset
+    initContainers:
+      # This container will create the main database and user
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 16.3
+        envFrom:
+          - secretRef:
+              name: speedtest-tracker
     containers:
       main:
         image:
@@ -14,23 +25,25 @@ controllers:
         envFrom:
           - configMapRef:
               name: speedtest-tracker
+          - secretRef:
+              name: speedtest-tracker
         resources:
           requests:
             cpu: 15m
             memory: 200M
 
-defaultPodOptions:
-  dnsPolicy: None
-  dnsConfig:
-    nameservers:
-      # Use ClusterIP for CoreDns service if using internal host such as database
-      - 1.1.1.1
-      - 8.8.8.8
-    searches:
-      - speedtest-tracker.home.svc.cluster.local
-    options:
-      - name: ndots
-        value: "5"
+# defaultPodOptions:
+#   dnsPolicy: None
+#   dnsConfig:
+#     nameservers:
+#       # Use ClusterIP for CoreDns service if using internal host such as database
+#       - 1.1.1.1
+#       - 8.8.8.8
+#     searches:
+#       - speedtest-tracker.home.svc.cluster.local
+#     options:
+#       - name: ndots
+#         value: "5"
 
 service:
   main:
@@ -39,11 +52,13 @@ service:
       http:
         port: 80
 
+# Use persistence if needed using DB_CONNECTION=sqlite for statefulset
 persistence:
   config:
-    type: persistentVolumeClaim
-    accessMode: ReadWriteOnce
-    storageClass: longhorn
-    size: 1Gi
-    globalMounts:
-      - path: /config
+    type: emptyDir
+    # type: persistentVolumeClaim
+    # accessMode: ReadWriteOnce
+    # storageClass: longhorn
+    # size: 1Gi
+    # globalMounts:
+    #   - path: /config

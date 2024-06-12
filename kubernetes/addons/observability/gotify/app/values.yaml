@@ -1,0 +1,76 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    # Use deployment (stateless) instead statefulset and Database for store the state instead of persistence.
+    # https://spacelift.io/blog/statefulset-vs-deployment
+    # type: statefulset
+    initContainers:
+      # This container will create the main database and user
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 16.3
+        envFrom:
+          - secretRef:
+              name: gotify-secret
+    containers:
+      main:
+        image:
+          # Gotify has different container registries for different architectures
+          # repository: ghcr.io/gotify/server
+          repository: ghcr.io/gotify/server-arm64
+          tag: 2.4.0
+        env:
+          TZ: Europe/Madrid
+          GOTIFY_SERVER_PORT: &port 80
+          GOTIFY_DATABASE_DIALECT: postgres
+          GOTIFY_REGISTRATION: false
+        envFrom:
+          - secretRef:
+              name: gotify-secret
+        probes:
+          liveness: &probe
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: *port
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness: *probe
+          startup:
+            enabled: true
+        resources:
+          requests:
+            cpu: 15m
+            memory: 200M
+
+defaultPodOptions:
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: OnRootMismatch
+    seccompProfile: { type: RuntimeDefault }
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: *port
+
+persistence:
+  config:
+    type: emptyDir
+    globalMounts:
+      - path: /app/data

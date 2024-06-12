@@ -1,6 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+resources:
+  - external-secret.yaml
+
 helmCharts:
   - name: app-template
     repo: https://bjw-s.github.io/helm-charts
@@ -12,17 +15,10 @@ helmCharts:
 configMapGenerator:
   - name: speedtest-tracker
     literals:
-      # Default configutations (*/60 * * * *) (* */6 * * *)
+      # Default configutations (0 * * * *)
       - PUBLIC_DASHBOARD=true
       - TZ=Europe/Madrid
-
-      # SQL Lite Database Connection
-      - DB_CONNECTION=sqlite
-
-      # Postgres Database Connection
-      # - DB_CONNECTION=pgsql
-      # - DB_HOST=postgres-cluster-rw.database.svc.cluster.local
-      # - DB_PORT=5432
-      # - DB_DATABASE=speedtest_tracker
-      # - DB_USERNAME=postgres
-      # - DB_PASSWORD=***
+      # Database Drivers
+      # https://docs.speedtest-tracker.dev/getting-started/database-drivers
+      # - DB_CONNECTION=sqlite
+      - DB_CONNECTION=pgsql

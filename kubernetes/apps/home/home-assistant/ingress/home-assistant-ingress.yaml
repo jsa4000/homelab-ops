@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: home-assistant.svg
     gethomepage.dev/name: Home Assistant
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 196
 spec:
   entryPoints:
     - websecure

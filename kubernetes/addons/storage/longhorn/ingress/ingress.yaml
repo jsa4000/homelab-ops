@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: longhorn.svg
     gethomepage.dev/name: Longhorn
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 497
 spec:
   entryPoints:
     - websecure

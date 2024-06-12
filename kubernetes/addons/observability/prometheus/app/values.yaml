@@ -5,6 +5,13 @@ cleanPrometheusOperatorObjectNames: true
 
 alertmanager:
   enabled: true
+  alertmanagerSpec:
+    # externalUrl: https://alertmanager.default.internal.javiersant.com
+    replicas: 1
+    retention: 48h
+    # Set to true in order to provide a secret with alertmanager configuration
+    useExistingSecret: true
+    configSecret: alertmanager-secret
   ingress:
     enabled: false
 
@@ -101,7 +108,8 @@ prometheus:
     scrapeConfigSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
-    retention: 6h
+    # Adjust the retention period and max size for the metrics to be stored.
+    retention: 3d
     retentionSize: 4GB
     enableAdminAPI: true
     walCompression: true

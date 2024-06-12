@@ -15,3 +15,4 @@ patches:
       kind: IngressRoute
       name: home-assistant-code-server-ingress
     path: code-server-ingress-patch.yaml
+  - path: statefulset-patch.yaml

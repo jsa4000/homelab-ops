@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: cilium.svg
     gethomepage.dev/name: Hubble
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 399
 spec:
   entryPoints:
     - websecure

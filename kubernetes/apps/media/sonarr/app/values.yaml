@@ -5,7 +5,8 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
-    # Use deployment (stateless) and Database for store the state instead.
+    # Use deployment (stateless) instead statefulset and Database for store the state instead of persistence.
+    # https://spacelift.io/blog/statefulset-vs-deployment
     # type: statefulset
     initContainers:
       # This container will create the main database and user
@@ -26,11 +27,13 @@ controllers:
               name: sonarr-secret
         env:
           TZ: Europe/Madrid
-          COMPlus_EnableDiagnostics: "0"
-          SONARR__INSTANCE_NAME: Sonarr
-          SONARR__PORT: &port 80
-          SONARR__LOG_LEVEL: info
-          SONARR__THEME: dark
+          SONARR__APP__INSTANCENAME: Sonarr
+          SONARR__SERVER__PORT: &port 80
+          SONARR__AUTH__METHOD: External
+          SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+          SONARR__LOG__DBENABLED: "False"
+          SONARR__LOG__LEVEL: info
+          SONARR__APP__THEME: dark
         probes:
           liveness: &probe
             enabled: true
@@ -62,7 +65,7 @@ controllers:
           APIKEY:
             secretKeyRef:
               name: sonarr-secret
-              key: SONARR__API_KEY
+              key: SONARR__AUTH__APIKEY
         probes:
           liveness: &probe-ex
             enabled: true
@@ -104,12 +107,9 @@ service:
 
 persistence:
   config:
-    type: persistentVolumeClaim
-    accessMode: ReadWriteOnce
-    storageClass: longhorn
-    size: 1Gi
-    globalMounts:
-      - path: /config
+    type: emptyDir
+  tmp:
+    type: emptyDir
   downloads:
     # Persistent Volume Claims cannot be shared across namespaces (v1.26 [alpha])
     # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#cross-namespace-data-sources
@@ -118,8 +118,6 @@ persistence:
       main:
         main:
           - path: /downloads
-  tmp:
-    type: emptyDir
 
 serviceMonitor:
   exporter:

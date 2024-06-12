@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: argocd.svg
     gethomepage.dev/name: ArgoCD
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 495
 spec:
   entryPoints:
     - websecure

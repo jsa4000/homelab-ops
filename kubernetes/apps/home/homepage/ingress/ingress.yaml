@@ -12,6 +12,7 @@ metadata:
     gethomepage.dev/icon: https://avatars.githubusercontent.com/u/122929872?v=4
     gethomepage.dev/name: Homepage
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 195
 spec:
   entryPoints:
     - websecure

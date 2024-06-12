@@ -5,9 +5,10 @@ loki:
     http_listen_port: 3100
     grpc_listen_port: 9095
   limits_config:
-    retention_period: 14d
+    # Adjust the retention period of the logs to be stored.
+    retention_period: 3d
     reject_old_samples: true
-    reject_old_samples_max_age: 168h
+    reject_old_samples_max_age: 72h
     max_cache_freshness_per_query: 10m
     split_queries_by_interval: 24h
     max_query_parallelism: 100
@@ -62,7 +63,15 @@ singleBinary:
       value: 3750MiB
   persistence:
     enabled: true
-    size: 1Gi
+    # Since kubernetes 1.24 the Volume Expansion is Stable.
+    # https://kubernetes.io/blog/2022/05/05/volume-expansion-ga/
+    # Make sure the 'storageclass' has 'allowVolumeExpansion' to resize the volume from the initial size.
+    #   NAME                 PROVISIONER          RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+    #   longhorn (default)   driver.longhorn.io   Delete          Immediate           true                   39h
+    # Finally, since the chart does not create a PersistentVolumeClaim and uses volumeClaimTemplates within the statefulset to create it dynamically.
+    # it is neccesary to execute following command (kustomize does not work since it does not create PersistentVolumeClaim to be patched).
+    # > kubectl patch pvc storage-loki-0 -n observability -p '{"spec":{"resources":{"requests":{"storage":"2Gi"}}}}'
+    size: 2Gi
 
 chunksCache:
   # -- Specifies whether memcached based chunks-cache should be enabled

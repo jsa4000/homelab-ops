@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - external-secret.yaml
+  - rbac.yaml
+
+helmCharts:
+  - name: app-template
+    repo: https://bjw-s.github.io/helm-charts
+    version: 3.2.1
+    releaseName: gotify-webhook
+    namespace: observability
+    valuesFile: values.yaml
+
+configMapGenerator:
+  - name: gotify-init
+    files:
+      - gotify-init.sh
+generatorOptions:
+  disableNameSuffixHash: true

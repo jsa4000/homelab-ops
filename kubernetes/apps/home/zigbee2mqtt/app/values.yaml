@@ -27,10 +27,10 @@ controllers:
           ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
           ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
           ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
+          # Set frontend to false since it will fail during startup, the dashboard still be available.
+          # https://github.com/Koenkk/zigbee2mqtt/issues/13078
           ZIGBEE2MQTT_CONFIG_FRONTEND: "false"
           ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
-          # These URL must not have subdomains, so it will fail during startup
-          # https://github.com/Koenkk/zigbee2mqtt/issues/13078
           ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee2mqtt.dev
           ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
           ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt

@@ -3,13 +3,13 @@ k3s_cluster:
   children:
     server:
       hosts:
-        server-1:
+        sbc-server-1:
           ansible_host: 192.168.3.100
     agent:
       hosts:
-        server-2:
+        sbc-server-2:
           ansible_host: 192.168.3.101
-        server-3:
+        sbc-server-3:
           ansible_host: 192.168.3.102
 
   # Required Vars
@@ -22,7 +22,11 @@ k3s_cluster:
     # ansible_sudo_pass: orangepi
     k3s_version: v1.30.0+k3s1
     k3s_environment: pro
-    # Use ansible vault if you want to keep it secret
+    # The token should be a random string of reasonable length. You can generate
+    # one with the following commands:
+    # - openssl rand -base64 64
+    # - pwgen -s 64 1
+    # You can use ansible-vault to encrypt this value / keep it secret.
     token: "mytoken"
     api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
     # By default k3s allow to deploy pods on master node, to fix this add this arg:

@@ -5,7 +5,8 @@ controllers:
       reloader.stakater.com/auto: "true"
     replicas: 1
     strategy: RollingUpdate
-    # Use deployment (stateless) and Database for store the state instead.
+    # Use deployment (stateless) instead statefulset and Database for store the state instead of persistence.
+    # https://spacelift.io/blog/statefulset-vs-deployment
     # type: statefulset
     initContainers:
       # This container will create the main database and user
@@ -26,10 +27,13 @@ controllers:
               name: prowlarr-secret
         env:
           TZ: Europe/Madrid
-          PROWLARR__INSTANCE_NAME: Prowlarr
-          PROWLARR__LOG_LEVEL: info
-          PROWLARR__PORT: &port 80
-          PROWLARR__THEME: dark
+          PROWLARR__APP__INSTANCENAME: Prowlarr
+          PROWLARR__SERVER__PORT: &port 80
+          PROWLARR__AUTH__METHOD: External
+          PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
+          PROWLARR__LOG__DBENABLED: "False"
+          PROWLARR__LOG__LEVEL: info
+          PROWLARR__APP__THEME: dark
         probes:
           liveness: &probe
             enabled: true
@@ -66,7 +70,7 @@ controllers:
           APIKEY:
             secretKeyRef:
               name: prowlarr-secret
-              key: PROWLARR__API_KEY
+              key: PROWLARR__AUTH__APIKEY
         probes:
           liveness: &probe-ex
             enabled: true
@@ -85,6 +89,7 @@ controllers:
 
 defaultPodOptions:
   enableServiceLinks: false
+  # Since it does not interact with qbittorrent volume it does need to login as same user
   securityContext:
     runAsUser: 1000
     runAsGroup: 1000
@@ -107,12 +112,7 @@ service:
 
 persistence:
   config:
-    type: persistentVolumeClaim
-    accessMode: ReadWriteOnce
-    storageClass: longhorn
-    size: 1Gi
-    globalMounts:
-      - path: /config
+    type: emptyDir
   tmp:
     type: emptyDir
 

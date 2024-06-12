@@ -1,0 +1,81 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    initContainers:
+      init:
+        image:
+          repository: bash
+          tag: alpine3.20
+        command: ["bash"]
+        args: ["/etc/scripts/gotify-init.sh"]
+        envFrom:
+          - secretRef:
+              name: gotify-webhook-secret
+    containers:
+      main:
+        image:
+          repository: ghcr.io/druggeri/alertmanager_gotify_bridge
+          tag: 2.3.1
+        env:
+          TZ: Europe/Madrid
+          PORT: &port 80
+          METRICS_PATH: &metrics /metrics
+          GOTIFY_ENDPOINT: http://gotify.observability.svc.cluster.local:80/message
+        envFrom:
+          - secretRef:
+              name: gotify-webhook-secret
+          # Secret created by init container that initialize the application in Gotify and creates a secret with GOTIFY_TOKEN.
+          - secretRef:
+              name: gotify-webhook-token
+        resources:
+          requests:
+            cpu: 15m
+
+# Init Container must be created as root since it need to install packages
+# TODO: Create custom (idempotent) image that contains dependencies
+# defaultPodOptions:
+#   automountServiceAccountToken: false
+#   securityContext:
+#     runAsNonRoot: true
+#     runAsUser: 568
+#     runAsGroup: 568
+#     fsGroup: 568
+#     fsGroupChangePolicy: OnRootMismatch
+#     seccompProfile: { type: RuntimeDefault }
+
+# Service Account to create secret
+serviceAccount:
+  create: false
+  name: gotify-webhook-init
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: *port
+
+persistence:
+  init:
+    type: configMap
+    name: gotify-init
+    defaultMode: 0775
+    globalMounts:
+      - path: /etc/scripts
+
+serviceMonitor:
+  exporter:
+    enabled: true
+    labels:
+      release: prometheus-stack
+    serviceName: gotify-webhook
+    endpoints:
+      - port: http
+        scheme: http
+        path: *metrics
+        interval: 1m
+        scrapeTimeout: 10s

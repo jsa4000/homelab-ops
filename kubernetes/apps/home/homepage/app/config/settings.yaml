@@ -14,3 +14,8 @@ background:
 providers:
   openweathermap: openweathermapapikey
   weatherapi: weatherapiapikey
+
+disableCollapse: true
+useEqualHeights: true
+headerStyle: clean
+hideVersion: true

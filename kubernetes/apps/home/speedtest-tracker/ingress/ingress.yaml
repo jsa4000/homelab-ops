@@ -14,6 +14,7 @@ metadata:
     gethomepage.dev/widget.type: speedtest
     gethomepage.dev/widget.url: "http://speedtest-tracker.home.svc.cluster.local:80"
     gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 199
 spec:
   entryPoints:
     - websecure
