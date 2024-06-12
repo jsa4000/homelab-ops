@@ -28,7 +28,7 @@ echo "Creating application $GOTIFY_APPLICATION_NAME"
 GOTIFY_TOKEN=$(curl -k -s -u $GOTIFY_USER_NAME:$GOTIFY_USER_PASS $SCHEME_URL://$GOTIFY_URL$PORT$GOTIFY_APPICATION_ENDPOINT \
 -F "name=$GOTIFY_APPLICATION_NAME" \
 -F "description=$GOTIFY_APPLICATION_DESCRIPTION" \
-| jq '.token')
+| jq -r '.token')
 
 # Create the secret with the generated token
 kubectl create secret -n $GOTIFY_SECRET_NAMESPACE generic $GOTIFY_SECRET_NAME \
