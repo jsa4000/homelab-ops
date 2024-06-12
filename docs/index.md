@@ -63,6 +63,26 @@ Create a Homelab from Scratch using latest best practices, patterns and tools.
 
 ## Devices
 
+=== "ONT Network Router 1GE"
+
+    <div class="result" markdown>
+
+    ![Image title](images/ont_network_router.jpg){ vertical-align=top horizontal-align=center width=800 }
+
+    Top View
+
+    </div>
+
+=== "HUAWEI WiFi AX3 Pro"
+
+    <div class="result" markdown>
+
+    ![Image title](images/router_huawei_wifi_ax3_pro.jpg){ vertical-align=top horizontal-align=center width=800 }
+
+    Top View
+
+    </div>
+
 === "SONOFF Zigbee 3.0 USB Dongle Plus V2"
 
     <div class="result" markdown>
