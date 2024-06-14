@@ -10,6 +10,11 @@
 OAUTH2_PROXY_SECRET=oauth2-proxy
 OAUTH2_PROXY_NAMESPACE=iam
 
+GITHUB_ACCOUNT=jsa4000
+GITHUB_REPO=homelab-ops
+GITHUB_BRANCH=main
+GITHUB_SUBPATH=infrastructure/terraform/zitadel
+
 # Install utils
 apk add curl git openssl kubectl
 
@@ -19,10 +24,12 @@ OPEN_TOFU_ARCH=arm64
 wget https://github.com/opentofu/opentofu/releases/download/v${OPEN_TOFU_VERSION}/tofu_${OPEN_TOFU_VERSION}_${OPEN_TOFU_ARCH}.apk -O tofu.apk
 apk add --allow-untrusted tofu.apk
 
-# Clone the repository
-# git clone https://github.com/jsa4000/homelab-ops.git
-git clone https://${GITHUB_PAT}@github.com/jsa4000/homelab-ops.git
-cd homelab-ops/infrastructure/terraform/zitadel/
+echo "Cloning the repository (only needed files)"
+git clone --depth 1 --branch $GITHUB_BRANCH --no-checkout https://${GITHUB_PAT}@github.com/$GITHUB_ACCOUNT/$GITHUB_REPO
+cd $GITHUB_REPO
+git sparse-checkout set $GITHUB_SUBPATH
+git checkout
+cd $GITHUB_SUBPATH
 
 echo "Wating to connect to Zitadel"
 
