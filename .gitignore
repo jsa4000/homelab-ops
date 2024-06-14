@@ -298,4 +298,7 @@ terraform.rc
 client-key-file.json
 *.lock.hcl
 
+# draw.id backup files
+.$*
+
 # End of https://www.toptal.com/developers/gitignore/api/terraform
