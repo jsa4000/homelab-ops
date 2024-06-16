@@ -13,7 +13,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: alpine
-          image: ghcr.io/jsa4000/opentofu:1.0.2
+          image: ghcr.io/jsa4000/opentofu:1.0.3
           command: ["sh"]
           args: ["/etc/scripts/zitadel-init.sh"]
           envFrom:
