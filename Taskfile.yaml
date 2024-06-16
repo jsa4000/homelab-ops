@@ -6,6 +6,7 @@ vars:
 dotenv: [.env]
 
 includes:
+  k8s: .github/taskfiles/k8s.yaml
   ansible: .github/taskfiles/ansible.yaml
   precommit: .github/taskfiles/pre-commit.yaml
   lint: .github/taskfiles/lint.yaml
