@@ -11,7 +11,7 @@ controllers:
           repository: ghcr.io/open-webui/open-webui
           tag: git-162643a
         env:
-          OLLAMA_API_BASE_URL: http://ollama.ai.svc.cluster.local:11434/api
+          OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local:11434/api
         resources:
           requests:
             cpu: 200m
