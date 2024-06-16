@@ -9,4 +9,9 @@ patches:
       version: v1alpha1
       kind: IngressRoute
       name: ollama-ingress
-    path: ingress-patch.yaml
+    path: ollama-ingress-patch.yaml
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: ollama-webui-ingress
+    path: ollama-webui-ingress-patch.yaml

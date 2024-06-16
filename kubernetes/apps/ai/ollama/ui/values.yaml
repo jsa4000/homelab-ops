@@ -1,0 +1,26 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    replicas: 1
+    strategy: RollingUpdate
+    containers:
+      main:
+        image:
+          repository: ghcr.io/open-webui/open-webui
+          tag: git-162643a
+        env:
+          OLLAMA_API_BASE_URL: http://ollama.ai.svc.cluster.local:11434/api
+        resources:
+          requests:
+            cpu: 200m
+          limits:
+            memory: 2Gi
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8080
