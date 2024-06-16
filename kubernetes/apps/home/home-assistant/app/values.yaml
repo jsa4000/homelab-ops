@@ -40,7 +40,7 @@ controllers:
       code-server:
         image:
           repository: ghcr.io/coder/code-server
-          tag: 4.90.1
+          tag: 4.90.2
         args:
           - --auth
           - none
