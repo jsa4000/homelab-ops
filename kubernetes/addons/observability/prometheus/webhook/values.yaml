@@ -8,8 +8,6 @@ controllers:
     initContainers:
       init:
         image:
-          #repository: bash
-          #tag: alpine3.20
           repository: ghcr.io/jsa4000/toolbox
           tag: 0.1.0
         command: ["bash"]
