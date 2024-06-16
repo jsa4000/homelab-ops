@@ -6,6 +6,15 @@ controllers:
     replicas: 1
     strategy: RollingUpdate
     type: statefulset
+    initContainers:
+      # This container will create the main database and user
+      init-db:
+        image:
+          repository: ghcr.io/onedr0p/postgres-init
+          tag: 16.3
+        envFrom:
+          - secretRef:
+              name: home-assistant-secret
     containers:
       main:
         image:
@@ -13,6 +22,9 @@ controllers:
           # TODO: onedr0p images are not immutable, so it needed to add the @shaXYZ after the tag version to ensure using the same image.
           # https://github.com/onedr0p/containers?tab=readme-ov-file#tag-immutability
           tag: 2024.6.2
+        envFrom:
+          - secretRef:
+              name: home-assistant-secret
         env:
           TZ: Europe/Madrid
           # Trusted Networks cidr (Flannel and Cilium)
