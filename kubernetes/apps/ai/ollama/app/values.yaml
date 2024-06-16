@@ -1,0 +1,56 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    # Do not use replicas since it will be managed by KEDA, so argocd does not detect diffs.
+    # replicas: 1
+    strategy: RollingUpdate
+    containers:
+      main:
+        image:
+          repository: docker.io/ollama/ollama
+          tag: 0.1.44
+        env:
+          TZ: Europe/Madrid
+          # NVIDIA_VISIBLE_DEVICES: all
+          # NVIDIA_DRIVER_CAPABILITIES: all
+          # OLLAMA_HOST: 0.0.0.0
+          # OLLAMA_ORIGINS: "*"
+        resources:
+          requests:
+            memory: 10Mi
+            cpu: 10m
+            #nvidia.com/gpu: 1
+          limits:
+            memory: 4Gi
+            #nvidia.com/gpu: 1
+          startup:
+            enabled: false
+
+defaultPodOptions:
+  automountServiceAccountToken: false
+  enableServiceLinks: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: OnRootMismatch
+    seccompProfile: { type: RuntimeDefault }
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 11434
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: longhorn
+    size: 4Gi
+    globalMounts:
+      - path: /root/.ollama
