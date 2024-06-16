@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/icon: ollama.svg
     gethomepage.dev/name: Ollama WebUI
     gethomepage.dev/pod-selector: ""
-    gethomepage.dev/weight: 698
+    gethomepage.dev/weight: 699
 spec:
   entryPoints:
     - websecure
