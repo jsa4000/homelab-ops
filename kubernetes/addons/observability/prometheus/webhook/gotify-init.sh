@@ -12,7 +12,7 @@ GOTIFY_SECRET_NAMESPACE=observability
 
 # Install utils
 # TODO: Use custom immutable image
-apk add curl kubectl jq
+# apk add curl kubectl jq
 
 echo "Wait connecting to Gotify..."
 while [ "$(curl -sk -o /dev/null -w '%{http_code}' $SCHEME_URL://$GOTIFY_URL$PORT$GOTIFY_HEALTH_ENDPOINT)" -ne 200 ]; do sleep 10; done
