@@ -1,3 +1,7 @@
+# Inline command to run the pod instead using declarative (use dry-run to get the same yaml)
+# > kubectl run alpine --image=bash:alpine3.20 --port=80 -- bash -ecv "while :; do echo '.'; sleep 5 ; done"
+# Run a pod in interactive mode and remove after exit
+# > kubectl run -it --rm alpine --image=bash:alpine3.20
 apiVersion: v1
 kind: Pod
 metadata:
