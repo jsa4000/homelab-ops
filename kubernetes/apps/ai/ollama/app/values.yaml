@@ -6,6 +6,7 @@ controllers:
     # Do not use replicas since it will be managed by KEDA, so argocd does not detect diffs.
     # replicas: 1
     strategy: RollingUpdate
+    type: statefulset
     containers:
       main:
         image:
