@@ -41,7 +41,6 @@ extraEnvVars:
     value: "false"
   - name: DEFAULT_MODELS
     value: "qwen2:0.5b"
-  # Default API key value for Pipelines.
   - name: OPENAI_API_KEY
     valueFrom:
       secretKeyRef:
