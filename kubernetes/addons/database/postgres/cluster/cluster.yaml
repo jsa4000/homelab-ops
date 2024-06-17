@@ -31,6 +31,7 @@ spec:
       effective_io_concurrency: "200"
       work_mem: "655kB"
       huge_pages: "off"
+      # max_wal_size must be smaller than walStorage
       max_wal_size: "768MB"
     # Postgres host-based authentication
     # - Allow all non ssl connections.
