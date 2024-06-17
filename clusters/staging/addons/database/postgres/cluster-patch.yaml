@@ -6,4 +6,4 @@
   value: 6Gi
 - op: replace
   path: /spec/postgresql/parameters/max_wal_size
-  value: 2Gi
+  value: 7Gi
