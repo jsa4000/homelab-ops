@@ -44,9 +44,9 @@ extraEnvVars:
   # Default API key value for Pipelines.
   - name: OPENAI_API_KEY
     valueFrom:
-    secretKeyRef:
-      name: open-webui-secret
-      key: OPENAI_API_KEY
+      secretKeyRef:
+        name: open-webui-secret
+        key: OPENAI_API_KEY
   # https://docs.openwebui.com/getting-started/env-configuration/#database_url
   - name: DATABASE_URL
     valueFrom:
