@@ -5,5 +5,5 @@
   path: /spec/walStorage/size
   value: 6Gi
 - op: replace
-  path: /spec/postgresql/parameters/max_wal_size
-  value: 7Gi
+  path: /spec/postgresql/parameters/max_wal_sizes
+  value: 5768MB
