@@ -1,0 +1,60 @@
+# Ollama installation https://github.com/otwld/ollama-helm
+ollama:
+  enabled: false
+
+# Pipelines installation https://github.com/open-webui/pipelines
+pipelines:
+  enabled: true
+
+ollamaUrls:
+  - http://ollama.ai.svc.cluster.local:11434
+
+replicaCount: 1
+
+# https://github.com/open-webui/open-webui/pkgs/container/open-webui
+image:
+  repository: ghcr.io/open-webui/open-webui
+  tag: git-162643a
+
+resources:
+  requests:
+    cpu: 200m
+  limits:
+    memory: 2Gi
+
+ingress:
+  enabled: false
+
+# Disabling the persistence it will create a deployment instead a statefulset
+persistence:
+  enabled: false
+
+service:
+  port: 80
+  containerPort: 8080
+
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        preference:
+          matchExpressions:
+            - key: "intel.feature.node.kubernetes.io/gpu"
+              operator: "In"
+              values: ["true"]
+
+# https://docs.openwebui.com/getting-started/env-configuration/
+extraEnvVars:
+  - name: WEBUI_AUTH
+    value: "false"
+  - name: OPENAI_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: open-webui-secret
+        key: OPENAI_API_KEY
+  # https://docs.openwebui.com/getting-started/env-configuration/#database_url
+  - name: DATABASE_URL
+    valueFrom:
+      secretKeyRef:
+        name: open-webui-secret
+        key: OPEN_WEBUI_DB_URL

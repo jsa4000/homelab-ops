@@ -18,3 +18,6 @@ lovelace:
       icon: mdi:tools
       show_in_sidebar: true
       require_admin: false
+
+recorder:
+  db_url: !env_var HASS_RECORDER_DB_URL

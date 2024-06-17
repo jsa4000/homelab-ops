@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - github.com/jsa4000/homelab-ops//kubernetes/apps/ai/ollama?ref=main
+
+patches:
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: ollama-ingress
+    path: ingress-patch.yaml
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: ollama
+    path: pvc-patch.yaml
+  - path: deployment-patch.yaml

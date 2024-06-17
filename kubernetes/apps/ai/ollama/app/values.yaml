@@ -1,0 +1,54 @@
+replicaCount: 1
+
+knative:
+  enabled: false
+
+ollama:
+  gpu:
+    enabled: false
+  models:
+    - qwen2:0.5b
+
+# Specify runtime class
+# runtimeClassName: ""
+
+service:
+  type: ClusterIP
+  port: 11434
+
+ingress:
+  enabled: false
+
+resources:
+  requests:
+    memory: 10Mi
+    cpu: 10m
+    #nvidia.com/gpu: 1
+  limits:
+    memory: 4Gi
+    #nvidia.com/gpu: 1
+
+autoscaling:
+  enabled: false
+
+extraEnv:
+  - name: OLLAMA_DEBUG
+    value: "0"
+
+persistentVolume:
+  enabled: true
+  # If using multiple replicas, you must update accessModes to ReadWriteMany (it creates a deployment)
+  accessModes:
+    - ReadWriteOnce
+  size: 4Gi
+  storageClass: longhorn
+
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        preference:
+          matchExpressions:
+            - key: "intel.feature.node.kubernetes.io/gpu"
+              operator: "In"
+              values: ["true"]

@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: cloudnative-pg
     repo: https://cloudnative-pg.github.io/charts
-    version: 0.21.4
+    version: 0.21.5
     releaseName: cnpg
     namespace: database
     includeCRDs: true

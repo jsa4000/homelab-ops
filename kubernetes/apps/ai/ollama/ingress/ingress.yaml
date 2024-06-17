@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ollama-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ollama.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: ollama
+          port: 11434
+  tls:
+    secretName: wildcard-javiersant-com-tls

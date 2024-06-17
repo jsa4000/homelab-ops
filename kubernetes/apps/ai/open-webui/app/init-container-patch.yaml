@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open-webui
+spec:
+  template:
+    spec:
+      initContainers:
+        - envFrom:
+            - secretRef:
+                name: open-webui-secret
+          image: 'ghcr.io/onedr0p/postgres-init:16.3'
+          name: init-db

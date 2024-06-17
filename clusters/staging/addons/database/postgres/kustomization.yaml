@@ -3,3 +3,10 @@ kind: Kustomization
 
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/database/postgres?ref=staging
+
+patches:
+  - target:
+      version: v1
+      kind: Cluster
+      name: postgres
+    path: cluster-patch.yaml

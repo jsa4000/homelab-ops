@@ -31,8 +31,8 @@ spec:
       effective_io_concurrency: "200"
       work_mem: "655kB"
       huge_pages: "off"
-      min_wal_size: "1GB"
-      max_wal_size: "3GB"
+      # max_wal_size must be smaller than walStorage
+      max_wal_size: "768MB"
     # Postgres host-based authentication
     # - Allow all non ssl connections.
     pg_hba:
@@ -43,7 +43,7 @@ spec:
     storageClass: longhorn
   # Write-Ahead Log (WAL)
   walStorage:
-    size: 4Gi
+    size: 1Gi
     storageClass: longhorn
   # Enable super user access to create databases and schemas
   # NOTE: CloudNative PG has been designed to work as a microservice architecture, one database per service.

@@ -1,0 +1,17 @@
+version: "3"
+
+tasks:
+  argocd:
+    desc: ArgoCD Port-forward
+    cmds:
+      - kubectl port-forward svc/argocd-server -n gitops 8080:80
+
+  postgres:
+    desc: Postgres Port-forward
+    cmds:
+      - kubectl port-forward service/postgres-rw -n database 5432:5432
+
+  test-pod:
+    desc: Create a Pod and exec into it
+    cmds:
+      - kubectl run -it --rm alpine --image=bash:alpine3.20

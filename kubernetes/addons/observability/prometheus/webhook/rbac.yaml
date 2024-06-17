@@ -3,6 +3,7 @@ kind: ServiceAccount
 metadata:
   name: gotify-webhook-init
 ---
+# Create a Role (not ClusterRole) to only be able to create secret from the container.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
