@@ -1,27 +1,27 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ollama-webui-ingress
+  name: open-webui-ingress
   annotations:
     kubernetes.io/ingress.class: traefik-internal
     external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://ollama-webui.default.internal.javiersant.com"
-    gethomepage.dev/description: Ollama WebUI
+    gethomepage.dev/href: "https://open-webui.default.internal.javiersant.com"
+    gethomepage.dev/description: Open WebUI (Formerly Ollama WebUI)
     gethomepage.dev/group: AI
     gethomepage.dev/icon: ollama.svg
-    gethomepage.dev/name: Ollama WebUI
+    gethomepage.dev/name: Open WebUI
     gethomepage.dev/pod-selector: ""
     gethomepage.dev/weight: 699
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`ollama-webui.default.internal.javiersant.com`)
+    - match: Host(`open-webui.default.internal.javiersant.com`)
       kind: Rule
       services:
         - kind: Service
-          name: ollama-webui
-          port: 8080
+          name: open-webui
+          port: 80
   tls:
     secretName: wildcard-javiersant-com-tls

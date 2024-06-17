@@ -1,0 +1,45 @@
+# Ollama installation https://otwld.github.io/ollama-helm/.
+ollama:
+  enabled: false
+
+# Pipelines installation https://github.com/open-webui/pipelines
+pipelines:
+  enabled: true
+
+ollamaUrls:
+  - http://ollama.ai.svc.cluster.local:11434
+
+replicaCount: 1
+
+# https://github.com/open-webui/open-webui/pkgs/container/open-webui
+image:
+  repository: ghcr.io/open-webui/open-webui
+  tag: git-162643a
+
+resources:
+  requests:
+    cpu: 200m
+  limits:
+    memory: 2Gi
+
+ingress:
+  enabled: false
+
+persistence:
+  enabled: true
+  size: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClass: longhorn
+
+service:
+  port: 80
+  containerPort: 8080
+
+# OpenAI base API URL to use
+openaiBaseApiUrl: ""
+
+# https://docs.openwebui.com/getting-started/env-configuration/
+extraEnvVars:
+  - name: OLLAMA_DEBUG
+    value: "0"

@@ -3,7 +3,7 @@
   value: staging.internal.javiersant.com
 - op: replace
   path: /metadata/annotations/gethomepage.dev~1href
-  value: "https://ollama-webui.staging.internal.javiersant.com"
+  value: "https://open-webui.staging.internal.javiersant.com"
 - op: replace
   path: /spec/routes/0/match
-  value: Host(`ollama-webui.staging.internal.javiersant.com`)
+  value: Host(`open-webui.staging.internal.javiersant.com`)
