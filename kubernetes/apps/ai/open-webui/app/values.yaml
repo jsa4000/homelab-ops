@@ -36,9 +36,6 @@ service:
   port: 80
   containerPort: 8080
 
-# OpenAI base API URL to use
-openaiBaseApiUrl: ""
-
 # https://docs.openwebui.com/getting-started/env-configuration/
 extraEnvVars:
   - name: OLLAMA_DEBUG
@@ -47,6 +44,16 @@ extraEnvVars:
     value: "false"
   - name: DEFAULT_MODELS
     value: "qwen2:0.5b"
+  # Default API key value for Pipelines.
+  - name: OPENAI_API_KEY
+    valueFrom:
+    secretKeyRef:
+      name: open-webui-secret
+      key: OPENAI_API_KEY
+  # TODO: Patch with init-container to create database since it's not yet supported in the helm chart
   # https://docs.openwebui.com/getting-started/env-configuration/#database_url
-  # - name: DATABASE_URL
-  #   value: "postgresql://postgres:my_password@localhost:5432/my_database "
+  # - name: DATABASE_URL
+  #   valueFrom:
+  #   secretKeyRef:
+  #     name: open-webui-secret
+  #     key: OPEN_WEBUI_DB_URL
