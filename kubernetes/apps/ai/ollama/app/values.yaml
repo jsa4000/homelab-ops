@@ -1,43 +1,53 @@
-controllers:
-  main:
-    annotations:
-      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
-      reloader.stakater.com/auto: "true"
-    replicas: 1
-    strategy: RollingUpdate
-    type: statefulset
-    containers:
-      main:
-        image:
-          repository: docker.io/ollama/ollama
-          tag: 0.1.44
-        env:
-          TZ: Europe/Madrid
-          # NVIDIA_VISIBLE_DEVICES: all
-          # NVIDIA_DRIVER_CAPABILITIES: all
-          # OLLAMA_HOST: 0.0.0.0
-          # OLLAMA_ORIGINS: "*"
-        resources:
-          requests:
-            memory: 10Mi
-            cpu: 10m
-            #nvidia.com/gpu: 1
-          limits:
-            memory: 4Gi
-            #nvidia.com/gpu: 1
+replicaCount: 1
+
+knative:
+  enabled: false
+
+ollama:
+  gpu:
+    enabled: false
+  models:
+    - qwen2:0.5b
+
+# Specify runtime class
+# runtimeClassName: ""
 
 service:
-  main:
-    controller: main
-    ports:
-      http:
-        port: 11434
+  type: ClusterIP
+  port: 11434
 
-persistence:
-  config:
-    type: persistentVolumeClaim
-    accessMode: ReadWriteOnce
-    storageClass: longhorn
-    size: 4Gi
-    globalMounts:
-      - path: /root/.ollama
+ingress:
+  enabled: false
+
+resources:
+  requests:
+    memory: 10Mi
+    cpu: 10m
+    #nvidia.com/gpu: 1
+  limits:
+    memory: 4Gi
+    #nvidia.com/gpu: 1
+
+autoscaling:
+  enabled: false
+
+extraEnv:
+  - name: OLLAMA_DEBUG
+    value: "0"
+
+persistentVolume:
+  enabled: true
+  accessModes:
+    - ReadWriteOnce
+  size: 4Gi
+  storageClass: longhorn
+
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        preference:
+          matchExpressions:
+            - key: "intel.feature.node.kubernetes.io/gpu"
+              operator: "In"
+              values: ["true"]
