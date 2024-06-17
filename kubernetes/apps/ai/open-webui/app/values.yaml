@@ -1,4 +1,4 @@
-# Ollama installation https://otwld.github.io/ollama-helm/.
+# Ollama installation https://github.com/otwld/ollama-helm
 ollama:
   enabled: false
 
@@ -32,6 +32,16 @@ persistence:
 service:
   port: 80
   containerPort: 8080
+
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        preference:
+          matchExpressions:
+            - key: "intel.feature.node.kubernetes.io/gpu"
+              operator: "In"
+              values: ["true"]
 
 # https://docs.openwebui.com/getting-started/env-configuration/
 extraEnvVars:
