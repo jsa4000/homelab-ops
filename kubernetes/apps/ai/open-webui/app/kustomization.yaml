@@ -11,3 +11,7 @@ helmCharts:
     releaseName: open-webui
     namespace: ai
     valuesFile: values.yaml
+
+# Use patches since Open WebUI does not support init-containers
+patches:
+  - path: init-container-patch.yaml

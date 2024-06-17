@@ -47,10 +47,9 @@ extraEnvVars:
     secretKeyRef:
       name: open-webui-secret
       key: OPENAI_API_KEY
-  # TODO: Patch with init-container to create database since it's not yet supported in the helm chart
   # https://docs.openwebui.com/getting-started/env-configuration/#database_url
-  # - name: DATABASE_URL
-  #   valueFrom:
-  #   secretKeyRef:
-  #     name: open-webui-secret
-  #     key: OPEN_WEBUI_DB_URL
+  - name: DATABASE_URL
+    valueFrom:
+      secretKeyRef:
+        name: open-webui-secret
+        key: OPEN_WEBUI_DB_URL
