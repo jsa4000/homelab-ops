@@ -6,7 +6,7 @@ resources:
 
 patches:
   - target:
-      version: v1alpha1
+      version: v1
       kind: Cluster
       name: postgres
     path: cluster-patch.yaml
