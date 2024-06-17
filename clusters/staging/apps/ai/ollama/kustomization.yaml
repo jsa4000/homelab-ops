@@ -10,3 +10,4 @@ patches:
       kind: IngressRoute
       name: ollama-ingress
     path: ingress-patch.yaml
+  - path: deployment-patch.yaml

@@ -37,6 +37,7 @@ extraEnv:
 
 persistentVolume:
   enabled: true
+  # If using multiple replicas, you must update accessModes to ReadWriteMany (it creates a deployment)
   accessModes:
     - ReadWriteOnce
   size: 4Gi

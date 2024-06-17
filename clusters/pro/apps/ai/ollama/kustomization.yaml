@@ -10,3 +10,9 @@ patches:
       kind: IngressRoute
       name: ollama-ingress
     path: ingress-patch.yaml
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: ollama
+    path: pvc-patch.yaml
+  - path: deployment-patch.yaml
