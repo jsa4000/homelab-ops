@@ -31,8 +31,7 @@ spec:
       effective_io_concurrency: "200"
       work_mem: "655kB"
       huge_pages: "off"
-      min_wal_size: "1GB"
-      max_wal_size: "3GB"
+      max_wal_size: "1GB"
     # Postgres host-based authentication
     # - Allow ssl only hosts (with cert)
     # - Reject all non ssl connections.
