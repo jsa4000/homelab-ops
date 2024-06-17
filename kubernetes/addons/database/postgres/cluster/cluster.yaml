@@ -43,7 +43,7 @@ spec:
     storageClass: longhorn
   # Write-Ahead Log (WAL)
   walStorage:
-    size: 4Gi
+    size: 1Gi
     storageClass: longhorn
   # Enable super user access to create databases and schemas
   # NOTE: CloudNative PG has been designed to work as a microservice architecture, one database per service.
