@@ -25,12 +25,9 @@ resources:
 ingress:
   enabled: false
 
+# Disabling the persistence it will create a deployment instead a statefulset
 persistence:
-  enabled: true
-  size: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  storageClass: longhorn
+  enabled: false
 
 service:
   port: 80
