@@ -43,3 +43,10 @@ openaiBaseApiUrl: ""
 extraEnvVars:
   - name: OLLAMA_DEBUG
     value: "0"
+  - name: WEBUI_AUTH
+    value: "false"
+  - name: DEFAULT_MODELS
+    value: "qwen2:0.5b"
+  # https://docs.openwebui.com/getting-started/env-configuration/#database_url
+  # - name: DATABASE_URL
+  #   value: "postgresql://postgres:my_password@localhost:5432/my_database "
