@@ -1,4 +1,5 @@
 # Panel for devices: smart_plug_01
+# NOTE: You will need to activate the Energy panel first.
 views:
   - title: Energy View
     cards:
