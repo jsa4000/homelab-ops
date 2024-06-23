@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: ollama
     repo: https://otwld.github.io/ollama-helm/
-    version: 0.36.1
+    version: 0.37.0
     releaseName: ollama
     namespace: ai
     valuesFile: values.yaml
