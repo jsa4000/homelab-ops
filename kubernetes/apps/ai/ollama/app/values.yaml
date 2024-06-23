@@ -25,7 +25,7 @@ resources:
     cpu: 10m
     #nvidia.com/gpu: 1
   limits:
-    memory: 4Gi
+    memory: 6Gi
     #nvidia.com/gpu: 1
 
 autoscaling:
