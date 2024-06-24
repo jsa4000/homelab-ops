@@ -20,8 +20,15 @@ patches:
       kind: IngressRoute
       name: alertmanager-ingress
     path: alertmanager-ingress-patch.yaml
+  # In order to resize a persistent volume the storageclass must haver "allowVolumeExpansion" enabled (longhorn, rook-ceph, etc..)
+  # For Prometheus is not enough to modify the Prometheus CRD, so it is needed to modify both the 'Prometheus' and 'PersistentVolumeClaim'.
   - target:
       version: v1
       kind: Prometheus
       name: prometheus-stack-kube-prom
     path: prometheus-patch.yaml
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: prometheus-prometheus-stack-kube-prom-db-prometheus-prometheus-stack-kube-prom-0
+    path: prometheus-pvc-patch.yaml
