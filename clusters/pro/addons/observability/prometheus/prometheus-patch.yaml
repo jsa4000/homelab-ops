@@ -1,0 +1,3 @@
+- op: replace
+  path: /storage/volumeClaimTemplate/spec/resources/requests/storage
+  value: 7Gi
