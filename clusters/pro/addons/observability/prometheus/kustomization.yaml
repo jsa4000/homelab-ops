@@ -20,15 +20,16 @@ patches:
       kind: IngressRoute
       name: alertmanager-ingress
     path: alertmanager-ingress-patch.yaml
-  # In order to resize a persistent volume the storageclass must haver "allowVolumeExpansion" enabled (longhorn, rook-ceph, etc..)
+  # Since kubernetes 1.24 the Volume Expansion is Stable.
+  # https://kubernetes.io/blog/2022/05/05/volume-expansion-ga/
+  # Make sure the 'storageclass' has 'allowVolumeExpansion' to resize the volume from the initial size.
+  #   NAME                 PROVISIONER          RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+  #   longhorn (default)   driver.longhorn.io   Delete          Immediate           true                   39h
   # For Prometheus is not enough to modify the Prometheus CRD, so it is needed to modify both the 'Prometheus' and 'PersistentVolumeClaim'.
+  # Also, it is necessary to execute following command (kustomize does not work since it does not initially create a PersistentVolumeClaim resource to be patched).
+  # > kubectl patch pvc prometheus-prometheus-stack-kube-prom-db-prometheus-prometheus-stack-kube-prom-0 -n observability -p '{"spec":{"resources":{"requests":{"storage":"7Gi"}}}}'
   - target:
       version: v1
       kind: Prometheus
       name: prometheus-stack-kube-prom
     path: prometheus-patch.yaml
-  - target:
-      version: v1
-      kind: PersistentVolumeClaim
-      name: prometheus-prometheus-stack-kube-prom-db-prometheus-prometheus-stack-kube-prom-0
-    path: prometheus-pvc-patch.yaml
