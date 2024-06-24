@@ -24,4 +24,4 @@ patches:
       version: v1
       kind: Prometheus
       name: prometheus-stack-kube-prom
-    path: alertmanager-ingress-patch.yaml
+    path: prometheus-patch.yaml
