@@ -20,3 +20,8 @@ patches:
       kind: IngressRoute
       name: alertmanager-ingress
     path: alertmanager-ingress-patch.yaml
+  - target:
+      version: v1
+      kind: Prometheus
+      name: prometheus-stack-kube-prom
+    path: alertmanager-ingress-patch.yaml
