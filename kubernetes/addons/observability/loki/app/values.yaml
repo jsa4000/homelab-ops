@@ -69,7 +69,7 @@ singleBinary:
     #   NAME                 PROVISIONER          RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
     #   longhorn (default)   driver.longhorn.io   Delete          Immediate           true                   39h
     # Finally, since the chart does not create a PersistentVolumeClaim and uses volumeClaimTemplates within the statefulset to create it dynamically.
-    # it is neccesary to execute following command (kustomize does not work since it does not create PersistentVolumeClaim to be patched).
+    # it is necessary to execute following command (kustomize does not work since it does not initially create a PersistentVolumeClaim to be patched).
     # > kubectl patch pvc storage-loki-0 -n observability -p '{"spec":{"resources":{"requests":{"storage":"2Gi"}}}}'
     size: 2Gi
 
