@@ -1,8 +1,31 @@
-# My Homelab
+# Homelab
 
-Create a Homelab from Scratch using latest best practices, patterns and tools.
+## What is a Homelab?
+
+**Homelab** is the name given for a server-based setup that resides **locally** in your home that can host several **applications** or **virtualized systems**. A homelab can be used for many purposes such as *learning*, *developing*, *testing*, *media server*, *backup* etc..
+
+Server can go go from simple tower, mini-PC or Single Board Computers (SBC), such as Raspberry Pi or OrangePi, to more powerful devices or repurposed rack servers that you can acquire from companies who discard them due to their age but are still usable.
+
+## Usages
+
+Depending on your needs or goals a Homelab can have different usages:
+
+* It provides you a **playground** for **learning** and **breaking** things.
+* It lets you work and **experiment** with projects that you cannot try on the job itself.
+* It allow you to perform **backup** to you personal data or storing **secrets** and **passwords**, so you do not rely on SaaS or external providers.
+* If you want host **media** like movies, photos, music and eBooks.
+* If you want to allow **home automation** that puts local control and privacy first.
+
+## My Homelab
+
+My Homelab is bases on **Single Board Computers (SBC)** based on **ARM Architecture family** so the energy consumption is **low** and **cheap**. The SBC chosen are **OrangePI 5** that are very powerful boards and similar to Raspberry Pi 5 models, but with *less support* from the community.
 
 ![Orange Pi Cluster](images/orangepi_cluster_up_v1.jpg){ align=center width=800 }
+
+## Costs
+
+Building a homelab can be cheap or expensive depending on the **number of servers**, **components**, **maintenance costs** or **energy consumption**.
+From the component perspective my homelab setup are broken into the following items:
 
 | Component | Units | Cost/Unit | Link |
 | --- | --- | --- | --- |
