@@ -6,7 +6,7 @@ DevPod is a client-only tool to create reproducible developer environments based
 
 You can think of DevPod as the glue that connects your local IDE to a machine where you want to develop. So depending on the requirements of your project, you can either create a workspace locally on the computer, on a beefy cloud machine with many GPUs, or a spare remote computer. Within DevPod, every workspace is managed the same way, which also makes it easy to switch between workspaces that might be hosted somewhere else.
 
-![DevPod Flow](https://github.com/loft-sh/devpod/blob/main/docs/static/media/devpod-flow.gif)
+![DevPod Flow](https://github.com/loft-sh/devpod/blob/main/docs/static/media/devpod-flow.gif?raw=true)
 
 ## Why DevPod?
 
@@ -100,14 +100,14 @@ devpod status
 # Lists existing workspaces
 devpod list
 
-
-             NAME          |                         SOURCE                          | MACHINE |  PROVIDER  |   IDE    | LAST USED |  AGE
-  -------------------------+---------------------------------------------------------+---------+------------+----------+-----------+---------
-    vscode-remote-try-java | git:https://github.com/microsoft/vscode-remote-try-java |         | kubernetes | intellij | 2m15s     | 2m15s
-    vscode-remote-try-node | git:https://github.com/microsoft/vscode-remote-try-node |         | kubernetes | vscode   | 23m44s    | 26m27s
+           NAME          |                         SOURCE                          | MACHINE |  PROVIDER  |   IDE    | LAST USED |  AGE
+-------------------------+---------------------------------------------------------+---------+------------+----------+-----------+---------
+  vscode-remote-try-java | git:https://github.com/microsoft/vscode-remote-try-java |         | kubernetes | intellij | 2m15s     | 2m15s
+  vscode-remote-try-node | git:https://github.com/microsoft/vscode-remote-try-node |         | kubernetes | vscode   | 23m44s    | 26m27s
 
 # Reconnect to the workspace already created
 devpod up vscode-remote-try-node --ide vscode
+devpod up vscode-remote-try-java --ide vscode # intellij if JetBrains Gateway available
 
 # Starts a new ssh session-only to a workspace
 devpod ssh vscode-remote-try-java
