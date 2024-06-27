@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: k8s-summit-demo
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  serviceName: "nginx"
+  replicas: 3
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: demo-volume-1
+              mountPath: /usr/share/nginx/html
+            - name: demo-volume-2
+              mountPath: /data
+      volumes:
+        - name: demo-volume-2
+          persistentVolumeClaim:
+            claimName: nginx-storage
+  volumeClaimTemplates:
+    - metadata:
+        name: demo-volume-1
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        # storageClassName: ceph-block
+        # storageClassName: ceph-rbd
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 1Gi

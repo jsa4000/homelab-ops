@@ -1,0 +1,12 @@
+---
+k3s_cluster:
+  children:
+    server:
+      hosts:
+        sbc-server-1:
+    agent:
+      hosts:
+        sbc-server-2:
+        sbc-server-3:
+  vars:
+    custom_command: lsblk

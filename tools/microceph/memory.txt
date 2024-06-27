@@ -1,0 +1,221 @@
+
+###################################################################
+####                         Vanilla                           ####
+###################################################################
+
+    0[*                         0.7%]   Tasks: 22, 18 thr; 1 running
+    1[                          0.0%]   Load average: 0.21 0.24 0.24
+    2[                          0.0%]   Uptime: 00:19:04
+    3[                          0.0%]
+  Mem[|#**                204M/7.74G]
+  Swp[                      0K/3.82G]
+
+    0[*                         0.7%]   Tasks: 20, 18 thr; 1 running
+    1[                          0.0%]   Load average: 0.08 0.20 0.23
+    2[                          0.0%]   Uptime: 00:20:00
+    3[                          0.0%]
+  Mem[|#**                204M/7.74G]
+  Swp[                      0K/3.82G]
+
+    1[                          0.0%]   Load average: 0.18 0.53 0.55
+    2[                          0.0%]   Uptime: 00:20:03 7 0.52 0.54
+    3[#                         0.7%]                  6 5 0.51
+  Mem[  **                207M/70.0G]                 13
+  Swp[*                     0K/30.7G]
+
+###################################################################
+####                           K3s                             ####
+###################################################################
+
+NAME       CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+server-1   24m          0%     1397Mi          17%
+server-2   6m           0%     926Mi           11%
+server-3   9m           0%     924Mi           11%
+
+    0[                          0.0%]   Tasks: 35, 107 thr; 1 running
+    1[#                         1.7%]   Load average: 0.26 0.41 0.35
+    2[#*                        0.7%]   Uptime: 00:58:16 4 0.40
+    3[#*                        2.0%]                  9
+  Mem[ |||#*****          827M/7.70G]
+  Swp[                      8K/3.82G]
+
+    0[                          0.0%]   Tasks: 26, 43 thr; 1 running
+    1[                          0.0%]   Load average: 0.18 0.21 0.24
+    2[*                         0.7%]   Uptime: 00:58:27
+    3[                          0.0%]
+  Mem[||#****             276M/7.74G]
+  Swp[                      0K/3.82G]
+
+    0[#*                        1.3%]   Tasks: 26, 44 thr; 1 running
+    1[#*                        1.3%]   Load average: 0.07 0.23 0.29
+    2[*                         1.3%]   Uptime: 00:58:35
+    3[#*                        2.0%]
+  Mem[||#****             296M/7.74G]
+  Swp[                      0K/3.82G]
+
+###################################################################
+####                      MicroCeph + K3s                      ####
+###################################################################
+
+NAME       CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+server-1   241m         3%     1943Mi          24%
+server-2   40m          0%     1362Mi          17%
+server-3   57m          0%     1387Mi          17%
+
+    0[*                         0.7%]     4[*                         0.7%]
+    1[*                         0.7%]     5[#*                        2.6%]
+    2[#*                        1.3%]     6[                          0.0%]
+    3[*                         0.7%]     7[#*                        1.3%]
+  Mem[|||||||#***********1.64G/7.74G]   Tasks: 66, 1140 thr; 1 running
+  Swp[                      0K/3.82G]   Load average: 0.13 0.18 0.16
+                                        Uptime: 02:47:15
+
+    0[#*                        1.3%]     4[                          0.0%]
+    1[                          0.0%]     5[                          0.0%]
+    2[                          0.0%]     6[                          0.0%]
+    3[                          0.0%]     7[*                         0.7%]
+  Mem[|||||#*************1.08G/7.74G]   Tasks: 65, 410 thr; 1 running
+  Swp[                      0K/3.82G]   Load average: 0.05 0.10 0.14
+                                        Uptime: 02:47:25
+
+    0[                          0.0%]     4[                          0.0%]
+    1[                          0.0%]     5[*                         0.7%]
+    2[*                         0.7%]     6[#*                        1.3%]
+    3[#                         1.3%]     7[                          0.0%]
+  Mem[||||#**************1.01G/7.74G]   Tasks: 56, 362 thr; 1 running
+  Swp[                      0K/3.82G]   Load average: 0.18 0.13 0.10
+                                        Uptime: 02:47:32
+
+  Namespace                   Name                                             CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                             ------------  ----------  ---------------  -------------  ---
+  kube-system                 local-path-provisioner-84db5d44d9-npgdq          0 (0%)        0 (0%)      0 (0%)           0 (0%)         3h44m
+  kube-system                 coredns-6799fbcd5-qk66j                          100m (1%)     0 (0%)      70Mi (0%)        170Mi (2%)     3h44m
+  kube-system                 metrics-server-67c658944b-bnw7p                  100m (1%)     0 (0%)      70Mi (0%)        0 (0%)         3h44m
+  rook-ceph                   csi-cephfsplugin-provisioner-7855965c95-48l6m    550m (6%)     0 (0%)      512Mi (6%)       1792Mi (22%)   113m
+  rook-ceph                   csi-rbdplugin-dw6k2                              300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   113m
+  rook-ceph                   csi-cephfsplugin-59xfx                           300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   113m
+  default                     k8s-summit-demo-1                                0 (0%)        0 (0%)      0 (0%)           0 (0%)         84m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                1350m (16%)   0 (0%)
+  memory             1164Mi (14%)  4522Mi (57%)
+
+  Namespace                   Name                                             CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                             ------------  ----------  ---------------  -------------  ---
+  rook-ceph                   rook-ceph-operator-86b4d9458-6nwmh               200m (2%)     0 (0%)      128Mi (1%)       512Mi (6%)     3h40m
+  rook-ceph                   csi-rbdplugin-provisioner-5597dd4f5d-q5bh4       300m (3%)     0 (0%)      512Mi (6%)       1792Mi (22%)   113m
+  rook-ceph                   csi-rbdplugin-vzwqx                              300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   113m
+  rook-ceph                   csi-cephfsplugin-f54w5                           300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   113m
+  rook-ceph                   csi-cephfsplugin-provisioner-7855965c95-x25bv    550m (6%)     0 (0%)      512Mi (6%)       1792Mi (22%)   113m
+  default                     k8s-summit-demo-2                                0 (0%)        0 (0%)      0 (0%)           0 (0%)         84m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                1650m (20%)   0 (0%)
+  memory             1664Mi (20%)  6656Mi (83%)
+
+  Namespace                   Name                                          CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                          ------------  ----------  ---------------  -------------  ---
+  rook-ceph                   csi-cephfsplugin-hcjjp                        300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   113m
+  rook-ceph                   csi-rbdplugin-92866                           300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   113m
+  rook-ceph                   csi-rbdplugin-provisioner-5597dd4f5d-xx2nm    300m (3%)     0 (0%)      512Mi (6%)       1792Mi (22%)   113m
+  default                     k8s-summit-demo-0                             0 (0%)        0 (0%)      0 (0%)           0 (0%)         70m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                900m (11%)  0 (0%)
+  memory             1Gi (12%)   4352Mi (54%)
+
+###################################################################
+####                      Rook Ceph + K3s                      ####
+###################################################################
+
+NAME       CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+server-1   120m         1%     2047Mi          25%
+server-2   92m          1%     2007Mi          25%
+server-3   98m          1%     2195Mi          27%
+
+    0[#                         0.7%]     4[                          0.0%]
+    1[#*                        2.6%]     5[#*                        1.3%]
+    2[                          0.0%]     6[#*                        2.0%]
+    3[                          0.0%]     7[*                         1.3%]
+  Mem[||||||#************1.54G/7.74G]   Tasks: 73, 656 thr; 3 running
+  Swp[|                  1.52M/3.82G]   Load average: 0.42 0.48 0.38
+                                        Uptime: 00:21:14
+
+    0[*                         0.7%]     4[*                         0.7%]
+    1[                          0.0%]     5[                          0.0%]
+    2[                          0.0%]     6[                          0.0%]
+    3[#*                        1.3%]     7[                          0.0%]
+  Mem[||||||#************1.49G/7.74G]   Tasks: 73, 537 thr; 1 running
+  Swp[|                  1.27M/3.82G]   Load average: 0.33 0.52 0.38
+                                        Uptime: 00:22:42
+
+    0[#                         0.7%]     4[#                         0.7%]
+    1[                          0.0%]     5[                          0.0%]
+    2[#*                        2.0%]     6[#                         0.7%]
+    3[#*                        1.3%]     7[#*                        1.3%]
+  Mem[|||||||#***********1.66G/7.74G]   Tasks: 77, 1262 thr; 1 running
+  Swp[|                  1.52M/3.82G]   Load average: 0.17 0.55 0.52
+                                        Uptime: 00:22:41
+
+
+  Namespace                   Name                                             CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                             ------------  ----------  ---------------  -------------  ---
+  kube-system                 coredns-6799fbcd5-b5zfl                          100m (1%)     0 (0%)      70Mi (0%)        170Mi (2%)     6h42m
+  kube-system                 local-path-provisioner-84db5d44d9-w4swp          0 (0%)        0 (0%)      0 (0%)           0 (0%)         6h42m
+  kube-system                 metrics-server-67c658944b-7l5sq                  100m (1%)     0 (0%)      70Mi (0%)        0 (0%)         6h42m
+  rook-ceph                   csi-rbdplugin-7kfsg                              300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   6h31m
+  rook-ceph                   csi-cephfsplugin-provisioner-7855965c95-dszfs    550m (6%)     0 (0%)      512Mi (6%)       1792Mi (22%)   6h31m
+  rook-ceph                   csi-rbdplugin-provisioner-5597dd4f5d-dcxh4       300m (3%)     0 (0%)      512Mi (6%)       1792Mi (22%)   6h31m
+  rook-ceph                   csi-cephfsplugin-mbfz6                           300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   6h31m
+  rook-ceph                   rook-ceph-mon-c-56c6b9c68c-9cc9l                 600m (7%)     0 (0%)      228Mi (2%)       3Gi (38%)      6h25m
+  rook-ceph                   rook-ceph-exporter-server-1-778fc9d579-nxg7l     50m (0%)      0 (0%)      50Mi (0%)        128Mi (1%)     6h24m
+  rook-ceph                   rook-ceph-osd-1-776bcfb8b4-gdsft                 600m (7%)     0 (0%)      228Mi (2%)       5Gi (64%)      6h24m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                2900m (36%)   0 (0%)
+  memory             2182Mi (27%)  14634Mi (184%)
+
+  Namespace                   Name                                               CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                               ------------  ----------  ---------------  -------------  ---
+  rook-ceph                   rook-ceph-tools-5574756dc7-88gmr                   100m (1%)     0 (0%)      128Mi (1%)       1Gi (12%)      6h36m
+  rook-ceph                   csi-rbdplugin-bg99c                                300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   6h32m
+  rook-ceph                   csi-cephfsplugin-bkkxv                             300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   6h32m
+  rook-ceph                   csi-cephfsplugin-provisioner-7855965c95-lg2hr      550m (6%)     0 (0%)      512Mi (6%)       1792Mi (22%)   6h32m
+  rook-ceph                   rook-ceph-mon-b-bcbb868bc-6c9hm                    600m (7%)     0 (0%)      228Mi (2%)       3Gi (38%)      6h26m
+  rook-ceph                   rook-ceph-mgr-b-6558576f8f-ggcxk                   400m (5%)     0 (0%)      268Mi (3%)       2148Mi (27%)   6h25m
+  rook-ceph                   rook-ceph-mds-ceph-filesystem-b-64cb9b4b4-kpnm8    200m (2%)     100m (1%)   228Mi (2%)       1536Mi (19%)   6h25m
+  rook-ceph                   rook-ceph-exporter-server-2-774458f4b4-ww7xm       50m (0%)      0 (0%)      50Mi (0%)        128Mi (1%)     6h25m
+  rook-ceph                   rook-ceph-osd-0-67dfb94788-jthh6                   600m (7%)     0 (0%)      228Mi (2%)       5Gi (64%)      6h25m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                3100m (38%)   100m (1%)
+  memory             2154Mi (27%)  17380Mi (219%)
+
+  Namespace                   Name                                                 CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                                 ------------  ----------  ---------------  -------------  ---
+  rook-ceph                   rook-ceph-operator-86b4d9458-wd48c                   200m (2%)     0 (0%)      128Mi (1%)       512Mi (6%)     6h36m
+  rook-ceph                   csi-rbdplugin-w2hqd                                  300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   6h32m
+  rook-ceph                   csi-cephfsplugin-rd2rb                               300m (3%)     0 (0%)      256Mi (3%)       1280Mi (16%)   6h32m
+  rook-ceph                   csi-rbdplugin-provisioner-5597dd4f5d-hktcd           300m (3%)     0 (0%)      512Mi (6%)       1792Mi (22%)   6h32m
+  rook-ceph                   rook-ceph-mon-a-7c4f77c789-xn589                     600m (7%)     0 (0%)      228Mi (2%)       3Gi (38%)      6h30m
+  rook-ceph                   rook-ceph-mgr-a-666df877b4-lnhfw                     400m (5%)     0 (0%)      268Mi (3%)       2148Mi (27%)   6h25m
+  rook-ceph                   rook-ceph-mds-ceph-filesystem-a-68c9f84cf8-2xqx2     200m (2%)     100m (1%)   228Mi (2%)       1536Mi (19%)   6h25m
+  rook-ceph                   rook-ceph-exporter-server-3-6cc7996cc9-7jsqp         50m (0%)      0 (0%)      50Mi (0%)        128Mi (1%)     6h25m
+  rook-ceph                   rook-ceph-osd-2-6d844ccfd4-bs6cm                     600m (7%)     0 (0%)      228Mi (2%)       5Gi (64%)      6h25m
+  rook-ceph                   rook-ceph-rgw-ceph-objectstore-a-7b96dbc8cc-vqncm    400m (5%)     0 (0%)      228Mi (2%)       3Gi (38%)      6h24m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                3350m (41%)   100m (1%)
+  memory             2382Mi (30%)  19940Mi (251%)

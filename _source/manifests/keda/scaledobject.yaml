@@ -1,0 +1,66 @@
+# Use `kubectl get ScaledObject' to get the resources for Scale in Keda and verify if it's ACTIVE.
+#NAME                     SCALETARGETKIND      SCALETARGETNAME   MIN   MAX   TRIGGERS   AUTHENTICATION   READY   ACTIVE   FALLBACK   PAUSED    AGE
+# sleepy-workload-scaler   apps/v1.Deployment   nginx             0     10    cron                        True    True     False      Unknown   8h
+apiVersion: keda.sh/v1alpha1
+# There is another workload called TriggerAuthentication, that it used to authenticate to the scalers, Kafka, Prometheus, Redis, Kinesis, etc..
+kind: ScaledObject
+metadata:
+  name: sleepy-workload-scaler
+spec:
+  # Destination Target to be scaled, it can be statefulset, deployments or custom resources
+  # NOTE: The search scope is limited to the namespace where the ScaledObject is deployed.
+  # https://keda.sh/docs/2.14/concepts/scaling-deployments/
+  #scaleTargetRef:
+  #  apiVersion:    {api-version-of-target-resource}         # Optional. Default: apps/v1
+  #  kind:          {kind-of-target-resource}                # Optional. Default: Deployment
+  #  name:          {name-of-target-resource}                # Mandatory. Must be in the same namespace as the ScaledObject
+  #  envSourceContainerName: {container-name}                # Optional. Default: .spec.template.spec.containers[0]
+  scaleTargetRef:
+    # Use "kubectl get deployments" to get the name. Use the kind of the resource to be scaled (deployment, statefulset, etc..)
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx
+  pollingInterval: 30
+  # Scaling down time in seconds after the cron schedule end parameter defined in cron scaler. (Default 300 seconds)
+  cooldownPeriod: 120
+  # Scale to 0 during off hours
+  # If you want the number of your deployment's replicas to be managed by Horizontal Pod Autoscaler, then you would not want to track replicas in Git.
+  # https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#leaving-room-for-imperativeness
+  minReplicaCount: 0
+  # In this case it must match with the desiredReplicas parameter defined in cron scaler
+  maxReplicaCount: 1
+  # Triggers that are going to be monitored by keda
+  # NOTE: The target can be only be manager by one ScaledObject, so add as many triggers as wanted for the same deployment, stateful etc..
+  triggers:
+    # https://keda.sh/docs/2.14/scalers/cron/
+    - type: cron
+      metadata:
+        # One of the acceptable values from the IANA Time Zone Database
+        # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+        timezone: Europe/Madrid
+        # Cron expression indicating the start of the cron schedule.
+        # At 07:00 on every day-of-week from Monday through Friday
+        start: 0 7 * * 1-5
+        # Cron expression indicating the end of the cron schedule.
+        # At 20:00 on every day-of-week from Monday through Friday
+        end: 0 20 * * 1-5
+        # Number of replicas to which the resource has to be scaled between the start and end of the cron schedule.
+        desiredReplicas: "1"
+    # https://keda.sh/docs/2.14/scalers/prometheus/
+    # - type: prometheus
+    #   metadata:
+    #     serverAddress: http://prometheus-stack-kube-prom-prometheus.observability.svc.cluster.local:9090
+    #     metricName: nginx_service_requests_total
+    #     threshold: "40"
+    #     query: sum(rate(nginx_ingress_controller_requests[1m]))
+    # https://keda.sh/docs/2.14/scalers/kubernetes-workload/
+    # - type: kubernetes-workload
+    #   metadata:
+    #     # Label selector that will be used to get the pod count. It supports multiple selectors split by a comma character (,)
+    #     # Use 'kubectl get pods --show-labels' or take a look to the labels being configured in the template definition.
+    #     podSelector: 'app=nginx'
+    #     # Target relation between the scaled workload and the amount of pods which matches the selector.
+    #     # It will be calculated following this formula: relation = (pods which match selector) / (scaled workload pods)
+    #     value: '3'
+    #     # Target value for activating the scaler. Learn more about activation here. (Default: 0, Optional)
+    #     activationValue: '3.1'
