@@ -33,5 +33,5 @@ repos:
     rev: 0.6.4
     hooks:
       - id: alphabetize-codeowners
-      - id: fix-smartquotes
+      # - id: fix-smartquotes # error with draw.io
       - id: fix-ligatures
