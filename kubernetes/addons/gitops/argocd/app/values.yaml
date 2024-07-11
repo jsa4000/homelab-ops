@@ -45,6 +45,7 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             # - '.spec.ports[]?.nodePort'
+            # https://github.com/argoproj/argo-cd/issues/17548
             - .status.loadBalancer.ingress[].ipMode
       apps/StatefulSet:
         ignoreDifferences: |
