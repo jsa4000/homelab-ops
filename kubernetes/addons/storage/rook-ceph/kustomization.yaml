@@ -5,7 +5,7 @@ namespace: rook-ceph
 helmCharts:
   - name: rook-ceph
     repo: https://charts.rook.io/release
-    version: v1.14.7
+    version: v1.14.8
     includeCRDs: true
     releaseName: rook-ceph
     namespace: rook-ceph
