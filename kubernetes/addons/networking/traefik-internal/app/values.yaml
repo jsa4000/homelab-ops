@@ -51,7 +51,7 @@ metrics:
       additionalLabels:
         release: prometheus-stack
     prometheusRule:
-      enabled: true
+      enabled: false
       additionalLabels:
         release: prometheus-stack
 
