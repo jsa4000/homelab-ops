@@ -46,7 +46,12 @@ metrics:
     service:
       enabled: true
     serviceMonitor:
+      enabled: true
       interval: 30s
+      additionalLabels:
+        release: prometheus-stack
+    prometheusRule:
+      enabled: true
       additionalLabels:
         release: prometheus-stack
 
