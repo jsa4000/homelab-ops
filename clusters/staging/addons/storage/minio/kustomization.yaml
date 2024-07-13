@@ -15,3 +15,8 @@ patches:
       kind: IngressRoute
       name: minio-console-ingress
     path: console-ingress-patch.yaml
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: minio
+    path: pvc-patch.yaml
