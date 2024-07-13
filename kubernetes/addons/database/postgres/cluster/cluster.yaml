@@ -71,9 +71,9 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://database
+      destinationPath: s3://database/postgres
       endpointURL: http://minio.storage.svc.cluster.local:9000
-      serverName: postgres
+      serverName: postgres-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-minio
@@ -86,6 +86,34 @@ spec:
       cpu: 500m
     limits:
       memory: 2Gi
+  # Cluster Recovery
+  # Note: externalClusters is needed when recovering from an existing CNPG cluster
+  # https://cloudnative-pg.io/documentation/1.20/recovery/
+  bootstrap:
+    recovery:
+      source: postgres
+      recoveryTarget:
+        # Time base target for the recovery
+        targetTime: "2023-08-11 11:14:21.00000+02"
+  externalClusters:
+    - name: postgres
+      barmanObjectStore:
+        data:
+          compression: bzip2
+        wal:
+          compression: bzip2
+          maxParallel: 8
+        destinationPath: s3://database/postgres
+        endpointURL: http://minio.storage.svc.cluster.local:9000
+        # Name of the server backup from Object Storage (previous version)
+        serverName: postgres-v0
+        s3Credentials:
+          accessKeyId:
+            name: cloudnative-pg-minio
+            key: MINIO_ACCESS_KEY
+          secretAccessKey:
+            name: cloudnative-pg-minio
+            key: MINIO_SECRET_KEY
 
   # https://cloudnative-pg.io/documentation/1.20/scheduling/
   affinity:
