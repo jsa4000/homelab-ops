@@ -73,9 +73,9 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-minio
           key: MINIO_SECRET_KEY
-  # Cluster Recovery
-  # Note: externalClusters is needed when recovering from an existing CNPG cluster
-  # https://cloudnative-pg.io/documentation/1.20/recovery/
+  # Recovery and initdb are mutually exclusive, so only include one of them
+  # https://github.com/cloudnative-pg/cloudnative-pg/issues/1424
+  # https://github.com/cloudnative-pg/cloudnative-pg/issues/1752
   # bootstrap:
   #   # Create initial databases at startup (Not needed)
   #   # initdb:
@@ -84,9 +84,9 @@ spec:
   #   #   secret:
   #   #     name: postgres-user
   #   #   encoding: "UTF8"
-  #   # Recovery and initdb are mutually exclusive, so only include one of them
-  #   # https://github.com/cloudnative-pg/cloudnative-pg/issues/1424
-  #   # https://github.com/cloudnative-pg/cloudnative-pg/issues/1752
+  #   # Cluster Recovery
+  #   # Note: externalClusters is needed when recovering from an existing CNPG cluster
+  #   # https://cloudnative-pg.io/documentation/1.20/recovery/
   #   recovery:
   #     source: postgres
   #     # recoveryTarget:
