@@ -66,7 +66,7 @@ spec:
       owner: app
       encoding: "UTF8"
   backup:
-    retentionPolicy: 5d
+    retentionPolicy: 10d
     barmanObjectStore:
       data:
         compression: bzip2
