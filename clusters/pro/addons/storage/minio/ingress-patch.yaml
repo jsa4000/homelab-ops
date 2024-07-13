@@ -1,0 +1,6 @@
+- op: replace
+  path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
+  value: internal.javiersant.com
+- op: replace
+  path: /spec/routes/0/match
+  value: Host(`s3.internal.javiersant.com`)
