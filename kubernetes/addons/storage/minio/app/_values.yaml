@@ -38,8 +38,8 @@ metrics:
     includeNode: false
     public: true
     interval: 30s
-    # additionalLabels:
-    #   release: prometheus-stack
+    additionalLabels:
+      release: prometheus-stack
 
 users:
   - accessKey: user
