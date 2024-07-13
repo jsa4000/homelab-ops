@@ -95,7 +95,7 @@ spec:
   #     #   # Generated Barman Backup Id
   #     #   backupID: 20240713T150052
   externalClusters:
-    - name: postgres
+    - name: postgres-v1
       barmanObjectStore:
         data:
           compression: bzip2
