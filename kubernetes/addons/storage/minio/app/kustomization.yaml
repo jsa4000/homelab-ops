@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - external-secret.yaml
 
+# MinIO publishes a separate MinIO Kubernetes Operator and Tenant Helm Chart that is officially maintained and supported
+# https://github.com/minio/operator/tree/master/helm
 helmCharts:
   - name: minio
     repo: https://charts.min.io/
