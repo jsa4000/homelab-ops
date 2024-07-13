@@ -88,14 +88,14 @@ spec:
   #   # Note: externalClusters is needed when recovering from an existing CNPG cluster
   #   # https://cloudnative-pg.io/documentation/1.20/recovery/
     recovery:
-      source: postgres-v1
+      source: postgres
   #     # recoveryTarget:
   #     #   # Time base target for the recovery
   #     #   # targetTime: "2023-08-11 11:14:21.00000+02"
   #     #   # Generated Barman Backup Id
   #     #   backupID: 20240713T150052
   externalClusters:
-    - name: postgres-v1
+    - name: postgres
       barmanObjectStore:
         data:
           compression: bzip2
