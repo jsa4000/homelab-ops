@@ -65,7 +65,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://database/postgres
       endpointURL: http://minio.storage.svc.cluster.local:9000
-      serverName: postgres-v2
+      serverName: postgres-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-minio
@@ -105,7 +105,7 @@ spec:
         destinationPath: s3://database/postgres
         endpointURL: http://minio.storage.svc.cluster.local:9000
         # Name of the server backup from Object Storage (previous version)
-        serverName: postgres-v1
+        serverName: postgres-v0
         s3Credentials:
           accessKeyId:
             name: cloudnative-pg-minio
