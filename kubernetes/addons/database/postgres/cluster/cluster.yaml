@@ -55,14 +55,6 @@ spec:
     reusePVC: false
   monitoring:
     enablePodMonitor: true
-  # Create initial databases at startup (Not needed)
-  # bootstrap:
-  #   initdb:
-  #     database: app
-  #     owner: app
-  #     secret:
-  #       name: postgres-user
-  #     encoding: "UTF8"
   backup:
     retentionPolicy: 10d
     barmanObjectStore:
@@ -81,20 +73,22 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-minio
           key: MINIO_SECRET_KEY
-  resources:
-    requests:
-      cpu: 500m
-    limits:
-      memory: 2Gi
   # Cluster Recovery
   # Note: externalClusters is needed when recovering from an existing CNPG cluster
   # https://cloudnative-pg.io/documentation/1.20/recovery/
   bootstrap:
+    # Create initial databases at startup (Not needed)
+    # initdb:
+    #   database: app
+    #   owner: app
+    #   secret:
+    #     name: postgres-user
+    #   encoding: "UTF8"
     recovery:
       source: postgres
-      recoveryTarget:
-        # Time base target for the recovery
-        targetTime: "2023-08-11 11:14:21.00000+02"
+      # recoveryTarget:
+      #   # Time base target for the recovery
+      #   targetTime: "2023-08-11 11:14:21.00000+02"
   externalClusters:
     - name: postgres
       barmanObjectStore:
@@ -114,7 +108,11 @@ spec:
           secretAccessKey:
             name: cloudnative-pg-minio
             key: MINIO_SECRET_KEY
-
+  resources:
+    requests:
+      cpu: 500m
+    limits:
+      memory: 2Gi
   # https://cloudnative-pg.io/documentation/1.20/scheduling/
   affinity:
     enablePodAntiAffinity: true
