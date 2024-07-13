@@ -2,8 +2,5 @@
   path: /metadata/annotations/external-dns.alpha.kubernetes.io~1target
   value: staging.internal.javiersant.com
 - op: replace
-  path: /metadata/annotations/gethomepage.dev~1href
-  value: "https://minio.staging.internal.javiersant.com"
-- op: replace
   path: /spec/routes/0/match
-  value: Host(`minio.staging.internal.javiersant.com`)
+  value: Host(`s3.staging.internal.javiersant.com`)
