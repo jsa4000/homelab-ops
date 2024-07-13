@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: oauth2-proxy-zitadel-init
 spec:
-  backoffLimit: 5
+  backoffLimit: 20
   activeDeadlineSeconds: 1000
   # Clean up finished jobs automatically
   # ttlSecondsAfterFinished: 100
