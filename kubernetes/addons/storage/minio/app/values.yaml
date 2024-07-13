@@ -1,0 +1,60 @@
+mode: standalone
+ignoreChartChecksums: false
+
+minioAPIPort: 9000
+minioConsolePort: 9001
+
+existingSecret: minio-secret
+
+drivesPerNode: 1
+replicas: 1
+pools: 1
+
+ingress:
+  enabled: false
+
+consoleIngress:
+  enabled: false
+
+environment:
+  TZ: Europe/Madrid
+
+persistence:
+  enabled: true
+  storageClass: longhorn
+  accessMode: ReadWriteOnce
+  size: 2Gi
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 25m
+  limits:
+    memory: 1000Mi
+
+metrics:
+  serviceMonitor:
+    enabled: true
+    includeNode: false
+    public: true
+    interval: 30s
+    additionalLabels:
+      release: prometheus-stack
+
+users:
+  - accessKey: user
+    existingSecret: minio-secret
+    existingSecretKey: userSecretKey
+    policy: readwrite
+
+buckets:
+  - name: database
+    policy: public
+    purge: true
+    versioning: false
+    objectlocking: false
+  - name: storage
+    policy: public
+    purge: true
+    versioning: false
+    objectlocking: false
