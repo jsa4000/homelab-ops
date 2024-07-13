@@ -35,3 +35,11 @@ patches:
         namespace: not-used
         annotations:
           grafana_folder: "Kubernetes"
+  # ArgoCD waiting for completion of hook and hook never succeeds
+  # https://github.com/argoproj/argo-cd/issues/6880#issuecomment-1685409854
+  - target:
+      version: v1
+      kind: Job
+    patch: |-
+      - op: remove
+        path: /spec/ttlSecondsAfterFinished

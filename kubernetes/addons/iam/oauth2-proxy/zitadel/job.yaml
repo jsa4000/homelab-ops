@@ -10,7 +10,9 @@ spec:
   template:
     spec:
       serviceAccountName: oauth2-proxy-zitadel-init
-      restartPolicy: Never
+      # Only restarts the container if it exits with an error (non-zero exit status).
+      # https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+      restartPolicy: OnFailure
       containers:
         - name: alpine
           image: ghcr.io/jsa4000/opentofu:1.0.3
