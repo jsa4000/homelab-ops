@@ -38,6 +38,7 @@ metrics:
     includeNode: false
     public: true
     interval: 30s
+    # Removed because error in duplicated 'release' map in helm chart
     # additionalLabels:
     #   release: prometheus-stack
 
