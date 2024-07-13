@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   #  - backup # One backup
-  - schedule-backup.yaml # Scheduled backup
+  - scheduled-backup.yaml # Scheduled backup
