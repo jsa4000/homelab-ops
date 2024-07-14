@@ -9,10 +9,10 @@ controllers:
     containers:
       main:
         image:
-          repository: docker.io/excalidraw/excalidraw
+          repository: ghcr.io/jsa4000/toolbox
           # Publishing the container image with tags in addition to "latest"
           # https://github.com/excalidraw/excalidraw/issues/8122
-          tag: latest@sha256:ad64c71819a7908fe9ec3686b630d8c443df69b7029a1faa8c667df4168acd64
+          tag: main
           pullPolicy: IfNotPresent
         probes:
           liveness:
