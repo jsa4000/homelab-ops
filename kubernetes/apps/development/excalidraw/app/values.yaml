@@ -9,7 +9,7 @@ controllers:
     containers:
       main:
         image:
-          repository: ghcr.io/jsa4000/toolbox
+          repository: ghcr.io/jsa4000/excalidraw
           # Publishing the container image with tags in addition to "latest"
           # https://github.com/excalidraw/excalidraw/issues/8122
           tag: main
