@@ -10,9 +10,10 @@ controllers:
       main:
         image:
           repository: ghcr.io/jsa4000/excalidraw
-          # Publishing the container image with tags in addition to "latest"
+          # Official Excalidraw container image does not provide versioning or arm support.
           # https://github.com/excalidraw/excalidraw/issues/8122
-          tag: main
+          # https://github.com/excalidraw/excalidraw/pull/3937
+          tag: 0.17.3
           pullPolicy: IfNotPresent
         probes:
           liveness:
