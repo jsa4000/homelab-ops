@@ -1,0 +1,25 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: excalidraw
+spec:
+  # If you want the number of your deployment's replicas to be managed by 'Horizontal Pod Autoscaler', then you would not want to track 'replicas' in Git.
+  # https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#leaving-room-for-imperativeness
+  # You can ignore this field by:
+  # - Removing the 'replicas' field in the resource definition (deployment, stateful, etc..
+  # - Adding this field as an exclusion in argocd configuration.
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: excalidraw
+  pollingInterval: 10
+  cooldownPeriod: 30
+  minReplicaCount: 0
+  maxReplicaCount: 1
+  triggers:
+    - type: cron
+      metadata:
+        timezone: Europe/Madrid
+        start: 0 7 * * *
+        end: 0 0 * * *
+        desiredReplicas: "1"
