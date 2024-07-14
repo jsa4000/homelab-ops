@@ -8,7 +8,7 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://kyverno.default.internal.javiersant.com"
     gethomepage.dev/description: Kyverno Dashboard
-    gethomepage.dev/group: Tools
+    gethomepage.dev/group: Management
     gethomepage.dev/icon: https://raw.githubusercontent.com/kyverno/kyverno/main/img/logo.png
     gethomepage.dev/name: Kyverno
     gethomepage.dev/pod-selector: ""

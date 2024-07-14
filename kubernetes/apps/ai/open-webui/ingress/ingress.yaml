@@ -8,7 +8,7 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://open-webui.default.internal.javiersant.com"
     gethomepage.dev/description: Open WebUI (Formerly Ollama WebUI)
-    gethomepage.dev/group: AI
+    gethomepage.dev/group: Tools
     gethomepage.dev/icon: ollama.svg
     gethomepage.dev/name: Open WebUI
     gethomepage.dev/pod-selector: ""

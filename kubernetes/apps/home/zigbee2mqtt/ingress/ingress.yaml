@@ -10,7 +10,7 @@ metadata:
     gethomepage.dev/description: Zigbee to MQTT bridge
     gethomepage.dev/group: Home
     gethomepage.dev/icon: zigbee2mqtt.svg
-    gethomepage.dev/name: Zigbee to MQTT Dashboard
+    gethomepage.dev/name: Zigbee to MQTT
     gethomepage.dev/pod-selector: ""
     gethomepage.dev/weight: 198
 spec:

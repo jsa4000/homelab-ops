@@ -8,7 +8,7 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://zitadel.default.javiersant.com"
     gethomepage.dev/description: Zitadel Dashboard
-    gethomepage.dev/group: Tools
+    gethomepage.dev/group: Management
     gethomepage.dev/icon: zitadel.svg
     gethomepage.dev/name: Zitadel
     gethomepage.dev/pod-selector: ""
