@@ -19,16 +19,12 @@ controllers:
             enabled: true
           readiness:
             enabled: true
-          resources:
-            requests:
-              cpu: 5m
-              memory: 10Mi
-            limits:
-              memory: 50Mi
         resources:
           requests:
+            cpu: 5m
             memory: 10Mi
-            cpu: 10m
+          limits:
+            memory: 50Mi
     pod:
       topologySpreadConstraints:
         - maxSkew: 1
