@@ -26,6 +26,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: true
+          USE_FIND_ALGORITHM: true
           VALIDATE_YAML: true
           VALIDATE_MARKDOWN: true
           VALIDATE_JSON: true
