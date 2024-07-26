@@ -13,6 +13,36 @@ Create Ubuntu VM using QEMU
 brew install rpm2cpio qemu
 ```
 
+- Install and launch `socket_vmnet`
+
+> [socket_vmnet](https://github.com/lima-vm/socket_vmnet) `vmnet.framework` support for **rootless** and VDE-less `QEMU`.
+
+```bash
+# Install socket_vmnet.
+brew install socket_vmnet
+
+########################################
+## Start service using launchd and brew
+########################################
+
+# Install the launchd service
+brew tap homebrew/services
+# sudo is necessary for the next line (default gateway: 192.168.105.1)
+sudo brew services start socket_vmnet
+sudo brew services start socket_vmnet --file="docs/tools/qemu/templates/homebrew.mxcl.socket_vmnet.plist"
+
+# Uninstall services
+sudo brew services stop socket_vmnet
+
+##############################
+## Start manually the service
+##############################
+
+# Start socket_vmnet with specific gateway ip-address
+mkdir -p "$HOMEBREW_PREFIX/var/run"
+sudo "$HOMEBREW_PREFIX/opt/socket_vmnet/bin/socket_vmnet" --vmnet-gateway=192.168.205.1 "$HOMEBREW_PREFIX/var/run/socket_vmnet"
+```
+
 ## Create Base Image
 
 Create Base image from Ubuntu
@@ -301,6 +331,61 @@ sudo kill -9 $(sudo cat qemu.pid)
 
 - You should be able to install Ubuntu as normal
 - If you want a desktop environment, you can install it using `sudo apt-get install ubuntu-desktop`
+
+## Run QEMU rootless
+
+Use `socket_vmnet` to use rootless. `socket_vmnet` must be installed and started.
+
+```bash
+# Copy ARM BIOS for aarch64
+cp /opt/homebrew/share/qemu/edk2-aarch64-code.fd ./edk2-aarch64-code.fd
+cp /opt/homebrew/share/qemu/edk2-arm-vars.fd ./edk2-arm-vars.fd
+
+# Create initial Disk to store the Base image to create SnapShots
+qemu-img create -f qcow2 ./base-image.qcow2 256G
+
+# Create VM
+"$HOMEBREW_PREFIX/opt/socket_vmnet/bin/socket_vmnet_client" "$HOMEBREW_PREFIX/var/run/socket_vmnet" qemu-system-aarch64 \
+    -smp cpus=4,sockets=1,cores=4,threads=1 \
+    -m 8192 \
+    -machine virt,accel=hvf,highmem=on \
+    -cpu host \
+    -device virtio-gpu-pci -device qemu-xhci -device usb-kbd -device usb-tablet \
+    -drive if=virtio,format=qcow2,file=./base-image.qcow2,cache=writethrough \
+    -drive if=pflash,format=raw,file=./edk2-aarch64-code.fd,unit=0,readonly=on \
+    -drive if=pflash,format=raw,file=./edk2-arm-vars.fd,unit=1 \
+    -device virtio-net-pci,mac=ee:db:ea:07:fe:d9,netdev=net0 \
+    -netdev user,id=net0,hostfwd=tcp::50030-:22 \
+    -device virtio-net-pci,mac=1e:e0:2b:b1:9b:97,netdev=net1 \
+    -netdev socket,id=net1,fd=3 \
+    -cdrom /Users/jsantosa/VMs/images/ubuntu-22.04.3-live-server-arm64.iso \
+    -monitor stdio
+
+## SSH into the VM
+ssh ubuntu@localhost -p 50030
+
+# 4. Perform initial configuration and bootsrapping for main packages
+ssh-copy-id -i /Users/jsantosa/.ssh/server_key.pub -p 50030 ubuntu@localhost
+ssh -i /Users/jsantosa/.ssh/server_key -t ubuntu@localhost -p 50030 "echo ubuntu | sudo -S apt-get remove needrestart -y && sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install net-tools iputils-ping python3-pip -y"
+
+# 5. Now you can enter using the public key
+ssh -i /Users/jsantosa/.ssh/server_key ubuntu@localhost -p 50030
+
+# 6. Power off the VM
+ssh -i /Users/jsantosa/.ssh/server_key -t ubuntu@localhost -p 50030 "echo ubuntu | sudo -S poweroff"
+
+# 7. Optionalyy you can add folling configuration to you ssh config file at ~/.ssh/config, so the '-i' flag it's not neccesary to connect via ssh.
+
+Host localhost
+    HostName 127.0.0.1
+    User     ubuntu
+    IdentityFile /Users/jsantosa/.ssh/server_key
+    AddKeysToAgent yes
+    UseKeychain yes
+    IgnoreUnknown UseKeychain
+    StrictHostKeyChecking no
+
+```
 
 ## EXAMPLE
 
