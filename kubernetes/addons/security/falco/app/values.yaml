@@ -76,7 +76,7 @@ falcosidekick:
     enabled: true
     replicaCount: 1
     # TTL for keys, the syntax in X<unit>, with <unit>: s, m, d, w (0 for no ttl)
-    ttl: 1m
+    ttl: 60m
     disableauth: true
     service:
       port: 80
