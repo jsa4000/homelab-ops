@@ -3,10 +3,15 @@ auth:
   sentinel: false
 
 master:
+  count: 1
+  revisionHistoryLimit: 10
   persistence:
     enabled: false
 
+# redis-sentinel.database.svc.cluster.local:26379
 replica:
+  replicaCount: 2
+  revisionHistoryLimit: 10
   persistence:
     enabled: false
 
@@ -18,7 +23,8 @@ replica:
 sentinel:
   enabled: true
   masterSet: redis-master
-  getMasterTimeout: 10
+  quorum: 2
+  getMasterTimeout: 90
   startupProbe:
     failureThreshold: 2
   persistence:
