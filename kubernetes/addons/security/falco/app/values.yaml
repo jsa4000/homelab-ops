@@ -52,6 +52,15 @@ services:
         nodePort: 30007
         protocol: TCP
 
+metrics:
+  enabled: true
+
+serviceMonitor:
+  create: true
+  interval: 60s
+  labels:
+    release: prometheus-stack
+
 falco:
   rules_file:
     - /etc/falco/falco_rules.yaml
@@ -87,7 +96,6 @@ falcosidekick:
     disableauth: true
     service:
       port: 80
-    # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
     # Bitnami Docker Redis Image does not include RediSearch module (RediSearch > v2)
     externalRedis:
       enabled: false
@@ -98,9 +106,3 @@ falcosidekick:
       storageEnabled: false
     ingress:
       enabled: false
-
-serviceMonitor:
-  create: true
-  interval: 60s
-  labels:
-    release: prometheus-stack
