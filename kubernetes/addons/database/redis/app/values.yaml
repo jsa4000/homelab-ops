@@ -8,7 +8,9 @@ master:
   persistence:
     enabled: false
 
-# redis-sentinel.database.svc.cluster.local:26379
+# Redis services at 6379/TCP,26379/TCP
+# - redis: redis.database.svc.cluster.local:6379
+# - sentinel: redis.database.svc.cluster.local:26379 # Redis Sentinel it used for HA, automatic failover, promote master etc..
 replica:
   replicaCount: 2
   revisionHistoryLimit: 10
