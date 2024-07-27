@@ -1,0 +1,27 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pgadmin-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://pgadmin.default.internal.javiersant.com"
+    gethomepage.dev/description: PgAdmin
+    gethomepage.dev/group: Management
+    gethomepage.dev/icon: pgadmin.svg
+    gethomepage.dev/name: PgAdmin
+    gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 195
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`pgadmin.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: pgadmin
+          port: 80
+  tls:
+    secretName: wildcard-javiersant-com-tls

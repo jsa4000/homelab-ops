@@ -1,0 +1,42 @@
+controllers:
+  main:
+    annotations:
+      # Force to reload because configmap or secret changed. Use kustomization to generate maps with suffix instead.
+      reloader.stakater.com/auto: "true"
+    # Do not use replicas since it will be managed by KEDA, so argocd does not detect diffs.
+    # replicas: 1
+    containers:
+      main:
+        image:
+          repository: dpage/pgadmin4
+          # TODO: onedr0p images are not immutable, so it needed to add the @shaXYZ after the tag version to ensure using the same image.
+          # https://github.com/onedr0p/containers?tab=readme-ov-file#tag-immutability
+          tag: 8.9
+        envFrom:
+          - secretRef:
+              name: pgadmin-secret
+        env:
+          TZ: Europe/Madrid
+          PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+        resources:
+          requests:
+            cpu: 15m
+            memory: 100Mi
+          limits:
+            memory: 500Mi
+
+defaultPodOptions:
+  # Warning: pgAdmin runs as the pgadmin user (UID: 5050) in the pgadmin group (GID: 5050) in the container
+  # https://github.com/pgadmin-org/pgadmin4/blob/master/docs/en_US/container_deployment.rst
+  securityContext:
+    runAsUser: 5050
+    runAsGroup: 5050
+    fsGroup: 5050
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 80
