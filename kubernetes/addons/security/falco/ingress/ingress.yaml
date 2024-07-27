@@ -7,10 +7,10 @@ metadata:
     external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://falcosidekick.default.internal.javiersant.com"
-    gethomepage.dev/description: Falco Dashboard
+    gethomepage.dev/description: Falcosidekick
     gethomepage.dev/group: Management
     gethomepage.dev/icon: https://raw.githubusercontent.com/falcosecurity/falcosidekick/master/imgs/falcosidekick_color.png
-    gethomepage.dev/name: Falco Dashboard (Falcosidekick)
+    gethomepage.dev/name: Falco Dashboard
     gethomepage.dev/pod-selector: ""
     gethomepage.dev/weight: 497
 spec:
