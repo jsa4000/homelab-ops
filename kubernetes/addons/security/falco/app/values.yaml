@@ -1,0 +1,68 @@
+timezone: Europe/Madrid
+
+tty: true
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 50Mi
+  limits:
+    cpu: 300m
+    memory: 512Mi
+
+driver:
+  enabled: true
+  kind: ebpf
+  epbf:
+    hostNetwork: true
+    leastPrivileged: true
+
+collectors:
+  containerd:
+    enabled: true
+    socket: /run/k3s/containerd/containerd.sock
+
+  docker:
+    enabled: false
+
+  ebpf:
+    enabled: true
+    settings:
+      hostNetwork: true
+
+  crio:
+    enabled: false
+
+falco:
+  grpc:
+    enabled: true
+  grpcOutput:
+    enabled: true
+  plugins:
+    - name: k8saudit
+      library_path: libk8saudit.so
+      open_params: "http://:9765/k8s-audit"
+
+    - name: json
+      library_path: libjson.so
+      init_config: ""
+
+  load_plugins:
+    - json
+    - k8saudit
+
+tolerations:
+  - effect: NoSchedule
+    operator: Exists
+
+falcosidekick:
+  replicaCount: 1
+  enabled: true
+
+  # https://github.com/falcosecurity/charts/blob/master/falcosidekick/values.yaml
+  webui:
+    enabled: true
+    replicaCount: 1
+
+    ingress:
+      enabled: false

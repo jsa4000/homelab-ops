@@ -4,5 +4,3 @@ namespace: security
 
 resources:
   - app
-  - policies
-  - ui
