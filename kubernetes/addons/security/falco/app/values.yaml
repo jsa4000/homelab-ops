@@ -58,11 +58,15 @@ tolerations:
 falcosidekick:
   replicaCount: 1
   enabled: true
-
   # https://github.com/falcosecurity/charts/blob/master/falcosidekick/values.yaml
   webui:
     enabled: true
     replicaCount: 1
-
+    externalRedis:
+      enabled: true
+      url: redis.database.svc.cluster.local
+      port: 26379
+    redis:
+      enabled: false
     ingress:
       enabled: false
