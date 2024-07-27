@@ -75,12 +75,14 @@ falcosidekick:
   webui:
     enabled: true
     replicaCount: 1
+    # Bitnami Docker Redis Image does not include RediSearch module
     externalRedis:
-      enabled: true
+      enabled: false
       url: redis.database.svc.cluster.local
       port: 6379
     redis:
-      enabled: false
+      enabled: true
+      storageEnabled: false
     ingress:
       enabled: false
 
