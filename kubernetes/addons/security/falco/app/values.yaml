@@ -9,6 +9,7 @@ driver:
 # Enable the collectors used to enrich the events with metadata.
 collectors:
   enabled: true
+  # https://falco.org/docs/install-operate/third-party/production/#k3s
   containerd:
     enabled: true
     socket: /run/k3s/containerd/containerd.sock
@@ -81,7 +82,7 @@ falcosidekick:
     externalRedis:
       enabled: true
       url: redis.database.svc.cluster.local
-      port: 26379
+      port: 6379
     redis:
       enabled: false
     ingress:
