@@ -6,5 +6,5 @@ helmCharts:
     repo: https://charts.bitnami.com/bitnami
     version: 19.6.4
     releaseName: redis
-    namespace: redis
+    namespace: database
     valuesFile: values.yaml
