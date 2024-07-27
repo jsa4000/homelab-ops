@@ -75,7 +75,10 @@ falcosidekick:
   webui:
     enabled: true
     replicaCount: 1
-    # Bitnami Docker Redis Image does not include RediSearch module
+    service:
+      port: 80
+    # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    # Bitnami Docker Redis Image does not include RediSearch module (RediSearch > v2)
     externalRedis:
       enabled: false
       url: redis.database.svc.cluster.local

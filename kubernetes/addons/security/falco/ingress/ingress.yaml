@@ -1,0 +1,27 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: falcosidekick-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://falcosidekick.default.internal.javiersant.com"
+    gethomepage.dev/description: Falco Dashboard
+    gethomepage.dev/group: Management
+    gethomepage.dev/icon: https://raw.githubusercontent.com/falcosecurity/falcosidekick/master/imgs/falcosidekick_color.png
+    gethomepage.dev/name: Falco Dashboard (Falcosidekick)
+    gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 497
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`falcosidekick.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: falco-falcosidekick-ui
+          port: 80
+  tls:
+    secretName: wildcard-javiersant-com-tls

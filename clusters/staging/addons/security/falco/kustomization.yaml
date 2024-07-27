@@ -4,9 +4,9 @@ kind: Kustomization
 resources:
   - github.com/jsa4000/homelab-ops//kubernetes/addons/security/falco?ref=staging
 
-# patches:
-#   - target:
-#       version: v1alpha1
-#       kind: IngressRoute
-#       name: falcosidekick-ingress
-#     path: ingress-patch.yaml
+patches:
+  - target:
+      version: v1alpha1
+      kind: IngressRoute
+      name: falcosidekick-ingress
+    path: ingress-patch.yaml
