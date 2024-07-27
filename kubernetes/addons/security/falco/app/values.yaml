@@ -75,6 +75,7 @@ falcosidekick:
   webui:
     enabled: true
     replicaCount: 1
+    disableauth: true
     service:
       port: 80
     # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
