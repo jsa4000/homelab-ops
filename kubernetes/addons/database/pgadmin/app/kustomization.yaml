@@ -11,3 +11,12 @@ helmCharts:
     releaseName: pgadmin
     namespace: database
     valuesFile: values.yaml
+
+configMapGenerator:
+  - name: pgadmin-config
+    files:
+      - config/servers.json
+      - config/preferences.json
+
+generatorOptions:
+  disableNameSuffixHash: true

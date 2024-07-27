@@ -40,3 +40,21 @@ service:
     ports:
       http:
         port: 80
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: pgadmin-config
+    globalMounts:
+      - path: /pgadmin4/servers.json
+        subPath: servers.json
+      - path: /pgadmin4/preferences.json
+        subPath: preferences.json
+  secrets:
+    enabled: true
+    type: secret
+    name: pgadmin-secret
+    globalMounts:
+      - path: /pgadmin4/pgpass
+        subPath: pgpass
