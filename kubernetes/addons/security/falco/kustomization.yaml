@@ -5,3 +5,4 @@ namespace: security
 resources:
   - app
   - ingress
+  - dashboards

@@ -68,10 +68,17 @@ falco:
       init_config: ""
   load_plugins: [k8saudit, json]
 
+# https://github.com/falcosecurity/charts/blob/master/falcosidekick/values.yaml
 falcosidekick:
   replicaCount: 1
   enabled: true
-  # https://github.com/falcosecurity/charts/blob/master/falcosidekick/values.yaml
+  serviceMonitor:
+    enabled: true
+    interval: 30s
+    additionalLabels:
+      release: prometheus-stack
+  prometheusRules:
+    enabled: true
   webui:
     enabled: true
     replicaCount: 1
