@@ -9,7 +9,7 @@ helmCharts:
     repo: https://bjw-s.github.io/helm-charts
     version: 3.2.1
     releaseName: pgadmin
-    namespace: database
+    namespace: development
     valuesFile: values.yaml
 
 configMapGenerator:
