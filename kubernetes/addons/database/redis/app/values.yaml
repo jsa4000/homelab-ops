@@ -1,0 +1,36 @@
+auth:
+  enabled: false
+  sentinel: false
+
+master:
+  persistence:
+    enabled: false
+
+replica:
+  persistence:
+    enabled: false
+
+# Sentinel continuously monitors the health of the Redis Master/Replica nodes by executing various health
+# check and ping commands. In the event of a failure, Sentinel orchestrates the failover process by promoting
+# a replica node to become the new master, ensuring uninterrupted service. This automatic failover capability
+# differentiates Redis Sentinel from standard Master-Replica deployments of Redis, where failover must be
+# managed manually.
+sentinel:
+  enabled: true
+  masterSet: redis-master
+  getMasterTimeout: 10
+  startupProbe:
+    failureThreshold: 2
+  persistence:
+    enabled: false
+
+networkPolicy:
+  enabled: false
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    interval: 1m
+    additionalLabels:
+      release: prometheus-stack
