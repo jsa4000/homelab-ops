@@ -115,7 +115,7 @@ spec:
             key: MINIO_SECRET_KEY
   resources:
     requests:
-      cpu: 500m
+      cpu: 150m
     limits:
       memory: 2Gi
   # https://cloudnative-pg.io/documentation/1.20/scheduling/
