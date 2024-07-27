@@ -83,3 +83,9 @@ falcosidekick:
       enabled: true
     ingress:
       enabled: false
+
+serviceMonitor:
+  create: true
+  interval: 60s
+  labels:
+    release: prometheus-stack
