@@ -1,10 +1,10 @@
 # Choose between the kernel module or the ebpf probe.
 driver:
   enabled: true
-  kind: ebpf
-  epbf:
-    hostNetwork: true
-    leastPrivileged: true
+  # Available options: kmod (kernel driver), ebpf (eBPF probe), modern_ebpf (modern eBPF probe)
+  kind: modern_ebpf
+  modernEbpf:
+    leastPrivileged: false
 
 # Enable the collectors used to enrich the events with metadata.
 collectors:
@@ -15,10 +15,6 @@ collectors:
     socket: /run/k3s/containerd/containerd.sock
   docker:
     enabled: false
-  ebpf:
-    enabled: true
-    settings:
-      hostNetwork: true
   crio:
     enabled: false
 
