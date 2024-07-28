@@ -1,5 +1,5 @@
 # Attach the Falco process to a tty inside the container. Needed to flush Falco logs as soon as they are emitted.
-tty: false
+tty: true
 
 # We set the controller to daemonset since we have the syscalls source enabled.
 # It will ensure that every node on our cluster will be monitored by Falco.
