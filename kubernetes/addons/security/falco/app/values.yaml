@@ -114,6 +114,9 @@ falco:
       library_path: libjson.so
       init_config: ""
   load_plugins: [k8saudit, json]
+  # Rules to be loaded by falco based on the level of severity.
+  # Severity levels: "emergency", "alert", "critical", "error", "warning", "notice", "info", "debug"
+  priority: warning
   # With the default settings, the throttling mechanism is disabled.
   outputs:
     rate: 0
