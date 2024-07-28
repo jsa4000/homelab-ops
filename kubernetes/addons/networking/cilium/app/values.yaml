@@ -115,6 +115,14 @@ prometheus:
     labels:
       release: prometheus-stack
 
+# Cilium Envoy DaemonSet is now enabled by default
+# When Cilium L7 functionality (Ingress, Gateway API, Network Policies with L7 functionality,
+# L7 Protocol Visibility) is enabled or installed in a Kubernetes cluster, the Cilium agent starts
+# an Envoy proxy as separate process within the Cilium agent pod.
+# To enable the dedicated Envoy proxy DaemonSet, install Cilium with the Helm value envoy.enabled set to true.
+envoy:
+  enabled: false
+
 dashboards:
   enabled: true
   label: grafana_dashboard
