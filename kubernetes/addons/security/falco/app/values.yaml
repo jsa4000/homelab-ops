@@ -61,6 +61,8 @@ services:
         nodePort: 30007
         protocol: TCP
 
+# Falco WebServer (webserver.enabled) and Prometheus metrics endpoint (webserver.prometheus_metrics_enabled) must be enabled.
+# This is
 metrics:
   enabled: true
   interval: 1h
@@ -123,8 +125,13 @@ falco:
     enabled: false
   file_output:
     enabled: false
-  #http_output:
-  #  enabled: false
+  # This http output is enabled by default by enabling falcosidekick
+  # http_output:
+  #   enabled: false
+  # WebServer is enabled by default by enabling falco metrics.
+  # webserver:
+  #   enabled: true
+  #   prometheus_metrics_enabled: false
   metrics:
     enabled: true
 
