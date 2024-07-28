@@ -23,6 +23,7 @@ policyExclude:
           kinds:
             - Pod
           namespaces:
+            - security
             - storage
             - networking
             - observability
