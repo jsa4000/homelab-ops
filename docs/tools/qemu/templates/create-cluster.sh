@@ -13,7 +13,7 @@ QEMU_IMAGE=/Users/jsantosa/VMs/images/ubuntu-22.04.3-live-server-arm64.iso
 QEMU_BIOS=edk2-aarch64-code.fd
 QEMU_UEFI=edk2-arm-vars.fd
 
-QEMU_ROOTLESS=true
+QEMU_ROOTLESS=false
 SOCKET_VMNET_CLIENT=$HOMEBREW_PREFIX/opt/socket_vmnet/bin/socket_vmnet_client
 SOCKET_VMNET_SOCKET=$HOMEBREW_PREFIX/var/run/socket_vmnet
 
