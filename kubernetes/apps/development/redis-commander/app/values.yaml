@@ -17,7 +17,7 @@ controllers:
               name: redis-commander-secret
         env:
           TZ: Europe/Madrid
-          PORT: 80
+          PORT: &port 80
         resources:
           requests:
             cpu: 15m
@@ -34,4 +34,4 @@ service:
     controller: main
     ports:
       http:
-        port: 80
+        port: *port

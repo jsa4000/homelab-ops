@@ -1,0 +1,27 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: affine-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+    external-dns.alpha.kubernetes.io/target: default.internal.javiersant.com
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://affine.default.internal.javiersant.com"
+    gethomepage.dev/description: Write, Draw and Plan All at Once
+    gethomepage.dev/group: Tools
+    gethomepage.dev/icon: https://raw.githubusercontent.com/toeverything/AFFiNE/canary/packages/frontend/core/public/favicon-96.png
+    gethomepage.dev/name: AFFiNE
+    gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 298
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`affine.default.internal.javiersant.com`)
+      kind: Rule
+      services:
+        - kind: Service
+          name: affine
+          port: 3010
+  tls:
+    secretName: wildcard-javiersant-com-tls
