@@ -60,6 +60,7 @@ policyExclude:
           kinds:
             - Pod
           namespaces:
+            - security
             - storage
             - networking
   restrict-apparmor-profiles:
