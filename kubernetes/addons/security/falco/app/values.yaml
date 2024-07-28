@@ -155,7 +155,7 @@ falcosidekick:
     # Log level ("debug", "info", "warning", "error")
     loglevel: "warning"
     # TTL for keys, the syntax in X<unit>, with <unit>: s, m, d, w (0 for no ttl)
-    ttl: 60m
+    ttl: 240m
     disableauth: true
     service:
       port: 80
