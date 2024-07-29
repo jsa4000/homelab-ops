@@ -32,6 +32,11 @@ collectors:
     enabled: false
   crio:
     enabled: false
+  # If enabled Kubernetes metadata should be collected using the k8smeta plugin and the k8s-metacollector component,
+  # on the other hand when it is disabled it only the ID, name, namespace, labels of the pod will be available.
+  kubernetes:
+    # Disabled for performance reasons.
+    enabled: false
 
 # Third party rules enabled for Falco.
 customRules: {}
@@ -84,6 +89,7 @@ resources:
 falco:
   rules_file:
     # Falco predefined rules
+    # https://github.com/falcosecurity/rules/blob/main/rules/falco_rules.yaml
     - /etc/falco/falco_rules.yaml
     - /etc/falco/k8s_audit_rules.yaml
     # Directory for custom rules

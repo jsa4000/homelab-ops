@@ -15,3 +15,13 @@ tasks:
     desc: Create a Pod and exec into it
     cmds:
       - kubectl run -it --rm alpine --image=bash:alpine3.20
+
+  nodes-top:
+    desc: Get the resource capacity for all nodes in the cluster
+    cmds:
+      - kubectl resource-capacity --util
+
+  pods-top:
+    desc: Get the resource capacity for all nodes in the cluster
+    cmds:
+      - kubectl resource-capacity --pods --util
