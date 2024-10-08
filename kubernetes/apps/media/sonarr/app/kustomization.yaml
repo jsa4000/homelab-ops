@@ -7,7 +7,7 @@ resources:
 helmCharts:
   - name: app-template
     repo: https://bjw-s.github.io/helm-charts
-    version: 3.3.1
+    version: 3.5.1
     releaseName: sonarr
     namespace: media
     valuesFile: values.yaml
