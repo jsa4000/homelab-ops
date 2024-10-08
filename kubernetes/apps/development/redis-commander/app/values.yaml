@@ -11,7 +11,7 @@ controllers:
           repository: ghcr.io/joeferner/redis-commander
           # TODO: onedr0p images are not immutable, so it needed to add the @shaXYZ after the tag version to ensure using the same image.
           # https://github.com/onedr0p/containers?tab=readme-ov-file#tag-immutability
-          tag: latest@sha256:dc7f18347923dba9822264f43a2ffd349bdeae0888a6da3c98ddb3511e8362a6
+          tag: latest@sha256:f5f8bf1862dcf5c3aec09bd5c580c37dd1609d63c45627ea671e8187e583aa2d
         envFrom:
           - secretRef:
               name: redis-commander-secret
