@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cloudflare-ddns
-          image: favonia/cloudflare-ddns:1.13.2
+          image: favonia/cloudflare-ddns:1.15.0
           envFrom:
             - configMapRef:
                 name: cloudflare-ddns
