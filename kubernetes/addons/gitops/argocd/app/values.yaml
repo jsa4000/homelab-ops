@@ -41,6 +41,7 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.rules[]?.skipBackgroundRequests'
+            - '.spec.rules[]?.validate.allowExistingViolations'
       Service:
         ignoreDifferences: |
           jqPathExpressions:
