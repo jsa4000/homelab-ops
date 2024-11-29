@@ -32,6 +32,7 @@ jobs:
           VALIDATE_JSON: true
           VALIDATE_RENOVATE: true
           YAML_CONFIG_FILE: .yamllint.yaml
+          MARKDOWN_CONFIG_FILE: .markdown-lint.yaml
           # VALIDATE_TERRAFORM_TFLINT: true
           # VALIDATE_ANSIBLE: true
           # VALIDATE_PYTHON: true
