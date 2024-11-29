@@ -15,7 +15,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: alpine
-          image: ghcr.io/jsa4000/opentofu:1.0.3
+          image: ghcr.io/jsa4000/opentofu:1.0.4
           command: ["sh"]
           args: ["/etc/scripts/zitadel-init.sh"]
           envFrom:
