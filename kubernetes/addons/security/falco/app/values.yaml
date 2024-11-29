@@ -87,7 +87,7 @@ resources:
     memory: 1024Mi
 
 falco:
-  rules_file:
+  rules_files:
     # Falco predefined rules
     # https://github.com/falcosecurity/rules/blob/main/rules/falco_rules.yaml
     - /etc/falco/falco_rules.yaml
