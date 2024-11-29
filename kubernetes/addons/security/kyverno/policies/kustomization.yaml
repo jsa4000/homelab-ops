@@ -5,7 +5,7 @@ resources:
   - disallow-latest-tag.yaml
   # Commented the mutate policy since it creates a new pod and slowdown the startup
   # - inject-timezone.yaml
-  - remove-cpu-limits.yaml
+  # - remove-cpu-limits.yaml
 
 helmCharts:
   - name: kyverno-policies
