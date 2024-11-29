@@ -7,7 +7,7 @@ patches:
 helmCharts:
   - name: godaddy-webhook
     repo: https://snowdrop.github.io/godaddy-webhook
-    version: 0.3.0
+    version: 0.5.0
     releaseName: godaddy-webhook
     namespace: kube-system
     includeCRDs: false
