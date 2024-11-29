@@ -23,7 +23,7 @@ controllers:
           # Gotify has different container registries for different architectures
           # repository: ghcr.io/gotify/server
           repository: ghcr.io/gotify/server-arm64
-          tag: 2.5.0
+          tag: 2.6.1
         env:
           TZ: Europe/Madrid
           GOTIFY_SERVER_PORT: &port 80
