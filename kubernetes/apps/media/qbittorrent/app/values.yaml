@@ -17,14 +17,17 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/qbittorrent
-          tag: 5.0.2
+          #tag: 5.0.2 # Authentication is needed. It does not support environment variable.
+          tag: 4.6.7
         env:
           TZ: Europe/Madrid
-          QBT_WEBUI_PORT: &port 80
-          QBT_TORRENTING_PORT: &port-bt 32100
-          # QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-          #QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-          #  10.42.0.0/16, 10.52.0.0/16, 192.168.205.0/24, 192.168.3.0/24
+          #QBT_WEBUI_PORT: &port 80
+          #QBT_TORRENTING_PORT: &port-bt 32100
+          QBITTORRENT__PORT: &port 80
+          QBITTORRENT__BT_PORT: &port-bt 32100
+          QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
+          QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
+            10.42.0.0/16, 10.52.0.0/16, 192.168.205.0/24, 192.168.3.0/24
         resources:
           requests:
             cpu: 25m

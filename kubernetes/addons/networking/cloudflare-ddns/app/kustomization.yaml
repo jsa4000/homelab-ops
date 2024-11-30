@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: cloudflare-ddns
     literals:
-      - DOMAINS=javiersant.com
+      - DOMAINS=javiersant.com,convertodo.com
       - PROXIED=false
       - IP6_PROVIDER=none
