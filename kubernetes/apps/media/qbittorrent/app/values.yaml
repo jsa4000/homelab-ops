@@ -18,7 +18,7 @@ controllers:
         image:
           repository: ghcr.io/onedr0p/qbittorrent
           #tag: 5.0.2 # Authentication is needed. It does not support environment variable.
-          tag: 4.6.7
+          tag: 5.0.2
         env:
           TZ: Europe/Madrid
           #QBT_WEBUI_PORT: &port 80
