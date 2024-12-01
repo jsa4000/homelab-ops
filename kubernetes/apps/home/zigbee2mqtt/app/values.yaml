@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/koenkk/zigbee2mqtt
-          tag: 1.41.0
+          tag: 1.42.0
         env:
           TZ: Europe/Madrid
           ZIGBEE2MQTT_DATA: /config
