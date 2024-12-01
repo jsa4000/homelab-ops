@@ -6,7 +6,17 @@
     "docs/"
   ],
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "docker:enableMajor",
+    "replacements:k8s-registry-move",
+    ":automergeBranch",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":skipStatusChecks",
+    ":timezone(Europe/Lisbon)",
+    "github>jsa4000/homelab-ops//.github/renovate/allowedVersions.json5",
+    "github>jsa4000/homelab-ops//.github/renovate/labels.json5"
   ],
   "helm-values": {
     "fileMatch": [
