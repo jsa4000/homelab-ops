@@ -11,6 +11,10 @@ spec:
     name: github-registry
     template:
       type: kubernetes.io/dockerconfigjson
+      metadata:
+        annotations:
+          reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+          reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
       data:
         .dockerconfigjson: '{"auths":{"{{ .GITHUB_REGISTRY }}":{"auth":"{{ printf "%s:%s" .GITHUB_USERNAME .GITHUB_PAT | b64enc }}"}}}'
   data:
