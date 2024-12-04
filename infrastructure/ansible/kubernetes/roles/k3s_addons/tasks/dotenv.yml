@@ -14,7 +14,6 @@
     - inventory_hostname == groups['server'][0]
     - cluster_secrets_result.rc != 0
   block:
-
     - name: Create Security Namespace
       shell: |
         kubectl create namespace security
@@ -24,10 +23,10 @@
 
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
-        src: '{{ cluster_dotenv }}'
+        src: "{{ cluster_dotenv }}"
         dest: /tmp/.env
 
-    # Update secret use: --dry-run=client -o yaml | kubectl apply -f -
+    # Update secret use: kubectl create secret generic -n security cluster-secrets --from-env-file=.env --dry-run=client -o yaml | kubectl apply -f -
     - name: Create dotenv Secrets
       shell: |
         kubectl create secret generic -n security cluster-secrets --from-env-file=/tmp/.env

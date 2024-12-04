@@ -1,0 +1,20 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: github-registry
+spec:
+  refreshInterval: 1m
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: kube-secret-store
+  target:
+    name: github-registry
+    template:
+      type: kubernetes.io/dockerconfigjson
+      data:
+        .dockerconfigjson: "{{ .GITHUB_DOCKER_REGISTRY }}"
+  data:
+    - secretKey: GITHUB_DOCKER_REGISTRY
+      remoteRef:
+        key: cluster-secrets
+        property: GITHUB_DOCKER_REGISTRY

@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - external-secret.yaml
+  - github-registry.yaml
   - admin-secret.yaml
 
 helmCharts:
