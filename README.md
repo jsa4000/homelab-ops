@@ -205,7 +205,7 @@ CLOUDFLARE_API_TOKEN=
 CLOUDFLARE_ZONE_ID=
 
 # Github User Name
-GITHUB_REPO=https://github.com/jsa4000/homelab-ops.git
+GITHUB_REPO=https://github.com/jsa4000
 GITHUB_USERNAME=
 GITHUB_PAT=
 
