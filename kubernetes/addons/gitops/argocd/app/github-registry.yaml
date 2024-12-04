@@ -12,7 +12,7 @@ spec:
     template:
       type: kubernetes.io/dockerconfigjson
       data:
-        .dockerconfigjson: "{{ .GITHUB_DOCKER_REGISTRY }}"
+        .dockerconfigjson: "{{ .GITHUB_DOCKER_REGISTRY | toString }}"
   data:
     - secretKey: GITHUB_DOCKER_REGISTRY
       remoteRef:
