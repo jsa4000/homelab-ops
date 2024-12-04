@@ -12,9 +12,17 @@ spec:
     template:
       type: kubernetes.io/dockerconfigjson
       data:
-        .dockerconfigjson: "{{ .GITHUB_DOCKER_REGISTRY | toString }}"
+        .dockerconfigjson: '{"auths":{"{{ .GITHUB_USERNAME | lower }}.{{ .GITHUB_REGISTRY }}":{"username":"{{ .GITHUB_USERNAME }}","password":"{{ .GITHUB_PAT }}","auth":"{{ printf "%s:%s" .GITHUB_USERNAME .GITHUB_PAT | b64enc }}"}}}'
   data:
-    - secretKey: GITHUB_DOCKER_REGISTRY
+    - secretKey: GITHUB_REGISTRY
       remoteRef:
         key: cluster-secrets
-        property: GITHUB_DOCKER_REGISTRY
+        property: GITHUB_REGISTRY
+    - secretKey: GITHUB_USERNAME
+      remoteRef:
+        key: cluster-secrets
+        property: GITHUB_USERNAME
+    - secretKey: GITHUB_PAT
+      remoteRef:
+        key: cluster-secrets
+        property: GITHUB_PAT
