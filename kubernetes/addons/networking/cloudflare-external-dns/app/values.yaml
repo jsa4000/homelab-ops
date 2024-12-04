@@ -22,6 +22,7 @@ txtPrefix: external-dns.
 txtOwnerId: homelab
 domainFilters:
   - javiersant.com
+  - convertodo.com
 serviceMonitor:
   enabled: true
   additionalLabels:
