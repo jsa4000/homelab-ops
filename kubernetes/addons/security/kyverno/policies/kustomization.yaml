@@ -10,7 +10,7 @@ resources:
 helmCharts:
   - name: kyverno-policies
     repo: https://kyverno.github.io/kyverno
-    version: 3.3.1
+    version: 3.3.2
     releaseName: kyverno-policies
     namespace: security
     valuesFile: values.yaml
