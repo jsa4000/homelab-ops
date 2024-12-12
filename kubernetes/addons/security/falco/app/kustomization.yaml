@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: falco
     repo: https://falcosecurity.github.io/charts
-    version: 4.16.0
+    version: 4.17.0
     includeCRDs: true
     releaseName: falco
     namespace: security
