@@ -21,7 +21,7 @@ controllers:
       main:
         image:
           repository: lscr.io/linuxserver/speedtest-tracker
-          tag: 0.25.1
+          tag: 0.26.0
         envFrom:
           - configMapRef:
               name: speedtest-tracker
