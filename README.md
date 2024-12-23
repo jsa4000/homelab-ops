@@ -304,6 +304,7 @@ server-3                   : ok=40   changed=12   unreachable=0    failed=0    s
 
 Following the checklist to be fulfilled after the ansible initialization.
 
+- [ ] There is no applications in Argocd.
 - [ ] All pods are running in all namespaces (*).
 - [ ] Ensure all applications are synced in argocd.
 - [ ] Oauth2-proxy is degraded.
@@ -311,7 +312,41 @@ Following the checklist to be fulfilled after the ansible initialization.
 - [ ] Check all the volumes are created and used.
 - [ ] Check all the targets in Prometheus dashboard are healthy.
 
-> (*) Some applications are intended to be in error or pending states.
+> (*) Some applications are intended to be in error or pending states...
+
+##### There is no applications in Argocd
+
+Sometimes after the cluster installation there is no application registered in ArgoCD or any deployment activity. This is because sometimes the application (application-set) is deployed into the cluster before ArgoCD start listening for any CRDs. Because of that you might need to restart again ArgCD to force it.
+
+```bash
+# Switch to current cluster kubernetes config (use staging or pro)
+task ansible:config ANSIBLE_INVENTORY_ENV=staging
+
+# Get all running pods in all namespaces (k is an alias of kubectl)
+k get pods -A
+
+NAMESPACE     NAME                                               READY   STATUS    RESTARTS   AGE
+gitops        argocd-application-controller-0                    1/1     Running   0          12m
+gitops        argocd-applicationset-controller-98bdd7b54-2z28l   1/1     Running   0          12m
+gitops        argocd-redis-c8f6c6dc4-q4jk8                       1/1     Running   0          12m
+gitops        argocd-repo-server-746ddbd586-6jzdl                1/1     Running   0          12m
+gitops        argocd-server-5c9765f79f-x657z                     1/1     Running   0          12m
+kube-system   coredns-56f6fc8fd7-cncmf                           1/1     Running   0          16m
+kube-system   metrics-server-5985cbc9d7-7krzr                    1/1     Running   0          16m
+networking    cilium-b9ds2                                       1/1     Running   0          15m
+networking    cilium-j2nvb                                       1/1     Running   0          15m
+networking    cilium-operator-8bf5db55-cmr6s                     1/1     Running   0          15m
+networking    cilium-rdqfh                                       1/1     Running   0          15m
+networking    hubble-relay-657cd69dd6-r9d7s                      1/1     Running   0          15m
+networking    hubble-ui-57f4c97f9b-jqw7g                         2/2     Running   0          15m
+security      external-secrets-64c69d7c49-kfrn8                  1/1     Running   0          14m
+security      external-secrets-cert-controller-76f574bd-d462z    1/1     Running   0          14m
+security      external-secrets-webhook-f6d6fbb65-gblvw           1/1     Running   0          14m
+
+# You need to kill argocd in order to refresh all the application.
+kubectl delete pod -n gitops --all
+
+```
 
 ##### All pods are running in all namespaces
 
