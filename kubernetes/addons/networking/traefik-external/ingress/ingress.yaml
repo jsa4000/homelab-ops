@@ -21,6 +21,6 @@ spec:
       kind: Rule
       services:
         - name: traefik-external-dashboard
-          port: 9000
+          port: 8080
   tls:
     secretName: wildcard-javiersant-com-tls

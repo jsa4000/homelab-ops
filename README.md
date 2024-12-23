@@ -304,7 +304,7 @@ server-3                   : ok=40   changed=12   unreachable=0    failed=0    s
 
 Following the checklist to be fulfilled after the ansible initialization.
 
-- [ ] There is no applications in Argocd.
+- [ ] There is no applications deployed in Argocd.
 - [ ] All pods are running in all namespaces (*).
 - [ ] Ensure all applications are synced in argocd.
 - [ ] Oauth2-proxy is degraded.
@@ -314,7 +314,7 @@ Following the checklist to be fulfilled after the ansible initialization.
 
 > (*) Some applications are intended to be in error or pending states...
 
-##### There is no applications in Argocd
+##### There is no applications deployed in Argocd
 
 Sometimes after the cluster installation there is no application registered in ArgoCD or any deployment activity. This is because sometimes the application (application-set) is deployed into the cluster before ArgoCD start listening for any CRDs. Because of that you might need to restart again ArgCD to force it.
 

@@ -3,10 +3,14 @@
   run_once: true
   when: inventory_hostname == groups['server'][0]
   block:
+    # TODO: Check if this pause solver the initialization problem
+    - name: Wait until the cluster gets ready for creating applications
+      ansible.builtin.pause:
+        seconds: 10
 
     - name: Create Application Set
       vars:
-        branch: '{{ cluster_addons_tag }}'
+        branch: "{{ cluster_addons_tag }}"
       shell: |
         kubectl apply -f https://raw.githubusercontent.com/jsa4000/homelab-ops/{{ branch }}/kubernetes/bootstrap/addons-appset.yaml
       changed_when: false
