@@ -44,6 +44,7 @@ metrics:
   prometheus:
     disableAPICheck: true
     addEntryPointsLabels: true
+    addServicesLabels: true
     addRoutersLabels: true
     service:
       enabled: true
