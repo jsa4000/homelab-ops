@@ -4,9 +4,10 @@
   when: inventory_hostname == groups['server'][0]
   block:
     # TODO: Check if this pause solver the initialization problem
-    - name: Wait until the cluster gets ready for creating applications
-      ansible.builtin.pause:
-        seconds: 10
+    # NOTE: It seems ArgoCD still needs to be removed, so commented out until test more.
+    # - name: Wait until the cluster gets ready for creating applications
+    #   ansible.builtin.pause:
+    #     seconds: 10
 
     - name: Create Application Set
       vars:
