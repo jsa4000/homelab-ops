@@ -1,73 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    },
-    {
-      "name": "DS_LOKI",
-      "label": "Loki",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "loki",
-      "pluginName": "Loki"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "11.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "logs",
-      "name": "Logs",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "loki",
-      "name": "Loki",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "piechart",
-      "name": "Pie chart",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -84,10 +15,11 @@
       }
     ]
   },
+  "description": "dashboard for treafik v3",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 55,
   "links": [],
   "panels": [
     {
@@ -103,7 +35,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -157,7 +89,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -176,7 +108,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -231,7 +163,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "sum(traefik_service_requests_total) by (service) ",
@@ -249,7 +181,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -335,7 +267,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "expr": "sum(traefik_service_request_duration_seconds_sum{}) by (service) / sum(traefik_service_request_duration_seconds_count{}) by (service)",
               "format": "time_series",
@@ -352,7 +284,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -404,7 +336,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -424,7 +356,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -475,7 +407,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -509,7 +441,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -593,7 +525,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "sum by(entrypoint) (rate(traefik_entrypoint_requests_total[$__rate_interval]))",
@@ -609,7 +541,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -693,7 +625,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "sum by(entrypoint) (rate(traefik_entrypoint_request_duration_seconds_sum[$__rate_interval]))",
@@ -709,7 +641,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -793,7 +725,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -829,7 +761,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -913,7 +845,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "sum by(router) (rate(traefik_router_requests_total[$__rate_interval]))",
@@ -929,7 +861,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -1013,7 +945,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "sum by(service) (rate(traefik_router_request_duration_seconds_count[$__rate_interval]))",
@@ -1029,7 +961,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -1117,7 +1049,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1150,7 +1082,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -1227,7 +1159,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "traefik_tls_certs_not_after{san=~\".*\"} * 1000",
@@ -1288,7 +1220,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -1342,7 +1274,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "sum by(tls_version) (rate(traefik_entrypoint_requests_tls_total[$__rate_interval]))",
@@ -1358,7 +1290,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -1411,7 +1343,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "editorMode": "code",
               "expr": "sum by(tls_cipher) (rate(traefik_entrypoint_requests_tls_total[$__rate_interval]))",
@@ -1441,7 +1373,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -1487,8 +1419,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1530,7 +1461,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1549,7 +1480,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -1596,8 +1527,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1639,7 +1569,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1658,7 +1588,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -1705,8 +1635,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1748,7 +1677,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1767,7 +1696,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -1813,8 +1742,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1856,7 +1784,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -1875,7 +1803,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -1921,8 +1849,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1964,7 +1891,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
               },
               "disableTextWrap": false,
               "editorMode": "builder",
@@ -2000,7 +1927,11 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_LOKI}"
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -2019,11 +1950,12 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_LOKI}"
+            "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
           "expr": "{filename=\"/treafik/access.log\"} | json | OriginStatus = `404`",
@@ -2037,7 +1969,11 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_LOKI}"
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -2056,11 +1992,12 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_LOKI}"
+            "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
           "expr": "{filename=\"/treafik/access.log\"} |= `` | json | OriginStatus = `403`",
@@ -2074,7 +2011,11 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_LOKI}"
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -2093,12 +2034,12 @@
         "sortOrder": "Descending",
         "wrapLogMessage": false
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_LOKI}"
+            "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "builder",
           "expr": "{filename=\"/treafik/traefik.log\"} | json | level = `error`",
@@ -2110,8 +2051,9 @@
       "type": "logs"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": []
@@ -2120,13 +2062,10 @@
     "from": "now-6h",
     "to": "now"
   },
-  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
-  "title": "Traefik",
-  "uid": "ddmlqvk12uozka",
-  "version": 74,
-  "weekStart": "",
-  "gnetId": 21136,
-  "description": "dashboard for treafik v3"
+  "title": "Traefik Dashboard for treafik v3",
+  "uid": "ddmlqvk12uozkb",
+  "version": 1,
+  "weekStart": ""
 }
