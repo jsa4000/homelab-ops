@@ -43,6 +43,8 @@ providers:
 metrics:
   prometheus:
     disableAPICheck: true
+    addEntryPointsLabels: true
+    addRoutersLabels: true
     service:
       enabled: true
     serviceMonitor:

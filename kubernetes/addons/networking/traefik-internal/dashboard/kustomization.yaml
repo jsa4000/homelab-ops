@@ -7,6 +7,7 @@ configMapGenerator:
     files:
       # Dashboards must have different file names to avoid conflicts in grafana.
       - traefik.json=dashboard.json
+      - traefik2.json=dashboard2.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
