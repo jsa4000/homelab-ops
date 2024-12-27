@@ -1,7 +1,12 @@
+# Use strategic Merge Patch using '$patch: merge'
+# https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md
+$patch: merge
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: open-webui
+  # Namespace is needed for patches
+  namespace: ai
 spec:
   template:
     spec:
@@ -9,5 +14,5 @@ spec:
         - envFrom:
             - secretRef:
                 name: open-webui-secret
-          image: 'ghcr.io/onedr0p/postgres-init:16.6'
+          image: "ghcr.io/onedr0p/postgres-init:16.6"
           name: init-db

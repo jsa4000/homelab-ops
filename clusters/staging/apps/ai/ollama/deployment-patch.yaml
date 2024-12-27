@@ -5,6 +5,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ollama
+  # Namespace is needed for patches
+  namespace: ai
 spec:
   template:
     spec:
@@ -16,12 +18,12 @@ spec:
                   - key: intel.feature.node.kubernetes.io/gpu
                     operator: In
                     values:
-                      - 'true'
+                      - "true"
               weight: 50
             - preference:
                 matchExpressions:
                   - key: custom.node.kubernetes.io/gpu
                     operator: In
                     values:
-                      - 'true'
+                      - "true"
               weight: 50
