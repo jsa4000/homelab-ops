@@ -20,8 +20,8 @@ spec:
               revision: '{{ index .metadata.labels "tag" }}'
               directories:
                 - path: kubernetes/addons/database/*
-                - path: kubernetes/addons/database/redis
-                  exclude: true
+                #- path: kubernetes/addons/database/redis
+                #  exclude: true
               values:
                 namespace: database
                 category: addons
