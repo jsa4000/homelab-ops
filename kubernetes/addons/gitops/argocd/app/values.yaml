@@ -24,14 +24,15 @@ configs:
       apps/*:
         ignoreDifferences: |
           jqPathExpressions:
+            - '.spec.template.spec.hostUsers'
             - '.spec.template.spec.containers[]?.resources'
             - '.spec.template.spec.initContainers[]?.resources'
-            - '.spec.template.spec.hostUsers'
       batch/*:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.template.spec.containers[]?.resources'
             - '.spec.template.spec.initContainers[]?.resources'
+            - '.spec.jobTemplate.spec.template.spec.hostUsers'
             - '.spec.jobTemplate.spec.template.spec.containers[]?.resources'
             - '.spec.jobTemplate.spec.template.spec.initContainers[]?.resources'
       external-secrets.io/ExternalSecret:
