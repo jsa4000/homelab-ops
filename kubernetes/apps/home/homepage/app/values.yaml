@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/gethomepage/homepage
-          tag: v0.10.5
+          tag: v0.10.6
         resources:
           requests:
             cpu: 15m
