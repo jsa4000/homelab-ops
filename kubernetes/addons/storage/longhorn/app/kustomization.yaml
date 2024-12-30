@@ -7,7 +7,8 @@ transformers:
 helmCharts:
   - name: longhorn
     repo: https://charts.longhorn.io
-    version: 1.7.2
+    #version: 1.7.2
+    version: 1.6.2
     releaseName: longhorn
     namespace: storage
     includeCRDs: true
