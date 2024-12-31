@@ -20,8 +20,9 @@ spec:
               revision: '{{ index .metadata.labels "tag" }}'
               directories:
                 - path: kubernetes/addons/security/*
-                # - path: kubernetes/addons/security/falco
-                #   exclude: true
+                # TODO: Exclude Falco
+                - path: kubernetes/addons/security/falco
+                  exclude: true
               values:
                 namespace: security
                 category: addons

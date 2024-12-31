@@ -60,24 +60,25 @@ spec:
     reusePVC: false
   monitoring:
     enablePodMonitor: true
-  backup:
-    retentionPolicy: 10d
-    barmanObjectStore:
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://database/postgres-tls
-      endpointURL: http://minio.storage.svc.cluster.local:9000
-      serverName: postgres-tls-v1
-      s3Credentials:
-        accessKeyId:
-          name: cloudnative-pg-minio
-          key: MINIO_ACCESS_KEY
-        secretAccessKey:
-          name: cloudnative-pg-minio
-          key: MINIO_SECRET_KEY
+  # TODO: Excluded
+  #  backup:
+  #    retentionPolicy: 10d
+  #    barmanObjectStore:
+  #      data:
+  #        compression: bzip2
+  #      wal:
+  #        compression: bzip2
+  #        maxParallel: 8
+  #      destinationPath: s3://database/postgres-tls
+  #      endpointURL: http://minio.storage.svc.cluster.local:9000
+  #      serverName: postgres-tls-v1
+  #      s3Credentials:
+  #        accessKeyId:
+  #          name: cloudnative-pg-minio
+  #          key: MINIO_ACCESS_KEY
+  #        secretAccessKey:
+  #          name: cloudnative-pg-minio
+  #          key: MINIO_SECRET_KEY
   # Recovery and initdb are mutually exclusive, so only include one of them
   # https://github.com/cloudnative-pg/cloudnative-pg/issues/1424
   # https://github.com/cloudnative-pg/cloudnative-pg/issues/1752
@@ -96,25 +97,26 @@ spec:
     #   #   # targetTime: "2023-08-11 11:14:21.00000+02"
     #   #   # Generated Barman Backup Id
     #   #   backupID: 20240713T150052
-  externalClusters:
-    - name: postgres-tls
-      barmanObjectStore:
-        data:
-          compression: bzip2
-        wal:
-          compression: bzip2
-          maxParallel: 8
-        destinationPath: s3://database/postgres-tls
-        endpointURL: http://minio.storage.svc.cluster.local:9000
-        # Name of the server backup from Object Storage (previous version)
-        serverName: postgres-tls-v0
-        s3Credentials:
-          accessKeyId:
-            name: cloudnative-pg-minio
-            key: MINIO_ACCESS_KEY
-          secretAccessKey:
-            name: cloudnative-pg-minio
-            key: MINIO_SECRET_KEY
+  # TODO: Excluded
+  #  externalClusters:
+  #    - name: postgres-tls
+  #      barmanObjectStore:
+  #        data:
+  #          compression: bzip2
+  #        wal:
+  #          compression: bzip2
+  #          maxParallel: 8
+  #        destinationPath: s3://database/postgres-tls
+  #        endpointURL: http://minio.storage.svc.cluster.local:9000
+  #        # Name of the server backup from Object Storage (previous version)
+  #        serverName: postgres-tls-v0
+  #        s3Credentials:
+  #          accessKeyId:
+  #            name: cloudnative-pg-minio
+  #            key: MINIO_ACCESS_KEY
+  #          secretAccessKey:
+  #            name: cloudnative-pg-minio
+  #            key: MINIO_SECRET_KEY
   resources:
     requests:
       cpu: 150m
