@@ -22,6 +22,9 @@ spec:
                 - path: kubernetes/addons/storage/*
                 - path: kubernetes/addons/storage/rook-ceph
                   exclude: true
+                # TODO: Exclude Minio
+                - path: kubernetes/addons/storage/minio
+                  exclude: true
               values:
                 namespace: storage
                 category: addons
