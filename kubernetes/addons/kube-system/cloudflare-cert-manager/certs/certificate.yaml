@@ -9,6 +9,7 @@ spec:
     kind: ClusterIssuer
   commonName: "*.javiersant.com"
   dnsNames:
+    - "javiersant.com"
     - "*.javiersant.com"
   secretTemplate:
     annotations:
