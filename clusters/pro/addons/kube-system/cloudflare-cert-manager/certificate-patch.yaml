@@ -4,5 +4,6 @@ metadata:
   name: wildcard-javiersant-com
 spec:
   dnsNames:
+    - "javiersant.com"
     - "*.javiersant.com"
     - "*.internal.javiersant.com"
