@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: oauth2-proxy
     repo: https://oauth2-proxy.github.io/manifests
-    version: 7.8.3
+    version: 7.9.0
     releaseName: oauth2-proxy
     namespace: iam
     valuesFile: values.yaml
