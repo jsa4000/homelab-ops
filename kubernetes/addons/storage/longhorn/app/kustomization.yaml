@@ -7,9 +7,7 @@ transformers:
 helmCharts:
   - name: longhorn
     repo: https://charts.longhorn.io
-    # version: 1.7.2
-    # TODO: Rollback to previous version
-    version: 1.6.3
+    version: 1.7.2
     releaseName: longhorn
     namespace: storage
     includeCRDs: true
