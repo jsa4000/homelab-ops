@@ -9,7 +9,7 @@ helmCharts:
     repo: https://prometheus-community.github.io/helm-charts
     #version: 67.5.0
     # TODO: Rolled bac to previous version
-    version: 60.4.0
+    version: 60.5.0
     includeCRDs: true
     releaseName: prometheus-stack
     namespace: observability
