@@ -50,6 +50,13 @@
           - packagekit
         state: absent
 
+    - name: Uninstall snapd
+      ansible.builtin.apt:
+        autoremove: true
+        pkg:
+          - snapd
+        state: absent
+
 - name: Enable IPv4 forwarding
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward

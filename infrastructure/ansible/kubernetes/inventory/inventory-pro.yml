@@ -15,14 +15,12 @@ k3s_cluster:
   # Required Vars
   vars:
     ansible_port: 22
-    ansible_user: dietpi # dietpi,orangepi,ubuntu
+    ansible_user: ubuntu # dietpi,orangepi,ubuntu
     # To enable ansible_password run 'brew install sshpass'.
     # NOTE: Consider instead adding user to '/etc/sudoers' and lock or remove password authentication ('passwd -l orangepi')
     # ansible_password: orangepi
     # ansible_sudo_pass: orangepi
-    # TODO: Rollback to previous version
-    #k3s_version: v1.31.2+k3s1
-    k3s_version: v1.30.1+k3s1
+    k3s_version: v1.31.2+k3s1
     k3s_environment: pro
     # The token should be a random string of reasonable length. You can generate
     # one with the following commands:

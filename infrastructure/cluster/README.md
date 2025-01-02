@@ -227,3 +227,84 @@ k3s check-config
 # Check if system is compatible with longhorn
 curl -sSfL https://raw.githubusercontent.com/longhorn/longhorn/master/scripts/environment_check.sh | bash
 ```
+
+```bash
+# Get iSCSID logs
+journalctl -u iscsid -f.
+
+# Get K3s logs
+journalctl -u k3s -f.
+```
+
+## TroubleShouting
+
+### Disk I/O
+
+#### Smart Mon Tools
+
+```bash
+# Install smartctl tool
+sudo apt install smartmontools
+
+# If SMART information is not available
+sudo smartctl -s on /dev/nvme0
+sudo smartctl -a /dev/nvme0
+
+# Self test options
+sudo smartctl -t short /dev/nvme0
+sudo smartctl -t long /dev/nvme0
+
+# List devices and info
+sudo smartctl –scan
+sudo smartctl -i /dev/nvme0
+sudo smartctl -H /dev/nvme0
+
+# Show all info/health for the device
+sudo smartctl -a /dev/nvme0
+sudo smartctl -x /dev/nvme0
+```
+
+Sometimes you would need to force to emit error events to ensure everything is healthy.
+
+```bash
+# Read the whole SSD
+# https://superuser.com/questions/1823257/what-conclusion-can-be-drawn-from-smartctl-self-tests-no-longer-failing-on-ssd
+sudo dd bs=4k conv=noerror if=/dev/nvme0n1 of=/dev/null status=progress
+
+# Check the health status and errors.
+sudo smartctl -a /dev/nvme0
+```
+
+#### NVME
+
+```bash
+# Install nvme-cli tool
+# https://www.percona.com/blog/using-nvme-command-line-tools-to-check-nvme-flash-health/
+sudo apt-get install nvme-cli
+
+# List devices and info
+sudo nvme list
+
+# Check SMART info and errors.
+sudo nvme smart-log /dev/nvme0
+sudo nvme error-log /dev/nvme0
+```
+
+#### Bad Blocks
+
+```bash
+# Check for bad blocks in device
+sudo badblocks -wsv /dev/nvme0n1p1
+```
+
+#### File System Check
+
+```bash
+# Get file system and devices.
+df
+lsblk
+
+# Check and auto-repair bad sectors
+sudo fsck /dev/nvme0n1p1
+sudo fsck -y /dev/nvme0n1p1.  (sudo fsck.ext4 /dev/sdXY)
+````

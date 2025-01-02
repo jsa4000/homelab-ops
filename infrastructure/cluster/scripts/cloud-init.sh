@@ -20,7 +20,7 @@ CONFIG_FILE=${2:-./config/servers.yaml}
 UBUNTU_IMAGE_PATH=.
 # Ubuntu 24.04
 UBUNTU_IMAGE_NAME=ubuntu-24.04-preinstalled-server-arm64-orangepi-5
-IMAGE_VESRION=2.0.0
+IMAGE_VESRION=2.4.0
 NETWORK_IFACE=end1
 # Ubuntu 22.04.3
 #UBUNTU_IMAGE_NAME=ubuntu-22.04.3-preinstalled-server-arm64-orangepi-5
@@ -136,6 +136,7 @@ echo "  ip:       $SERVER_IP"
 echo "  mask:     $SERVER_MASK"
 echo "  gateway:  $SERVER_GATEWAY"
 echo "  dns:      $SERVER_DNS"
+echo "  mac:      $SERVER_MAC"
 echo "  ssh:      $SERVER_SSH_PUBKEY"
 echo "  user:     $SERVER_USER"
 
