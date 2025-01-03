@@ -9,8 +9,6 @@ controllers:
       main:
         image:
           repository: dpage/pgadmin4
-          # TODO: onedr0p images are not immutable, so it needed to add the @shaXYZ after the tag version to ensure using the same image.
-          # https://github.com/onedr0p/containers?tab=readme-ov-file#tag-immutability
           tag: 8.14
         envFrom:
           - secretRef:
