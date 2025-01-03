@@ -311,6 +311,7 @@ Following the checklist to be fulfilled after the ansible initialization.
 - [ ] Internal and external ingresses can be accesses.
 - [ ] Check all the volumes are created and used.
 - [ ] Check all the targets in Prometheus dashboard are healthy.
+- [ ] Multi-Attach error for volume "pvc-XYZ". Volume is already used by pod(s)
 
 > (*) Some applications are intended to be in error or pending states...
 
@@ -419,6 +420,29 @@ Check following dashboards to check if everything is working fine.
 - [Falco](https://falcosidekick.staging.internal.javiersant.com/)
 - [Hubble](https://hubble.staging.internal.javiersant.com/)
 - [Kyverno](https://kyverno.staging.internal.javiersant.com/)
+
+##### Multi-Attach error for volume "pvc-XYZ". Volume is already used by pod(s)
+
+Sometimes updating deployments that uses `PersistentVolumesClaims`, could rely on conflicts since deployment (not statefulset) fight with each other with the pvc already created, so the first one has preference. In order to resolve this conflict the entire deployment must be delete, so ArgoCD regenerate again the deployment with the latest version with the current state.
+
+```bash
+# Get all the pods
+kubectl get pods -A
+
+storage         minio-dc7d67677-wdt2n                                  0/1     ContainerCreating            0             13m
+
+# Check the error from kubernetes events
+kubectl describe pod -n storage minio-dc7d67677-wdt2n
+
+Events:
+  Type     Reason              Age   From                     Message
+  ----     ------              ----  ----                     -------
+  Normal   Scheduled           14m   default-scheduler        Successfully assigned storage/minio-dc7d67677-wdt2n to sbc-server-2
+  Warning  FailedAttachVolume  14m   attachdetach-controller  Multi-Attach error for volume "pvc-94dc8792-cbf0-4b67-a472-e5fa1876f86a" Volume is already used by pod(s) minio-7d98fd8854-5gn9b
+
+# Remove the entire deployment so the pods won's challenge to each other
+kubectl delete deployment minio
+```
 
 ### Apps
 
