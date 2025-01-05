@@ -1,39 +1,26 @@
 # Panel for devices: smart_plug_01
-# NOTE: You will need to activate the Energy panel first.
 views:
   - title: Energy View
-    cards:
-      - type: energy-date-selection
-      - type: energy-usage-graph
-      - type: energy-sources-table
-      - type: energy-distribution
-      - chart_type: line
-        period: 5minute
-        type: statistics-graph
-        entities:
-          - sensor.smart_plug_01_power
-        stat_types:
-          - min
-          - mean
-          - max
-        title: Energia
-      - type: entities
-        entities:
-          - entity: sensor.smart_plug_01_current
-            name: Current
-          - binary_sensor.smart_plug_01_update_available
-          - entity: sensor.smart_plug_01_last_seen
-            name: Last seen
-          - entity: sensor.smart_plug_01_linkquality
-            name: Linkquality
-          - entity: sensor.smart_plug_01_power
-            name: Power
-          - entity: sensor.smart_plug_01_power_outage_memory
-            name: Power outage memory
-          - entity: sensor.smart_plug_01_update_state
-            name: Update state
-          - entity: sensor.smart_plug_01_voltage
-            name: Voltage
-        title: Smart Plug 01
-    icon: mdi:lightning-bolt-circle
-title: Energy Dashboard
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Cluster Energy
+            heading_style: title
+            badges:
+              - type: entity
+                entity: sensor.smart_plug_01_power_power
+          - type: entities
+            entities:
+              - entity: sensor.smart_plug_01_power_power
+            state_color: false
+          - chart_type: line
+            period: 5minute
+            type: statistics-graph
+            entities:
+              - sensor.smart_plug_01_power_power
+            stat_types:
+              - mean
+              - min
+              - max
+            title: Cluster Power
