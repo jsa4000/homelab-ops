@@ -20,6 +20,11 @@ spec:
               revision: '{{ index .metadata.labels "tag" }}'
               directories:
                 - path: kubernetes/apps/*
+                # Excluded AI and Media Server capabilities
+                - path: kubernetes/apps/ai
+                  exclude: true
+                - path: kubernetes/apps/media
+                  exclude: true
               values:
                 category: apps
   syncPolicy:
