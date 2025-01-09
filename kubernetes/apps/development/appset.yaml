@@ -20,6 +20,8 @@ spec:
               revision: '{{ index .metadata.labels "tag" }}'
               directories:
                 - path: kubernetes/apps/development/*
+                - path: kubernetes/apps/development/affine
+                  exclude: true
               values:
                 namespace: development
                 category: apps
