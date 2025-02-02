@@ -113,12 +113,23 @@ prometheus:
     retentionSize: 4GB
     enableAdminAPI: true
     walCompression: true
+    enableFeatures:
+      - memory-snapshot-on-shutdown
     resources:
       requests:
         cpu: 300m
         memory: 2560M
       limits:
         memory: 5120M
+    # Error stating container "open /prometheus/queries.active: permission denied"
+    # https://github.com/prometheus-community/helm-charts/issues/1162
+    securityContext:
+      runAsGroup: 65534
+      runAsNonRoot: true
+      runAsUser: 65534
+      fsGroup: 65534
+      seccompProfile:
+        type: RuntimeDefault
     storageSpec:
       volumeClaimTemplate:
         spec:

@@ -444,6 +444,15 @@ Events:
 kubectl delete deployment minio
 ```
 
+##### Error argcocd trying to sync application because helm install is failing
+
+This is because some error trying to convert helm helm chart into kubernetes manifests. You must debug the failing chart locally and trying to detect the error in values file, mostly because some value or schema does not match with the template.
+
+```bash
+# Generate the whole manifest in order the get the error.
+kubectl kustomize kubernetes/addons/security/kyverno --enable-helm > test.yaml
+```
+
 ### Apps
 
 #### Bootstrap
