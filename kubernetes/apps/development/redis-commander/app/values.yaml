@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/joeferner/redis-commander
-          tag: latest@sha256:f1df93697250705ef7abe61f0d50ffb95d81ede24c77ea5aa64bc67c079c7943
+          tag: latest@sha256:816905ad79aa345e6e3bf67ea6435ac16d6b26f634f626bbe41121a1651aa779
         envFrom:
           - secretRef:
               name: redis-commander-secret
