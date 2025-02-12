@@ -1,3 +1,10 @@
+global:
+  nodeSelector:
+    custom.node.kubernetes.io/longhorn: true
+
+defaultSettings:
+  systemManagedComponentsNodeSelector: "custom.node.kubernetes.io/longhorn:true"
+
 networkPolicies:
   enabled: false
   type: "k3s"
@@ -5,7 +12,7 @@ networkPolicies:
 persistence:
   defaultClass: true
   defaultFsType: ext4
-  defaultClassReplicaCount: 3
+  defaultClassReplicaCount: 2
   defaultDataLocality: disabled
   reclaimPolicy: Delete
   migratable: false
