@@ -3,7 +3,7 @@ global:
     custom.node.kubernetes.io/longhorn: "true"
 
 defaultSettings:
-  systemManagedComponentsNodeSelector: "custom.node.kubernetes.io/longhorn:true"
+  systemManagedComponentsNodeSelector: 'custom.node.kubernetes.io/longhorn:"true"'
 
 networkPolicies:
   enabled: false
