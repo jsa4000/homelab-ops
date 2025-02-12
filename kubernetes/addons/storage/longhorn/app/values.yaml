@@ -1,6 +1,6 @@
 global:
   nodeSelector:
-    custom.node.kubernetes.io/longhorn: true
+    custom.node.kubernetes.io/longhorn: "true"
 
 defaultSettings:
   systemManagedComponentsNodeSelector: "custom.node.kubernetes.io/longhorn:true"
