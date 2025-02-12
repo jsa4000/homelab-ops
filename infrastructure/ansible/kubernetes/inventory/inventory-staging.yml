@@ -60,8 +60,8 @@ k3s_cluster:
       iot:
         - server-3
       longhorn:
-        - sbc-server-2
-        - sbc-server-3
+        - server-2
+        - server-3
 
     # MicroCeph
     microceph_enabled: false
