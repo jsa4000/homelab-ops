@@ -1,9 +1,9 @@
-global:
-  nodeSelector:
-    custom.node.kubernetes.io/longhorn: "true"
-
-defaultSettings:
-  systemManagedComponentsNodeSelector: 'custom.node.kubernetes.io/longhorn:"true"'
+#global:
+#  nodeSelector:
+#    custom.node.kubernetes.io/longhorn: "true"
+#
+#defaultSettings:
+#  systemManagedComponentsNodeSelector: 'custom.node.kubernetes.io/longhorn:"true"'
 
 networkPolicies:
   enabled: false
