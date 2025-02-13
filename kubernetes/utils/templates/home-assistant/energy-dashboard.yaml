@@ -9,16 +9,16 @@ views:
             heading_style: title
             badges:
               - type: entity
-                entity: sensor.smart_plug_01_power_power
+                entity: sensor.smart_plug_01_power
           - type: entities
             entities:
-              - entity: sensor.smart_plug_01_power_power
+              - entity: sensor.smart_plug_01_power
             state_color: false
           - chart_type: line
             period: 5minute
             type: statistics-graph
             entities:
-              - sensor.smart_plug_01_power_power
+              - sensor.smart_plug_01_power
             stat_types:
               - mean
               - min
