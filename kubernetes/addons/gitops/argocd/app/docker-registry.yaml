@@ -1,0 +1,32 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: docker-registry
+spec:
+  refreshInterval: 1m
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: kube-secret-store
+  target:
+    name: docker-registry
+    template:
+      type: kubernetes.io/dockerconfigjson
+      metadata:
+        annotations:
+          reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+          reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      data:
+        .dockerconfigjson: '{"auths":{"{{ .DOCKER_REGISTRY }}":{"auth":"{{ printf "%s:%s" .DOCKER_USERNAME .DOCKER_PAT | b64enc }}"}}}'
+  data:
+    - secretKey: DOCKER_REGISTRY
+      remoteRef:
+        key: cluster-secrets
+        property: DOCKER_REGISTRY
+    - secretKey: DOCKER_USERNAME
+      remoteRef:
+        key: cluster-secrets
+        property: DOCKER_USERNAME
+    - secretKey: DOCKER_PAT
+      remoteRef:
+        key: cluster-secrets
+        property: DOCKER_PAT
