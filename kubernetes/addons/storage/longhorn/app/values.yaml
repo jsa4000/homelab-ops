@@ -1,6 +1,6 @@
-global:
-  nodeSelector:
-    custom.node.kubernetes.io/longhorn: "true"
+#global:
+#  nodeSelector:
+#    custom.node.kubernetes.io/longhorn: "true"
 
 defaultSettings:
   defaultReplicaCount: 2
