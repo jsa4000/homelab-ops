@@ -4,12 +4,13 @@ kind: Kustomization
 resources:
   - external-secret.yaml
   - github-registry.yaml
+  - docker-registry.yaml
   - admin-secret.yaml
 
 helmCharts:
   - name: argo-cd
     repo: https://argoproj.github.io/argo-helm
-    version: 7.7.22
+    version: 7.8.2
     releaseName: argocd
     namespace: gitops
     includeCRDs: true

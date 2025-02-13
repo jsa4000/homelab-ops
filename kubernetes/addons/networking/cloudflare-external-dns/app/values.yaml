@@ -23,6 +23,7 @@ txtOwnerId: homelab
 domainFilters:
   - javiersant.com
   - convertodo.com
+  - scheedy.com
 serviceMonitor:
   enabled: true
   additionalLabels:

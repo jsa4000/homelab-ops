@@ -54,6 +54,10 @@ configs:
         ignoreDifferences: |
           jqPathExpressions:
             - '.spec.volumeClaimTemplates'
+      monitoring.coreos.com/ServiceMonitor:
+        ignoreDifferences: |
+          jqPathExpressions:
+            - '.spec.endpoints[]?.relabelings[]?.action'
   params:
     create: true
     controller.status.processors: 10

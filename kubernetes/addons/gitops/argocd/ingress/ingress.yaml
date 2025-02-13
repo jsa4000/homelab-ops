@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/href: "https://argocd.default.internal.javiersant.com"
     gethomepage.dev/description: ArgoCD Dashboard
     gethomepage.dev/group: Management
-    gethomepage.dev/icon: argocd.svg
+    gethomepage.dev/icon: argo-cd.svg
     gethomepage.dev/name: ArgoCD
     gethomepage.dev/pod-selector: ""
     gethomepage.dev/weight: 495

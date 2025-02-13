@@ -1,3 +1,19 @@
+csi:
+  attacherReplicaCount: 2
+  provisionerReplicaCount: 2
+  resizerReplicaCount: 2
+  snapshotterReplicaCount: 2
+
+defaultSettings:
+  defaultReplicaCount: 2
+
+defaultBackupStore:
+  # Longhorn Manager checks the backupStore periodically to see if there is any new backup target.
+  # Since MinIO depends on longhorn (PVC), it won't be ready when Longhorn Manager starts.
+  # Configure it manually from longhorn UI.
+  # backupTarget: s3://storage@eu-west-1/
+  backupTargetCredentialSecret: longhorn-secret
+
 networkPolicies:
   enabled: false
   type: "k3s"
@@ -5,7 +21,7 @@ networkPolicies:
 persistence:
   defaultClass: true
   defaultFsType: ext4
-  defaultClassReplicaCount: 3
+  defaultClassReplicaCount: 2
   defaultDataLocality: disabled
   reclaimPolicy: Delete
   migratable: false

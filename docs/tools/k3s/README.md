@@ -72,7 +72,7 @@ Create a `k3s` with not HA (*High Availability*) on master nodes and not distrib
 ```bash
 # Create Master Note (192.168.205.101)
 # Use K3S_KUBECONFIG_MODE="644" for develop, so sudo is not needed
-INSTALL_K3S_VERSION=v1.31.2+k3s1
+INSTALL_K3S_VERSION=v1.31.5+k3s1
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=$INSTALL_K3S_VERSION K3S_KUBECONFIG_MODE="644" sh -
 
 # Get the token from master
@@ -102,7 +102,7 @@ Create `k3s` cluster with already existing `containerd` using `--container-runti
 ```bash
 # Create Master Note (192.168.205.101)
 # Use K3S_KUBECONFIG_MODE="644" for develop, so sudo is not needed
-INSTALL_K3S_VERSION=v1.31.2+k3s1
+INSTALL_K3S_VERSION=v1.31.5+k3s1
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=$INSTALL_K3S_VERSION K3S_KUBECONFIG_MODE="644" sh -s - --container-runtime-endpoint="unix:///run/containerd/containerd.sock"
 
 # Get the token from master

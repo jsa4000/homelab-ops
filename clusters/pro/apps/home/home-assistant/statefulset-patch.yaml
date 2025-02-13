@@ -5,6 +5,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: home-assistant
+  namespace: home
 spec:
   template:
     spec:
@@ -16,5 +17,5 @@ spec:
                   - key: custom.node.kubernetes.io/iot
                     operator: In
                     values:
-                      - 'true'
+                      - "true"
               weight: 100
