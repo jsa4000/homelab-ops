@@ -10,6 +10,7 @@ defaultSettings:
 defaultBackupStore:
   backupTarget: http://minio.storage.svc.cluster.local:9000
   backupTargetCredentialSecret: longhorn-secret
+  pollInterval: 0
 
 networkPolicies:
   enabled: false
