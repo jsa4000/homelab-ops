@@ -2,11 +2,11 @@ global:
   nodeSelector:
     custom.node.kubernetes.io/longhorn: "true"
 
-#csi:
-#  attacherReplicaCount: 2
-#  provisionerReplicaCount: 2
-#  resizerReplicaCount: 2
-#  snapshotterReplicaCount: 2
+csi:
+  attacherReplicaCount: 2
+  provisionerReplicaCount: 2
+  resizerReplicaCount: 2
+  snapshotterReplicaCount: 2
 
 defaultSettings:
   defaultReplicaCount: 2
