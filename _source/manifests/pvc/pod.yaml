@@ -1,0 +1,40 @@
+# https://docs.emqx.com/en/emqx/latest/changes/known-issues-5.8.html
+# Workaround: Delete the data/mnesia directory and restart the node.
+#
+# 1. Create the pod into a namespace
+#   > kubectl apply -n messaging -f docs/_source/manifests/pvc/pod.yaml
+#   > kubectl get pods -n messaging
+# 2. Shell into a pod in interactive mode and remove after exit
+#   > kubectl exec -n messaging -it emqx-test -- bash
+# 3. Delete data from the pod
+#   > rm -rf /opt/emqx/data/mnesia
+# 4. To delete the pod
+#   > kubectl delete -n messaging -f docs/_source/manifests/pvc/pod.yaml
+# 5. Restart emqpx pod
+#   > kubectl delete pod -n messaging emqx-1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: emqx-test
+  labels:
+    app: emqx-test
+spec:
+  containers:
+    - name: alpine
+      image: bash:alpine3.20
+      ports:
+        - containerPort: 80
+      command: ["bash", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+      volumeMounts:
+        - mountPath: /opt/emqx/data
+          name: emqx-data
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: Always
+    runAsUser: 1000
+    supplementalGroups:
+      - 1000
+  volumes:
+    - name: emqx-data
+      persistentVolumeClaim:
+        claimName: emqx-data-emqx-1

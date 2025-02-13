@@ -1,0 +1,43 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "rule1"
+spec:
+  description: "L3-L4 policy to restrict tiefighter ship access to deathstar only"
+  endpointSelector:
+    matchLabels:
+      org: empire
+      class: tiefighter
+  ingress:
+    - {}
+  egress:
+    - toServices:
+        - k8sService:
+            namespace: default
+            serviceName: deathstar
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "rule2"
+spec:
+  description: "L3-L4 policy to restrict xwing ship access to deathstar only"
+  endpointSelector:
+    matchLabels:
+      org: alliance
+      class: xwing
+  ingress:
+    - {}
+  egressDeny:
+    - toServices:
+        - k8sService:
+            namespace: default
+            serviceName: deathstar
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
