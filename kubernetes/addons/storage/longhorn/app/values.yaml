@@ -10,8 +10,8 @@ defaultSettings:
 defaultBackupStore:
   # Longhorn Manager checks the backupStore periodically to see if there is any new backup target.
   # Since MinIO depends on longhorn (PVC), it won't be ready when Longhorn Manager starts.
-  # Create longhorn bucket manually and configure it from longhorn UI.
-  # backupTarget: s3://longhorn
+  # Configure it manually from longhorn UI.
+  # backupTarget: s3://storage@eu-west-1/
   backupTargetCredentialSecret: longhorn-secret
 
 networkPolicies:
