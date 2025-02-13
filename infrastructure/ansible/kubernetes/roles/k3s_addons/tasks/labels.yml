@@ -3,11 +3,10 @@
   run_once: true
   when: inventory_hostname == groups['server'][0]
   block:
-
     - name: Add node labels
       shell: |
-        kubectl label node --overwrite {{ item.value.0 }} {{ node_label_template }}
-      loop: "{{ node_labels | dict2items }}"
+        kubectl label node --overwrite {{ item.1 }} {{ node_label_template }}
+      loop: "{{ node_labels | dict2items | subelements('value') }}"
       when:
         - node_labels_enabled|default(false)|bool
         - node_labels is defined
