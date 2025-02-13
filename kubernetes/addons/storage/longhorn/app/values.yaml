@@ -1,10 +1,15 @@
-#global:
-#  nodeSelector:
-#    custom.node.kubernetes.io/longhorn: "true"
+csi:
+  attacherReplicaCount: 2
+  provisionerReplicaCount: 2
+  resizerReplicaCount: 2
+  snapshotterReplicaCount: 2
 
 defaultSettings:
   defaultReplicaCount: 2
-  # systemManagedComponentsNodeSelector: "custom.node.kubernetes.io/longhorn:true"
+
+defaultBackupStore:
+  backupTarget: http://minio.storage.svc.cluster.local:9000
+  backupTargetCredentialSecret: longhorn-secret
 
 networkPolicies:
   enabled: false

@@ -3,6 +3,7 @@ kind: Kustomization
 
 transformers:
   - transformers.yaml
+  - external-secret.yaml
 
 helmCharts:
   - name: longhorn
