@@ -7,7 +7,7 @@ resources:
 helmCharts:
   - name: policy-reporter
     repo: https://kyverno.github.io/policy-reporter
-    version: 3.0.0
+    version: 3.0.4
     releaseName: policy-reporter
     namespace: security
     valuesFile: values.yaml
