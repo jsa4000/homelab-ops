@@ -7,7 +7,7 @@ resources:
 helmCharts:
   - name: traefik
     repo: https://traefik.github.io/charts
-    version: 34.3.0
+    version: 34.4.0
     releaseName: traefik-external
     namespace: networking
     includeCRDs: true
