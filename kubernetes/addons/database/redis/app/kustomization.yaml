@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: redis
     repo: oci://registry-1.docker.io/bitnamicharts
-    version: 20.7.0
+    version: 20.8.0
     releaseName: redis
     namespace: database
     valuesFile: values.yaml
