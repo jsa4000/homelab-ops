@@ -11,7 +11,7 @@ controllers:
       init-db:
         image:
           repository: ghcr.io/onedr0p/postgres-init
-          tag: 16.6
+          tag: 16.8
         envFrom:
           - secretRef:
               name: home-assistant-secret
