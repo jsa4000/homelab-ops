@@ -14,5 +14,5 @@ spec:
         - envFrom:
             - secretRef:
                 name: open-webui-secret
-          image: "ghcr.io/onedr0p/postgres-init:16.6"
+          image: "ghcr.io/onedr0p/postgres-init:16.8"
           name: init-db
