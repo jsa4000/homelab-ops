@@ -21,7 +21,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/radarr
-          tag: 5.18.4
+          tag: 5.19.3
         envFrom:
           - secretRef:
               name: radarr-secret
