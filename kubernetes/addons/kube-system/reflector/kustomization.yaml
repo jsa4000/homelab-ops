@@ -5,7 +5,7 @@ namespace: kube-system
 helmCharts:
   - name: reflector
     repo: https://emberstack.github.io/helm-charts
-    version: 9.0.313
+    version: 9.0.318
     releaseName: reflector
     namespace: kube-system
     valuesInline:
