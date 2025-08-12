@@ -56,7 +56,7 @@ controllers:
         dependsOn: main
         image:
           repository: ghcr.io/onedr0p/exportarr
-          tag: v2.0.1
+          tag: v2.3.0
         args:
           - radarr
         env:
